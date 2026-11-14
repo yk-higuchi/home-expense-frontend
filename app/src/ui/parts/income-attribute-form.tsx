@@ -20,11 +20,13 @@ const IncomeAttributeForm = ({
   buttonTitle,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
-  const { id, name } = incomeAttribute;
+  const { id, version, name } = incomeAttribute;
   const { errors, values, message } = state;
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="incomeAttributeId" value={id} />
+      {/* 取得時のバージョン（更新時に If-Match として送る） */}
+      <input type="hidden" name="version" value={version ?? ""} />
       <TextInput
         label="属性名"
         name="name"

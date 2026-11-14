@@ -3,9 +3,11 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { incomeAttributesApi } from "@/lib/api/v1-income-attributes";
 import {
+  CONFLICT_MESSAGE,
   collectErrors,
   DELETE_FAILED_MESSAGE,
   type FormState,
+  failureMessage,
   formValues,
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
@@ -68,6 +70,7 @@ export const getIncomeAttribute = async ({
   const { id: attributeId, name } = response;
   return {
     id: attributeId,
+    version: response.etag,
     name,
   };
 };
@@ -88,7 +91,10 @@ export const registerIncomeAttribute = async (
     await incomeAttributesApi.post({ name: values.name });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   redirect("/income-attribute");
 };
@@ -97,7 +103,7 @@ export const updateIncomeAttribute = async (
   _state: FormState,
   formData: FormData,
 ): Promise<FormState> => {
-  const values = formValues(formData, ["incomeAttributeId", "name"]);
+  const values = formValues(formData, ["incomeAttributeId", "version", "name"]);
   const errors = collectErrors({
     name: first(
       required(values.name, "属性名"),
@@ -105,14 +111,20 @@ export const updateIncomeAttribute = async (
     ),
   });
   if (errors) return { errors, values };
+  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
+  if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await incomeAttributesApi.put({
+      ifMatch: values.version,
       id: values.incomeAttributeId,
       name: values.name,
     });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   redirect("/income-attribute");
 };
@@ -126,7 +138,7 @@ export const deleteIncomeAttribute = async (
     await incomeAttributesApi.delete({ id });
   } catch (error) {
     console.error(error);
-    return { message: DELETE_FAILED_MESSAGE };
+    return { message: failureMessage(error, DELETE_FAILED_MESSAGE) };
   }
   updateTag("income-attribute");
   return {};

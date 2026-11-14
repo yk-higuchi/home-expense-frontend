@@ -23,11 +23,13 @@ const IncomeForm = ({
   buttonTitle,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
-  const { id, description, amount, receiveDate, attributeId } = income;
+  const { id, version, description, amount, receiveDate, attributeId } = income;
   const { errors, values, message } = state;
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="incomeId" value={id} />
+      {/* 取得時のバージョン（更新時に If-Match として送る） */}
+      <input type="hidden" name="version" value={version ?? ""} />
       <TextInput
         label="説明"
         name="description"

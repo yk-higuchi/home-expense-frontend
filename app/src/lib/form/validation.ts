@@ -13,12 +13,18 @@ export const maxLength = (
 ): string | undefined =>
   value.length > max ? `${label}は${max}文字以内で入力してください` : undefined;
 
-/** 0 以上の整数（3,000 のようなカンマ区切りも受け付ける） */
+/** API の金額の上限（10 億円） */
+export const AMOUNT_MAX = 1_000_000_000;
+
+/** 1 以上 10 億以下の整数（3,000 のようなカンマ区切りも受け付ける） */
 export const amount = (value: string, label: string): string | undefined => {
   if (value === "") return `${label}を入力してください`;
-  return /^\d+$/.test(value.replaceAll(",", ""))
+  const digits = value.replaceAll(",", "");
+  if (!/^\d+$/.test(digits)) return `${label}は整数で入力してください`;
+  const n = Number(digits);
+  return n >= 1 && n <= AMOUNT_MAX
     ? undefined
-    : `${label}は 0 以上の整数で入力してください`;
+    : `${label}は 1 円以上 10 億円以下で入力してください`;
 };
 
 export const parseAmount = (value: string): number =>

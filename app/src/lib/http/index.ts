@@ -1,3 +1,4 @@
+import { HttpError, parseProblem } from "@/lib/http/error";
 import type { HttpRequest, HttpResponse, RequestBody } from "@/lib/http/type";
 import { json } from "@/lib/json";
 import type { JTDSchema } from "@/lib/json/type";
@@ -29,7 +30,7 @@ const _delete = async (
 const sendAndResolve = async (params: HttpRequest): Promise<HttpResponse> => {
   try {
     const response = await send({ ...params });
-    return resolveWithResponse(response);
+    return await resolveWithResponse(response);
   } catch (e: unknown) {
     return resolveWithError(e);
   }
@@ -91,7 +92,9 @@ const serializeRequestBody = (requestBody?: RequestBody) => {
   return;
 };
 
-const resolveWithResponse = (response: Response): HttpResponse => {
+const resolveWithResponse = async (
+  response: Response,
+): Promise<HttpResponse> => {
   const body = async <T>(schema: JTDSchema): Promise<T> => {
     const { parse } = json;
     const responseJson: unknown = await response.json();
@@ -112,23 +115,11 @@ const resolveWithResponse = (response: Response): HttpResponse => {
       body,
     };
   }
-  // FIXME error
-  const code = response.status;
-  if (code >= 400 && code <= 499) {
-    return {
-      type: "failure",
-      error: Error(""),
-    };
-  }
-  if (code >= 500 && code <= 599) {
-    return {
-      type: "failure",
-      error: Error(""),
-    };
-  }
+  // エラーの本文（Problem Details）から、利用者向けの説明と trace_id を取り出す
+  const { detail, traceId } = await parseProblem(response);
   return {
     type: "failure",
-    error: Error(""),
+    error: new HttpError(response.status, detail, traceId),
   };
 };
 

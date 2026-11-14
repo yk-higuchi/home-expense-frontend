@@ -8,9 +8,11 @@ import {
   isExpenseAttributeCategory,
 } from "@/lib/expense-attribute";
 import {
+  CONFLICT_MESSAGE,
   collectErrors,
   DELETE_FAILED_MESSAGE,
   type FormState,
+  failureMessage,
   formValues,
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
@@ -75,6 +77,7 @@ export const getExpenseAttribute = async ({
   const { id: attributeId, name, category } = response;
   return {
     id: attributeId,
+    version: response.etag,
     name,
     category,
   };
@@ -100,7 +103,10 @@ export const registerExpenseAttribute = async (
     await expenseAttributesApi.post({ name: values.name, category });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   redirect("/expense-attribute");
 };
@@ -111,6 +117,7 @@ export const updateExpenseAttribute = async (
 ): Promise<FormState> => {
   const values = formValues(formData, [
     "expenseAttributeId",
+    "version",
     "name",
     "category",
   ]);
@@ -125,15 +132,21 @@ export const updateExpenseAttribute = async (
   if (errors || !isExpenseAttributeCategory(category)) {
     return { errors: errors ?? { category: "分類を選択してください" }, values };
   }
+  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
+  if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await expenseAttributesApi.put({
+      ifMatch: values.version,
       id: values.expenseAttributeId,
       name: values.name,
       category,
     });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   redirect("/expense-attribute");
 };
@@ -147,7 +160,7 @@ export const deleteExpenseAttribute = async (
     await expenseAttributesApi.delete({ id });
   } catch (error) {
     console.error(error);
-    return { message: DELETE_FAILED_MESSAGE };
+    return { message: failureMessage(error, DELETE_FAILED_MESSAGE) };
   }
   updateTag("expense-attribute");
   return {};

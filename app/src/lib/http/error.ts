@@ -1,82 +1,36 @@
-import type { JTDSchema } from "@/lib/json/type";
+/**
+ * API がエラーを返したとき（4xx / 5xx）の例外。
+ * 本文が RFC 9457 Problem Details なら detail と trace_id を持つ。
+ */
+export class HttpError extends Error {
+  override readonly name = "HttpError";
 
-interface ClientError extends Error {
-  name: "ClientError";
-  code: number;
-  headers?: Record<string, string>;
-  body?: <T>(schema: JTDSchema) => Promise<T>;
+  constructor(
+    readonly status: number,
+    /** 利用者向けの説明（例: 既に登録されています） */
+    readonly detail?: string,
+    /** サーバー側のログと突き合わせるための ID */
+    readonly traceId?: string,
+  ) {
+    super(detail ?? `HTTP ${status}`);
+  }
 }
 
-interface ClientErrorConstructor extends ErrorConstructor {
-  new (
-    code: number,
-    headers?: Record<string, string>,
-    body?: <T>(schema: JTDSchema) => Promise<T>,
-    message?: string,
-    options?: ErrorOptions,
-  ): ClientError;
-  (
-    code: number,
-    headers?: Record<string, string>,
-    body?: <T>(schema: JTDSchema) => Promise<T>,
-    message?: string,
-    options?: ErrorOptions,
-  ): ClientError;
-  readonly prototype: ClientError;
-}
-
-export declare const ClientError: ClientErrorConstructor;
-
-interface ServerError extends Error {
-  name: "ServerError";
-  code: number;
-  headers?: Record<string, string>;
-  body: <T>(schema: JTDSchema) => Promise<T>;
-}
-
-interface ServerErrorConstructor extends ErrorConstructor {
-  new (
-    code: number,
-    headers?: Record<string, string>,
-    body?: <T>(schema: JTDSchema) => Promise<T>,
-    message?: string,
-    options?: ErrorOptions,
-  ): ServerError;
-  (
-    code: number,
-    headers?: Record<string, string>,
-    body?: <T>(schema: JTDSchema) => Promise<T>,
-    message?: string,
-    options?: ErrorOptions,
-  ): ServerError;
-  readonly prototype: ServerError;
-}
-
-export declare const ServerError: ServerErrorConstructor;
-
-interface UnknownHttpStatusError extends Error {
-  name: "UnknownHttpStatusError";
-  code: number;
-  headers?: Record<string, string>;
-  body: <T>(schema: JTDSchema) => Promise<T>;
-}
-
-interface UnknownHttpStatusErrorConstructor extends ErrorConstructor {
-  new (
-    code: number,
-    headers?: Record<string, string>,
-    body?: <T>(schema: JTDSchema) => Promise<T>,
-    message?: string,
-    options?: ErrorOptions,
-  ): UnknownHttpStatusError;
-  (
-    code: number,
-    headers?: Record<string, string>,
-    body?: <T>(schema: JTDSchema) => Promise<T>,
-    message?: string,
-    options?: ErrorOptions,
-  ): UnknownHttpStatusError;
-  readonly prototype: UnknownHttpStatusError;
-}
-
-export declare const UnknownHttpStatusError: UnknownHttpStatusErrorConstructor;
+/** Problem Details の本文から detail と trace_id を取り出す（読めなければ undefined） */
+export const parseProblem = async (
+  response: Response,
+): Promise<{ detail?: string; traceId?: string }> => {
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("json")) return {};
+  try {
+    const body: unknown = await response.json();
+    if (typeof body !== "object" || body === null) return {};
+    const { detail, trace_id } = body as Record<string, unknown>;
+    return {
+      detail: typeof detail === "string" ? detail : undefined,
+      traceId: typeof trace_id === "string" ? trace_id : undefined,
+    };
+  } catch {
+    return {};
+  }
+};

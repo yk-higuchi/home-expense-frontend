@@ -103,7 +103,7 @@ const _get = async ({
 }: {
   id: string;
   extension: object;
-}): Promise<GetResponse> => {
+}): Promise<GetResponse & { etag?: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
     path: `/v1/expense-attributes/${id}`,
@@ -111,7 +111,11 @@ const _get = async ({
   });
   switch (response.type) {
     case "success":
-      return await response.body<GetResponse>(getResponse);
+      // ETag はデータのバージョン。更新（PUT）の If-Match にそのまま使う
+      return {
+        ...(await response.body<GetResponse>(getResponse)),
+        etag: response.headers?.etag,
+      };
     case "failure":
       throw response.error;
   }
@@ -143,7 +147,12 @@ const _put = async ({
   id,
   name,
   category,
-}: { id: string } & PutRequest): Promise<void> => {
+  ifMatch,
+}: {
+  id: string;
+  /** 取得時の ETag（楽観的ロック） */
+  ifMatch: string;
+} & PutRequest): Promise<void> => {
   const data = {
     name,
     category,
@@ -151,6 +160,7 @@ const _put = async ({
   const response = await http.put({
     url: process.env.BACKEND_URL,
     path: `/v1/expense-attributes/${id}`,
+    headers: { "if-match": ifMatch },
     requestBody: {
       schema: putRequest,
       data,

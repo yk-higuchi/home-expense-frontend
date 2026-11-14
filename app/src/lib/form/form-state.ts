@@ -1,3 +1,5 @@
+import { HttpError } from "@/lib/http/error";
+
 /** Server Action が useActionState に返すフォームの状態 */
 export interface FormState {
   /** 項目ごとのエラーメッセージ（name 属性がキー） */
@@ -41,3 +43,22 @@ export const SUBMIT_FAILED_MESSAGE =
 
 export const DELETE_FAILED_MESSAGE =
   "削除できませんでした。時間をおいてもう一度お試しください。";
+
+export const CONFLICT_MESSAGE =
+  "ほかの操作で内容が更新されています。画面を読み込み直してから、もう一度保存してください。";
+
+/**
+ * API の失敗を利用者向けの文言にする。
+ * - 412（バージョンが合わない）: ほかの操作で更新された旨
+ * - そのほかの 4xx: バックエンドの detail（例: 既に登録されています）
+ * - 5xx・通信エラー: fallback
+ */
+export const failureMessage = (error: unknown, fallback: string): string => {
+  if (error instanceof HttpError) {
+    if (error.status === 412 || error.status === 428) return CONFLICT_MESSAGE;
+    if (error.status >= 400 && error.status < 500 && error.detail) {
+      return error.detail;
+    }
+  }
+  return fallback;
+};

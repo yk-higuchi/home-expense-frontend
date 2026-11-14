@@ -4,9 +4,11 @@ import { redirect } from "next/navigation";
 import { expensesApi } from "@/lib/api/v1-expenses";
 import type { Expense, Expenses } from "@/lib/expense";
 import {
+  CONFLICT_MESSAGE,
   collectErrors,
   DELETE_FAILED_MESSAGE,
   type FormState,
+  failureMessage,
   formValues,
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
@@ -104,6 +106,7 @@ export const getExpense = async ({
   const { id: attributeId, name, category } = expenseAttribute;
   return {
     id,
+    version: response.etag,
     description,
     price,
     paymentDate,
@@ -143,7 +146,10 @@ export const registerExpense = async (
     });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   const now = new Date(Date.now());
   const searchParams = new URLSearchParams({
@@ -159,6 +165,7 @@ export const updateExpense = async (
 ): Promise<FormState> => {
   const values = formValues(formData, [
     "expenseId",
+    "version",
     "description",
     "price",
     "paymentDate",
@@ -175,8 +182,11 @@ export const updateExpense = async (
     attributeId: selected(values.attributeId, "属性名"),
   });
   if (errors) return { errors, values };
+  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
+  if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await expensesApi.put({
+      ifMatch: values.version,
       id: values.expenseId,
       description: values.description,
       attribute_id: values.attributeId,
@@ -185,7 +195,10 @@ export const updateExpense = async (
     });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   const now = new Date(Date.now());
   const searchParams = new URLSearchParams({
@@ -202,7 +215,7 @@ export const deleteExpense = async (formData: FormData): Promise<FormState> => {
     await expensesApi.delete({ id });
   } catch (error) {
     console.error(error);
-    return { message: DELETE_FAILED_MESSAGE };
+    return { message: failureMessage(error, DELETE_FAILED_MESSAGE) };
   }
   updateTag("expense");
   return {};

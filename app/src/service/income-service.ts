@@ -3,9 +3,11 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { incomesApi } from "@/lib/api/v1-incomes";
 import {
+  CONFLICT_MESSAGE,
   collectErrors,
   DELETE_FAILED_MESSAGE,
   type FormState,
+  failureMessage,
   formValues,
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
@@ -94,6 +96,7 @@ export const getIncome = async ({
   const { id: attributeId, name } = incomeAttribute;
   return {
     id,
+    version: response.etag,
     description,
     amount,
     receiveDate,
@@ -131,7 +134,10 @@ export const registerIncome = async (
     });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   redirect("/income");
 };
@@ -142,6 +148,7 @@ export const updateIncome = async (
 ): Promise<FormState> => {
   const values = formValues(formData, [
     "incomeId",
+    "version",
     "description",
     "amount",
     "receiveDate",
@@ -157,8 +164,11 @@ export const updateIncome = async (
     attributeId: selected(values.attributeId, "属性名"),
   });
   if (errors) return { errors, values };
+  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
+  if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await incomesApi.put({
+      ifMatch: values.version,
       id: values.incomeId,
       description: values.description,
       attribute_id: values.attributeId,
@@ -167,7 +177,10 @@ export const updateIncome = async (
     });
   } catch (error) {
     console.error(error);
-    return { values, message: SUBMIT_FAILED_MESSAGE };
+    return {
+      values,
+      message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
+    };
   }
   redirect("/income");
 };
@@ -179,7 +192,7 @@ export const deleteIncome = async (formData: FormData): Promise<FormState> => {
     await incomesApi.delete({ id });
   } catch (error) {
     console.error(error);
-    return { message: DELETE_FAILED_MESSAGE };
+    return { message: failureMessage(error, DELETE_FAILED_MESSAGE) };
   }
   updateTag("income");
   return {};

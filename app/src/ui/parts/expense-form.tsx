@@ -25,8 +25,15 @@ const ExpenseForm = ({
   buttonTitle,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
-  const { id, description, category, price, paymentDate, attributeId } =
-    expense;
+  const {
+    id,
+    version,
+    description,
+    category,
+    price,
+    paymentDate,
+    attributeId,
+  } = expense;
   const { errors, values, message } = state;
   const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
     onCategoryChange(event.currentTarget.value);
@@ -34,6 +41,8 @@ const ExpenseForm = ({
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="expenseId" value={id} />
+      {/* 取得時のバージョン（更新時に If-Match として送る） */}
+      <input type="hidden" name="version" value={version ?? ""} />
       <TextInput
         label="説明"
         name="description"
