@@ -1,11 +1,19 @@
-import type React from "react";
+import {
+  Table,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableEmpty,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@home-expense/ui";
 import { type ReactElement, useState } from "react";
 import { useDialog } from "@/lib/hooks/dialog";
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncomeAttribute } from "@/service/income-attribute-service";
 import Dialog from "@/ui/parts/dialog";
-import style from "./expense-attribute-table.module.css";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
@@ -20,71 +28,47 @@ const IncomeAttributeTable = ({
 }: Props): ReactElement => {
   const { ref, onOpen, onClose } = useDialog();
   const [incomeAttributeId, setIncomeAttributeId] = useState("");
-  const rows = incomeAttributes.map((value, index) => {
-    const { id, name } = value;
-    const { page, perPage } = pagination.current;
-    const indexValue = index + 1 + (page - 1) * perPage;
-    const handleEditClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        onEdit(id);
-      }
-    };
-    const handleTrashClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        setIncomeAttributeId(id);
-        onOpen();
-      }
-    };
-    return (
-      <tr key={index}>
-        <td className={style.no}>{indexValue}</td>
-        <td className={style.attribute}>{name}</td>
-        <td className={style.edit}>
-          <div>
-            <button type="button" onClick={handleEditClick}>
-              edit
-            </button>
-            <button type="button" onClick={handleTrashClick}>
-              delete
-            </button>
-          </div>
-        </td>
-      </tr>
-    );
-  });
+  const { page, perPage } = pagination.current;
 
-  const handleCancelClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
+  const handleDelete = (id: string): void => {
+    setIncomeAttributeId(id);
+    onOpen();
   };
-  const handleDeleteClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
+
   return (
     <>
-      <table className={style.expenseAttributeTable}>
-        <thead>
-          <tr>
-            <th className={style.noHeader}>No.</th>
-            <th className={style.attributeHeader}>属性名</th>
-            <th className={style.editHeader}>編集</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell width={102}>No.</TableHeaderCell>
+            <TableHeaderCell>属性名</TableHeaderCell>
+            <TableHeaderCell width={104}>編集</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {incomeAttributes.length === 0 && <TableEmpty colSpan={3} />}
+          {incomeAttributes.map(({ id, name }, index) => {
+            const no = index + 1 + (page - 1) * perPage;
+            return (
+              <TableRow key={id ?? no}>
+                <TableCell>{no}</TableCell>
+                <TableCell>{name}</TableCell>
+                <TableCell>
+                  {id && (
+                    <TableActions
+                      onEdit={() => onEdit(id)}
+                      onDelete={() => handleDelete(id)}
+                      editLabel={`${name}を編集`}
+                      deleteLabel={`${name}を削除`}
+                    />
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
       <Dialog ref={ref} onClick={onClose}>
-        {}
         <form action={deleteIncomeAttribute}>
           <h2>収入属性の削除</h2>
           <p>削除したデータは復元できません。削除しますか？</p>
@@ -93,10 +77,10 @@ const IncomeAttributeTable = ({
             name="incomeAttributeId"
             value={incomeAttributeId}
           />
-          <button type="button" onClick={handleCancelClick}>
+          <button type="button" onClick={onClose}>
             キャンセル
           </button>
-          <button type="submit" onClick={handleDeleteClick}>
+          <button type="submit" onClick={onClose}>
             削除
           </button>
         </form>

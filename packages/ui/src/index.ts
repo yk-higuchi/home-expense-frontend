@@ -10,5 +10,21 @@ export type {
   SideBarProps,
 } from "./SideBar/SideBar";
 export { SideBar } from "./SideBar/SideBar";
+export type {
+  TableEmptyProps,
+  TableHeaderCellProps,
+  TableProps,
+} from "./Table/Table";
+export {
+  Table,
+  TableBody,
+  TableCell,
+  TableEmpty,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "./Table/Table";
+export type { TableActionsProps } from "./Table/TableActions";
+export { TableActions } from "./Table/TableActions";
 export type { TextInputProps } from "./TextInput/TextInput";
 export { TextInput } from "./TextInput/TextInput";

@@ -1,11 +1,19 @@
-import type React from "react";
+import {
+  Table,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableEmpty,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@home-expense/ui";
 import { type ReactElement, useState } from "react";
 import { useDialog } from "@/lib/hooks/dialog";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome } from "@/service/income-service";
 import Dialog from "@/ui/parts/dialog";
-import style from "./expense-table.module.css";
 
 interface Props {
   incomes: Incomes;
@@ -13,99 +21,74 @@ interface Props {
   onEdit: (id: string) => void;
 }
 
+const yen = new Intl.NumberFormat("ja-JP", {
+  style: "currency",
+  currency: "JPY",
+});
+
 const IncomeTable = ({ incomes, pagination, onEdit }: Props): ReactElement => {
   const { ref, onOpen, onClose } = useDialog();
   const [incomeId, setIncomeId] = useState("");
-  const rows = incomes.map((value, index) => {
-    const {
-      id,
-      description,
-      amount,
-      // attributeId,
-      attributeName,
-      receiveDate,
-    } = value;
-    const { page, perPage } = pagination.current;
-    const indexValue = index + 1 + (page - 1) * perPage;
-    const handleEditClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        onEdit(id);
-      }
-    };
-    const handleTrashClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        setIncomeId(id);
-        onOpen();
-      }
-    };
-    const formattedPrice = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(amount);
-    return (
-      <tr key={index}>
-        <td className={style.no}>{indexValue}</td>
-        <td className={style.description}>{description}</td>
-        <td className={style.price}>{formattedPrice}</td>
-        <td className={style.paymentDate}>{receiveDate}</td>
-        <td className={style.attribute}>{attributeName}</td>
-        <td className={style.edit}>
-          <div>
-            <button type="button" onClick={handleEditClick}>
-              edit
-            </button>
-            <button type="button" onClick={handleTrashClick}>
-              delete
-            </button>
-          </div>
-        </td>
-      </tr>
-    );
-  });
+  const { page, perPage } = pagination.current;
 
-  const handleCancelClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
+  const handleDelete = (id: string): void => {
+    setIncomeId(id);
+    onOpen();
   };
-  const handleDeleteClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
+
   return (
     <>
-      <table className={style.expenseTable}>
-        <thead>
-          <tr>
-            <th className={style.noHeader}>#</th>
-            <th className={style.descriptionHeader}>説明</th>
-            <th className={style.priceHeader}>金額</th>
-            <th className={style.paymentDateHeader}>受取日</th>
-            <th className={style.attributeHeader}>属性名</th>
-            <th className={style.editHeader}></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell width={56}>#</TableHeaderCell>
+            <TableHeaderCell>説明</TableHeaderCell>
+            <TableHeaderCell width={128}>金額</TableHeaderCell>
+            <TableHeaderCell width={128}>受取日</TableHeaderCell>
+            <TableHeaderCell>属性名</TableHeaderCell>
+            <TableHeaderCell width={104}>編集</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {incomes.length === 0 && <TableEmpty colSpan={6} />}
+          {incomes.map(
+            (
+              { id, description, amount, attributeName, receiveDate },
+              index,
+            ) => {
+              const no = index + 1 + (page - 1) * perPage;
+              return (
+                <TableRow key={id ?? no}>
+                  <TableCell>{no}</TableCell>
+                  <TableCell>{description}</TableCell>
+                  <TableCell>{yen.format(amount)}</TableCell>
+                  <TableCell>{receiveDate}</TableCell>
+                  <TableCell>{attributeName}</TableCell>
+                  <TableCell>
+                    {id && (
+                      <TableActions
+                        onEdit={() => onEdit(id)}
+                        onDelete={() => handleDelete(id)}
+                        editLabel={`${description}を編集`}
+                        deleteLabel={`${description}を削除`}
+                      />
+                    )}
+                  </TableCell>
+                </TableRow>
+              );
+            },
+          )}
+        </TableBody>
+      </Table>
       <Dialog ref={ref} onClick={onClose}>
-        {}
         <form action={deleteIncome}>
           <h2>収入の削除</h2>
           <p>削除したデータは復元できません。削除しますか？</p>
           <input type="hidden" name="incomeId" value={incomeId} />
-          <button type="button" onClick={handleCancelClick}>
+          <button type="button" onClick={onClose}>
             キャンセル
           </button>
-          <button type="submit" onClick={handleDeleteClick}>
+          <button type="submit" onClick={onClose}>
             削除
           </button>
         </form>

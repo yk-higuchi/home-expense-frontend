@@ -1,11 +1,19 @@
-import type React from "react";
+import {
+  Table,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableEmpty,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@home-expense/ui";
 import { type ReactElement, useState } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { useDialog } from "@/lib/hooks/dialog";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpenseAttribute } from "@/service/expense-attribute-service";
 import Dialog from "@/ui/parts/dialog";
-import style from "./expense-attribute-table.module.css";
 
 interface Props {
   expenseAttributes: ExpenseAttributes;
@@ -20,73 +28,49 @@ const ExpenseAttributeTable = ({
 }: Props): ReactElement => {
   const { ref, onOpen, onClose } = useDialog();
   const [expenseAttributeId, setExpenseAttributeId] = useState("");
-  const rows = expenseAttributes.map((value, index) => {
-    const { id, name, category } = value;
-    const { page, perPage } = pagination.current;
-    const indexValue = index + 1 + (page - 1) * perPage;
-    const handleEditClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        onEdit(id);
-      }
-    };
-    const handleTrashClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        setExpenseAttributeId(id);
-        onOpen();
-      }
-    };
-    return (
-      <tr key={index}>
-        <td className={style.no}>{indexValue}</td>
-        <td className={style.attribute}>{name}</td>
-        <td className={style.category}>{category}</td>
-        <td className={style.edit}>
-          <div>
-            <button type="button" onClick={handleEditClick}>
-              edit
-            </button>
-            <button type="button" onClick={handleTrashClick}>
-              delete
-            </button>
-          </div>
-        </td>
-      </tr>
-    );
-  });
+  const { page, perPage } = pagination.current;
 
-  const handleCancelClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
+  const handleDelete = (id: string): void => {
+    setExpenseAttributeId(id);
+    onOpen();
   };
-  const handleDeleteClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
+
   return (
     <>
-      <table className={style.expenseAttributeTable}>
-        <thead>
-          <tr>
-            <th className={style.noHeader}>No.</th>
-            <th className={style.attributeHeader}>属性名</th>
-            <th className={style.categoryHeader}>分類</th>
-            <th className={style.editHeader}>編集</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell width={102}>No.</TableHeaderCell>
+            <TableHeaderCell>属性名</TableHeaderCell>
+            <TableHeaderCell width={200}>分類</TableHeaderCell>
+            <TableHeaderCell width={104}>編集</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {expenseAttributes.length === 0 && <TableEmpty colSpan={4} />}
+          {expenseAttributes.map(({ id, name, category }, index) => {
+            const no = index + 1 + (page - 1) * perPage;
+            return (
+              <TableRow key={id ?? no}>
+                <TableCell>{no}</TableCell>
+                <TableCell>{name}</TableCell>
+                <TableCell>{category}</TableCell>
+                <TableCell>
+                  {id && (
+                    <TableActions
+                      onEdit={() => onEdit(id)}
+                      onDelete={() => handleDelete(id)}
+                      editLabel={`${name}を編集`}
+                      deleteLabel={`${name}を削除`}
+                    />
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
       <Dialog ref={ref} onClick={onClose}>
-        {}
         <form action={deleteExpenseAttribute}>
           <h2>経費属性の削除</h2>
           <p>削除したデータは復元できません。削除しますか？</p>
@@ -95,10 +79,10 @@ const ExpenseAttributeTable = ({
             name="expenseAttributeId"
             value={expenseAttributeId}
           />
-          <button type="button" onClick={handleCancelClick}>
+          <button type="button" onClick={onClose}>
             キャンセル
           </button>
-          <button type="submit" onClick={handleDeleteClick}>
+          <button type="submit" onClick={onClose}>
             削除
           </button>
         </form>

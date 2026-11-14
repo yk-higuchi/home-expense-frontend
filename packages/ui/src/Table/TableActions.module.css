@@ -1,0 +1,33 @@
+/*
+ * Figma: 操作セル（アイコンはセルの左端から 16px、アイコンの間隔 16px）
+ * ボタンの余白 4px ぶんを打ち消し、間隔は 8px + 余白 4px × 2 = 16px にする
+ */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  margin-left: calc(var(--sds-size-space-100) * -1);
+}
+
+/* SDS Icon Button（Subtle）相当 */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--sds-size-space-100);
+  border: none;
+  border-radius: var(--sds-size-radius-200);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-background);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-accent-line);
+  outline-offset: 2px;
+}
