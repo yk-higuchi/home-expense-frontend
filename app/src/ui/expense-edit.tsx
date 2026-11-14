@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { type ReactElement, useCallback } from "react";
+import type { ReactElement } from "react";
 
 import type { Expense } from "@/lib/expense";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
@@ -15,15 +15,12 @@ interface Props {
 const ExpenseEdit = ({ expense, expenseAttributes }: Props): ReactElement => {
   console.log(expense);
   const router = useRouter();
-  const handleCategoryChange = useCallback(
-    (category: string) => {
-      const searchParams = new URLSearchParams({
-        category,
-      }).toString();
-      router.push(`/expense/${expense.id}?${searchParams}`);
-    },
-    [expense.id, router],
-  );
+  const handleCategoryChange = (category: string) => {
+    const searchParams = new URLSearchParams({
+      category,
+    }).toString();
+    router.push(`/expense/${expense.id}?${searchParams}`);
+  };
   return (
     <ExpenseForm
       expense={expense}

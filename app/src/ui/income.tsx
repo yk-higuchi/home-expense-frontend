@@ -2,12 +2,7 @@
 import { Button, PlusIcon, TextInput } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import {
-  type ChangeEvent,
-  type ReactElement,
-  useCallback,
-  useState,
-} from "react";
+import { type ChangeEvent, type ReactElement, useState } from "react";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 
 import type { Incomes } from "@/lib/income";
@@ -27,71 +22,55 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
   const formattedYear = year.toString();
   const [displayYear, setDisplayYear] = useState(formattedYear);
-  const handleYearChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const date = new Date(event.currentTarget.value);
-      const year = date.getFullYear().toString();
-      const searchParams = new URLSearchParams({
-        year: year,
-      }).toString();
-      setDisplayYear(year);
-      navigate(`/income?${searchParams}`);
-    },
-    [navigate],
-  );
-  const handleMovePrevious = useCallback(
-    (page: number, perPage: number) => {
-      const date = new Date(displayYear);
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-        year: date.getFullYear().toString(),
-      });
-      navigate(`/income?${searchParams.toString()}`);
-    },
-    [displayYear, navigate],
-  );
+  const handleYearChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const date = new Date(event.currentTarget.value);
+    const year = date.getFullYear().toString();
+    const searchParams = new URLSearchParams({
+      year: year,
+    }).toString();
+    setDisplayYear(year);
+    navigate(`/income?${searchParams}`);
+  };
+  const handleMovePrevious = (page: number, perPage: number) => {
+    const date = new Date(displayYear);
+    const searchParams = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+      year: date.getFullYear().toString(),
+    });
+    navigate(`/income?${searchParams.toString()}`);
+  };
 
-  const handleMoveNext = useCallback(
-    (page: number, perPage: number) => {
-      const date = new Date(displayYear);
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-        year: date.getFullYear().toString(),
-      });
-      navigate(`/income?${searchParams.toString()}`);
-    },
-    [displayYear, navigate],
-  );
+  const handleMoveNext = (page: number, perPage: number) => {
+    const date = new Date(displayYear);
+    const searchParams = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+      year: date.getFullYear().toString(),
+    });
+    navigate(`/income?${searchParams.toString()}`);
+  };
 
-  const handleMovePage = useCallback(
-    (page: number, perPage: number) => {
-      const date = new Date(displayYear);
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-        year: date.getFullYear().toString(),
-      });
-      navigate(`/income?${searchParams.toString()}`);
-    },
-    [displayYear, navigate],
-  );
+  const handleMovePage = (page: number, perPage: number) => {
+    const date = new Date(displayYear);
+    const searchParams = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+      year: date.getFullYear().toString(),
+    });
+    navigate(`/income?${searchParams.toString()}`);
+  };
 
-  const handleRegistrationClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>): void => {
-      console.log(event);
-      router.push("/income/registration");
-    },
-    [router],
-  );
+  const handleRegistrationClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): void => {
+    console.log(event);
+    router.push("/income/registration");
+  };
 
-  const handleEdit = useCallback(
-    (id: string) => {
-      router.push(`/income/${id}`);
-    },
-    [router],
-  );
+  const handleEdit = (id: string) => {
+    router.push(`/income/${id}`);
+  };
 
   return (
     <div className={layout.page}>

@@ -8,12 +8,7 @@ import {
   TextInput,
 } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
-import {
-  type ChangeEvent,
-  type ReactElement,
-  useCallback,
-  useState,
-} from "react";
+import { type ChangeEvent, type ReactElement, useState } from "react";
 import type { ExpenseAttributeAggregates } from "@/lib/expense-attribute";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 import style from "./expense-aggregate.module.css";
@@ -55,20 +50,17 @@ const ExpenseAggregate = ({
   const [yearMonth, setYearMonth] = useState(
     `${formattedYear}-${formattedMonth}`,
   );
-  const handleYearMonthChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const date = new Date(event.currentTarget.value);
-      const year = date.getFullYear().toString();
-      const month = (date.getMonth() + 1).toString();
-      const searchParams = new URLSearchParams({
-        year: year,
-        month: month,
-      }).toString();
-      setYearMonth(`${year.padStart(2, "0")}-${month.padStart(2, "0")}`);
-      navigate(`/home?${searchParams}`);
-    },
-    [navigate],
-  );
+  const handleYearMonthChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const date = new Date(event.currentTarget.value);
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString();
+    const searchParams = new URLSearchParams({
+      year: year,
+      month: month,
+    }).toString();
+    setYearMonth(`${year.padStart(2, "0")}-${month.padStart(2, "0")}`);
+    navigate(`/home?${searchParams}`);
+  };
   return (
     <div className={style.page} aria-busy={isPending || undefined}>
       <TextInput

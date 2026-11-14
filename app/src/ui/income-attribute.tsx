@@ -2,7 +2,7 @@
 import { Button, PlusIcon } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { type ReactElement, useCallback } from "react";
+import type { ReactElement } from "react";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 
 import type { IncomeAttributes } from "@/lib/income-attribute";
@@ -22,53 +22,40 @@ const IncomeAttribute = ({
 }: Props): ReactElement => {
   const router = useRouter();
   const { isPending, navigate } = useNavigation();
-  const handleMovePrevious = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      navigate(`/income-attribute?${searchParams.toString()}`);
-    },
-    [navigate],
-  );
+  const handleMovePrevious = (page: number, perPage: number) => {
+    const searchParams = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
+    navigate(`/income-attribute?${searchParams.toString()}`);
+  };
 
-  const handleMoveNext = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      navigate(`/income-attribute?${searchParams.toString()}`);
-    },
-    [navigate],
-  );
+  const handleMoveNext = (page: number, perPage: number) => {
+    const searchParams = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
+    navigate(`/income-attribute?${searchParams.toString()}`);
+  };
 
-  const handleMovePage = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      navigate(`/income-attribute?${searchParams.toString()}`);
-    },
-    [navigate],
-  );
+  const handleMovePage = (page: number, perPage: number) => {
+    const searchParams = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
+    navigate(`/income-attribute?${searchParams.toString()}`);
+  };
 
-  const handleRegistrationClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>): void => {
-      console.log(event);
-      router.push("/income-attribute/registration");
-    },
-    [router],
-  );
+  const handleRegistrationClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): void => {
+    console.log(event);
+    router.push("/income-attribute/registration");
+  };
 
-  const handleEdit = useCallback(
-    (id: string) => {
-      router.push(`/income-attribute/${id}`);
-    },
-    [router],
-  );
+  const handleEdit = (id: string) => {
+    router.push(`/income-attribute/${id}`);
+  };
   return (
     <div className={layout.page}>
       <IncomeAttributeTable

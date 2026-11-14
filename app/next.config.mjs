@@ -13,6 +13,8 @@ const nextConfig = {
   transpilePackages: ["@home-expense/ui"],
   // モノレポのルートを基準に standalone 出力を作る
   outputFileTracingRoot: workspaceRoot,
+  // React Compiler で再レンダーの最適化を自動化する（useCallback / useMemo を手で書かない）
+  reactCompiler: true,
 };
 
 export default nextConfig;

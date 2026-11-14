@@ -2,12 +2,7 @@
 import { Button, PlusIcon, Select } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import {
-  type ChangeEvent,
-  type ReactElement,
-  useCallback,
-  useState,
-} from "react";
+import { type ChangeEvent, type ReactElement, useState } from "react";
 import type { Expenses } from "@/lib/expense";
 import {
   type ExpenseAttributeCategory,
@@ -71,144 +66,119 @@ const Expense = ({
     ...(attributeId && { attributeId }),
   });
 
-  const handleYearChange = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      const year = event.currentTarget.value;
-      const _query = {
-        ...queryParam,
-        year,
-        page: undefined,
-        per_page: undefined,
-      };
-      setQueryParam(cleanUpObject(_query));
-      const searchParams = new URLSearchParams({
-        ...cleanUpObject(_query),
-      }).toString();
-      navigate(`/expense?${searchParams}`);
-    },
-    [queryParam, navigate],
-  );
+  const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const year = event.currentTarget.value;
+    const _query = {
+      ...queryParam,
+      year,
+      page: undefined,
+      per_page: undefined,
+    };
+    setQueryParam(cleanUpObject(_query));
+    const searchParams = new URLSearchParams({
+      ...cleanUpObject(_query),
+    }).toString();
+    navigate(`/expense?${searchParams}`);
+  };
 
-  const handleMonthChange = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      const month = event.currentTarget.value;
+  const handleMonthChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const month = event.currentTarget.value;
+    const _query = cleanUpObject({
+      ...queryParam,
+      ...(month !== "" ? { month } : { month: undefined }),
+      page: undefined,
+      per_page: undefined,
+    });
+    setQueryParam(_query);
+    const searchParams = new URLSearchParams({
+      ..._query,
+    }).toString();
+    navigate(`/expense?${searchParams}`);
+  };
+
+  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const _category = event.currentTarget.value;
+    if (isExpenseAttributeCategory(_category)) {
       const _query = cleanUpObject({
         ...queryParam,
-        ...(month !== "" ? { month } : { month: undefined }),
-        page: undefined,
-        per_page: undefined,
-      });
-      setQueryParam(_query);
-      const searchParams = new URLSearchParams({
-        ..._query,
-      }).toString();
-      navigate(`/expense?${searchParams}`);
-    },
-    [queryParam, navigate],
-  );
-
-  const handleCategoryChange = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      const _category = event.currentTarget.value;
-      if (isExpenseAttributeCategory(_category)) {
-        const _query = cleanUpObject({
-          ...queryParam,
-          category: _category,
-          page: undefined,
-          per_page: undefined,
-        });
-        const searchParams = new URLSearchParams(_query).toString();
-        setQueryParam(_query);
-        navigate(`/expense?${searchParams}`);
-        return;
-      }
-      const _query = cleanUpObject({
-        ...queryParam,
-        category: undefined,
-        attributeId: undefined,
+        category: _category,
         page: undefined,
         per_page: undefined,
       });
       const searchParams = new URLSearchParams(_query).toString();
-      navigate(`/expense?${searchParams}`);
-    },
-    [queryParam, navigate],
-  );
-
-  const handleAttributeIdChange = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      const attributeId = event.currentTarget.value;
-      const _query = cleanUpObject({
-        ...queryParam,
-        ...(attributeId !== "" ? { attributeId } : { attributeId: undefined }),
-        page: undefined,
-        per_page: undefined,
-      });
-      const searchParams = new URLSearchParams({
-        ..._query,
-      }).toString();
       setQueryParam(_query);
       navigate(`/expense?${searchParams}`);
-    },
-    [queryParam, navigate],
-  );
+      return;
+    }
+    const _query = cleanUpObject({
+      ...queryParam,
+      category: undefined,
+      attributeId: undefined,
+      page: undefined,
+      per_page: undefined,
+    });
+    const searchParams = new URLSearchParams(_query).toString();
+    navigate(`/expense?${searchParams}`);
+  };
 
-  const handleMovePrevious = useCallback(
-    (page: number, perPage: number) => {
-      const _query = {
-        ...queryParam,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      };
-      const searchParams = new URLSearchParams(_query);
-      setQueryParam(_query);
-      navigate(`/expense?${searchParams.toString()}`);
-    },
-    [queryParam, navigate],
-  );
+  const handleAttributeIdChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const attributeId = event.currentTarget.value;
+    const _query = cleanUpObject({
+      ...queryParam,
+      ...(attributeId !== "" ? { attributeId } : { attributeId: undefined }),
+      page: undefined,
+      per_page: undefined,
+    });
+    const searchParams = new URLSearchParams({
+      ..._query,
+    }).toString();
+    setQueryParam(_query);
+    navigate(`/expense?${searchParams}`);
+  };
 
-  const handleMoveNext = useCallback(
-    (page: number, perPage: number) => {
-      const _query = {
-        ...queryParam,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      };
-      const searchParams = new URLSearchParams(_query);
-      setQueryParam(_query);
-      navigate(`/expense?${searchParams.toString()}`);
-    },
-    [queryParam, navigate],
-  );
+  const handleMovePrevious = (page: number, perPage: number) => {
+    const _query = {
+      ...queryParam,
+      page: page.toString(),
+      per_page: perPage.toString(),
+    };
+    const searchParams = new URLSearchParams(_query);
+    setQueryParam(_query);
+    navigate(`/expense?${searchParams.toString()}`);
+  };
 
-  const handleMovePage = useCallback(
-    (page: number, perPage: number) => {
-      const _query = {
-        ...queryParam,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      };
-      const searchParams = new URLSearchParams(_query);
-      setQueryParam(_query);
-      navigate(`/expense?${searchParams.toString()}`);
-    },
-    [queryParam, navigate],
-  );
+  const handleMoveNext = (page: number, perPage: number) => {
+    const _query = {
+      ...queryParam,
+      page: page.toString(),
+      per_page: perPage.toString(),
+    };
+    const searchParams = new URLSearchParams(_query);
+    setQueryParam(_query);
+    navigate(`/expense?${searchParams.toString()}`);
+  };
 
-  const handleRegistrationClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>): void => {
-      console.log(event);
-      router.push("/expense/registration");
-    },
-    [router],
-  );
+  const handleMovePage = (page: number, perPage: number) => {
+    const _query = {
+      ...queryParam,
+      page: page.toString(),
+      per_page: perPage.toString(),
+    };
+    const searchParams = new URLSearchParams(_query);
+    setQueryParam(_query);
+    navigate(`/expense?${searchParams.toString()}`);
+  };
 
-  const handleEdit = useCallback(
-    (id: string) => {
-      router.push(`/expense/${id}`);
-    },
-    [router],
-  );
+  const handleRegistrationClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): void => {
+    console.log(event);
+    router.push("/expense/registration");
+  };
+
+  const handleEdit = (id: string) => {
+    router.push(`/expense/${id}`);
+  };
 
   return (
     <div className={layout.page}>

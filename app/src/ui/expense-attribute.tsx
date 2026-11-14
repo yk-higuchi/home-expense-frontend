@@ -2,7 +2,7 @@
 import { Button, PlusIcon, Select } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { type ChangeEvent, type ReactElement, useCallback } from "react";
+import type { ChangeEvent, ReactElement } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 import type { Pagination } from "@/lib/pagination/pagination";
@@ -23,66 +23,50 @@ const ExpenseAttribute = ({
 }: Props): ReactElement => {
   const router = useRouter();
   const { isPending, navigate } = useNavigation();
-  const handleMovePrevious = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        category,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      navigate(`/expense-attribute?${searchParams.toString()}`);
-    },
-    [category, navigate],
-  );
+  const handleMovePrevious = (page: number, perPage: number) => {
+    const searchParams = new URLSearchParams({
+      category,
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
+    navigate(`/expense-attribute?${searchParams.toString()}`);
+  };
 
-  const handleMoveNext = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        category,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      navigate(`/expense-attribute?${searchParams.toString()}`);
-    },
-    [category, navigate],
-  );
+  const handleMoveNext = (page: number, perPage: number) => {
+    const searchParams = new URLSearchParams({
+      category,
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
+    navigate(`/expense-attribute?${searchParams.toString()}`);
+  };
 
-  const handleMovePage = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        category,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      navigate(`/expense-attribute?${searchParams.toString()}`);
-    },
-    [category, navigate],
-  );
+  const handleMovePage = (page: number, perPage: number) => {
+    const searchParams = new URLSearchParams({
+      category,
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
+    navigate(`/expense-attribute?${searchParams.toString()}`);
+  };
 
-  const handleRegistrationClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>): void => {
-      console.log(event);
-      router.push("/expense-attribute/registration");
-    },
-    [router],
-  );
+  const handleRegistrationClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): void => {
+    console.log(event);
+    router.push("/expense-attribute/registration");
+  };
 
-  const handleEdit = useCallback(
-    (id: string) => {
-      router.push(`/expense-attribute/${id}`);
-    },
-    [router],
-  );
+  const handleEdit = (id: string) => {
+    router.push(`/expense-attribute/${id}`);
+  };
 
-  const handleCategoryChange = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      const searchParams = new URLSearchParams({
-        category: event.currentTarget.value,
-      }).toString();
-      navigate(`/expense-attribute?${searchParams}`);
-    },
-    [navigate],
-  );
+  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const searchParams = new URLSearchParams({
+      category: event.currentTarget.value,
+    }).toString();
+    navigate(`/expense-attribute?${searchParams}`);
+  };
   return (
     <div className={layout.page}>
       <div className={layout.filters}>
