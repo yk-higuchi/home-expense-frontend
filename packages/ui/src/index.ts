@@ -16,6 +16,18 @@ export type {
 } from "./SideBar/SideBar";
 export { SideBar } from "./SideBar/SideBar";
 export type {
+  BreakdownGroupProps,
+  BreakdownItemProps,
+  SummaryRowProps,
+} from "./Summary/Summary";
+export {
+  Breakdown,
+  BreakdownGroup,
+  BreakdownItem,
+  SummaryList,
+  SummaryRow,
+} from "./Summary/Summary";
+export type {
   TableEmptyProps,
   TableHeaderCellProps,
   TableProps,

@@ -6,8 +6,11 @@ import { controlClassName, describedBy, Field } from "../Field/Field";
 
 export interface TextInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
-  /** 入力欄の上に出すラベル */
-  label: string;
+  /**
+   * 入力欄の上に出すラベル。
+   * 年月の選択のようにラベルを出さない場合は省略し、aria-label を指定する。
+   */
+  label?: string;
   /** ラベルの下に出す補足 */
   description?: string;
   /** 入力エラーのメッセージ。指定するとエラー表示になる */

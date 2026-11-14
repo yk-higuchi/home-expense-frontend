@@ -1,4 +1,12 @@
 "use client";
+import {
+  Breakdown,
+  BreakdownGroup,
+  BreakdownItem,
+  SummaryList,
+  SummaryRow,
+  TextInput,
+} from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import {
   type ChangeEvent,
@@ -8,6 +16,11 @@ import {
 } from "react";
 import type { ExpenseAttributeAggregates } from "@/lib/expense-attribute";
 import style from "./expense-aggregate.module.css";
+
+const yen = new Intl.NumberFormat("ja-JP", {
+  style: "currency",
+  currency: "JPY",
+});
 
 interface Props {
   year: number;
@@ -54,84 +67,47 @@ const ExpenseAggregate = ({
     },
     [router],
   );
-  const formattedIncomeTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(incomeTotalAmount);
-  const formattedDisposalIncomeAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(disposalIncomeAmount);
-  const formattedTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(totalAmount);
-  const formattedFixedTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(fixed.totalAmount);
-  const formattedVariableTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(variable.totalAmount);
-  const fixedExpenses = fixed.attributeAggregates.map((value) => {
-    const { name, totalAmount } = value;
-    const formattedAmount = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(totalAmount);
-    return (
-      <div key={name}>
-        {name} {formattedAmount}
-      </div>
-    );
-  });
-  const variableExpenses = variable.attributeAggregates.map((value) => {
-    const { name, totalAmount } = value;
-    const formattedAmount = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(totalAmount);
-    return (
-      <div key={name}>
-        {name} {formattedAmount}
-      </div>
-    );
-  });
   return (
-    <div className={style.textStyle}>
-      <input
+    <div className={style.page}>
+      <TextInput
+        aria-label="年月"
         className={style.yearMonth}
         type="month"
-        aria-label="年月"
         value={yearMonth}
         onChange={handleYearMonthChange}
       />
-      <div className={style.labelStyale}>
-        <span>収入合計</span>
-        <div>{formattedIncomeTotalAmount}</div>
-      </div>
-      <div className={style.labelStyale}>
-        <span>支出合計</span>
-        <div>{formattedTotalAmount}</div>
-      </div>
-      <div className={style.labelStyale}>
-        <span>収入 - 支出</span>
-        <div>{formattedDisposalIncomeAmount}</div>
-      </div>
-      <div>
-        <span className={style.labelStyale}>内訳</span>
-        <div className={style.amountStyle}>
-          <details>
-            <summary>固定費 {formattedFixedTotalAmount}</summary>
-            <div className={style.expensesStyle}>{fixedExpenses}</div>
-          </details>
-          <details>
-            <summary>変動費 {formattedVariableTotalAmount}</summary>
-            <div className={style.expensesStyle}>{variableExpenses}</div>
-          </details>
-        </div>
-      </div>
+      <SummaryList>
+        <SummaryRow label="収入合計" amount={yen.format(incomeTotalAmount)} />
+        <SummaryRow label="支出合計" amount={yen.format(totalAmount)} />
+        <SummaryRow
+          label="収入 − 支出"
+          amount={yen.format(disposalIncomeAmount)}
+        />
+      </SummaryList>
+      <SummaryRow label="内訳" />
+      <Breakdown className={style.breakdown}>
+        <BreakdownGroup label="固定費" amount={yen.format(fixed.totalAmount)}>
+          {fixed.attributeAggregates.map(({ name, totalAmount }) => (
+            <BreakdownItem
+              key={name}
+              name={name}
+              amount={yen.format(totalAmount)}
+            />
+          ))}
+        </BreakdownGroup>
+        <BreakdownGroup
+          label="変動費"
+          amount={yen.format(variable.totalAmount)}
+        >
+          {variable.attributeAggregates.map(({ name, totalAmount }) => (
+            <BreakdownItem
+              key={name}
+              name={name}
+              amount={yen.format(totalAmount)}
+            />
+          ))}
+        </BreakdownGroup>
+      </Breakdown>
     </div>
   );
 };

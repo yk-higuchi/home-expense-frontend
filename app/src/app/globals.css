@@ -1,81 +1,21 @@
-:root {
-  --backgroundcolor: #e0f2f5;
-  --textcolor: #757575;
-  --tableheadercolor: #efefef;
-  --linecolor: #90e0f1;
-  --tableNoWidth: 102px;
-  --tableAttributeWidth: 200px;
-  --tableCategoryWidth: 200px;
-  --tableEditWidth: 150px;
-  --tableDescriptionWidth: 200px;
-  --tablePriceWidth: 200px;
-  --tablePaymentDateWidth: 150px;
-}
-
 a {
   text-decoration: none;
 }
 
 a:link {
-  color: var(--textcolor);
+  color: var(--color-text);
 }
 
 a:visited {
-  color: var(--textcolor);
+  color: var(--color-text);
 }
 
 a:hover {
-  color: var(--textcolor);
+  color: var(--color-text);
 }
 
 a:active {
-  color: var(--textcolor);
-}
-
-button {
-  color: var(--textcolor);
-  font-family: var(--font-noto-sans-jp);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-right: 10px;
-}
-
-select {
-  color: var(--textcolor);
-  font-family: var(--font-noto-sans-jp);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-input {
-  color: var(--textcolor);
-  font-family: var(--font-noto-sans-jp);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-details {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-
-summary {
-  cursor: pointer;
-
-  /* font-weight:bold; */
-  margin-top: 10px;
+  color: var(--color-text);
 }
 
 body {

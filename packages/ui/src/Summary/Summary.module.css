@@ -1,0 +1,119 @@
+/*
+ * 集計の部品（Figma: 合計行 / 内訳グループ見出し / 内訳行）
+ * 行の高さは 40px、文字は SDS/Body Base
+ */
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-400);
+  margin: 0;
+}
+
+/* 合計行（Figma: 左の余白 12px / 項目名の幅 271px / 下に水色の線 1px） */
+.summaryRow {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  margin: 0;
+  padding-left: var(--sds-size-space-300);
+  border-bottom: var(--sds-size-stroke-border) solid var(--color-accent-line);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: 400;
+  line-height: var(--text-body-line-height);
+}
+
+.label {
+  flex: 0 0 271px;
+  margin: 0;
+}
+
+.amount {
+  margin: 0;
+}
+
+/* 内訳のカード（Figma: 白 / 枠線 1px / 角丸 8px / 余白 24px） */
+.breakdown {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-200);
+  padding: var(--sds-size-space-600);
+  border: var(--sds-size-stroke-border) solid var(--color-border);
+  border-radius: var(--sds-size-radius-200);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+/* 分類見出し（Figma: アイコン 20px・間隔 8px・下線） */
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  min-height: 40px;
+  border-bottom: var(--sds-size-stroke-border) solid var(--color-border);
+  border-radius: var(--sds-size-radius-100) var(--sds-size-radius-100) 0 0;
+  list-style: none;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.groupHeader::-webkit-details-marker {
+  display: none;
+}
+
+.groupHeader:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.groupHeader:hover {
+  background-color: var(--color-interactive-hover);
+}
+
+.groupHeader:active {
+  background-color: var(--color-interactive-active);
+}
+
+.chevron {
+  flex-shrink: 0;
+  transition: transform 120ms ease;
+}
+
+.group[open] .chevron {
+  transform: rotate(90deg);
+}
+
+/* 金額の列を内訳行とそろえる（20 + 8 + 247 + 8 = 283px） */
+.groupLabel {
+  flex: 0 0 247px;
+}
+
+.items {
+  margin: 0;
+}
+
+/* 内訳行（Figma: 左の余白 32px / 属性名の幅 251px） */
+.item {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding-left: var(--sds-size-space-800);
+}
+
+.itemName {
+  flex: 0 0 251px;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .groupHeader,
+  .chevron {
+    transition: none;
+  }
+}

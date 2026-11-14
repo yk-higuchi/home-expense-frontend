@@ -1,0 +1,17 @@
+/* エラー画面（Figma: メッセージとボタンを中央に縦に並べる、間隔 16px） */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-size-space-400);
+  height: 100%;
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+}
+
+.message {
+  margin: 0;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
