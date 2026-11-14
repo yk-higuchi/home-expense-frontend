@@ -1,8 +1,22 @@
 "use server";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-
 import { incomesApi } from "@/lib/api/v1-incomes";
+import {
+  collectErrors,
+  type FormState,
+  formValues,
+  SUBMIT_FAILED_MESSAGE,
+} from "@/lib/form/form-state";
+import {
+  amount,
+  date,
+  first,
+  maxLength,
+  parseAmount,
+  required,
+  selected,
+} from "@/lib/form/validation";
 import type { Income, Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
@@ -87,53 +101,74 @@ export const getIncome = async ({
   };
 };
 
-export const registerIncome = async (formData: FormData): Promise<void> => {
-  const id = formData.get("incomeId");
-  const description = formData.get("description");
-  const attributeId = formData.get("attributeId");
-  const amount = formData.get("amount");
-  const receiveDate = formData.get("receiveDate");
-  if (
-    isString(id) &&
-    isString(description) &&
-    isString(attributeId) &&
-    isString(amount) &&
-    isString(receiveDate)
-  ) {
+export const registerIncome = async (
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> => {
+  const values = formValues(formData, [
+    "description",
+    "amount",
+    "receiveDate",
+    "attributeId",
+  ]);
+  const errors = collectErrors({
+    description: first(
+      required(values.description, "説明"),
+      maxLength(values.description, 100, "説明"),
+    ),
+    amount: amount(values.amount, "金額"),
+    receiveDate: date(values.receiveDate, "受取日"),
+    attributeId: selected(values.attributeId, "属性名"),
+  });
+  if (errors) return { errors, values };
+  try {
     await incomesApi.post({
-      description,
-      attribute_id: attributeId,
-      amount: parseInt(amount, 10),
-      receive_date: receiveDate,
+      description: values.description,
+      attribute_id: values.attributeId,
+      amount: parseAmount(values.amount),
+      receive_date: values.receiveDate,
     });
-    redirect("/income");
+  } catch (error) {
+    console.error(error);
+    return { values, message: SUBMIT_FAILED_MESSAGE };
   }
+  redirect("/income");
 };
 
-export const updateIncome = async (formData: FormData): Promise<void> => {
-  const id = formData.get("incomeId");
-  const description = formData.get("description");
-  const attributeId = formData.get("attributeId");
-  const amount = formData.get("amount");
-  const receiveDate = formData.get("receiveDate");
-  console.log(description);
-  if (
-    isString(id) &&
-    isString(description) &&
-    isString(attributeId) &&
-    isString(amount) &&
-    isString(receiveDate)
-  ) {
-    console.log(description);
+export const updateIncome = async (
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> => {
+  const values = formValues(formData, [
+    "incomeId",
+    "description",
+    "amount",
+    "receiveDate",
+    "attributeId",
+  ]);
+  const errors = collectErrors({
+    description: first(
+      required(values.description, "説明"),
+      maxLength(values.description, 100, "説明"),
+    ),
+    amount: amount(values.amount, "金額"),
+    receiveDate: date(values.receiveDate, "受取日"),
+    attributeId: selected(values.attributeId, "属性名"),
+  });
+  if (errors) return { errors, values };
+  try {
     await incomesApi.put({
-      id,
-      description,
-      attribute_id: attributeId,
-      amount: parseInt(amount, 10),
-      receive_date: receiveDate,
+      id: values.incomeId,
+      description: values.description,
+      attribute_id: values.attributeId,
+      amount: parseAmount(values.amount),
+      receive_date: values.receiveDate,
     });
-    redirect("/income");
+  } catch (error) {
+    console.error(error);
+    return { values, message: SUBMIT_FAILED_MESSAGE };
   }
+  redirect("/income");
 };
 
 export const deleteIncome = async (formData: FormData): Promise<void> => {

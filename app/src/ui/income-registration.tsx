@@ -14,7 +14,7 @@ const IncomeRegistration = ({ incomeAttributes }: Props): ReactElement => {
   return (
     <IncomeForm
       incomeAttributes={incomeAttributes}
-      onSubmit={registerIncome}
+      action={registerIncome}
       buttonTitle="登録"
     />
   );

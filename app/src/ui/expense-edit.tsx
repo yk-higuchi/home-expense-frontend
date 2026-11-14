@@ -29,7 +29,7 @@ const ExpenseEdit = ({ expense, expenseAttributes }: Props): ReactElement => {
       expense={expense}
       expenseAttributes={expenseAttributes}
       onCategoryChange={handleCategoryChange}
-      onSubmit={updateExpense}
+      action={updateExpense}
       buttonTitle="更新"
     />
   );

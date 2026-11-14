@@ -13,7 +13,7 @@ const IncomeAttributeEdit = ({ incomeAttribute }: Props): ReactElement => {
   return (
     <IncomeAttributeForm
       incomeAttribute={incomeAttribute}
-      onSubmit={updateIncomeAttribute}
+      action={updateIncomeAttribute}
       buttonTitle="更新"
     />
   );

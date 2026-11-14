@@ -1,8 +1,14 @@
 "use server";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-
 import { incomeAttributesApi } from "@/lib/api/v1-income-attributes";
+import {
+  collectErrors,
+  type FormState,
+  formValues,
+  SUBMIT_FAILED_MESSAGE,
+} from "@/lib/form/form-state";
+import { first, maxLength, required } from "@/lib/form/validation";
 import type { IncomeAttribute, IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
@@ -66,24 +72,48 @@ export const getIncomeAttribute = async ({
 };
 
 export const registerIncomeAttribute = async (
+  _state: FormState,
   formData: FormData,
-): Promise<void> => {
-  const name = formData.get("name");
-  if (isString(name)) {
-    await incomeAttributesApi.post({ name });
-    redirect("/income-attribute");
+): Promise<FormState> => {
+  const values = formValues(formData, ["name"]);
+  const errors = collectErrors({
+    name: first(
+      required(values.name, "属性名"),
+      maxLength(values.name, 50, "属性名"),
+    ),
+  });
+  if (errors) return { errors, values };
+  try {
+    await incomeAttributesApi.post({ name: values.name });
+  } catch (error) {
+    console.error(error);
+    return { values, message: SUBMIT_FAILED_MESSAGE };
   }
+  redirect("/income-attribute");
 };
 
 export const updateIncomeAttribute = async (
+  _state: FormState,
   formData: FormData,
-): Promise<void> => {
-  const id = formData.get("incomeAttributeId");
-  const name = formData.get("name");
-  if (isString(id) && isString(name)) {
-    await incomeAttributesApi.put({ id, name });
-    redirect("/income-attribute");
+): Promise<FormState> => {
+  const values = formValues(formData, ["incomeAttributeId", "name"]);
+  const errors = collectErrors({
+    name: first(
+      required(values.name, "属性名"),
+      maxLength(values.name, 50, "属性名"),
+    ),
+  });
+  if (errors) return { errors, values };
+  try {
+    await incomeAttributesApi.put({
+      id: values.incomeAttributeId,
+      name: values.name,
+    });
+  } catch (error) {
+    console.error(error);
+    return { values, message: SUBMIT_FAILED_MESSAGE };
   }
+  redirect("/income-attribute");
 };
 
 export const deleteIncomeAttribute = async (

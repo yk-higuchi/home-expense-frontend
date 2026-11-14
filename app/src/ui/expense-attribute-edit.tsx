@@ -13,7 +13,7 @@ const ExpenseAttributeEdit = ({ expenseAttribute }: Props): ReactElement => {
   return (
     <ExpenseAttributeForm
       expenseAttribute={expenseAttribute}
-      onSubmit={updateExpenseAttribute}
+      action={updateExpenseAttribute}
       buttonTitle="更新"
     />
   );

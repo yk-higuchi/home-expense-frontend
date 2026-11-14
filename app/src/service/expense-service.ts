@@ -1,7 +1,6 @@
 "use server";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-
 import { expensesApi } from "@/lib/api/v1-expenses";
 import { expensesAggregateApi } from "@/lib/api/v1-expenses-aggregate";
 import type { Expense, Expenses } from "@/lib/expense";
@@ -9,6 +8,21 @@ import type {
   ExpenseAttributeAggregate,
   ExpenseAttributeAggregates,
 } from "@/lib/expense-attribute";
+import {
+  collectErrors,
+  type FormState,
+  formValues,
+  SUBMIT_FAILED_MESSAGE,
+} from "@/lib/form/form-state";
+import {
+  amount,
+  date,
+  first,
+  maxLength,
+  parseAmount,
+  required,
+  selected,
+} from "@/lib/form/validation";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
@@ -173,63 +187,86 @@ export const getExpense = async ({
   };
 };
 
-export const registerExpense = async (formData: FormData): Promise<void> => {
-  const id = formData.get("expenseId");
-  const description = formData.get("description");
-  const attributeId = formData.get("attributeId");
-  const price = formData.get("price");
-  const paymentDate = formData.get("paymentDate");
-  if (
-    isString(id) &&
-    isString(description) &&
-    isString(attributeId) &&
-    isString(price) &&
-    isString(paymentDate)
-  ) {
+export const registerExpense = async (
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> => {
+  const values = formValues(formData, [
+    "description",
+    "price",
+    "paymentDate",
+    "category",
+    "attributeId",
+  ]);
+  const errors = collectErrors({
+    description: first(
+      required(values.description, "説明"),
+      maxLength(values.description, 100, "説明"),
+    ),
+    price: amount(values.price, "金額"),
+    paymentDate: date(values.paymentDate, "支払日"),
+    attributeId: selected(values.attributeId, "属性名"),
+  });
+  if (errors) return { errors, values };
+  try {
     await expensesApi.post({
-      description,
-      attribute_id: attributeId,
-      price: parseInt(price, 10),
-      payment_date: paymentDate,
+      description: values.description,
+      attribute_id: values.attributeId,
+      price: parseAmount(values.price),
+      payment_date: values.paymentDate,
     });
-    const now = new Date(Date.now());
-    const searchParams = new URLSearchParams({
-      year: now.getFullYear().toString(),
-      month: (now.getMonth() + 1).toString(),
-    }).toString();
-    redirect(`/expense?${searchParams}`);
+  } catch (error) {
+    console.error(error);
+    return { values, message: SUBMIT_FAILED_MESSAGE };
   }
+  const now = new Date(Date.now());
+  const searchParams = new URLSearchParams({
+    year: now.getFullYear().toString(),
+    month: (now.getMonth() + 1).toString(),
+  }).toString();
+  redirect(`/expense?${searchParams}`);
 };
 
-export const updateExpense = async (formData: FormData): Promise<void> => {
-  const id = formData.get("expenseId");
-  const description = formData.get("description");
-  const attributeId = formData.get("attributeId");
-  const price = formData.get("price");
-  const paymentDate = formData.get("paymentDate");
-  console.log(description);
-  if (
-    isString(id) &&
-    isString(description) &&
-    isString(attributeId) &&
-    isString(price) &&
-    isString(paymentDate)
-  ) {
-    console.log(description);
+export const updateExpense = async (
+  _state: FormState,
+  formData: FormData,
+): Promise<FormState> => {
+  const values = formValues(formData, [
+    "expenseId",
+    "description",
+    "price",
+    "paymentDate",
+    "category",
+    "attributeId",
+  ]);
+  const errors = collectErrors({
+    description: first(
+      required(values.description, "説明"),
+      maxLength(values.description, 100, "説明"),
+    ),
+    price: amount(values.price, "金額"),
+    paymentDate: date(values.paymentDate, "支払日"),
+    attributeId: selected(values.attributeId, "属性名"),
+  });
+  if (errors) return { errors, values };
+  try {
     await expensesApi.put({
-      id,
-      description,
-      attribute_id: attributeId,
-      price: parseInt(price, 10),
-      payment_date: paymentDate,
+      id: values.expenseId,
+      description: values.description,
+      attribute_id: values.attributeId,
+      price: parseAmount(values.price),
+      payment_date: values.paymentDate,
     });
-    const now = new Date(Date.now());
-    const searchParams = new URLSearchParams({
-      year: now.getFullYear().toString(),
-      month: (now.getMonth() + 1).toString(),
-    }).toString();
-    redirect(`/expense?${searchParams}`);
+  } catch (error) {
+    console.error(error);
+    return { values, message: SUBMIT_FAILED_MESSAGE };
   }
+  const now = new Date(Date.now());
+  const searchParams = new URLSearchParams({
+    year: now.getFullYear().toString(),
+    month: (now.getMonth() + 1).toString(),
+  }).toString();
+  redirect(`/expense?${searchParams}`);
 };
 
 export const deleteExpense = async (formData: FormData): Promise<void> => {

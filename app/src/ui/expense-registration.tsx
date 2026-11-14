@@ -26,7 +26,7 @@ const ExpenseRegistration = ({ expenseAttributes }: Props): ReactElement => {
     <ExpenseForm
       expenseAttributes={expenseAttributes}
       onCategoryChange={handleCategoryChange}
-      onSubmit={registerExpense}
+      action={registerExpense}
       buttonTitle="登録"
     />
   );
