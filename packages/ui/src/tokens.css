@@ -26,6 +26,16 @@
   --color-danger-hover: #fee9e7; /* 危険な操作のホバー */
   --color-danger-active: #fdd3d0; /* 危険な操作の押下 */
 
+  /*
+   * グラフ: Figma の「補助カラー / チャート/*」（dataviz の検証済み配色の 1〜3 番）
+   * 項目と色は固定（収入=1・支出=2・収支=3）。3 番は白地で 3:1 未満のため、必ずデータ表を併せて出す
+   */
+  --color-chart-1: #2a78d6;
+  --color-chart-2: #eb6834;
+  --color-chart-3: #1baf7a;
+  --color-chart-grid: #efefef;
+  --color-chart-baseline: #b3b3b3;
+
   /* ボタン: Figma の「補助カラー / ボタン/*」 */
   --color-button-fg: #3f4a4c;
   --color-button-primary-bg: #e0f2f5;

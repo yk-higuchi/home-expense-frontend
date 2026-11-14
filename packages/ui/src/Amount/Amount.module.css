@@ -1,0 +1,9 @@
+.amount {
+  font-variant-numeric: tabular-nums;
+}
+
+/* マイナス: SDS の Text/Danger/Default */
+.negative {
+  color: var(--color-danger);
+  font-variant-numeric: tabular-nums;
+}

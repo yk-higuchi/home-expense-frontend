@@ -1,5 +1,10 @@
+export type { AmountProps } from "./Amount/Amount";
+export { Amount } from "./Amount/Amount";
 export type { ButtonProps, ButtonVariant } from "./Button/Button";
 export { Button } from "./Button/Button";
+export type { ChartProps, ChartSeries } from "./Chart/Chart";
+export { Chart } from "./Chart/Chart";
+export { formatCompact, formatYen } from "./Chart/format";
 export type { DialogProps } from "./Dialog/Dialog";
 export { Dialog } from "./Dialog/Dialog";
 export { PlusIcon } from "./icons/icons";
