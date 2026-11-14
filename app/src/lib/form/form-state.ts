@@ -38,3 +38,6 @@ export const collectErrors = (
 
 export const SUBMIT_FAILED_MESSAGE =
   "保存できませんでした。時間をおいてもう一度お試しください。";
+
+export const DELETE_FAILED_MESSAGE =
+  "削除できませんでした。時間をおいてもう一度お試しください。";

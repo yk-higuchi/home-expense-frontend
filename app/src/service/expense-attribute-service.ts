@@ -9,6 +9,7 @@ import {
 } from "@/lib/expense-attribute";
 import {
   collectErrors,
+  DELETE_FAILED_MESSAGE,
   type FormState,
   formValues,
   SUBMIT_FAILED_MESSAGE,
@@ -139,10 +140,15 @@ export const updateExpenseAttribute = async (
 
 export const deleteExpenseAttribute = async (
   formData: FormData,
-): Promise<void> => {
+): Promise<FormState> => {
   const id = formData.get("expenseAttributeId");
-  if (isString(id)) {
+  if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
+  try {
     await expenseAttributesApi.delete({ id });
-    updateTag("expense-attribute");
+  } catch (error) {
+    console.error(error);
+    return { message: DELETE_FAILED_MESSAGE };
   }
+  updateTag("expense-attribute");
+  return {};
 };

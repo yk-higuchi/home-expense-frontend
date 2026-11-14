@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { incomesApi } from "@/lib/api/v1-incomes";
 import {
   collectErrors,
+  DELETE_FAILED_MESSAGE,
   type FormState,
   formValues,
   SUBMIT_FAILED_MESSAGE,
@@ -171,10 +172,15 @@ export const updateIncome = async (
   redirect("/income");
 };
 
-export const deleteIncome = async (formData: FormData): Promise<void> => {
-  const incomeId = formData.get("incomeId");
-  if (isString(incomeId)) {
-    await incomesApi.delete({ id: incomeId });
-    updateTag("income");
+export const deleteIncome = async (formData: FormData): Promise<FormState> => {
+  const id = formData.get("incomeId");
+  if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
+  try {
+    await incomesApi.delete({ id });
+  } catch (error) {
+    console.error(error);
+    return { message: DELETE_FAILED_MESSAGE };
   }
+  updateTag("income");
+  return {};
 };

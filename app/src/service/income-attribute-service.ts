@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { incomeAttributesApi } from "@/lib/api/v1-income-attributes";
 import {
   collectErrors,
+  DELETE_FAILED_MESSAGE,
   type FormState,
   formValues,
   SUBMIT_FAILED_MESSAGE,
@@ -118,10 +119,15 @@ export const updateIncomeAttribute = async (
 
 export const deleteIncomeAttribute = async (
   formData: FormData,
-): Promise<void> => {
+): Promise<FormState> => {
   const id = formData.get("incomeAttributeId");
-  if (isString(id)) {
+  if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
+  try {
     await incomeAttributesApi.delete({ id });
-    updateTag("income-attribute");
+  } catch (error) {
+    console.error(error);
+    return { message: DELETE_FAILED_MESSAGE };
   }
+  updateTag("income-attribute");
+  return {};
 };
