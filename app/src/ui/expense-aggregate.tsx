@@ -13,6 +13,7 @@ import { type ChangeEvent, type ReactElement, useState } from "react";
 import type { BalanceStatistics } from "@/lib/balance";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 import layout from "@/ui/parts/list-layout.module.css";
+import { MONTHS, YEARS } from "@/ui/parts/year-month-options";
 import style from "./expense-aggregate.module.css";
 
 interface Props {
@@ -21,10 +22,6 @@ interface Props {
   /** その月の収支 */
   statistics: BalanceStatistics;
 }
-
-/** 経費一覧と同じ選択肢（2000〜2100 年） */
-const YEARS = Array.from({ length: 101 }, (_, i) => 2000 + i);
-const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
 
 /** HOME（Figma: HOME） */
 const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {

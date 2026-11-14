@@ -1,5 +1,5 @@
 "use client";
-import { Button, PlusIcon, TextInput } from "@home-expense/ui";
+import { Button, PlusIcon, Select } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { type ChangeEvent, type ReactElement, useState } from "react";
@@ -10,6 +10,7 @@ import type { Pagination } from "@/lib/pagination/pagination";
 import IncomeTable from "@/ui/parts/income-table";
 import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
+import { YEARS } from "@/ui/parts/year-month-options";
 
 interface Props {
   incomes: Incomes;
@@ -20,45 +21,20 @@ interface Props {
 const Income = ({ incomes, pagination, year }: Props): ReactElement => {
   const router = useRouter();
   const { isPending, navigate } = useNavigation();
-  const formattedYear = year.toString();
-  const [displayYear, setDisplayYear] = useState(formattedYear);
-  const handleYearChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const date = new Date(event.currentTarget.value);
-    const year = date.getFullYear().toString();
+  const [selectedYear, setSelectedYear] = useState(year);
+  const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const next = Number(event.currentTarget.value);
+    setSelectedYear(next);
+    navigate(`/income?${new URLSearchParams({ year: String(next) })}`);
+  };
+  /** ページ送り（選んでいる年を保ったまま） */
+  const handleMove = (page: number, perPage: number) => {
     const searchParams = new URLSearchParams({
-      year: year,
-    }).toString();
-    setDisplayYear(year);
+      year: String(selectedYear),
+      page: page.toString(),
+      per_page: perPage.toString(),
+    });
     navigate(`/income?${searchParams}`);
-  };
-  const handleMovePrevious = (page: number, perPage: number) => {
-    const date = new Date(displayYear);
-    const searchParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: perPage.toString(),
-      year: date.getFullYear().toString(),
-    });
-    navigate(`/income?${searchParams.toString()}`);
-  };
-
-  const handleMoveNext = (page: number, perPage: number) => {
-    const date = new Date(displayYear);
-    const searchParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: perPage.toString(),
-      year: date.getFullYear().toString(),
-    });
-    navigate(`/income?${searchParams.toString()}`);
-  };
-
-  const handleMovePage = (page: number, perPage: number) => {
-    const date = new Date(displayYear);
-    const searchParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: perPage.toString(),
-      year: date.getFullYear().toString(),
-    });
-    navigate(`/income?${searchParams.toString()}`);
   };
 
   const handleRegistrationClick = (
@@ -75,16 +51,19 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
   return (
     <div className={layout.page}>
       <div className={layout.filters}>
-        <TextInput
+        <Select
           label="年"
           className={layout.narrow}
-          type="number"
-          min="1900"
-          max="2099"
-          step="1"
-          value={displayYear}
+          name="year"
+          value={selectedYear}
           onChange={handleYearChange}
-        />
+        >
+          {YEARS.map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
       </div>
       <IncomeTable
         loading={isPending}
@@ -94,9 +73,9 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         footer={
           <PaginationComponent
             pagination={pagination}
-            onMovePrevious={handleMovePrevious}
-            onMoveNext={handleMoveNext}
-            onMovePage={handleMovePage}
+            onMovePrevious={handleMove}
+            onMoveNext={handleMove}
+            onMovePage={handleMove}
           />
         }
       />

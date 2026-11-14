@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 interface Props {
   searchParams: Promise<{
-    page: number;
-    perPage: number;
-    year?: number;
-    month?: number;
+    page?: string;
+    per_page?: string;
+    year?: string;
+    month?: string;
     category?: string;
     attributeId?: string;
   }>;
@@ -23,14 +23,13 @@ interface Props {
 
 const ExpensePage = async (props: Props): Promise<ReactElement> => {
   const searchParams = await props.searchParams;
-  const {
-    page = 1,
-    perPage = 20,
-    year,
-    month,
-    category,
-    attributeId,
-  } = searchParams;
+  // 画面の URL は per_page（API と同じ名前）
+  const page = Number(searchParams.page) || 1;
+  const perPage = Number(searchParams.per_page) || 20;
+  // 年のプルダウンに「すべて」はないので、指定がなければ今年にする（表示と取得条件をそろえる）
+  const year = Number(searchParams.year) || new Date(Date.now()).getFullYear();
+  const month = Number(searchParams.month) || undefined;
+  const { category, attributeId } = searchParams;
   const _category = isExpenseAttributeCategory(category) ? category : undefined;
   // 属性（分類を選んだときだけ）と経費を同時に取得する
   const [expenseAttributes, { expenses, pagination }] = await Promise.all([

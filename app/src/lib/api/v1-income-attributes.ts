@@ -49,12 +49,10 @@ const putRequest = {
 type PutRequest = JTD<typeof putRequest>;
 
 const _getSummary = async ({
-  category,
   page,
   perPage,
   extension,
 }: {
-  category?: string;
   page: number;
   perPage: number;
   extension: object;
@@ -63,7 +61,6 @@ const _getSummary = async ({
     url: process.env.BACKEND_URL,
     path: "/v1/income-attributes",
     queries: {
-      category,
       page: page.toString(),
       per_page: perPage.toString(),
     },

@@ -10,15 +10,16 @@ export const metadata: Metadata = {
 
 interface Props {
   searchParams: Promise<{
-    page: number;
-    perPage: number;
+    page?: string;
+    per_page?: string;
   }>;
 }
 
 const IncomeAttributePage = async (props: Props): Promise<ReactElement> => {
   const searchParams = await props.searchParams;
-  const { page = 1, perPage = 20 } = searchParams;
-  console.log(page, perPage);
+  // 画面の URL は per_page（API と同じ名前）
+  const page = Number(searchParams.page) || 1;
+  const perPage = Number(searchParams.per_page) || 20;
   const { incomeAttributes, pagination } = await getIncomeAttributeSummary({
     page,
     perPage,

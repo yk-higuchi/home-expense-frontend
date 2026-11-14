@@ -14,6 +14,7 @@ import type { Pagination } from "@/lib/pagination/pagination";
 import ExpenseTable from "@/ui/parts/expense-table";
 import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
+import { MONTHS, YEARS } from "@/ui/parts/year-month-options";
 
 interface Props {
   expenses: Expenses;
@@ -24,22 +25,6 @@ interface Props {
   expenseAttributes: ExpenseAttributes;
   attributeId?: string;
 }
-
-const generateYearArray = () => {
-  const years: number[] = [];
-  for (let i = 2000; i <= 2100; i++) {
-    years.push(i);
-  }
-  return years;
-};
-
-const generateMonthArray = () => {
-  const months = [];
-  for (let i = 1; i <= 12; i++) {
-    months.push(i);
-  }
-  return months;
-};
 
 /** 値が undefined の項目を取り除く（クエリ文字列を作る前に使う） */
 const cleanUpObject = (obj: object): Record<string, string> =>
@@ -118,6 +103,8 @@ const Expense = ({
       per_page: undefined,
     });
     const searchParams = new URLSearchParams(_query).toString();
+    // 「すべて」に戻したことを覚えておかないと、次の絞り込みで古い分類が復活する
+    setQueryParam(_query);
     navigate(`/expense?${searchParams}`);
   };
 
@@ -190,7 +177,7 @@ const Expense = ({
           value={queryParam.year}
           onChange={handleYearChange}
         >
-          {generateYearArray().map((value) => (
+          {YEARS.map((value) => (
             <option key={value} value={value}>
               {value}
             </option>
@@ -204,7 +191,7 @@ const Expense = ({
           onChange={handleMonthChange}
         >
           <option value="">すべて</option>
-          {generateMonthArray().map((value) => (
+          {MONTHS.map((value) => (
             <option key={value} value={value}>
               {value}
             </option>

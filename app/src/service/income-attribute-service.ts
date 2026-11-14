@@ -17,12 +17,10 @@ import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
 export const getIncomeAttributeSummary = async ({
-  category,
   page,
   perPage,
   tag,
 }: {
-  category?: string;
   page: number;
   perPage: number;
   tag: string;
@@ -31,7 +29,6 @@ export const getIncomeAttributeSummary = async ({
   pagination: Pagination;
 }> => {
   const { pagination, response } = await incomeAttributesApi.getSummary({
-    category,
     page,
     perPage,
     extension: {

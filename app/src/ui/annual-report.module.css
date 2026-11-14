@@ -7,10 +7,6 @@
   gap: var(--sds-size-space-400);
 }
 
-.year {
-  width: 140px;
-}
-
 .content,
 .pending {
   display: flex;

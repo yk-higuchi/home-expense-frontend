@@ -21,6 +21,8 @@ import {
 } from "@/lib/balance";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 import BalanceChart from "@/ui/parts/balance-chart";
+import layout from "@/ui/parts/list-layout.module.css";
+import { YEARS } from "@/ui/parts/year-month-options";
 import style from "./annual-report.module.css";
 
 interface Props {
@@ -31,16 +33,9 @@ interface Props {
   series: BalancePoint[];
 }
 
-const FIRST_YEAR = 2000;
-
 /** 年間レポート（Figma: 年間レポート） */
 const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
-  const thisYear = new Date(Date.now()).getFullYear();
-  const years = Array.from(
-    { length: Math.max(thisYear, year) - FIRST_YEAR + 1 },
-    (_, i) => Math.max(thisYear, year) - i,
-  );
   const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
     navigate(
       `/annual-report?${new URLSearchParams({ year: event.currentTarget.value })}`,
@@ -48,18 +43,21 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
   };
   return (
     <div className={style.page} aria-busy={isPending || undefined}>
-      <Select
-        aria-label="年"
-        className={style.year}
-        value={year}
-        onChange={handleYearChange}
-      >
-        {years.map((y) => (
-          <option key={y} value={y}>
-            {y}年
-          </option>
-        ))}
-      </Select>
+      <div className={layout.filters}>
+        <Select
+          label="年"
+          className={layout.narrow}
+          name="year"
+          value={year}
+          onChange={handleYearChange}
+        >
+          {YEARS.map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+      </div>
       <div className={isPending ? style.pending : style.content}>
         <SummaryList>
           <SummaryRow
