@@ -5,13 +5,14 @@ import {
   Breakdown,
   BreakdownGroup,
   BreakdownItem,
+  Select,
   SummaryList,
   SummaryRow,
-  TextInput,
 } from "@home-expense/ui";
 import { type ChangeEvent, type ReactElement, useState } from "react";
 import type { BalanceStatistics } from "@/lib/balance";
 import { useNavigation } from "@/lib/hooks/use-navigation";
+import layout from "@/ui/parts/list-layout.module.css";
 import style from "./expense-aggregate.module.css";
 
 interface Props {
@@ -21,32 +22,59 @@ interface Props {
   statistics: BalanceStatistics;
 }
 
+/** 経費一覧と同じ選択肢（2000〜2100 年） */
+const YEARS = Array.from({ length: 101 }, (_, i) => 2000 + i);
+const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
+
 /** HOME（Figma: HOME） */
 const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
-  const [yearMonth, setYearMonth] = useState(
-    `${year}-${String(month).padStart(2, "0")}`,
-  );
-  const handleYearMonthChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    if (!value) return;
-    const [y, m] = value.split("-");
-    setYearMonth(value);
+  // 経費一覧の絞り込みと同じ「年」「月」のプルダウン（月ごとの集計なので「すべて」はない）
+  const [selected, setSelected] = useState({ year, month });
+  const changeTo = (next: { year: number; month: number }) => {
+    setSelected(next);
     navigate(
-      `/home?${new URLSearchParams({ year: y ?? "", month: String(Number(m)) })}`,
+      `/home?${new URLSearchParams({ year: String(next.year), month: String(next.month) })}`,
     );
+  };
+  const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    changeTo({ ...selected, year: Number(event.currentTarget.value) });
+  };
+  const handleMonthChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    changeTo({ ...selected, month: Number(event.currentTarget.value) });
   };
   const { income, fixedExpense, variableExpense, expenseTotal, net } =
     statistics;
   return (
     <div className={style.page} aria-busy={isPending || undefined}>
-      <TextInput
-        aria-label="年月"
-        className={style.yearMonth}
-        type="month"
-        value={yearMonth}
-        onChange={handleYearMonthChange}
-      />
+      <div className={layout.filters}>
+        <Select
+          label="年"
+          className={layout.narrow}
+          name="year"
+          value={selected.year}
+          onChange={handleYearChange}
+        >
+          {YEARS.map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="月"
+          className={layout.narrow}
+          name="month"
+          value={selected.month}
+          onChange={handleMonthChange}
+        >
+          {MONTHS.map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+      </div>
       <div className={isPending ? style.pending : style.content}>
         <SummaryList>
           <SummaryRow

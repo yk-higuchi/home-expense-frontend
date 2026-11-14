@@ -1,5 +1,5 @@
 /*
-  * HOME（Figma: 年月の選択 → 合計行 → 内訳 → 内訳ツリー、間隔 16px）
+  * HOME（Figma: 年・月の選択 → 合計行 → 内訳 → 内訳ツリー、間隔 16px）
   * 内訳ツリーは残りの高さを使い、中だけスクロールする
 */
 .page {
@@ -8,10 +8,6 @@
   gap: var(--sds-size-space-400);
   height: 100%;
   min-height: 0;
-}
-
-.yearMonth {
-  width: 160px;
 }
 
 .breakdown {
