@@ -1,7 +1,7 @@
+import { NavBar } from "@home-expense/ui";
 import type { ReactElement, ReactNode } from "react";
-import LinkComponent from "@/ui/link-component";
-import SideBar from "@/ui/parts/side-bar";
-import TopBar from "@/ui/parts/top-bar";
+
+import AppSideBar from "@/ui/parts/app-side-bar";
 import style from "./dashboard-layout.module.css";
 
 const DashboardLayout = ({
@@ -14,34 +14,19 @@ const DashboardLayout = ({
     year: now.getFullYear().toString(),
     month: (now.getMonth() + 1).toString(),
   }).toString();
-  const attributes = [
-    {
-      title: "Home",
-      path: "/home",
-    },
-    {
-      title: "収入属性",
-      path: "/income-attribute",
-    },
-    {
-      title: "経費属性",
-      path: "/expense-attribute",
-    },
-    {
-      title: "収入",
-      path: "/income",
-    },
-    {
-      title: "経費",
-      path: `/expense?${searchParams}`,
-    },
+  const items = [
+    { label: "HOME", href: "/home" },
+    { label: "収入属性", href: "/income-attribute" },
+    { label: "経費属性", href: "/expense-attribute" },
+    { label: "収入", href: "/income" },
+    { label: "経費", href: `/expense?${searchParams}` },
   ];
   return (
     <div className={style.parent}>
-      <SideBar linkComponent={LinkComponent} attributes={attributes} />
-      <div>
-        <TopBar />
-        <div className={style.expenseTableBackground}>{children}</div>
+      <AppSideBar items={items} />
+      <div className={style.column}>
+        <NavBar title="家庭用" />
+        <main className={style.content}>{children}</main>
       </div>
     </div>
   );

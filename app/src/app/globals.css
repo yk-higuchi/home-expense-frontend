@@ -79,8 +79,6 @@ summary {
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
-  padding: 30px 36px;
-  background: var(--backgroundcolor);
+  margin: 0;
+  background: var(--color-background);
 }

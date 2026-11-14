@@ -1,0 +1,46 @@
+/* サイドバー（Figma: 幅 242px / 余白 24px / 項目の間隔 8px / 角丸 8px / 影 Drop Shadow/200） */
+.sideBar {
+  box-sizing: border-box;
+  width: 242px;
+  height: 100%;
+  padding: var(--sds-size-space-600);
+  border: var(--sds-size-stroke-border) solid var(--color-border);
+  border-radius: var(--sds-size-radius-200);
+  background-color: var(--color-surface);
+  box-shadow: var(--sds-effect-shadow-200);
+  font-family: var(--font-family-base);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-200);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ナビ項目（SDS Navigation Pill: 余白 8px 12px / 角丸 8px） */
+.item {
+  display: block;
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
+  border-radius: var(--sds-size-radius-200);
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+  text-decoration: none;
+}
+
+.item:hover {
+  background-color: var(--color-background);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--color-accent-line);
+  outline-offset: 2px;
+}
+
+/* 選択中（Figma: 状態=選択中 / 全体背景の水色） */
+.active {
+  background-color: var(--color-background);
+}

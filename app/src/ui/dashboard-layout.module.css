@@ -1,21 +1,33 @@
+/*
+  * 画面全体の枠
+  * Figma: 外側の余白 32px / サイドバーと右カラムの間隔 16px /
+  *        ナビバーとメインコンテンツの間隔 16px
+*/
 .parent {
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: minmax(100px, 25%) 1fr;
+  grid-template-columns: auto 1fr;
+  gap: var(--sds-size-space-400);
+  height: 100vh;
+  padding: var(--sds-size-space-800);
 }
 
-.dashboard {
+.column {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  /* padding: 3rem 2rem; */
+  flex-direction: column;
+  gap: var(--sds-size-space-400);
+  min-width: 0;
+  min-height: 0;
 }
 
-/* viewコンテンツ背景スタイル */
-.expenseTableBackground {
-  width: 55.6vw;
-  height: 71vh;
-  flex-shrink: 0;
-  background-color: #fff9;
-  border-radius: 15px;
+/* メインコンテンツ（Figma: 白 60% / 枠線 1px / 角丸 8px / 余白 24px） */
+.content {
+  box-sizing: border-box;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--sds-size-space-600);
+  border: var(--sds-size-stroke-border) solid var(--color-border);
+  border-radius: var(--sds-size-radius-200);
+  background-color: rgb(255 255 255 / 60%);
 }
