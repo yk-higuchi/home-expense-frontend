@@ -11,7 +11,7 @@ const getSummaryResponse = {
         properties: {
           id: { type: "string" },
           description: { type: "string" },
-          price: {
+          amount: {
             type: "int32",
           },
           payment_date: { type: "string" },
@@ -34,7 +34,7 @@ const getResponse = {
   properties: {
     id: { type: "string" },
     description: { type: "string" },
-    price: {
+    amount: {
       type: "int32",
     },
     payment_date: { type: "string" },
@@ -58,7 +58,7 @@ const postRequest = {
     attribute_id: {
       type: "string",
     },
-    price: {
+    amount: {
       type: "int32",
     },
     payment_date: { type: "string" },
@@ -75,7 +75,7 @@ const putRequest = {
     attribute_id: {
       type: "string",
     },
-    price: {
+    amount: {
       type: "int32",
     },
     payment_date: { type: "string" },
@@ -162,13 +162,13 @@ const _get = async ({
 const _post = async ({
   description,
   attribute_id,
-  price,
+  amount,
   payment_date,
 }: PostRequest): Promise<void> => {
   const data = {
     description,
     attribute_id,
-    price,
+    amount,
     payment_date,
   };
   const response = await http.post({
@@ -192,7 +192,7 @@ const _put = async ({
   id,
   description,
   attribute_id,
-  price,
+  amount,
   payment_date,
   ifMatch,
 }: {
@@ -203,7 +203,7 @@ const _put = async ({
   const data = {
     description,
     attribute_id,
-    price,
+    amount,
     payment_date,
   };
   const response = await http.put({

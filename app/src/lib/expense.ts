@@ -3,7 +3,7 @@ export interface Expense {
   /** データのバージョン（取得時の ETag。更新時の If-Match に使う） */
   version?: string;
   description: string;
-  price: number;
+  amount: number;
   paymentDate: string;
   attributeId?: string;
   attributeName?: string;

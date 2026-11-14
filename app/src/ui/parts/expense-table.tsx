@@ -74,7 +74,7 @@ const ExpenseTable = ({
           {optimisticExpenses.length === 0 && <TableEmpty colSpan={7} />}
           {optimisticExpenses.map(
             (
-              { id, description, price, attributeName, paymentDate, category },
+              { id, description, amount, attributeName, paymentDate, category },
               index,
             ) => {
               const no = index + 1 + (page - 1) * perPage;
@@ -82,7 +82,7 @@ const ExpenseTable = ({
                 <TableRow key={id ?? no}>
                   <TableCell>{no}</TableCell>
                   <TableCell>{description}</TableCell>
-                  <TableCell>{yen.format(price)}</TableCell>
+                  <TableCell>{yen.format(amount)}</TableCell>
                   <TableCell>{paymentDate}</TableCell>
                   <TableCell>{attributeName}</TableCell>
                   <TableCell>{category}</TableCell>

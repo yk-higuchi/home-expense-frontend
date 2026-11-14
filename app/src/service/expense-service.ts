@@ -62,14 +62,14 @@ export const getExpenseSummary = async ({
       id,
       description,
       expense_attribute: expenseAttribute,
-      price,
+      amount,
       payment_date: paymentDate,
     } = value;
     const { id: attributeId, name, category } = expenseAttribute;
     const expense: Expense = {
       id,
       description,
-      price,
+      amount,
       paymentDate,
       attributeId,
       attributeName: name,
@@ -100,7 +100,7 @@ export const getExpense = async ({
   const {
     description,
     expense_attribute: expenseAttribute,
-    price,
+    amount,
     payment_date: paymentDate,
   } = response;
   const { id: attributeId, name, category } = expenseAttribute;
@@ -108,7 +108,7 @@ export const getExpense = async ({
     id,
     version: response.etag,
     description,
-    price,
+    amount,
     paymentDate,
     attributeId,
     attributeName: name,
@@ -122,7 +122,7 @@ export const registerExpense = async (
 ): Promise<FormState> => {
   const values = formValues(formData, [
     "description",
-    "price",
+    "amount",
     "paymentDate",
     "category",
     "attributeId",
@@ -132,7 +132,7 @@ export const registerExpense = async (
       required(values.description, "説明"),
       maxLength(values.description, 100, "説明"),
     ),
-    price: amount(values.price, "金額"),
+    amount: amount(values.amount, "金額"),
     paymentDate: date(values.paymentDate, "支払日"),
     attributeId: selected(values.attributeId, "属性名"),
   });
@@ -141,7 +141,7 @@ export const registerExpense = async (
     await expensesApi.post({
       description: values.description,
       attribute_id: values.attributeId,
-      price: parseAmount(values.price),
+      amount: parseAmount(values.amount),
       payment_date: values.paymentDate,
     });
   } catch (error) {
@@ -167,7 +167,7 @@ export const updateExpense = async (
     "expenseId",
     "version",
     "description",
-    "price",
+    "amount",
     "paymentDate",
     "category",
     "attributeId",
@@ -177,7 +177,7 @@ export const updateExpense = async (
       required(values.description, "説明"),
       maxLength(values.description, 100, "説明"),
     ),
-    price: amount(values.price, "金額"),
+    amount: amount(values.amount, "金額"),
     paymentDate: date(values.paymentDate, "支払日"),
     attributeId: selected(values.attributeId, "属性名"),
   });
@@ -190,7 +190,7 @@ export const updateExpense = async (
       id: values.expenseId,
       description: values.description,
       attribute_id: values.attributeId,
-      price: parseAmount(values.price),
+      amount: parseAmount(values.amount),
       payment_date: values.paymentDate,
     });
   } catch (error) {

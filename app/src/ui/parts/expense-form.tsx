@@ -30,7 +30,7 @@ const ExpenseForm = ({
     version,
     description,
     category,
-    price,
+    amount,
     paymentDate,
     attributeId,
   } = expense;
@@ -52,10 +52,10 @@ const ExpenseForm = ({
       />
       <TextInput
         label="金額"
-        name="price"
+        name="amount"
         inputMode="numeric"
-        defaultValue={values?.price ?? price}
-        errorMessage={errors?.price}
+        defaultValue={values?.amount ?? amount}
+        errorMessage={errors?.amount}
         required
       />
       <TextInput
