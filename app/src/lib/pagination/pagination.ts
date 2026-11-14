@@ -38,13 +38,12 @@ export const parseLinkHeader = (
       const perPage = url.searchParams.get("per_page");
       const rel = _array[1].trim().split("=")[1].replaceAll('"', "");
       if (page != null && perPage != null) {
-        return {
-          ...previousValue,
+        return Object.assign(previousValue, {
           [rel]: {
-            page: parseInt(page),
-            perPage: parseInt(perPage),
+            page: parseInt(page, 10),
+            perPage: parseInt(perPage, 10),
           },
-        };
+        });
       }
       // TODO
       throw Error("");
@@ -88,7 +87,7 @@ export const paginate = ({
   const prevShowing = currentPage - 2;
   const nextShowing = currentPage + 2;
   for (
-    let i = prevShowing > 2 ? prevShowing : 2;
+    let i = Math.max(prevShowing, 2);
     i <= Math.min(lastPage, nextShowing);
     i++
   ) {

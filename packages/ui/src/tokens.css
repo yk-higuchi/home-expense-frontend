@@ -1,0 +1,46 @@
+/*
+ * デザイントークン
+ * Figma「経費管理システム」の変数・スタイルと同じ値。
+ * Figma の値を変えたら、ここも合わせて更新する。
+ */
+:root {
+  /* Color: Figma のカラー変数 */
+  --color-background: #e0f2f5; /* 全体背景 */
+  --color-surface: #fff; /* 白（補助カラー） */
+  --color-text: #757575; /* グレー２ */
+  --color-text-strong: #586365; /* グレー */
+  --color-border: #dedede; /* グレー枠線 */
+  --color-accent-line: #90e0f1; /* ライン */
+  --color-danger: #900b09; /* SDS の Border/Danger/Default・Text/Danger/Default */
+
+  /* Space: SDS の Space/* */
+  --sds-size-space-0: 0;
+  --sds-size-space-100: 4px;
+  --sds-size-space-200: 8px;
+  --sds-size-space-300: 12px;
+  --sds-size-space-400: 16px;
+  --sds-size-space-600: 24px;
+  --sds-size-space-800: 32px;
+  --sds-size-space-1200: 48px;
+
+  /* Radius: SDS の Radius/* */
+  --sds-size-radius-100: 4px;
+  --sds-size-radius-200: 8px;
+  --sds-size-radius-400: 16px;
+  --sds-size-radius-full: 9999px;
+
+  /* Stroke: SDS の Stroke/Border */
+  --sds-size-stroke-border: 1px;
+
+  /* Shadow: SDS の Drop Shadow/200 */
+  --sds-effect-shadow-200:
+    0 1px 4px 0 rgb(12 12 13 / 5%), 0 1px 4px 0 rgb(12 12 13 / 10%);
+
+  /* Typography: SDS の文字スタイルを Noto Sans JP で再現したもの */
+  --font-family-base: var(--font-noto-sans-jp, "Noto Sans JP"), sans-serif;
+  --text-body-size: 16px; /* SDS/Body Base */
+  --text-body-line-height: 1.4;
+  --text-single-line-line-height: 1; /* SDS/Single Line/Body Base */
+  --text-subheading-size: 20px; /* SDS/Subheading */
+  --text-subheading-line-height: 1.2;
+}

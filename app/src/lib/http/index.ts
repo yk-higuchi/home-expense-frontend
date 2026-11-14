@@ -1,6 +1,6 @@
-import { HttpRequest, HttpResponse, RequestBody } from "@/lib/http/type";
+import type { HttpRequest, HttpResponse, RequestBody } from "@/lib/http/type";
 import { json } from "@/lib/json";
-import { JTDSchema } from "@/lib/json/type";
+import type { JTDSchema } from "@/lib/json/type";
 
 const _get = async (
   params: Omit<HttpRequest, "method">,
@@ -55,18 +55,11 @@ const send = async ({
   try {
     const urlValue = new URL(path, url);
     if (queries) {
-      const _queries = Object.entries(queries)
-        .filter((value) => {
-          const [, v] = value;
-          return v !== undefined;
-        })
-        .reduce((previousValue, currentValue) => {
-          const [k, v] = currentValue;
-          return {
-            ...previousValue,
-            [k]: v,
-          };
-        }, {});
+      const _queries = Object.fromEntries(
+        Object.entries(queries).filter(
+          (entry): entry is [string, string] => entry[1] !== undefined,
+        ),
+      );
       console.log(new URLSearchParams(_queries).toString());
       urlValue.search = new URLSearchParams(_queries).toString();
     }

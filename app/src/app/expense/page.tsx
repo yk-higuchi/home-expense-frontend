@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
 import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
@@ -6,17 +6,18 @@ import { getExpenseSummary } from "@/service/expense-service";
 import Expense from "@/ui/expense";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     page: number;
     perPage: number;
     year?: number;
     month?: number;
     category?: string;
     attributeId?: string;
-  };
+  }>;
 }
 
-const ExpensePage = async ({ searchParams }: Props): Promise<ReactElement> => {
+const ExpensePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const {
     page = 1,
     perPage = 20,

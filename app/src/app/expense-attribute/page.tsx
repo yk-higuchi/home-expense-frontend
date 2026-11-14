@@ -1,19 +1,18 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
 import ExpenseAttribute from "@/ui/expense-attribute";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     category?: string;
     page: number;
     perPage: number;
-  };
+  }>;
 }
 
-const ExpenseAttributePage = async ({
-  searchParams,
-}: Props): Promise<ReactElement> => {
+const ExpenseAttributePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const { page = 1, perPage = 20, category = "固定費" } = searchParams;
   console.log(page, perPage);
   const { expenseAttributes, pagination } = await getExpenseAttributeSummary({

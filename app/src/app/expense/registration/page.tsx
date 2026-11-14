@@ -1,17 +1,16 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
 import ExpenseRegistration from "@/ui/expense-registration";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     category: string;
-  };
+  }>;
 }
 
-const ExpenseRegistrationPage = async ({
-  searchParams,
-}: Props): Promise<ReactElement> => {
+const ExpenseRegistrationPage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const { category = "固定費" } = searchParams;
   const { expenseAttributes } = await getExpenseAttributeSummary({
     category,

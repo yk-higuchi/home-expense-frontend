@@ -1,7 +1,7 @@
 "use client";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-const Error = ({
+const ErrorPage = ({
   error,
   reset,
 }: {
@@ -13,6 +13,7 @@ const Error = ({
     <div>
       <div>予期せぬエラー</div>
       <button
+        type="button"
         onClick={(): void => {
           reset();
         }}
@@ -22,4 +23,4 @@ const Error = ({
     </div>
   );
 };
-export default Error;
+export default ErrorPage;

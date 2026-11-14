@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from "react";
-
-import style from "./expense-table.module.css";
+import type React from "react";
+import { type ReactElement, useState } from "react";
 import { useDialog } from "@/lib/hooks/dialog";
-import { Incomes } from "@/lib/income";
-import { Pagination } from "@/lib/pagination/pagination";
+import type { Incomes } from "@/lib/income";
+import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome } from "@/service/income-service";
 import Dialog from "@/ui/parts/dialog";
+import style from "./expense-table.module.css";
 
 interface Props {
   incomes: Incomes;
@@ -57,8 +57,12 @@ const IncomeTable = ({ incomes, pagination, onEdit }: Props): ReactElement => {
         <td className={style.attribute}>{attributeName}</td>
         <td className={style.edit}>
           <div>
-            <button onClick={handleEditClick}>edit</button>
-            <button onClick={handleTrashClick}>delete</button>
+            <button type="button" onClick={handleEditClick}>
+              edit
+            </button>
+            <button type="button" onClick={handleTrashClick}>
+              delete
+            </button>
           </div>
         </td>
       </tr>

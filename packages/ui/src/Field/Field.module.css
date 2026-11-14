@@ -1,0 +1,59 @@
+/* テキスト入力・プルダウンで共通の、ラベル・説明・エラーの見た目 */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-200);
+  min-width: 120px;
+  font-family: var(--font-family-base);
+}
+
+.label {
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+/* 入力欄・プルダウンの枠（SDS Input / Select） */
+.control {
+  box-sizing: border-box;
+  width: 100%;
+
+  /*
+   * 高さは SDS と同じ 40px に固定し、上下の余白は付けない。
+   * 上下に余白を取ると文字の表示領域が 16px しか残らず、
+   * Noto Sans JP の文字の上下が欠けるため（文字はブラウザが上下中央に置く）。
+   */
+  height: 40px;
+  margin: 0;
+  padding: 0 var(--sds-size-space-400);
+  border: var(--sds-size-stroke-border) solid var(--color-border);
+  border-radius: var(--sds-size-radius-200);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  line-height: normal;
+}
+
+.control:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.control[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}

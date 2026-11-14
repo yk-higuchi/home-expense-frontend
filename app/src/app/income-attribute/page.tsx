@@ -1,18 +1,17 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { getIncomeAttributeSummary } from "@/service/income-attribute-service";
 import IncomeAttribute from "@/ui/income-attribute";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     page: number;
     perPage: number;
-  };
+  }>;
 }
 
-const IncomeAttributePage = async ({
-  searchParams,
-}: Props): Promise<ReactElement> => {
+const IncomeAttributePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const { page = 1, perPage = 20 } = searchParams;
   console.log(page, perPage);
   const { incomeAttributes, pagination } = await getIncomeAttributeSummary({

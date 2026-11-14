@@ -1,16 +1,17 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { getExpenseAggregate } from "@/service/expense-service";
 import ExpenseAggregate from "@/ui/expense-aggregate";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     year: number;
     month: number;
-  };
+  }>;
 }
 
-const HomePage = async ({ searchParams }: Props): Promise<ReactElement> => {
+const HomePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const now = new Date(Date.now());
   const { year = now.getFullYear(), month = now.getMonth() + 1 } = searchParams;
   console.log(year, month);

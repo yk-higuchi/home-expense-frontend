@@ -1,32 +1,37 @@
-FROM node:20 AS deps
+# ビルドコンテキストはリポジトリのルート（pnpm ワークスペース全体）
+#   docker build -f app/Dockerfile .
+FROM node:24 AS deps
 
-WORKDIR /app
+WORKDIR /repo
 
-RUN npm i -g pnpm
+RUN npm i -g pnpm@9
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY app/package.json ./app/
+COPY packages/ui/package.json ./packages/ui/
 
-RUN pnpm i
+RUN pnpm install --frozen-lockfile --filter home-expense-frontend-new...
 
 FROM deps AS builder
 
 COPY . .
-RUN pnpm build
+RUN pnpm --filter home-expense-frontend-new build
 
-FROM gcr.io/distroless/nodejs20-debian11:nonroot AS runner
+FROM gcr.io/distroless/nodejs24-debian12:nonroot AS runner
 
 WORKDIR /app
 
 ENV NODE_ENV production
 
-#COPY --chown=nonroot:nonroot --from=builder /app/public ./public
-COPY --chown=nonroot:nonroot --from=builder /app/.next/standalone ./
-COPY --chown=nonroot:nonroot --from=builder /app/.next/static ./.next/static
+# outputFileTracingRoot をワークスペースのルートにしているため、
+# standalone 出力の中では app/server.js に配置される
+#COPY --chown=nonroot:nonroot --from=builder /repo/app/public ./app/public
+COPY --chown=nonroot:nonroot --from=builder /repo/app/.next/standalone ./
+COPY --chown=nonroot:nonroot --from=builder /repo/app/.next/static ./app/.next/static
 
 EXPOSE 3000
 USER nonroot
 
 ENV PORT 3000
 
-CMD [ "server.js" ]
+CMD [ "app/server.js" ]

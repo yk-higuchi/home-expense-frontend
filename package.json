@@ -1,0 +1,10 @@
+{
+  "name": "home-expense-frontend-workspace",
+  "private": true,
+  "scripts": {
+    "lint": "pnpm -r lint",
+    "fix": "pnpm -r fix",
+    "storybook": "pnpm --filter @home-expense/ui storybook",
+    "build-storybook": "pnpm --filter @home-expense/ui build-storybook"
+  }
+}

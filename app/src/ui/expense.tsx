@@ -1,20 +1,21 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, {
-  ChangeEvent,
-  ReactElement,
+import type React from "react";
+import {
+  type ChangeEvent,
+  type ReactElement,
   useCallback,
   useEffect,
   useState,
 } from "react";
 
-import { Expenses } from "@/lib/expense";
+import type { Expenses } from "@/lib/expense";
 import {
-  ExpenseAttributeCategory,
-  ExpenseAttributes,
+  type ExpenseAttributeCategory,
+  type ExpenseAttributes,
   isExpenseAttributeCategory,
 } from "@/lib/expense-attribute";
-import { Pagination } from "@/lib/pagination/pagination";
+import type { Pagination } from "@/lib/pagination/pagination";
 import style from "@/ui/parts/expense-form.module.css";
 import ExpenseTable from "@/ui/parts/expense-table";
 import PaginationComponent from "@/ui/parts/pagination-component";
@@ -45,6 +46,12 @@ const generateMonthArray = () => {
   return months;
 };
 
+/** 値が undefined の項目を取り除く（クエリ文字列を作る前に使う） */
+const cleanUpObject = (obj: object): Record<string, string> =>
+  Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined),
+  ) as Record<string, string>;
+
 const Expense = ({
   expenses,
   pagination,
@@ -66,21 +73,6 @@ const Expense = ({
   useEffect(() => {
     router.refresh();
   }, [router]);
-
-  const cleanUpObject = (obj: object) => {
-    return Object.entries(obj)
-      .filter((value) => {
-        const [, v] = value;
-        return v !== undefined;
-      })
-      .reduce((previousValue, currentValue) => {
-        const [k, v] = currentValue;
-        return {
-          ...previousValue,
-          [k]: v,
-        };
-      }, {});
-  };
 
   const handleYearChange = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
@@ -298,7 +290,9 @@ const Expense = ({
           onMovePage={handleMovePage}
         />
         <div className="add">
-          <button onClick={handleRegistrationClick}>追加</button>
+          <button type="button" onClick={handleRegistrationClick}>
+            追加
+          </button>
         </div>
       </div>
     </div>

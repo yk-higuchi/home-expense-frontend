@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from "react";
-
-import style from "./expense-table.module.css";
-import { Expenses } from "@/lib/expense";
+import type React from "react";
+import { type ReactElement, useState } from "react";
+import type { Expenses } from "@/lib/expense";
 import { useDialog } from "@/lib/hooks/dialog";
-import { Pagination } from "@/lib/pagination/pagination";
+import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpense } from "@/service/expense-service";
 import Dialog from "@/ui/parts/dialog";
+import style from "./expense-table.module.css";
 
 interface Props {
   expenses: Expenses;
@@ -63,8 +63,12 @@ const ExpenseTable = ({
         <td className={style.category}>{category}</td>
         <td className={style.edit}>
           <div>
-            <button onClick={handleEditClick}>edit</button>
-            <button onClick={handleTrashClick}>delete</button>
+            <button type="button" onClick={handleEditClick}>
+              edit
+            </button>
+            <button type="button" onClick={handleTrashClick}>
+              delete
+            </button>
           </div>
         </td>
       </tr>

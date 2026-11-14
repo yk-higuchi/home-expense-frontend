@@ -1,7 +1,7 @@
-import { ReactElement } from "react";
-
+import { Button, Select, TextInput } from "@home-expense/ui";
+import type { ReactElement } from "react";
+import type { ExpenseAttribute } from "@/lib/expense-attribute";
 import style from "./expense-attribute-form.module.css";
-import { ExpenseAttribute } from "@/lib/expense-attribute";
 
 interface Props {
   expenseAttribute?: ExpenseAttribute | Record<string, never>;
@@ -17,18 +17,14 @@ const ExpenseAttributeForm = ({
   return (
     <form action={onSubmit} className={style.formStyle}>
       <input type="hidden" name="expenseAttributeId" value={id} />
-      <div className={style.editStyle}>
-        <label className={style.editLabel}>属性名</label>
-        <input type="text" name="name" defaultValue={name} required />
-      </div>
-      <div className={style.editStyle}>
-        <label className={style.editLabel}>分類</label>
-        <select name="category" defaultValue={category}>
-          <option value="固定費">固定費</option>
-          <option value="変動費">変動費</option>
-        </select>
-      </div>
-      <button type="submit">{buttonTitle}</button>
+      <TextInput label="属性名" name="name" defaultValue={name} required />
+      <Select label="分類" name="category" defaultValue={category}>
+        <option value="固定費">固定費</option>
+        <option value="変動費">変動費</option>
+      </Select>
+      <Button type="submit" fullWidth>
+        {buttonTitle}
+      </Button>
     </form>
   );
 };

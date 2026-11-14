@@ -1,23 +1,7 @@
-interface JSONParseError extends Error {
-  name: "JSONParseError";
+export class JSONParseError extends Error {
+  override readonly name = "JSONParseError";
 }
 
-interface JSONParseErrorConstructor extends ErrorConstructor {
-  new (message?: string): JSONParseError;
-  (message?: string): JSONParseError;
-  readonly prototype: JSONParseError;
+export class JSONSerializeError extends Error {
+  override readonly name = "JSONSerializeError";
 }
-
-export declare const JSONParseError: JSONParseErrorConstructor;
-
-interface JSONSerializeError extends Error {
-  name: "JSONSerializeError";
-}
-
-interface JSONSerializeErrorConstructor extends ErrorConstructor {
-  new (message?: string): JSONSerializeError;
-  (message?: string): JSONSerializeError;
-  readonly prototype: JSONSerializeError;
-}
-
-export declare const JSONSerializeError: JSONSerializeErrorConstructor;

@@ -1,15 +1,15 @@
 "use server";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { expensesApi } from "@/lib/api/v1-expenses";
 import { expensesAggregateApi } from "@/lib/api/v1-expenses-aggregate";
-import { Expense, Expenses } from "@/lib/expense";
-import {
+import type { Expense, Expenses } from "@/lib/expense";
+import type {
   ExpenseAttributeAggregate,
   ExpenseAttributeAggregates,
 } from "@/lib/expense-attribute";
-import { Pagination } from "@/lib/pagination/pagination";
+import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
 export const getExpenseSummary = async ({
@@ -189,7 +189,7 @@ export const registerExpense = async (formData: FormData): Promise<void> => {
     await expensesApi.post({
       description,
       attribute_id: attributeId,
-      price: parseInt(price),
+      price: parseInt(price, 10),
       payment_date: paymentDate,
     });
     const now = new Date(Date.now());
@@ -220,7 +220,7 @@ export const updateExpense = async (formData: FormData): Promise<void> => {
       id,
       description,
       attribute_id: attributeId,
-      price: parseInt(price),
+      price: parseInt(price, 10),
       payment_date: paymentDate,
     });
     const now = new Date(Date.now());
@@ -236,6 +236,6 @@ export const deleteExpense = async (formData: FormData): Promise<void> => {
   const expenseId = formData.get("expenseId");
   if (isString(expenseId)) {
     await expensesApi.delete({ id: expenseId });
-    revalidateTag("expense");
+    updateTag("expense");
   }
 };

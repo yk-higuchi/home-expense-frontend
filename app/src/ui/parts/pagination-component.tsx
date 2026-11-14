@@ -1,7 +1,6 @@
-import { ReactElement } from "react";
-
+import type { ReactElement } from "react";
+import { type Pagination, paginate } from "@/lib/pagination/pagination";
 import style from "./pagination-component.module.css";
-import { paginate, Pagination } from "@/lib/pagination/pagination";
 
 interface Props {
   pagination: Pagination;

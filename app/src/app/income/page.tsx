@@ -1,17 +1,18 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { getIncomeSummary } from "@/service/income-service";
 import Income from "@/ui/income";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     page: number;
     perPage: number;
     year: number;
-  };
+  }>;
 }
 
-const IncomePage = async ({ searchParams }: Props): Promise<ReactElement> => {
+const IncomePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const now = new Date(Date.now());
   const { page = 1, perPage = 20, year = now.getFullYear() } = searchParams;
   console.log(page, perPage);

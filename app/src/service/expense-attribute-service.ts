@@ -1,14 +1,14 @@
 "use server";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { expenseAttributesApi } from "@/lib/api/v1-expense-attributes";
 import {
-  ExpenseAttribute,
-  ExpenseAttributes,
+  type ExpenseAttribute,
+  type ExpenseAttributes,
   isExpenseAttributeCategory,
 } from "@/lib/expense-attribute";
-import { Pagination } from "@/lib/pagination/pagination";
+import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
 export const getExpenseAttributeSummary = async ({
@@ -102,6 +102,6 @@ export const deleteExpenseAttribute = async (
   const id = formData.get("expenseAttributeId");
   if (isString(id)) {
     await expenseAttributesApi.delete({ id });
-    revalidateTag("expense-attribute");
+    updateTag("expense-attribute");
   }
 };

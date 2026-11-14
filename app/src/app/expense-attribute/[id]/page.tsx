@@ -1,17 +1,18 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { getExpenseAttribute } from "@/service/expense-attribute-service";
 import ExpenseAttributeEdit from "@/ui/expense-attribute-edit";
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const ExpenseAttributeEditPage = async ({
-  params,
-}: Props): Promise<ReactElement> => {
+const ExpenseAttributeEditPage = async (
+  props: Props,
+): Promise<ReactElement> => {
+  const params = await props.params;
   const { id } = params;
   const expenseAttribute = await getExpenseAttribute({
     id,
