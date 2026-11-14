@@ -1,3 +1,7 @@
+/*
+ * ボタン（Figma: コンポーネント / ボタン）
+ * 種類ごとに --button-* を切り替え、状態の決まりは全種類で共通にする
+ */
 .button {
   display: inline-flex;
   align-items: center;
@@ -5,22 +9,114 @@
   gap: var(--sds-size-space-200);
   margin: 0;
   padding: var(--sds-size-space-300);
-  border: var(--sds-size-stroke-border) solid var(--color-background);
+  border: var(--sds-size-stroke-border) solid var(--button-border);
   border-radius: var(--sds-size-radius-200);
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--button-bg);
+  color: var(--button-fg);
   font-family: var(--font-family-base);
   font-size: var(--text-body-size);
   font-weight: 400;
   line-height: var(--text-single-line-line-height);
+  white-space: nowrap;
   cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.primary {
+  --button-bg: var(--color-button-primary-bg);
+  --button-bg-hover: var(--color-button-primary-bg-hover);
+  --button-bg-active: var(--color-button-primary-bg-active);
+  --button-border: var(--color-button-primary-bg);
+  --button-border-hover: var(--color-button-primary-bg-hover);
+  --button-border-active: var(--color-button-primary-bg-active);
+  --button-fg: var(--color-button-fg);
+}
+
+.secondary {
+  --button-bg: var(--color-button-secondary-bg);
+  --button-bg-hover: var(--color-button-secondary-bg-hover);
+  --button-bg-active: var(--color-button-secondary-bg-active);
+  --button-border: var(--color-button-secondary-border);
+  --button-border-hover: var(--color-button-secondary-border);
+  --button-border-active: var(--color-button-secondary-border);
+  --button-fg: var(--color-button-fg);
+}
+
+.danger {
+  --button-bg: var(--color-button-danger-bg);
+  --button-bg-hover: var(--color-button-danger-bg-hover);
+  --button-bg-active: var(--color-button-danger-bg-active);
+  --button-border: var(--color-button-danger-bg);
+  --button-border-hover: var(--color-button-danger-bg-hover);
+  --button-border-active: var(--color-button-danger-bg-active);
+  --button-fg: var(--color-button-danger-fg);
+}
+
+.subtle {
+  --button-bg: transparent;
+  --button-bg-hover: var(--color-button-subtle-bg-hover);
+  --button-bg-active: var(--color-button-subtle-bg-active);
+  --button-border: transparent;
+  --button-border-hover: transparent;
+  --button-border-active: transparent;
+  --button-fg: var(--color-button-fg);
 }
 
 .button:disabled {
+  border-color: var(--color-disabled-border);
+  background-color: var(--color-disabled-bg);
+  color: var(--color-text-disabled);
   cursor: not-allowed;
-  opacity: 0.5;
+}
+
+/* 処理中は無効と同じく押せないが、見た目は元の色のまま回転アイコンを出す */
+.button[aria-busy="true"] {
+  border-color: var(--button-border);
+  background-color: var(--button-bg);
+  color: var(--button-fg);
+  cursor: progress;
+}
+
+/* フォーカス: 2px の隙間＋2px の線（SDS の Stroke/Focus Ring = 2） */
+.button:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--button-border-hover);
+  background-color: var(--button-bg-hover);
+}
+
+.button:active:not(:disabled) {
+  border-color: var(--button-border-active);
+  background-color: var(--button-bg-active);
 }
 
 .fullWidth {
   width: 100%;
+}
+
+.spinner {
+  flex-shrink: 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
 }

@@ -1,4 +1,4 @@
-export type { ButtonProps } from "./Button/Button";
+export type { ButtonProps, ButtonVariant } from "./Button/Button";
 export { Button } from "./Button/Button";
 export type { NavBarProps } from "./NavBar/NavBar";
 export { NavBar } from "./NavBar/NavBar";

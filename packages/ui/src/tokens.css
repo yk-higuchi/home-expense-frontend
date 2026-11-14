@@ -12,7 +12,26 @@
   --color-border: #dedede; /* グレー枠線 */
   --color-accent-line: #90e0f1; /* ライン */
   --color-danger: #900b09; /* SDS の Border/Danger/Default・Text/Danger/Default */
-  --color-text-disabled: #b3b3b3; /* SDS の Text/Disabled/Default */
+  --color-text-disabled: #b3b3b3; /* 無効/文字（SDS の Text/Disabled/Default） */
+  --color-disabled-bg: #d9d9d9; /* 無効/背景 */
+  --color-disabled-border: #b3b3b3; /* 無効/枠線 */
+  --color-focus-ring: #3f4a4c; /* フォーカス */
+
+  /* ボタン: Figma の「補助カラー / ボタン/*」 */
+  --color-button-fg: #3f4a4c;
+  --color-button-primary-bg: #e0f2f5;
+  --color-button-primary-bg-hover: #cbe8ee;
+  --color-button-primary-bg-active: #b5dde6;
+  --color-button-secondary-bg: #fff;
+  --color-button-secondary-bg-hover: #f2f9fa;
+  --color-button-secondary-bg-active: #e0f2f5;
+  --color-button-secondary-border: #dedede;
+  --color-button-danger-bg: #fee9e7;
+  --color-button-danger-bg-hover: #fdd3d0;
+  --color-button-danger-bg-active: #fcb3ad;
+  --color-button-danger-fg: #900b09;
+  --color-button-subtle-bg-hover: #e0f2f5;
+  --color-button-subtle-bg-active: #cfeaf0;
 
   /* Space: SDS の Space/* */
   --sds-size-space-0: 0;
