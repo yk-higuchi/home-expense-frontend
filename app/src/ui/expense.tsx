@@ -6,7 +6,6 @@ import {
   type ChangeEvent,
   type ReactElement,
   useCallback,
-  useEffect,
   useState,
 } from "react";
 
@@ -70,10 +69,6 @@ const Expense = ({
     ...(category && { category }),
     ...(attributeId && { attributeId }),
   });
-
-  useEffect(() => {
-    router.refresh();
-  }, [router]);
 
   const handleYearChange = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {

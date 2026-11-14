@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
 import { getIncomeSummary } from "@/service/income-service";
 import Income from "@/ui/income";
+
+export const metadata: Metadata = {
+  title: "収入一覧",
+};
 
 interface Props {
   searchParams: Promise<{

@@ -20,4 +20,5 @@ pnpm fix              # Biome と Stylelint の自動修正
 - データ取得やサーバー処理（server actions）を持たせない。見た目とイベントの受け渡しだけにする。
 - スタイルは CSS Modules と `tokens.css` の CSS 変数で書く。値を直接書かない。
 - 状態を持つ部品には `"use client"` を付ける。
+- React 19 以上が前提。`ref` は props として受け取り、そのまま要素に渡す（`forwardRef` は使わない）。
 - 部品ごとに `*.stories.tsx` を書き、`parameters.design` に対応する Figma のノードの URL を入れる。

@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
 import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
 import ExpenseRegistration from "@/ui/expense-registration";
+
+export const metadata: Metadata = {
+  title: "経費登録",
+};
 
 interface Props {
   searchParams: Promise<{

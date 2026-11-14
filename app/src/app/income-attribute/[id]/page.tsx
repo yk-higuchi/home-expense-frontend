@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
 import { getIncomeAttribute } from "@/service/income-attribute-service";
 import IncomeAttributeEdit from "@/ui/income-attribute-edit";
+
+export const metadata: Metadata = {
+  title: "収入属性編集",
+};
 
 interface Props {
   params: Promise<{

@@ -1,10 +1,10 @@
-import type { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
+import type { ComponentPropsWithRef, ReactElement, ReactNode } from "react";
 
 import styles from "./Button.module.css";
 
 export type ButtonVariant = "primary" | "secondary" | "danger" | "subtle";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ComponentPropsWithRef<"button"> {
   /**
    * 種類
    * - primary: 主な操作（登録・更新・追加）

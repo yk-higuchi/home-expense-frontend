@@ -1,11 +1,11 @@
 "use client";
 
-import { type InputHTMLAttributes, type ReactElement, useId } from "react";
+import { type ComponentPropsWithRef, type ReactElement, useId } from "react";
 
 import { controlClassName, describedBy, Field } from "../Field/Field";
 
 export interface TextInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+  extends Omit<ComponentPropsWithRef<"input">, "size"> {
   /**
    * 入力欄の上に出すラベル。
    * 年月の選択のようにラベルを出さない場合は省略し、aria-label を指定する。

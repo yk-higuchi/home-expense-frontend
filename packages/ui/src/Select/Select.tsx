@@ -1,12 +1,12 @@
 "use client";
 
-import { type ReactElement, type SelectHTMLAttributes, useId } from "react";
+import { type ComponentPropsWithRef, type ReactElement, useId } from "react";
 
 import { controlClassName, describedBy, Field } from "../Field/Field";
 import styles from "./Select.module.css";
 
 export interface SelectProps
-  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> {
+  extends Omit<ComponentPropsWithRef<"select">, "size"> {
   /**
    * プルダウンの上に出すラベル。
    * 期間選択のようにラベルを出さない場合は省略し、aria-label を指定する。

@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
 import { getExpenseAggregate } from "@/service/expense-service";
 import ExpenseAggregate from "@/ui/expense-aggregate";
+
+export const metadata: Metadata = {
+  title: "HOME",
+};
 
 interface Props {
   searchParams: Promise<{

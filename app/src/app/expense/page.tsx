@@ -1,9 +1,14 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
 import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
 import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
 import { getExpenseSummary } from "@/service/expense-service";
 import Expense from "@/ui/expense";
+
+export const metadata: Metadata = {
+  title: "経費一覧",
+};
 
 interface Props {
   searchParams: Promise<{
@@ -27,32 +32,26 @@ const ExpensePage = async (props: Props): Promise<ReactElement> => {
     attributeId,
   } = searchParams;
   const _category = isExpenseAttributeCategory(category) ? category : undefined;
-  const getExpenseAttributeIfCategoryExists = async () => {
-    if (_category) {
-      const { expenseAttributes } = await getExpenseAttributeSummary({
-        category: _category,
-        page: 1,
-        perPage: 100,
-        tag: `expense-expense-attribute-${page}-${perPage}-${_category}`,
-      });
-      return expenseAttributes;
-    }
-    return [];
-  };
-  const expenseAttributes = await getExpenseAttributeIfCategoryExists();
-  console.log(page, perPage);
-  const { expenses, pagination } = await getExpenseSummary({
-    page,
-    perPage,
-    year,
-    month,
-    category: _category,
-    attributeId,
-    tag: `expense-${page}-${perPage}-${year}-${month}-${category}-${attributeId}`,
-  });
-  console.log(pagination);
-  console.log(month);
-  console.log(crypto.randomUUID());
+  // 属性（分類を選んだときだけ）と経費を同時に取得する
+  const [expenseAttributes, { expenses, pagination }] = await Promise.all([
+    _category
+      ? getExpenseAttributeSummary({
+          category: _category,
+          page: 1,
+          perPage: 100,
+          tag: `expense-expense-attribute-${page}-${perPage}-${_category}`,
+        }).then(({ expenseAttributes }) => expenseAttributes)
+      : Promise.resolve([]),
+    getExpenseSummary({
+      page,
+      perPage,
+      year,
+      month,
+      category: _category,
+      attributeId,
+      tag: `expense-${page}-${perPage}-${year}-${month}-${category}-${attributeId}`,
+    }),
+  ]);
   return (
     <Expense
       expenses={expenses}
