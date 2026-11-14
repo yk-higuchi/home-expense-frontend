@@ -8,6 +8,7 @@ import {
   useCallback,
   useState,
 } from "react";
+import { useNavigation } from "@/lib/hooks/use-navigation";
 
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
@@ -23,6 +24,7 @@ interface Props {
 
 const Income = ({ incomes, pagination, year }: Props): ReactElement => {
   const router = useRouter();
+  const { isPending, navigate } = useNavigation();
   const formattedYear = year.toString();
   const [displayYear, setDisplayYear] = useState(formattedYear);
   const handleYearChange = useCallback(
@@ -33,9 +35,9 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         year: year,
       }).toString();
       setDisplayYear(year);
-      router.push(`/income?${searchParams}`);
+      navigate(`/income?${searchParams}`);
     },
-    [router],
+    [navigate],
   );
   const handleMovePrevious = useCallback(
     (page: number, perPage: number) => {
@@ -45,9 +47,9 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         per_page: perPage.toString(),
         year: date.getFullYear().toString(),
       });
-      router.push(`/income?${searchParams.toString()}`);
+      navigate(`/income?${searchParams.toString()}`);
     },
-    [router, displayYear],
+    [displayYear, navigate],
   );
 
   const handleMoveNext = useCallback(
@@ -58,9 +60,9 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         per_page: perPage.toString(),
         year: date.getFullYear().toString(),
       });
-      router.push(`/income?${searchParams.toString()}`);
+      navigate(`/income?${searchParams.toString()}`);
     },
-    [router, displayYear],
+    [displayYear, navigate],
   );
 
   const handleMovePage = useCallback(
@@ -71,9 +73,9 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         per_page: perPage.toString(),
         year: date.getFullYear().toString(),
       });
-      router.push(`/income?${searchParams.toString()}`);
+      navigate(`/income?${searchParams.toString()}`);
     },
-    [router, displayYear],
+    [displayYear, navigate],
   );
 
   const handleRegistrationClick = useCallback(
@@ -106,6 +108,7 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         />
       </div>
       <IncomeTable
+        loading={isPending}
         incomes={incomes}
         pagination={pagination}
         onEdit={handleEdit}

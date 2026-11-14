@@ -7,6 +7,19 @@
   font-family: var(--font-family-base);
 }
 
+/* 読み込み中: 薄くして操作を止める（切り替えは少し遅らせ、速いときはちらつかせない） */
+.loading {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 120ms ease 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading {
+    transition: none;
+  }
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;

@@ -20,6 +20,8 @@ interface Props {
   onEdit: (id: string) => void;
   /** 表の枠の内側・下に置く要素（ページネーション） */
   footer?: ReactNode;
+  /** 絞り込み・ページ送りの切り替え中 */
+  loading?: boolean;
 }
 
 const IncomeAttributeTable = ({
@@ -27,13 +29,14 @@ const IncomeAttributeTable = ({
   pagination,
   onEdit,
   footer,
+  loading,
 }: Props): ReactElement => {
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const { page, perPage } = pagination.current;
 
   return (
     <>
-      <Table footer={footer}>
+      <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>
             <TableHeaderCell width={102}>No.</TableHeaderCell>

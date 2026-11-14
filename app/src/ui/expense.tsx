@@ -8,13 +8,13 @@ import {
   useCallback,
   useState,
 } from "react";
-
 import type { Expenses } from "@/lib/expense";
 import {
   type ExpenseAttributeCategory,
   type ExpenseAttributes,
   isExpenseAttributeCategory,
 } from "@/lib/expense-attribute";
+import { useNavigation } from "@/lib/hooks/use-navigation";
 import type { Pagination } from "@/lib/pagination/pagination";
 import ExpenseTable from "@/ui/parts/expense-table";
 import layout from "@/ui/parts/list-layout.module.css";
@@ -62,6 +62,7 @@ const Expense = ({
   attributeId,
 }: Props): ReactElement => {
   const router = useRouter();
+  const { isPending, navigate } = useNavigation();
 
   const [queryParam, setQueryParam] = useState({
     ...(year && { year: year.toString() }),
@@ -83,9 +84,9 @@ const Expense = ({
       const searchParams = new URLSearchParams({
         ...cleanUpObject(_query),
       }).toString();
-      router.push(`/expense?${searchParams}`);
+      navigate(`/expense?${searchParams}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleMonthChange = useCallback(
@@ -101,9 +102,9 @@ const Expense = ({
       const searchParams = new URLSearchParams({
         ..._query,
       }).toString();
-      router.push(`/expense?${searchParams}`);
+      navigate(`/expense?${searchParams}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleCategoryChange = useCallback(
@@ -118,7 +119,7 @@ const Expense = ({
         });
         const searchParams = new URLSearchParams(_query).toString();
         setQueryParam(_query);
-        router.push(`/expense?${searchParams}`);
+        navigate(`/expense?${searchParams}`);
         return;
       }
       const _query = cleanUpObject({
@@ -129,9 +130,9 @@ const Expense = ({
         per_page: undefined,
       });
       const searchParams = new URLSearchParams(_query).toString();
-      router.push(`/expense?${searchParams}`);
+      navigate(`/expense?${searchParams}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleAttributeIdChange = useCallback(
@@ -147,9 +148,9 @@ const Expense = ({
         ..._query,
       }).toString();
       setQueryParam(_query);
-      router.push(`/expense?${searchParams}`);
+      navigate(`/expense?${searchParams}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleMovePrevious = useCallback(
@@ -161,9 +162,9 @@ const Expense = ({
       };
       const searchParams = new URLSearchParams(_query);
       setQueryParam(_query);
-      router.push(`/expense?${searchParams.toString()}`);
+      navigate(`/expense?${searchParams.toString()}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleMoveNext = useCallback(
@@ -175,9 +176,9 @@ const Expense = ({
       };
       const searchParams = new URLSearchParams(_query);
       setQueryParam(_query);
-      router.push(`/expense?${searchParams.toString()}`);
+      navigate(`/expense?${searchParams.toString()}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleMovePage = useCallback(
@@ -189,9 +190,9 @@ const Expense = ({
       };
       const searchParams = new URLSearchParams(_query);
       setQueryParam(_query);
-      router.push(`/expense?${searchParams.toString()}`);
+      navigate(`/expense?${searchParams.toString()}`);
     },
-    [router, queryParam],
+    [queryParam, navigate],
   );
 
   const handleRegistrationClick = useCallback(
@@ -266,6 +267,7 @@ const Expense = ({
         </Select>
       </div>
       <ExpenseTable
+        loading={isPending}
         expenses={expenses}
         pagination={pagination}
         onEdit={handleEdit}

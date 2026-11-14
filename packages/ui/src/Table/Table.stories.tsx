@@ -137,3 +137,9 @@ export const WithFooter: Story = {
   },
   render: ExpenseAttributes.render,
 };
+
+/** 読み込み中（絞り込み・ページ送りの切り替え中） */
+export const Loading: Story = {
+  args: { loading: true },
+  render: ExpenseAttributes.render,
+};

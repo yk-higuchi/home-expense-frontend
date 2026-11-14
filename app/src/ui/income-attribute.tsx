@@ -3,6 +3,7 @@ import { Button, PlusIcon } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { type ReactElement, useCallback } from "react";
+import { useNavigation } from "@/lib/hooks/use-navigation";
 
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
@@ -20,15 +21,16 @@ const IncomeAttribute = ({
   pagination,
 }: Props): ReactElement => {
   const router = useRouter();
+  const { isPending, navigate } = useNavigation();
   const handleMovePrevious = useCallback(
     (page: number, perPage: number) => {
       const searchParams = new URLSearchParams({
         page: page.toString(),
         per_page: perPage.toString(),
       });
-      router.push(`/income-attribute?${searchParams.toString()}`);
+      navigate(`/income-attribute?${searchParams.toString()}`);
     },
-    [router],
+    [navigate],
   );
 
   const handleMoveNext = useCallback(
@@ -37,9 +39,9 @@ const IncomeAttribute = ({
         page: page.toString(),
         per_page: perPage.toString(),
       });
-      router.push(`/income-attribute?${searchParams.toString()}`);
+      navigate(`/income-attribute?${searchParams.toString()}`);
     },
-    [router],
+    [navigate],
   );
 
   const handleMovePage = useCallback(
@@ -48,9 +50,9 @@ const IncomeAttribute = ({
         page: page.toString(),
         per_page: perPage.toString(),
       });
-      router.push(`/income-attribute?${searchParams.toString()}`);
+      navigate(`/income-attribute?${searchParams.toString()}`);
     },
-    [router],
+    [navigate],
   );
 
   const handleRegistrationClick = useCallback(
@@ -70,6 +72,7 @@ const IncomeAttribute = ({
   return (
     <div className={layout.page}>
       <IncomeAttributeTable
+        loading={isPending}
         incomeAttributes={incomeAttributes}
         pagination={pagination}
         onEdit={handleEdit}

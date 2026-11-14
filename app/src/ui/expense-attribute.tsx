@@ -3,8 +3,8 @@ import { Button, PlusIcon, Select } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { type ChangeEvent, type ReactElement, useCallback } from "react";
-
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
+import { useNavigation } from "@/lib/hooks/use-navigation";
 import type { Pagination } from "@/lib/pagination/pagination";
 import ExpenseAttributeTable from "@/ui/parts/expense-attribute-table";
 import layout from "@/ui/parts/list-layout.module.css";
@@ -22,6 +22,7 @@ const ExpenseAttribute = ({
   pagination,
 }: Props): ReactElement => {
   const router = useRouter();
+  const { isPending, navigate } = useNavigation();
   const handleMovePrevious = useCallback(
     (page: number, perPage: number) => {
       const searchParams = new URLSearchParams({
@@ -29,9 +30,9 @@ const ExpenseAttribute = ({
         page: page.toString(),
         per_page: perPage.toString(),
       });
-      router.push(`/expense-attribute?${searchParams.toString()}`);
+      navigate(`/expense-attribute?${searchParams.toString()}`);
     },
-    [category, router],
+    [category, navigate],
   );
 
   const handleMoveNext = useCallback(
@@ -41,9 +42,9 @@ const ExpenseAttribute = ({
         page: page.toString(),
         per_page: perPage.toString(),
       });
-      router.push(`/expense-attribute?${searchParams.toString()}`);
+      navigate(`/expense-attribute?${searchParams.toString()}`);
     },
-    [category, router],
+    [category, navigate],
   );
 
   const handleMovePage = useCallback(
@@ -53,9 +54,9 @@ const ExpenseAttribute = ({
         page: page.toString(),
         per_page: perPage.toString(),
       });
-      router.push(`/expense-attribute?${searchParams.toString()}`);
+      navigate(`/expense-attribute?${searchParams.toString()}`);
     },
-    [category, router],
+    [category, navigate],
   );
 
   const handleRegistrationClick = useCallback(
@@ -78,9 +79,9 @@ const ExpenseAttribute = ({
       const searchParams = new URLSearchParams({
         category: event.currentTarget.value,
       }).toString();
-      router.push(`/expense-attribute?${searchParams}`);
+      navigate(`/expense-attribute?${searchParams}`);
     },
-    [router],
+    [navigate],
   );
   return (
     <div className={layout.page}>
@@ -97,6 +98,7 @@ const ExpenseAttribute = ({
         </Select>
       </div>
       <ExpenseAttributeTable
+        loading={isPending}
         expenseAttributes={expenseAttributes}
         pagination={pagination}
         onEdit={handleEdit}

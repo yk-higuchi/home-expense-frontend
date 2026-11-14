@@ -14,6 +14,8 @@ const cx = (...names: (string | false | undefined)[]): string =>
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {
   /** 表の下（枠の内側）に置く要素。ページネーションなど */
   footer?: ReactNode;
+  /** 読み込み中（絞り込み・ページ送りの切り替え中）。表を薄くして操作を止める */
+  loading?: boolean;
 }
 
 /**
@@ -23,12 +25,17 @@ export interface TableProps extends HTMLAttributes<HTMLTableElement> {
  */
 export const Table = ({
   footer,
+  loading = false,
   className,
   children,
   ...rest
 }: TableProps): ReactElement => (
-  <div className={styles.frame}>
-    <table className={cx(styles.table, className)} {...rest}>
+  <div className={cx(styles.frame, loading && styles.loading)}>
+    <table
+      className={cx(styles.table, className)}
+      aria-busy={loading || undefined}
+      {...rest}
+    >
       {children}
     </table>
     {footer && <div className={styles.footer}>{footer}</div>}
