@@ -1,4 +1,5 @@
 "use client";
+import { Button, PlusIcon, TextInput } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import {
@@ -11,6 +12,7 @@ import {
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import IncomeTable from "@/ui/parts/income-table";
+import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
 
 interface Props {
@@ -90,10 +92,11 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
   );
 
   return (
-    <div>
-      <div className="foo">
-        <input
-          className="category-box"
+    <div className={layout.page}>
+      <div className={layout.filters}>
+        <TextInput
+          label="年"
+          className={layout.narrow}
           type="number"
           min="1900"
           max="2099"
@@ -101,26 +104,24 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
           value={displayYear}
           onChange={handleYearChange}
         />
-        <div className="foo2">
-          <IncomeTable
-            incomes={incomes}
+      </div>
+      <IncomeTable
+        incomes={incomes}
+        pagination={pagination}
+        onEdit={handleEdit}
+        footer={
+          <PaginationComponent
             pagination={pagination}
-            onEdit={handleEdit}
-            footer={
-              <PaginationComponent
-                pagination={pagination}
-                onMovePrevious={handleMovePrevious}
-                onMoveNext={handleMoveNext}
-                onMovePage={handleMovePage}
-              />
-            }
+            onMovePrevious={handleMovePrevious}
+            onMoveNext={handleMoveNext}
+            onMovePage={handleMovePage}
           />
-        </div>
-        <div className="add">
-          <button type="button" onClick={handleRegistrationClick}>
-            追加
-          </button>
-        </div>
+        }
+      />
+      <div className={layout.actions}>
+        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+          追加
+        </Button>
       </div>
     </div>
   );

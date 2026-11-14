@@ -1,4 +1,5 @@
 "use client";
+import { Button, PlusIcon, Select } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import {
@@ -16,8 +17,8 @@ import {
   isExpenseAttributeCategory,
 } from "@/lib/expense-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
-import style from "@/ui/parts/expense-form.module.css";
 import ExpenseTable from "@/ui/parts/expense-table";
+import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
 
 interface Props {
@@ -213,89 +214,79 @@ const Expense = ({
     [router],
   );
 
-  const yearOptions = generateYearArray().map((value, index) => {
-    return (
-      <option key={index} value={value}>
-        {value}
-      </option>
-    );
-  });
-
-  const monthOptions = generateMonthArray().map((value, index) => {
-    return (
-      <option key={index + 1} value={value}>
-        {value}
-      </option>
-    );
-  });
-
-  const expenseAttributesOptions = expenseAttributes.map((value, index) => {
-    const { id, name } = value;
-    console.log(id);
-    return (
-      <option key={index + 1} value={id}>
-        {name}
-      </option>
-    );
-  });
-
   return (
-    <div>
-      <div className="foo">
-        <select name="year" value={queryParam.year} onChange={handleYearChange}>
-          {yearOptions}
-        </select>
-        <label>年</label>
-        <select
+    <div className={layout.page}>
+      <div className={layout.filters}>
+        <Select
+          label="年"
+          className={layout.narrow}
+          name="year"
+          value={queryParam.year}
+          onChange={handleYearChange}
+        >
+          {generateYearArray().map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="月"
+          className={layout.narrow}
           name="month"
           value={queryParam.month}
           onChange={handleMonthChange}
         >
-          <option value="" />
-          {monthOptions}
-        </select>
-        <label>月</label>
-        <div className={style.editStyle}>
-          <label>分類</label>
-          <select
-            name="category"
-            defaultValue={queryParam.category}
-            onChange={handleCategoryChange}
-          >
-            <option value="" />
-            <option value="固定費">固定費</option>
-            <option value="変動費">変動費</option>
-          </select>
-          <label>属性名</label>
-          <select
-            name="attributeId"
-            defaultValue={queryParam.attributeId}
-            onChange={handleAttributeIdChange}
-          >
-            <option value="" />
-            {expenseAttributesOptions}
-          </select>
-        </div>
-        <div className="foo2">
-          <ExpenseTable
-            expenses={expenses}
+          <option value="">すべて</option>
+          {generateMonthArray().map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="分類"
+          className={layout.medium}
+          name="category"
+          defaultValue={queryParam.category}
+          onChange={handleCategoryChange}
+        >
+          <option value="">すべて</option>
+          <option value="固定費">固定費</option>
+          <option value="変動費">変動費</option>
+        </Select>
+        <Select
+          label="属性名"
+          className={layout.wide}
+          name="attributeId"
+          defaultValue={queryParam.attributeId}
+          onChange={handleAttributeIdChange}
+        >
+          <option value="">すべて</option>
+          {expenseAttributes.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
+        </Select>
+      </div>
+      <ExpenseTable
+        expenses={expenses}
+        pagination={pagination}
+        onEdit={handleEdit}
+        footer={
+          <PaginationComponent
             pagination={pagination}
-            onEdit={handleEdit}
-            footer={
-              <PaginationComponent
-                pagination={pagination}
-                onMovePrevious={handleMovePrevious}
-                onMoveNext={handleMoveNext}
-                onMovePage={handleMovePage}
-              />
-            }
+            onMovePrevious={handleMovePrevious}
+            onMoveNext={handleMoveNext}
+            onMovePage={handleMovePage}
           />
-        </div>
-        <div className="add">
-          <button type="button" onClick={handleRegistrationClick}>
-            追加
-          </button>
-        </div>
+        }
+      />
+      <div className={layout.actions}>
+        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+          追加
+        </Button>
       </div>
     </div>
   );

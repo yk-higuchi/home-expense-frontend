@@ -1,4 +1,5 @@
 "use client";
+import { Button, PlusIcon } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { type ReactElement, useCallback } from "react";
@@ -6,6 +7,7 @@ import { type ReactElement, useCallback } from "react";
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import IncomeAttributeTable from "@/ui/parts/income-attribute-table";
+import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
 
 interface Props {
@@ -66,28 +68,24 @@ const IncomeAttribute = ({
     [router],
   );
   return (
-    <div>
-      <div className="foo">
-        <div className="foo2">
-          <IncomeAttributeTable
-            incomeAttributes={incomeAttributes}
+    <div className={layout.page}>
+      <IncomeAttributeTable
+        incomeAttributes={incomeAttributes}
+        pagination={pagination}
+        onEdit={handleEdit}
+        footer={
+          <PaginationComponent
             pagination={pagination}
-            onEdit={handleEdit}
-            footer={
-              <PaginationComponent
-                pagination={pagination}
-                onMovePrevious={handleMovePrevious}
-                onMoveNext={handleMoveNext}
-                onMovePage={handleMovePage}
-              />
-            }
+            onMovePrevious={handleMovePrevious}
+            onMoveNext={handleMoveNext}
+            onMovePage={handleMovePage}
           />
-        </div>
-        <div className="add">
-          <button type="button" onClick={handleRegistrationClick}>
-            追加
-          </button>
-        </div>
+        }
+      />
+      <div className={layout.actions}>
+        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+          追加
+        </Button>
       </div>
     </div>
   );

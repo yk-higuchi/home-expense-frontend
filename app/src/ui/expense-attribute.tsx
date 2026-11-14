@@ -1,4 +1,5 @@
 "use client";
+import { Button, PlusIcon, Select } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { type ChangeEvent, type ReactElement, useCallback } from "react";
@@ -6,6 +7,7 @@ import { type ChangeEvent, type ReactElement, useCallback } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import ExpenseAttributeTable from "@/ui/parts/expense-attribute-table";
+import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
 
 interface Props {
@@ -81,37 +83,36 @@ const ExpenseAttribute = ({
     [router],
   );
   return (
-    <div>
-      <select
-        className="category-box"
-        name="category"
-        defaultValue={category}
-        onChange={handleCategoryChange}
-      >
-        <option value="固定費">固定費</option>
-        <option value="変動費">変動費</option>
-      </select>
-      <div className="foo">
-        <div className="foo2">
-          <ExpenseAttributeTable
-            expenseAttributes={expenseAttributes}
+    <div className={layout.page}>
+      <div className={layout.filters}>
+        <Select
+          label="分類"
+          className={layout.medium}
+          name="category"
+          defaultValue={category}
+          onChange={handleCategoryChange}
+        >
+          <option value="固定費">固定費</option>
+          <option value="変動費">変動費</option>
+        </Select>
+      </div>
+      <ExpenseAttributeTable
+        expenseAttributes={expenseAttributes}
+        pagination={pagination}
+        onEdit={handleEdit}
+        footer={
+          <PaginationComponent
             pagination={pagination}
-            onEdit={handleEdit}
-            footer={
-              <PaginationComponent
-                pagination={pagination}
-                onMovePrevious={handleMovePrevious}
-                onMoveNext={handleMoveNext}
-                onMovePage={handleMovePage}
-              />
-            }
+            onMovePrevious={handleMovePrevious}
+            onMoveNext={handleMoveNext}
+            onMovePage={handleMovePage}
           />
-        </div>
-        <div className="add">
-          <button type="button" onClick={handleRegistrationClick}>
-            追加
-          </button>
-        </div>
+        }
+      />
+      <div className={layout.actions}>
+        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+          追加
+        </Button>
       </div>
     </div>
   );

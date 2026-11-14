@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { PlusIcon } from "../icons/icons";
 import { Button, type ButtonVariant } from "./Button";
 
 const meta = {
@@ -71,6 +72,11 @@ export const AllVariants: Story = {
       ))}
     </div>
   ),
+};
+
+/** アイコン付き（一覧の「追加」ボタン） */
+export const WithIcon: Story = {
+  args: { icon: <PlusIcon />, children: "追加" },
 };
 
 export const Disabled: Story = {

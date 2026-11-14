@@ -74,26 +74,26 @@ const ExpenseAggregate = ({
     style: "currency",
     currency: "JPY",
   }).format(variable.totalAmount);
-  const fixedExpenses = fixed.attributeAggregates.map((value, index) => {
+  const fixedExpenses = fixed.attributeAggregates.map((value) => {
     const { name, totalAmount } = value;
     const formattedAmount = new Intl.NumberFormat("ja-JP", {
       style: "currency",
       currency: "JPY",
     }).format(totalAmount);
     return (
-      <div key={index}>
+      <div key={name}>
         {name} {formattedAmount}
       </div>
     );
   });
-  const variableExpenses = variable.attributeAggregates.map((value, index) => {
+  const variableExpenses = variable.attributeAggregates.map((value) => {
     const { name, totalAmount } = value;
     const formattedAmount = new Intl.NumberFormat("ja-JP", {
       style: "currency",
       currency: "JPY",
     }).format(totalAmount);
     return (
-      <div key={index}>
+      <div key={name}>
         {name} {formattedAmount}
       </div>
     );
@@ -103,23 +103,24 @@ const ExpenseAggregate = ({
       <input
         className={style.yearMonth}
         type="month"
+        aria-label="年月"
         value={yearMonth}
         onChange={handleYearMonthChange}
       />
       <div className={style.labelStyale}>
-        <label>収入合計</label>
+        <span>収入合計</span>
         <div>{formattedIncomeTotalAmount}</div>
       </div>
       <div className={style.labelStyale}>
-        <label>支出合計</label>
+        <span>支出合計</span>
         <div>{formattedTotalAmount}</div>
       </div>
       <div className={style.labelStyale}>
-        <label>収入 - 支出</label>
+        <span>収入 - 支出</span>
         <div>{formattedDisposalIncomeAmount}</div>
       </div>
       <div>
-        <label className={style.labelStyale}>内訳</label>
+        <span className={style.labelStyale}>内訳</span>
         <div className={style.amountStyle}>
           <details>
             <summary>固定費 {formattedFixedTotalAmount}</summary>

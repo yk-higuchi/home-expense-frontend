@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactElement } from "react";
+import type { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
 
 import styles from "./Button.module.css";
 
@@ -17,6 +17,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   /** 親要素の幅いっぱいに広げる */
   fullWidth?: boolean;
+  /** ラベルの前に置くアイコン（例: <PlusIcon />）。処理中は回転アイコンに置き換わる */
+  icon?: ReactNode;
 }
 
 /**
@@ -30,6 +32,7 @@ export const Button = ({
   variant = "primary",
   loading = false,
   fullWidth = false,
+  icon,
   type = "button",
   disabled,
   className,
@@ -52,6 +55,7 @@ export const Button = ({
       aria-busy={loading || undefined}
       {...rest}
     >
+      {!loading && icon}
       {loading && (
         // SDS の Loader アイコン
         <svg

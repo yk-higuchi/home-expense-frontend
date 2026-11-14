@@ -9,19 +9,6 @@
   "linter": {
     "domains": {
       "next": "recommended"
-    },
-    "rules": {
-      // 旧 UI（src/ui の各画面・表・フォーム・ページ送り）に残っている指摘。
-      // @home-expense/ui の部品（TextInput / Select / Table / Pagination など）へ
-      // 置き換えると解消するので、置き換えが終わるまで一時的に警告扱いにする。
-      "a11y": {
-        "noLabelWithoutControl": "warn",
-        "noStaticElementInteractions": "warn",
-        "useKeyWithClickEvents": "warn"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "warn"
-      }
     }
   }
 }

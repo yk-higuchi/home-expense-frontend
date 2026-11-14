@@ -2,6 +2,7 @@ export type { ButtonProps, ButtonVariant } from "./Button/Button";
 export { Button } from "./Button/Button";
 export type { DialogProps } from "./Dialog/Dialog";
 export { Dialog } from "./Dialog/Dialog";
+export { PlusIcon } from "./icons/icons";
 export type { NavBarProps } from "./NavBar/NavBar";
 export { NavBar } from "./NavBar/NavBar";
 export type { PaginationProps } from "./Pagination/Pagination";
