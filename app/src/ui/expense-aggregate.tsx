@@ -10,9 +10,8 @@ import {
   TextInput,
 } from "@home-expense/ui";
 import { type ChangeEvent, type ReactElement, useState } from "react";
-import type { BalancePoint, BalanceStatistics } from "@/lib/balance";
+import type { BalanceStatistics } from "@/lib/balance";
 import { useNavigation } from "@/lib/hooks/use-navigation";
-import BalanceChart from "@/ui/parts/balance-chart";
 import style from "./expense-aggregate.module.css";
 
 interface Props {
@@ -20,17 +19,10 @@ interface Props {
   month: number;
   /** その月の収支 */
   statistics: BalanceStatistics;
-  /** 直近 12 か月の推移 */
-  series: BalancePoint[];
 }
 
 /** HOME（Figma: HOME） */
-const ExpenseAggregate = ({
-  year,
-  month,
-  statistics,
-  series,
-}: Props): ReactElement => {
+const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
   const [yearMonth, setYearMonth] = useState(
     `${year}-${String(month).padStart(2, "0")}`,
@@ -67,9 +59,8 @@ const ExpenseAggregate = ({
           />
           <SummaryRow label="収入 − 支出" amount={<Amount value={net} />} />
         </SummaryList>
-        <BalanceChart title="直近 12 か月の推移" points={series} />
         <SummaryRow label="内訳" />
-        <Breakdown>
+        <Breakdown className={style.breakdown}>
           <BreakdownGroup
             label="固定費"
             amount={<Amount value={fixedExpense.total} />}
