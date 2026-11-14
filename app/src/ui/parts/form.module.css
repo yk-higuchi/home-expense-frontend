@@ -1,10 +1,10 @@
 /*
-  * 経費属性追加・編集 画面CSS *
+  * 登録・編集フォーム（経費・経費属性・収入・収入属性で共通）
+  * Figma: 入力フォーム（幅 652px / 項目の間隔 24px）
   * 入力欄・プルダウン・ボタンの見た目は @home-expense/ui が持つ
 */
-
-/* フォーム全体スタイル（Figma: 入力フォーム 幅 652px / 間隔 24px） */
 .formStyle {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--sds-size-space-600);
@@ -12,5 +12,4 @@
   max-width: 652px;
   margin: 0 auto;
   padding: var(--sds-size-space-800) var(--sds-size-space-600);
-  box-sizing: border-box;
 }

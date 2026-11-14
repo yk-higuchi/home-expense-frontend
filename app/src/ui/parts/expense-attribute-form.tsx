@@ -1,13 +1,15 @@
-import { Button, Select, TextInput } from "@home-expense/ui";
+import { Select, TextInput } from "@home-expense/ui";
 import type { ReactElement } from "react";
 import type { ExpenseAttribute } from "@/lib/expense-attribute";
-import style from "./expense-attribute-form.module.css";
+import SubmitButton from "@/ui/parts/submit-button";
+import style from "./form.module.css";
 
 interface Props {
   expenseAttribute?: ExpenseAttribute | Record<string, never>;
   onSubmit: (formData: FormData) => void;
   buttonTitle: string;
 }
+
 const ExpenseAttributeForm = ({
   expenseAttribute = {},
   onSubmit,
@@ -22,9 +24,7 @@ const ExpenseAttributeForm = ({
         <option value="固定費">固定費</option>
         <option value="変動費">変動費</option>
       </Select>
-      <Button type="submit" fullWidth>
-        {buttonTitle}
-      </Button>
+      <SubmitButton fullWidth>{buttonTitle}</SubmitButton>
     </form>
   );
 };
