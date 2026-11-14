@@ -1,5 +1,7 @@
 "use client";
+
 import {
+  Amount,
   Breakdown,
   BreakdownGroup,
   BreakdownItem,
@@ -7,60 +9,43 @@ import {
   SummaryRow,
   TextInput,
 } from "@home-expense/ui";
-import { useRouter } from "next/navigation";
 import { type ChangeEvent, type ReactElement, useState } from "react";
-import type { ExpenseAttributeAggregates } from "@/lib/expense-attribute";
+import type { BalancePoint, BalanceStatistics } from "@/lib/balance";
 import { useNavigation } from "@/lib/hooks/use-navigation";
+import BalanceChart from "@/ui/parts/balance-chart";
 import style from "./expense-aggregate.module.css";
-
-const yen = new Intl.NumberFormat("ja-JP", {
-  style: "currency",
-  currency: "JPY",
-});
 
 interface Props {
   year: number;
   month: number;
-  incomeTotalAmount: number;
-  disposalIncomeAmount: number;
-  totalAmount: number;
-  fixed: {
-    totalAmount: number;
-    attributeAggregates: ExpenseAttributeAggregates;
-  };
-  variable: {
-    totalAmount: number;
-    attributeAggregates: ExpenseAttributeAggregates;
-  };
+  /** その月の収支 */
+  statistics: BalanceStatistics;
+  /** 直近 12 か月の推移 */
+  series: BalancePoint[];
 }
 
+/** HOME（Figma: HOME） */
 const ExpenseAggregate = ({
   year,
   month,
-  incomeTotalAmount,
-  disposalIncomeAmount,
-  totalAmount,
-  fixed,
-  variable,
+  statistics,
+  series,
 }: Props): ReactElement => {
-  const _router = useRouter();
   const { isPending, navigate } = useNavigation();
-  const formattedYear = year.toString().padStart(2, "0");
-  const formattedMonth = month.toString().padStart(2, "0");
   const [yearMonth, setYearMonth] = useState(
-    `${formattedYear}-${formattedMonth}`,
+    `${year}-${String(month).padStart(2, "0")}`,
   );
   const handleYearMonthChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const date = new Date(event.currentTarget.value);
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString();
-    const searchParams = new URLSearchParams({
-      year: year,
-      month: month,
-    }).toString();
-    setYearMonth(`${year.padStart(2, "0")}-${month.padStart(2, "0")}`);
-    navigate(`/home?${searchParams}`);
+    const { value } = event.currentTarget;
+    if (!value) return;
+    const [y, m] = value.split("-");
+    setYearMonth(value);
+    navigate(
+      `/home?${new URLSearchParams({ year: y ?? "", month: String(Number(m)) })}`,
+    );
   };
+  const { income, fixedExpense, variableExpense, expenseTotal, net } =
+    statistics;
   return (
     <div className={style.page} aria-busy={isPending || undefined}>
       <TextInput
@@ -72,33 +57,40 @@ const ExpenseAggregate = ({
       />
       <div className={isPending ? style.pending : style.content}>
         <SummaryList>
-          <SummaryRow label="収入合計" amount={yen.format(incomeTotalAmount)} />
-          <SummaryRow label="支出合計" amount={yen.format(totalAmount)} />
           <SummaryRow
-            label="収入 − 支出"
-            amount={yen.format(disposalIncomeAmount)}
+            label="収入合計"
+            amount={<Amount value={income.total} />}
           />
+          <SummaryRow
+            label="支出合計"
+            amount={<Amount value={expenseTotal} />}
+          />
+          <SummaryRow label="収入 − 支出" amount={<Amount value={net} />} />
         </SummaryList>
+        <BalanceChart title="直近 12 か月の推移" points={series} />
         <SummaryRow label="内訳" />
-        <Breakdown className={style.breakdown}>
-          <BreakdownGroup label="固定費" amount={yen.format(fixed.totalAmount)}>
-            {fixed.attributeAggregates.map(({ name, totalAmount }) => (
+        <Breakdown>
+          <BreakdownGroup
+            label="固定費"
+            amount={<Amount value={fixedExpense.total} />}
+          >
+            {fixedExpense.items.map(({ id, name, amount }) => (
               <BreakdownItem
-                key={name}
+                key={id}
                 name={name}
-                amount={yen.format(totalAmount)}
+                amount={<Amount value={amount} />}
               />
             ))}
           </BreakdownGroup>
           <BreakdownGroup
             label="変動費"
-            amount={yen.format(variable.totalAmount)}
+            amount={<Amount value={variableExpense.total} />}
           >
-            {variable.attributeAggregates.map(({ name, totalAmount }) => (
+            {variableExpense.items.map(({ id, name, amount }) => (
               <BreakdownItem
-                key={name}
+                key={id}
                 name={name}
-                amount={yen.format(totalAmount)}
+                amount={<Amount value={amount} />}
               />
             ))}
           </BreakdownGroup>

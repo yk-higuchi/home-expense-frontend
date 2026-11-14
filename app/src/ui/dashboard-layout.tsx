@@ -20,6 +20,7 @@ const DashboardLayout = ({
     { label: "経費属性", href: "/expense-attribute" },
     { label: "収入", href: "/income" },
     { label: "経費", href: `/expense?${searchParams}` },
+    { label: "年間レポート", href: "/annual-report" },
   ];
   return (
     <div className={style.parent}>

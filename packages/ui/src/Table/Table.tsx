@@ -16,6 +16,12 @@ export interface TableProps extends HTMLAttributes<HTMLTableElement> {
   footer?: ReactNode;
   /** 読み込み中（絞り込み・ページ送りの切り替え中）。表を薄くして操作を止める */
   loading?: boolean;
+  /**
+   * 見た目
+   * - default: 外枠あり・見出しは水色（一覧の表）
+   * - plain: 外枠なし・見出しは下線だけ（カードの中の集計表。Figma: 月別一覧）
+   */
+  variant?: "default" | "plain";
 }
 
 /**
@@ -26,11 +32,18 @@ export interface TableProps extends HTMLAttributes<HTMLTableElement> {
 export const Table = ({
   footer,
   loading = false,
+  variant = "default",
   className,
   children,
   ...rest
 }: TableProps): ReactElement => (
-  <div className={cx(styles.frame, loading && styles.loading)}>
+  <div
+    className={cx(
+      styles.frame,
+      variant === "plain" && styles.plain,
+      loading && styles.loading,
+    )}
+  >
     <table
       className={cx(styles.table, className)}
       aria-busy={loading || undefined}

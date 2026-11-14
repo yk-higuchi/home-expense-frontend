@@ -62,3 +62,14 @@
 .footer {
   padding: var(--sds-size-space-200) var(--sds-size-space-400);
 }
+
+/* plain: カードの中の集計表（外枠なし、見出しは下線だけ） */
+.plain {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.plain .headerCell {
+  background-color: transparent;
+}

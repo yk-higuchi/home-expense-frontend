@@ -2,6 +2,8 @@ export type { AmountProps } from "./Amount/Amount";
 export { Amount } from "./Amount/Amount";
 export type { ButtonProps, ButtonVariant } from "./Button/Button";
 export { Button } from "./Button/Button";
+export type { CardProps } from "./Card/Card";
+export { Card } from "./Card/Card";
 export type { ChartProps, ChartSeries } from "./Chart/Chart";
 export { Chart } from "./Chart/Chart";
 export { formatCompact, formatYen } from "./Chart/format";

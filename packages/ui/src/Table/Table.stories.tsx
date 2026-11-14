@@ -143,3 +143,9 @@ export const Loading: Story = {
   args: { loading: true },
   render: ExpenseAttributes.render,
 };
+
+/** plain（カードの中の集計表。Figma: 月別一覧） */
+export const Plain: Story = {
+  args: { variant: "plain" },
+  render: ExpenseAttributes.render,
+};

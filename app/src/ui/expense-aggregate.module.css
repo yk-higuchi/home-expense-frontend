@@ -1,33 +1,23 @@
 /*
-  * HOME（Figma: 年月の選択 → 合計行 → 内訳 → 内訳ツリー、間隔 16px）
-  * 内訳ツリーは残りの高さを使い、中だけスクロールする
+  * HOME（Figma: 年月の選択 → 合計行 → 推移グラフ → 内訳 → 内訳ツリー、間隔 16px）
+  * グラフを置いたので、内訳は高さに合わせず、メインコンテンツ全体をスクロールする
 */
 .page {
   display: flex;
   flex-direction: column;
   gap: var(--sds-size-space-400);
-  height: 100%;
-  min-height: 0;
 }
 
 .yearMonth {
   width: 160px;
 }
 
-.breakdown {
-  flex: 1;
-  min-height: 0;
-  overflow: auto;
-}
-
-/* 合計と内訳（年月の切り替え中は薄くする） */
+/* 合計・グラフ・内訳（年月の切り替え中は薄くする） */
 .content,
 .pending {
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: var(--sds-size-space-400);
-  min-height: 0;
   transition: opacity 120ms ease 200ms;
 }
 

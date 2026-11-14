@@ -2,12 +2,7 @@
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { expensesApi } from "@/lib/api/v1-expenses";
-import { expensesAggregateApi } from "@/lib/api/v1-expenses-aggregate";
 import type { Expense, Expenses } from "@/lib/expense";
-import type {
-  ExpenseAttributeAggregate,
-  ExpenseAttributeAggregates,
-} from "@/lib/expense-attribute";
 import {
   collectErrors,
   DELETE_FAILED_MESSAGE,
@@ -83,76 +78,6 @@ export const getExpenseSummary = async ({
   return {
     expenses: _expenses,
     pagination,
-  };
-};
-
-export const getExpenseAggregate = async ({
-  year,
-  month,
-  tag,
-}: {
-  year: number;
-  month: number;
-  tag: string;
-}): Promise<{
-  incomeTotalAmount: number;
-  disposalIncomeAmount: number;
-  totalAmount: number;
-  fixed: {
-    totalAmount: number;
-    attributeAggregates: ExpenseAttributeAggregates;
-  };
-  variable: {
-    totalAmount: number;
-    attributeAggregates: ExpenseAttributeAggregates;
-  };
-}> => {
-  const response = await expensesAggregateApi.get({
-    year,
-    month,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const {
-    income_total_amount,
-    disposal_income_amount,
-    total_amount,
-    variable_expense_detail,
-    fixed_expense_detail,
-  } = response;
-  const fixedAggregates: ExpenseAttributeAggregates =
-    fixed_expense_detail.attribute_aggregates.map((value) => {
-      const { attribute_id, attribute_name, total_amount } = value;
-      const aggregate: ExpenseAttributeAggregate = {
-        id: attribute_id,
-        name: attribute_name,
-        totalAmount: total_amount,
-      };
-      return aggregate;
-    });
-  const variableAggregates: ExpenseAttributeAggregates =
-    variable_expense_detail.attribute_aggregates.map((value) => {
-      const { attribute_id, attribute_name, total_amount } = value;
-      const aggregate: ExpenseAttributeAggregate = {
-        id: attribute_id,
-        name: attribute_name,
-        totalAmount: total_amount,
-      };
-      return aggregate;
-    });
-  return {
-    incomeTotalAmount: income_total_amount,
-    disposalIncomeAmount: disposal_income_amount,
-    totalAmount: total_amount,
-    fixed: {
-      totalAmount: fixed_expense_detail.total_amount,
-      attributeAggregates: fixedAggregates,
-    },
-    variable: {
-      totalAmount: variable_expense_detail.total_amount,
-      attributeAggregates: variableAggregates,
-    },
   };
 };
 

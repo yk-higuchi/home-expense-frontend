@@ -1,0 +1,32 @@
+/*
+  * 年間レポート（Figma: 年の選択 → 合計行 → 推移グラフ → 月別の収支、間隔 16px）
+*/
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-400);
+}
+
+.year {
+  width: 140px;
+}
+
+.content,
+.pending {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-400);
+  transition: opacity 120ms ease 200ms;
+}
+
+.pending {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .pending {
+    transition: none;
+  }
+}
