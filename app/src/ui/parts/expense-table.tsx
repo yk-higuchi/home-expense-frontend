@@ -10,10 +10,9 @@ import {
 } from "@home-expense/ui";
 import { type ReactElement, type ReactNode, useState } from "react";
 import type { Expenses } from "@/lib/expense";
-import { useDialog } from "@/lib/hooks/dialog";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpense } from "@/service/expense-service";
-import Dialog from "@/ui/parts/dialog";
+import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
   expenses: Expenses;
@@ -34,14 +33,8 @@ const ExpenseTable = ({
   onEdit,
   footer,
 }: Props): ReactElement => {
-  const { ref, onOpen, onClose } = useDialog();
-  const [expenseId, setExpenseId] = useState("");
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const { page, perPage } = pagination.current;
-
-  const handleDelete = (id: string): void => {
-    setExpenseId(id);
-    onOpen();
-  };
 
   return (
     <>
@@ -77,7 +70,7 @@ const ExpenseTable = ({
                     {id && (
                       <TableActions
                         onEdit={() => onEdit(id)}
-                        onDelete={() => handleDelete(id)}
+                        onDelete={() => setDeleteTargetId(id)}
                         editLabel={`${description}を編集`}
                         deleteLabel={`${description}を削除`}
                       />
@@ -89,19 +82,13 @@ const ExpenseTable = ({
           )}
         </TableBody>
       </Table>
-      <Dialog ref={ref} onClick={onClose}>
-        <form action={deleteExpense}>
-          <h2>経費の削除</h2>
-          <p>削除したデータは復元できません。削除しますか？</p>
-          <input type="hidden" name="expenseId" value={expenseId} />
-          <button type="button" onClick={onClose}>
-            キャンセル
-          </button>
-          <button type="submit" onClick={onClose}>
-            削除
-          </button>
-        </form>
-      </Dialog>
+      <DeleteDialog
+        targetId={deleteTargetId}
+        title="経費の削除"
+        idFieldName="expenseId"
+        action={deleteExpense}
+        onClose={() => setDeleteTargetId(null)}
+      />
     </>
   );
 };

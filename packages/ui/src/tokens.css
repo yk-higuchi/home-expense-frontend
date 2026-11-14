@@ -16,6 +16,7 @@
   --color-disabled-bg: #d9d9d9; /* 無効/背景 */
   --color-disabled-border: #b3b3b3; /* 無効/枠線 */
   --color-focus-ring: #3f4a4c; /* フォーカス */
+  --color-scrim: rgb(255 255 255 / 80%); /* SDS の Background/Utilities/Scrim */
 
   /* ボタン: Figma の「補助カラー / ボタン/*」 */
   --color-button-fg: #3f4a4c;

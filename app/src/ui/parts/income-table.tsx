@@ -9,11 +9,10 @@ import {
   TableRow,
 } from "@home-expense/ui";
 import { type ReactElement, type ReactNode, useState } from "react";
-import { useDialog } from "@/lib/hooks/dialog";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome } from "@/service/income-service";
-import Dialog from "@/ui/parts/dialog";
+import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
   incomes: Incomes;
@@ -34,14 +33,8 @@ const IncomeTable = ({
   onEdit,
   footer,
 }: Props): ReactElement => {
-  const { ref, onOpen, onClose } = useDialog();
-  const [incomeId, setIncomeId] = useState("");
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const { page, perPage } = pagination.current;
-
-  const handleDelete = (id: string): void => {
-    setIncomeId(id);
-    onOpen();
-  };
 
   return (
     <>
@@ -75,7 +68,7 @@ const IncomeTable = ({
                     {id && (
                       <TableActions
                         onEdit={() => onEdit(id)}
-                        onDelete={() => handleDelete(id)}
+                        onDelete={() => setDeleteTargetId(id)}
                         editLabel={`${description}を編集`}
                         deleteLabel={`${description}を削除`}
                       />
@@ -87,19 +80,13 @@ const IncomeTable = ({
           )}
         </TableBody>
       </Table>
-      <Dialog ref={ref} onClick={onClose}>
-        <form action={deleteIncome}>
-          <h2>収入の削除</h2>
-          <p>削除したデータは復元できません。削除しますか？</p>
-          <input type="hidden" name="incomeId" value={incomeId} />
-          <button type="button" onClick={onClose}>
-            キャンセル
-          </button>
-          <button type="submit" onClick={onClose}>
-            削除
-          </button>
-        </form>
-      </Dialog>
+      <DeleteDialog
+        targetId={deleteTargetId}
+        title="収入の削除"
+        idFieldName="incomeId"
+        action={deleteIncome}
+        onClose={() => setDeleteTargetId(null)}
+      />
     </>
   );
 };

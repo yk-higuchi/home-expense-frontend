@@ -1,0 +1,60 @@
+/* <dialog> 本体は枠を持たず、中のカードで見た目を作る */
+.dialog {
+  width: min(466px, calc(100vw - 32px));
+  max-width: none;
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+}
+
+.dialog::backdrop {
+  background-color: var(--color-scrim);
+}
+
+/* Figma: 削除確認ダイアログ（余白 32px / 間隔 24px / 角丸 8px / 影 Drop Shadow/200） */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-600);
+  margin: 0;
+  padding: var(--sds-size-space-800);
+  border: var(--sds-size-stroke-border) solid var(--color-border);
+  border-radius: var(--sds-size-radius-200);
+  background-color: var(--color-surface);
+  box-shadow: var(--sds-effect-shadow-200);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-300);
+}
+
+/* SDS/Heading（24px / 120% / -2%） */
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sds-size-space-400);
+}
+
+.actions > * {
+  min-width: 120px;
+}

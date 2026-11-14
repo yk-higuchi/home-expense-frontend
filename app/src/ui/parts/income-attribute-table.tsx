@@ -9,11 +9,10 @@ import {
   TableRow,
 } from "@home-expense/ui";
 import { type ReactElement, type ReactNode, useState } from "react";
-import { useDialog } from "@/lib/hooks/dialog";
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncomeAttribute } from "@/service/income-attribute-service";
-import Dialog from "@/ui/parts/dialog";
+import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
@@ -29,14 +28,8 @@ const IncomeAttributeTable = ({
   onEdit,
   footer,
 }: Props): ReactElement => {
-  const { ref, onOpen, onClose } = useDialog();
-  const [incomeAttributeId, setIncomeAttributeId] = useState("");
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const { page, perPage } = pagination.current;
-
-  const handleDelete = (id: string): void => {
-    setIncomeAttributeId(id);
-    onOpen();
-  };
 
   return (
     <>
@@ -60,7 +53,7 @@ const IncomeAttributeTable = ({
                   {id && (
                     <TableActions
                       onEdit={() => onEdit(id)}
-                      onDelete={() => handleDelete(id)}
+                      onDelete={() => setDeleteTargetId(id)}
                       editLabel={`${name}を編集`}
                       deleteLabel={`${name}を削除`}
                     />
@@ -71,23 +64,13 @@ const IncomeAttributeTable = ({
           })}
         </TableBody>
       </Table>
-      <Dialog ref={ref} onClick={onClose}>
-        <form action={deleteIncomeAttribute}>
-          <h2>収入属性の削除</h2>
-          <p>削除したデータは復元できません。削除しますか？</p>
-          <input
-            type="hidden"
-            name="incomeAttributeId"
-            value={incomeAttributeId}
-          />
-          <button type="button" onClick={onClose}>
-            キャンセル
-          </button>
-          <button type="submit" onClick={onClose}>
-            削除
-          </button>
-        </form>
-      </Dialog>
+      <DeleteDialog
+        targetId={deleteTargetId}
+        title="収入属性の削除"
+        idFieldName="incomeAttributeId"
+        action={deleteIncomeAttribute}
+        onClose={() => setDeleteTargetId(null)}
+      />
     </>
   );
 };

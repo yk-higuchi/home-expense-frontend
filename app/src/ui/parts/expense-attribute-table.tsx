@@ -10,10 +10,9 @@ import {
 } from "@home-expense/ui";
 import { type ReactElement, type ReactNode, useState } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
-import { useDialog } from "@/lib/hooks/dialog";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpenseAttribute } from "@/service/expense-attribute-service";
-import Dialog from "@/ui/parts/dialog";
+import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
   expenseAttributes: ExpenseAttributes;
@@ -29,14 +28,8 @@ const ExpenseAttributeTable = ({
   onEdit,
   footer,
 }: Props): ReactElement => {
-  const { ref, onOpen, onClose } = useDialog();
-  const [expenseAttributeId, setExpenseAttributeId] = useState("");
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const { page, perPage } = pagination.current;
-
-  const handleDelete = (id: string): void => {
-    setExpenseAttributeId(id);
-    onOpen();
-  };
 
   return (
     <>
@@ -62,7 +55,7 @@ const ExpenseAttributeTable = ({
                   {id && (
                     <TableActions
                       onEdit={() => onEdit(id)}
-                      onDelete={() => handleDelete(id)}
+                      onDelete={() => setDeleteTargetId(id)}
                       editLabel={`${name}を編集`}
                       deleteLabel={`${name}を削除`}
                     />
@@ -73,23 +66,13 @@ const ExpenseAttributeTable = ({
           })}
         </TableBody>
       </Table>
-      <Dialog ref={ref} onClick={onClose}>
-        <form action={deleteExpenseAttribute}>
-          <h2>経費属性の削除</h2>
-          <p>削除したデータは復元できません。削除しますか？</p>
-          <input
-            type="hidden"
-            name="expenseAttributeId"
-            value={expenseAttributeId}
-          />
-          <button type="button" onClick={onClose}>
-            キャンセル
-          </button>
-          <button type="submit" onClick={onClose}>
-            削除
-          </button>
-        </form>
-      </Dialog>
+      <DeleteDialog
+        targetId={deleteTargetId}
+        title="経費属性の削除"
+        idFieldName="expenseAttributeId"
+        action={deleteExpenseAttribute}
+        onClose={() => setDeleteTargetId(null)}
+      />
     </>
   );
 };
