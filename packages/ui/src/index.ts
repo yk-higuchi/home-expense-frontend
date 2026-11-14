@@ -2,6 +2,8 @@ export type { ButtonProps } from "./Button/Button";
 export { Button } from "./Button/Button";
 export type { NavBarProps } from "./NavBar/NavBar";
 export { NavBar } from "./NavBar/NavBar";
+export type { PaginationProps } from "./Pagination/Pagination";
+export { Pagination } from "./Pagination/Pagination";
 export type { SelectProps } from "./Select/Select";
 export { Select } from "./Select/Select";
 export type {

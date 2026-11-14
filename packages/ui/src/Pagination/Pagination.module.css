@@ -1,0 +1,64 @@
+/* Figma: ページネーション（SDS Pagination: 項目の間隔 8px） */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-size-space-200);
+  font-family: var(--font-family-base);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 前へ・次へ・ページ番号の共通（SDS: 余白 8px 12px / 角丸 8px） */
+.step,
+.page {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  margin: 0;
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
+  border: none;
+  border-radius: var(--sds-size-radius-200);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  line-height: var(--text-single-line-line-height);
+  cursor: pointer;
+}
+
+.step:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.step:focus-visible,
+.page:focus-visible {
+  outline: 2px solid var(--color-accent-line);
+  outline-offset: 2px;
+}
+
+.step:hover:not(:disabled),
+.page:hover {
+  background-color: var(--color-background);
+}
+
+/* 今のページ（Figma: 全体背景の水色） */
+.page[aria-current="page"] {
+  background-color: var(--color-background);
+  cursor: default;
+}
+
+.gap {
+  padding: var(--sds-size-space-200) var(--sds-size-space-400);
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}

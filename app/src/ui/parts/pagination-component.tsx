@@ -1,6 +1,8 @@
+"use client";
+
+import { Pagination as PaginationNav } from "@home-expense/ui";
 import type { ReactElement } from "react";
-import { type Pagination, paginate } from "@/lib/pagination/pagination";
-import style from "./pagination-component.module.css";
+import type { Pagination } from "@/lib/pagination/pagination";
 
 interface Props {
   pagination: Pagination;
@@ -9,64 +11,29 @@ interface Props {
   onMovePage: (page: number, perPage: number) => void;
 }
 
+/** API の Link ヘッダーから作ったページ情報を、ライブラリのページネーションにつなぐ */
 const PaginationComponent = ({
   pagination,
   onMovePrevious,
   onMoveNext,
   onMovePage,
 }: Props): ReactElement => {
-  console.log(pagination);
-  const items = paginate(pagination);
-  console.log(items);
-  const { previous, next, current } = pagination;
-  const handlePreviousClick = (): void => {
-    if (previous) {
-      console.log(previous);
-      const { page, perPage } = previous;
-      onMovePrevious(page, perPage);
+  const { previous, next, current, last } = pagination;
+  const handlePageChange = (page: number): void => {
+    if (previous && page === previous.page) {
+      onMovePrevious(previous.page, previous.perPage);
+    } else if (next && page === next.page) {
+      onMoveNext(next.page, next.perPage);
+    } else {
+      onMovePage(page, current.perPage);
     }
   };
-
-  const handleNextClick = (): void => {
-    if (next) {
-      console.log(next);
-      const { page, perPage } = next;
-      onMoveNext(page, perPage);
-    }
-  };
-
-  const paginationItem = items.map((value, index) => {
-    if (typeof value === "string") {
-      return (
-        <div className={style.pagenationText} key={index}>
-          {value}
-        </div>
-      );
-    }
-    const { page } = value;
-    const handleClick = (): void => {
-      if (current.page !== page) {
-        console.log(value);
-        const { page, perPage } = value;
-        onMovePage(page, perPage);
-      }
-    };
-    return (
-      <div className={style.pagenationText} key={index} onClick={handleClick}>
-        {page}
-      </div>
-    );
-  });
   return (
-    <div className={style.pagenation}>
-      <div className={style.pagenationText} onClick={handlePreviousClick}>
-        Previous
-      </div>
-      {paginationItem}
-      <div className={style.pagenationText} onClick={handleNextClick}>
-        Next
-      </div>
-    </div>
+    <PaginationNav
+      currentPage={current.page}
+      totalPages={Math.max(last.page, current.page, 1)}
+      onPageChange={handlePageChange}
+    />
   );
 };
 export default PaginationComponent;

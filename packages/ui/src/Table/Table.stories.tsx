@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { Pagination } from "../Pagination/Pagination";
+
 import {
   Table,
   TableBody,
@@ -128,14 +130,10 @@ export const Empty: Story = {
   ),
 };
 
-/** 表の下にフッター（ページネーションなど）を置く */
+/** 表の枠の内側・下にページネーションを置く（Figma の一覧画面と同じ形） */
 export const WithFooter: Story = {
   args: {
-    footer: (
-      <p style={{ margin: 0, textAlign: "center", color: "#757575" }}>
-        （ページネーション）
-      </p>
-    ),
+    footer: <Pagination currentPage={1} totalPages={10} onPageChange={noop} />,
   },
   render: ExpenseAttributes.render,
 };

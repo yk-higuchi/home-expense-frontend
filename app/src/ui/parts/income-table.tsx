@@ -8,7 +8,7 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@home-expense/ui";
-import { type ReactElement, useState } from "react";
+import { type ReactElement, type ReactNode, useState } from "react";
 import { useDialog } from "@/lib/hooks/dialog";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
@@ -19,6 +19,8 @@ interface Props {
   incomes: Incomes;
   pagination: Pagination;
   onEdit: (id: string) => void;
+  /** 表の枠の内側・下に置く要素（ページネーション） */
+  footer?: ReactNode;
 }
 
 const yen = new Intl.NumberFormat("ja-JP", {
@@ -26,7 +28,12 @@ const yen = new Intl.NumberFormat("ja-JP", {
   currency: "JPY",
 });
 
-const IncomeTable = ({ incomes, pagination, onEdit }: Props): ReactElement => {
+const IncomeTable = ({
+  incomes,
+  pagination,
+  onEdit,
+  footer,
+}: Props): ReactElement => {
   const { ref, onOpen, onClose } = useDialog();
   const [incomeId, setIncomeId] = useState("");
   const { page, perPage } = pagination.current;
@@ -38,7 +45,7 @@ const IncomeTable = ({ incomes, pagination, onEdit }: Props): ReactElement => {
 
   return (
     <>
-      <Table>
+      <Table footer={footer}>
         <TableHead>
           <TableRow>
             <TableHeaderCell width={56}>#</TableHeaderCell>

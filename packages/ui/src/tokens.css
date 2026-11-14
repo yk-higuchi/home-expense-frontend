@@ -12,6 +12,7 @@
   --color-border: #dedede; /* グレー枠線 */
   --color-accent-line: #90e0f1; /* ライン */
   --color-danger: #900b09; /* SDS の Border/Danger/Default・Text/Danger/Default */
+  --color-text-disabled: #b3b3b3; /* SDS の Text/Disabled/Default */
 
   /* Space: SDS の Space/* */
   --sds-size-space-0: 0;

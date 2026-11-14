@@ -281,14 +281,16 @@ const Expense = ({
             expenses={expenses}
             pagination={pagination}
             onEdit={handleEdit}
+            footer={
+              <PaginationComponent
+                pagination={pagination}
+                onMovePrevious={handleMovePrevious}
+                onMoveNext={handleMoveNext}
+                onMovePage={handleMovePage}
+              />
+            }
           />
         </div>
-        <PaginationComponent
-          pagination={pagination}
-          onMovePrevious={handleMovePrevious}
-          onMoveNext={handleMoveNext}
-          onMovePage={handleMovePage}
-        />
         <div className="add">
           <button type="button" onClick={handleRegistrationClick}>
             追加

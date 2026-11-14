@@ -8,7 +8,7 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@home-expense/ui";
-import { type ReactElement, useState } from "react";
+import { type ReactElement, type ReactNode, useState } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { useDialog } from "@/lib/hooks/dialog";
 import type { Pagination } from "@/lib/pagination/pagination";
@@ -19,12 +19,15 @@ interface Props {
   expenseAttributes: ExpenseAttributes;
   pagination: Pagination;
   onEdit: (id: string) => void;
+  /** 表の枠の内側・下に置く要素（ページネーション） */
+  footer?: ReactNode;
 }
 
 const ExpenseAttributeTable = ({
   expenseAttributes,
   pagination,
   onEdit,
+  footer,
 }: Props): ReactElement => {
   const { ref, onOpen, onClose } = useDialog();
   const [expenseAttributeId, setExpenseAttributeId] = useState("");
@@ -37,7 +40,7 @@ const ExpenseAttributeTable = ({
 
   return (
     <>
-      <Table>
+      <Table footer={footer}>
         <TableHead>
           <TableRow>
             <TableHeaderCell width={102}>No.</TableHeaderCell>
