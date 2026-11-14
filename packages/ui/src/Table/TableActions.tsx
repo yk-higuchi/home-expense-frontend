@@ -46,7 +46,7 @@ export const TableActions = ({
     {onDelete && (
       <button
         type="button"
-        className={styles.button}
+        className={`${styles.button} ${styles.danger}`}
         onClick={onDelete}
         aria-label={deleteLabel}
         title={deleteLabel}

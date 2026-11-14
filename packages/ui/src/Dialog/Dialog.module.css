@@ -58,3 +58,27 @@
 .actions > * {
   min-width: 120px;
 }
+
+/* 開くときの短いフェード（「視差効果を減らす」設定のときは付けない） */
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open] .card {
+    animation: dialog-in 160ms ease-out;
+  }
+
+  .dialog[open]::backdrop {
+    animation: backdrop-in 160ms ease-out;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}

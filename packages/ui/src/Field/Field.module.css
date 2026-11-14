@@ -47,13 +47,41 @@
   font-family: inherit;
   font-size: var(--text-body-size);
   line-height: normal;
+  transition: border-color 120ms ease;
 }
 
+/* 無効: SDS の無効色 */
 .control:disabled {
+  border-color: var(--color-disabled-border);
+  background-color: var(--color-disabled-bg);
+  color: var(--color-text-disabled);
   cursor: not-allowed;
-  opacity: 0.5;
 }
 
+/* エラー: 赤い枠線（エラーメッセージの文字と併せて伝える） */
 .control[aria-invalid="true"] {
   border-color: var(--color-danger);
+}
+
+/* フォーカス: 枠線を濃くし、2px の隙間＋2px の線（ボタンと同じ） */
+.control:focus-visible {
+  border-color: var(--color-focus-ring);
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.control[aria-invalid="true"]:focus-visible {
+  border-color: var(--color-danger);
+  outline-color: var(--color-danger);
+}
+
+/* ホバー: 枠線を少し濃くする */
+.control:hover:not(:disabled, :focus-visible, [aria-invalid="true"]) {
+  border-color: var(--color-input-border-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control {
+    transition: none;
+  }
 }

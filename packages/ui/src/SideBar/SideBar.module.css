@@ -29,18 +29,30 @@
   font-size: var(--text-body-size);
   line-height: var(--text-body-line-height);
   text-decoration: none;
+  transition: background-color 120ms ease;
 }
 
-.item:hover {
-  background-color: var(--color-background);
+/* 選択中（Figma: 状態=選択中 / 水色） */
+.active {
+  background-color: var(--color-interactive-selected);
 }
 
 .item:focus-visible {
-  outline: 2px solid var(--color-accent-line);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
-/* 選択中（Figma: 状態=選択中 / 全体背景の水色） */
-.active {
-  background-color: var(--color-background);
+/* ホバーは選択中より薄い水色で区別し、押下は 1 段濃くする */
+.item:not(.active):hover {
+  background-color: var(--color-interactive-hover);
+}
+
+.item:not(.active):active {
+  background-color: var(--color-interactive-active);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: none;
+  }
 }

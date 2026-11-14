@@ -80,6 +80,9 @@ importers:
       storybook:
         specifier: 10.6.7
         version: 10.6.7(@types/react@19.3.0)(prettier@3.2.5)(react@19.3.1)
+      storybook-addon-pseudo-states:
+        specifier: 10.6.7
+        version: 10.6.7(storybook@10.6.7(@types/react@19.3.0)(prettier@3.2.5)(react@19.3.1))
       stylelint:
         specifier: 18.0.0
         version: 18.0.0
@@ -2013,6 +2016,11 @@ packages:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
+  storybook-addon-pseudo-states@10.6.7:
+    resolution: {integrity: sha512-rVTqodZ7bDT1krCbujJQVhYyQFZHbC8Gd6fEyTPJHLqeebB+zgEJ5x4R4yCObBlTSDupTRoKcSVm4nooN3ruNg==}
+    peerDependencies:
+      storybook: ^10.6.7
+
   storybook@10.6.7:
     resolution: {integrity: sha512-/1h87XqC+8tZ5PQ/GVWOg78tCQuEAshYWwok5niBcnHEKzZy6Ls06uuT5/rhQ3iUB0y8iexEVHmUe3jaaxNguw==}
     hasBin: true
@@ -3803,6 +3811,10 @@ snapshots:
   source-map-js@1.2.2: {}
 
   source-map@0.6.1: {}
+
+  storybook-addon-pseudo-states@10.6.7(storybook@10.6.7(@types/react@19.3.0)(prettier@3.2.5)(react@19.3.1)):
+    dependencies:
+      storybook: 10.6.7(@types/react@19.3.0)(prettier@3.2.5)(react@19.3.1)
 
   storybook@10.6.7(@types/react@19.3.0)(prettier@3.2.5)(react@19.3.1):
     dependencies:

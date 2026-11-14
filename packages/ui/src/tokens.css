@@ -18,6 +18,14 @@
   --color-focus-ring: #3f4a4c; /* フォーカス */
   --color-scrim: rgb(255 255 255 / 80%); /* SDS の Background/Utilities/Scrim */
 
+  /* 操作できる部品の共通の状態（ナビ項目・ページ送り・アイコンボタンなど） */
+  --color-interactive-hover: #f2f9fa; /* ホバー（選択中の水色と区別する薄い水色） */
+  --color-interactive-active: #cbe8ee; /* 押下 */
+  --color-interactive-selected: #e0f2f5; /* 選択中 */
+  --color-input-border-hover: #b3b3b3; /* 入力欄のホバー時の枠線 */
+  --color-danger-hover: #fee9e7; /* 危険な操作のホバー */
+  --color-danger-active: #fdd3d0; /* 危険な操作の押下 */
+
   /* ボタン: Figma の「補助カラー / ボタン/*」 */
   --color-button-fg: #3f4a4c;
   --color-button-primary-bg: #e0f2f5;
