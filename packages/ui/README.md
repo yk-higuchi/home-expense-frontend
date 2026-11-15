@@ -73,3 +73,4 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - 読み上げ: 持ち上げ・移動・確定・取り消しを `SortableStatus`（`aria-live`）で伝える。
 - 上へ・下へのボタンは、ドラッグせずに 1 回の操作で並べ替える手段（WCAG 2.2 の 2.5.7）。
 - つまみの列の幅は 64px 以上にする（ボタン 28px ＋ セルの左右の余白）。
+- `Toast` は、HTML の Popover API（`<output popover="manual">`）で最前面の層（top layer）に出す。z-index を考えなくても、ダイアログを含むほかの要素の上に出る。`manual` なので、ほかの場所を押しても勝手に閉じない。表示された瞬間の読み上げは読み上げソフトによって違うため、読み上げは別の見えない `role="status"` の領域で行う（トーストの `output` は `aria-live="off"`）。知らせは `{ id, text }` で渡し、同じ文言でも `id` が変われば出し直す。

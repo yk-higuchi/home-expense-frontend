@@ -15,6 +15,7 @@ export {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  CloseIcon,
   GripIcon,
   LoaderIcon,
   PlusIcon,
@@ -78,3 +79,5 @@ export type { TableActionsProps } from "./Table/TableActions";
 export { TableActions } from "./Table/TableActions";
 export type { TextInputProps } from "./TextInput/TextInput";
 export { TextInput } from "./TextInput/TextInput";
+export type { ToastNotice, ToastProps } from "./Toast/Toast";
+export { Toast } from "./Toast/Toast";

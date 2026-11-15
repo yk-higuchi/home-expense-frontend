@@ -81,3 +81,10 @@ export const CheckIcon = (props: IconProps): ReactElement => (
     <path d="M20 6 9 17l-5-5" />
   </Icon>
 );
+
+export const CloseIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <path d="M18 6 6 18" />
+    <path d="m6 6 12 12" />
+  </Icon>
+);
