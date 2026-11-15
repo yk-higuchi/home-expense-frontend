@@ -15,12 +15,33 @@
 
 値は SDS の 4px 刻みや文字の大きさを参考にしているが、名前と定義はアプリのもの（SDS のライブラリの変数は参照しない）。
 
+## 役割の変数の使いどころ
+
+| 変数                  | 使いどころ                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| `--gap-inline`        | 横に並ぶ小さな要素の間（アイコンと文字、ページ番号、表の操作、絞り込みのプルダウン） |
+| `--gap-stack`         | 画面の要素の縦の並び（年月の選択・合計・表・カード）と画面の大枠                     |
+| `--gap-section`       | まとまり同士の間（フォームの項目、ダイアログの見出し・本文・操作）                   |
+| `--padding-control-x` | 入力欄・プルダウン・表のセルの左右                                                   |
+| `--padding-card`      | カード・サイドバー・内訳の内側                                                       |
+| `--padding-page`      | メインコンテンツ（右側の白い枠）の内側                                               |
+| `--size-control`      | 入力欄・プルダウン・表の行・合計行の高さ（40px）                                     |
+| `--size-control-min`  | 入力欄・プルダウン・ボタンの最小幅（120px）                                          |
+| `--radius-100`        | フォーカスの枠・小さい部品                                                           |
+| `--radius-200`        | カード・入力欄・ボタン・ダイアログ                                                   |
+
 ## Figma を変えたとき
 
 1. `scripts/export-figma-tokens.js` の中身の後ろに `return await exportFigmaTokens();` を付けて、
    Figma で実行する（Figma の MCP の use_figma など）。
 2. 返ってきた JSON を `design-tokens/figma-tokens.json` に保存する。
 3. `pnpm --filter @home-expense/ui lint:tokens` で照合し、ずれた `src/tokens.css` を直す。
+
+`scripts/check-tokens.mjs` の照合のしかた:
+
+- 色・サイズ: Figma の変数のコード名（WEB）= CSS 変数名。値と、役割がどの段階を参照しているかを突き合わせる。
+- 文字・影: Figma のスタイルにはコード名がないため、スクリプトの中の対応表（`TEXT_STYLES`・`EFFECT_STYLES`）で突き合わせる。
+- `tokens.css` にあって Figma にない変数も、ずれとして扱う。
 
 `lint:tokens` は `pnpm lint`（CI）でも動き、ずれがあると失敗する。
 
