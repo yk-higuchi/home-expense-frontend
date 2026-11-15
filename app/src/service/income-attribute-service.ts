@@ -13,6 +13,7 @@ import {
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
 import { first, maxLength, required } from "@/lib/form/validation";
+import { HttpError } from "@/lib/http/error";
 import type { IncomeAttribute, IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
@@ -141,6 +142,11 @@ export const deleteIncomeAttribute = async (
   try {
     await incomeAttributesApi.delete({ id, ifMatch: version });
   } catch (error) {
+    // すでに削除されている（404）ときは、削除できたときと同じく一覧を取得し直す
+    if (error instanceof HttpError && error.status === 404) {
+      updateTag("income-attribute");
+      return {};
+    }
     console.error(error);
     return {
       message: failureMessage(
