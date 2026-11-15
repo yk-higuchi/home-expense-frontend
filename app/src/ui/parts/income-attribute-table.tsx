@@ -9,12 +9,8 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@home-expense/ui";
-import {
-  type ReactElement,
-  type ReactNode,
-  useOptimistic,
-  useState,
-} from "react";
+import type { ReactElement, ReactNode } from "react";
+import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncomeAttribute } from "@/service/income-attribute-service";
@@ -37,13 +33,12 @@ const IncomeAttributeTable = ({
   footer,
   loading,
 }: Props): ReactElement => {
-  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
-  const [deleteError, setDeleteError] = useState<string | null>(null);
-  // 削除を確定した行は、サーバーの処理を待たずに表から消す（失敗したら自動で戻る）
-  const [optimisticIncomeAttributes, removeOptimistic] = useOptimistic(
-    incomeAttributes,
-    (state, id: string) => state.filter((row) => row.id !== id),
-  );
+  const {
+    rows: optimisticIncomeAttributes,
+    error: deleteError,
+    requestDelete,
+    dialogProps,
+  } = useOptimisticDelete(incomeAttributes);
   const { page, perPage } = pagination.current;
 
   return (
@@ -71,7 +66,7 @@ const IncomeAttributeTable = ({
                   {id && (
                     <TableActions
                       onEdit={() => onEdit(id)}
-                      onDelete={() => setDeleteTargetId(id)}
+                      onDelete={() => requestDelete(id)}
                       editLabel={`${name}を編集`}
                       deleteLabel={`${name}を削除`}
                     />
@@ -83,19 +78,10 @@ const IncomeAttributeTable = ({
         </TableBody>
       </Table>
       <DeleteDialog
-        targetId={deleteTargetId}
-        targetVersion={
-          incomeAttributes.find((row) => row.id === deleteTargetId)?.version
-        }
+        {...dialogProps}
         title="収入属性の削除"
         idFieldName="incomeAttributeId"
         action={deleteIncomeAttribute}
-        onDeleteStart={(id) => {
-          setDeleteError(null);
-          removeOptimistic(id);
-        }}
-        onDeleteFailed={setDeleteError}
-        onClose={() => setDeleteTargetId(null)}
       />
     </>
   );
