@@ -119,19 +119,15 @@ export const updateExpenseAttribute = async (
     "expenseAttributeId",
     "version",
     "name",
-    "category",
   ]);
-  const { category } = values;
+  // 分類は登録後に変更できないため、属性名だけを送る
   const errors = collectErrors({
     name: first(
       required(values.name, "属性名"),
       maxLength(values.name, 50, "属性名"),
     ),
-    category: selected(category, "分類"),
   });
-  if (errors || !isExpenseAttributeCategory(category)) {
-    return { errors: errors ?? { category: "分類を選択してください" }, values };
-  }
+  if (errors) return { errors, values };
   // 取得時のバージョンがないと、ほかの操作による更新を検出できない
   if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
@@ -139,7 +135,6 @@ export const updateExpenseAttribute = async (
       ifMatch: values.version,
       id: values.expenseAttributeId,
       name: values.name,
-      category,
     });
   } catch (error) {
     console.error(error);

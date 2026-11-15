@@ -22,6 +22,7 @@ const ExpenseAttributeForm = ({
   const [state, formAction] = useActionState(action, initialFormState);
   const { id, version, name, category } = expenseAttribute;
   const { errors, values, message } = state;
+  const isEdit = id !== undefined;
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="expenseAttributeId" value={id} />
@@ -34,11 +35,14 @@ const ExpenseAttributeForm = ({
         errorMessage={errors?.name}
         required
       />
+      {/* 分類は登録後に変更できない（更新では送らない） */}
       <Select
         label="分類"
         name="category"
         defaultValue={values?.category ?? category}
         errorMessage={errors?.category}
+        disabled={isEdit}
+        description={isEdit ? "分類は登録後に変更できません" : undefined}
       >
         <option value="固定費">固定費</option>
         <option value="変動費">変動費</option>

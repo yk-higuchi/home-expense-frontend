@@ -33,8 +33,14 @@ export const parseAmount = (value: string): number =>
 /** YYYY-MM-DD 形式の実在する日付 */
 export const date = (value: string, label: string): string | undefined => {
   if (value === "") return `${label}を入力してください`;
-  const parsed = new Date(`${value}T00:00:00`);
-  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(parsed.getTime())
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  // Date は 2026-02-30 を 3 月 2 日に繰り上げるため、年月日が変わらないことも確かめる（バックエンドと同じ判定）
+  const parsed = match && new Date(`${value}T00:00:00`);
+  return match &&
+    parsed &&
+    parsed.getFullYear() === Number(match[1]) &&
+    parsed.getMonth() + 1 === Number(match[2]) &&
+    parsed.getDate() === Number(match[3])
     ? undefined
     : `${label}を正しく入力してください`;
 };

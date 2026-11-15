@@ -43,13 +43,11 @@ const postRequest = {
 
 type PostRequest = JTD<typeof postRequest>;
 
+/** 更新できるのは属性名だけ（分類は登録後に変更できない） */
 const putRequest = {
   properties: {
     name: {
       type: "string",
-    },
-    category: {
-      enum: ["固定費", "変動費"],
     },
   },
 } as const;
@@ -146,7 +144,6 @@ const _post = async ({ name, category }: PostRequest): Promise<void> => {
 const _put = async ({
   id,
   name,
-  category,
   ifMatch,
 }: {
   id: string;
@@ -155,7 +152,6 @@ const _put = async ({
 } & PutRequest): Promise<void> => {
   const data = {
     name,
-    category,
   };
   const response = await http.put({
     url: process.env.BACKEND_URL,
