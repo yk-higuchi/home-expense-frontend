@@ -1,89 +1,24 @@
 import * as process from "node:process";
 
+import {
+  IncomeGetResponse,
+  IncomeListResponse,
+  IncomePostRequest,
+  IncomePutRequest,
+} from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
 import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
 
-const getSummaryResponse = {
-  properties: {
-    incomes: {
-      elements: {
-        properties: {
-          id: { type: "string" },
-          // データのバージョン（int64。JTD に int64 がないため float64 で受ける）。削除の If-Match に使う
-          version: { type: "float64" },
-          description: { type: "string" },
-          amount: {
-            type: "int32",
-          },
-          receive_date: { type: "string" },
-          income_attribute: {
-            properties: {
-              id: { type: "string" },
-              name: { type: "string" },
-            },
-          },
-        },
-      },
-    },
-  },
-} as const;
+// スキーマは、バックエンドが OpenAPI から生成したもの（src/lib/api/generated/jtd.ts。pnpm gen:api で作り直す）
+const getSummaryResponse = IncomeListResponse;
+const getResponse = IncomeGetResponse;
+const postRequest = IncomePostRequest;
+const putRequest = IncomePutRequest;
 
 type GetSummaryResponse = JTD<typeof getSummaryResponse>;
-
-const getResponse = {
-  properties: {
-    id: { type: "string" },
-    // データのバージョン（int64。JTD に int64 がないため float64 で受ける）。削除の If-Match に使う
-    version: { type: "float64" },
-    description: { type: "string" },
-    amount: {
-      type: "int32",
-    },
-    receive_date: { type: "string" },
-    income_attribute: {
-      properties: {
-        id: { type: "string" },
-        name: { type: "string" },
-      },
-    },
-  },
-} as const;
-
 type GetResponse = JTD<typeof getResponse>;
-
-const postRequest = {
-  properties: {
-    description: {
-      type: "string",
-    },
-    attribute_id: {
-      type: "string",
-    },
-    amount: {
-      type: "int32",
-    },
-    receive_date: { type: "string" },
-  },
-} as const;
-
 type PostRequest = JTD<typeof postRequest>;
-
-const putRequest = {
-  properties: {
-    description: {
-      type: "string",
-    },
-    attribute_id: {
-      type: "string",
-    },
-    amount: {
-      type: "int32",
-    },
-    receive_date: { type: "string" },
-  },
-} as const;
-
 type PutRequest = JTD<typeof putRequest>;
 
 const _getSummary = async ({
@@ -204,7 +139,7 @@ const _put = async ({
     path: `/v1/incomes/${id}`,
     headers: { "if-match": ifMatch },
     requestBody: {
-      schema: postRequest,
+      schema: putRequest,
       data,
     },
   });

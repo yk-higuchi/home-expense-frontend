@@ -21,6 +21,7 @@ import {
   required,
   selected,
 } from "@/lib/form/validation";
+import { HttpError } from "@/lib/http/error";
 import type { Income, Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
@@ -199,6 +200,11 @@ export const deleteIncome = async (formData: FormData): Promise<FormState> => {
   try {
     await incomesApi.delete({ id, ifMatch: version });
   } catch (error) {
+    // すでに削除されている（404）ときは、削除できたときと同じく一覧を取得し直す
+    if (error instanceof HttpError && error.status === 404) {
+      updateTag("income");
+      return {};
+    }
     console.error(error);
     return {
       message: failureMessage(
