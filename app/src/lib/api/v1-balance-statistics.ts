@@ -1,39 +1,12 @@
 import * as process from "node:process";
 
+import { BalanceStatisticsResponse } from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
 
-// 金額は int64（最大 1 兆）。JTD に int64 がないため float64 で受ける
-const breakdown = {
-  properties: {
-    total: { type: "float64" },
-    breakdown: {
-      elements: {
-        properties: {
-          attribute_id: { type: "string" },
-          attribute_name: { type: "string" },
-          amount: { type: "float64" },
-        },
-      },
-    },
-  },
-} as const;
-
-const getResponse = {
-  properties: {
-    period: {
-      properties: {
-        from: { type: "string" },
-        to: { type: "string" },
-      },
-    },
-    income: breakdown,
-    fixed_expense: breakdown,
-    variable_expense: breakdown,
-    expense_total: { type: "float64" },
-    net: { type: "float64" },
-  },
-} as const;
+// スキーマは、バックエンドが OpenAPI から生成したもの（src/lib/api/generated/jtd.ts。pnpm gen:api で作り直す）
+// 金額は int64（最大 1 兆）。JTD に int64 がないため float64 になっている
+const getResponse = BalanceStatisticsResponse;
 
 type GetResponse = JTD<typeof getResponse>;
 

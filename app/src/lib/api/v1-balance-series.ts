@@ -1,33 +1,14 @@
 import * as process from "node:process";
 
+import { BalanceSeriesResponse } from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
 
 export type Granularity = "day" | "week" | "month" | "quarter" | "year";
 
-// 金額は int64（最大 1 兆）。JTD に int64 がないため float64 で受ける
-const getResponse = {
-  properties: {
-    granularity: { enum: ["day", "week", "month", "quarter", "year"] },
-    items: {
-      elements: {
-        properties: {
-          period: {
-            properties: {
-              from: { type: "string" },
-              to: { type: "string" },
-            },
-          },
-          income_total: { type: "float64" },
-          fixed_expense_total: { type: "float64" },
-          variable_expense_total: { type: "float64" },
-          expense_total: { type: "float64" },
-          net: { type: "float64" },
-        },
-      },
-    },
-  },
-} as const;
+// スキーマは、バックエンドが OpenAPI から生成したもの（src/lib/api/generated/jtd.ts。pnpm gen:api で作り直す）
+// 金額は int64（最大 1 兆）。JTD に int64 がないため float64 になっている
+const getResponse = BalanceSeriesResponse;
 
 type GetResponse = JTD<typeof getResponse>;
 
