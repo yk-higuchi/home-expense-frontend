@@ -3,6 +3,11 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { expenseAttributesApi } from "@/lib/api/v1-expense-attributes";
 import {
+  DELETE_TARGET_LOAD_FAILED_MESSAGE,
+  DELETE_TARGET_MISSING_MESSAGE,
+  type DeleteTargetResult,
+} from "@/lib/delete-target";
+import {
   type ExpenseAttribute,
   type ExpenseAttributes,
   isExpenseAttributeCategory,
@@ -15,52 +20,57 @@ import {
   type FormState,
   failureMessage,
   formValues,
+  reorderFailureMessage,
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
 import { first, maxLength, required, selected } from "@/lib/form/validation";
 import { HttpError } from "@/lib/http/error";
-import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
-export const getExpenseAttributeSummary = async ({
+export const getExpenseAttributes = async ({
   category,
-  page,
-  perPage,
-  tag,
 }: {
   category?: string;
-  page: number;
-  perPage: number;
-  tag: string;
-}): Promise<{
+} = {}): Promise<{
   expenseAttributes: ExpenseAttributes;
-  pagination: Pagination;
+  version: string;
 }> => {
-  const { pagination, response } = await expenseAttributesApi.getSummary({
+  const { response, etag } = await expenseAttributesApi.getList({
     category,
-    page,
-    perPage,
-    extension: {
-      next: { tags: [tag] },
-    },
+    extension: { next: { tags: ["expense-attribute"] } },
   });
-  const { expense_attributes: expenseAttributes } = response;
-  const _expenseAttributes: ExpenseAttributes = expenseAttributes.map(
-    (value) => {
-      const { id, version, name, category } = value;
-      const expenseAttribute: ExpenseAttribute = {
-        id,
-        version: `"${version}"`,
-        name,
-        category,
-      };
-      return expenseAttribute;
-    },
-  );
   return {
-    expenseAttributes: _expenseAttributes,
-    pagination,
+    expenseAttributes: response.expense_attributes.map(
+      ({ id, name, category }) => ({ id, name, category }),
+    ),
+    version: etag,
   };
+};
+
+export const reorderExpenseAttributes = async ({
+  category,
+  from,
+  to,
+  version,
+}: {
+  category: string;
+  from: number;
+  to: number;
+  version: string;
+}): Promise<{ version?: string; message?: string }> => {
+  try {
+    const { etag } = await expenseAttributesApi.reorder({
+      category,
+      from,
+      to,
+      ifMatch: version,
+    });
+    updateTag("expense-attribute");
+    return { version: etag };
+  } catch (error) {
+    console.error(error);
+    return { message: reorderFailureMessage(error) };
+  }
 };
 
 export const getExpenseAttribute = async ({
@@ -172,4 +182,29 @@ export const deleteExpenseAttribute = async (
   }
   updateTag("expense-attribute");
   return {};
+};
+
+export const loadExpenseAttributeForDelete = async (
+  id: string,
+): Promise<DeleteTargetResult> => {
+  try {
+    const response = await expenseAttributesApi.get({ id, extension: {} });
+    return {
+      target: {
+        version: response.etag ?? "",
+        details: [
+          { label: "属性名", value: response.name },
+          { label: "分類", value: response.category },
+        ],
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      message:
+        error instanceof HttpError && error.status === 404
+          ? DELETE_TARGET_MISSING_MESSAGE
+          : DELETE_TARGET_LOAD_FAILED_MESSAGE,
+    };
+  }
 };

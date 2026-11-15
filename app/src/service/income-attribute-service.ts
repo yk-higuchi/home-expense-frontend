@@ -3,6 +3,11 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { incomeAttributesApi } from "@/lib/api/v1-income-attributes";
 import {
+  DELETE_TARGET_LOAD_FAILED_MESSAGE,
+  DELETE_TARGET_MISSING_MESSAGE,
+  type DeleteTargetResult,
+} from "@/lib/delete-target";
+import {
   CONFLICT_MESSAGE,
   collectErrors,
   DELETE_CONFLICT_MESSAGE,
@@ -10,47 +15,51 @@ import {
   type FormState,
   failureMessage,
   formValues,
+  reorderFailureMessage,
   SUBMIT_FAILED_MESSAGE,
 } from "@/lib/form/form-state";
 import { first, maxLength, required } from "@/lib/form/validation";
 import { HttpError } from "@/lib/http/error";
 import type { IncomeAttribute, IncomeAttributes } from "@/lib/income-attribute";
-import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
-export const getIncomeAttributeSummary = async ({
-  page,
-  perPage,
-  tag,
-}: {
-  page: number;
-  perPage: number;
-  tag: string;
-}): Promise<{
+export const getIncomeAttributes = async (): Promise<{
   incomeAttributes: IncomeAttributes;
-  pagination: Pagination;
+  version: string;
 }> => {
-  const { pagination, response } = await incomeAttributesApi.getSummary({
-    page,
-    perPage,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const { income_attributes: incomeAttributes } = response;
-  const _incomeAttributes: IncomeAttributes = incomeAttributes.map((value) => {
-    const { id, version, name } = value;
-    const incomeAttribute: IncomeAttribute = {
-      id,
-      version: `"${version}"`,
-      name,
-    };
-    return incomeAttribute;
+  const { response, etag } = await incomeAttributesApi.getList({
+    extension: { next: { tags: ["income-attribute"] } },
   });
   return {
-    incomeAttributes: _incomeAttributes,
-    pagination,
+    incomeAttributes: response.income_attributes.map(({ id, name }) => ({
+      id,
+      name,
+    })),
+    version: etag,
   };
+};
+
+export const reorderIncomeAttributes = async ({
+  from,
+  to,
+  version,
+}: {
+  from: number;
+  to: number;
+  version: string;
+}): Promise<{ version?: string; message?: string }> => {
+  try {
+    const { etag } = await incomeAttributesApi.reorder({
+      from,
+      to,
+      ifMatch: version,
+    });
+    updateTag("income-attribute");
+    return { version: etag };
+  } catch (error) {
+    console.error(error);
+    return { message: reorderFailureMessage(error) };
+  }
 };
 
 export const getIncomeAttribute = async ({
@@ -153,4 +162,26 @@ export const deleteIncomeAttribute = async (
   }
   updateTag("income-attribute");
   return {};
+};
+
+export const loadIncomeAttributeForDelete = async (
+  id: string,
+): Promise<DeleteTargetResult> => {
+  try {
+    const response = await incomeAttributesApi.get({ id, extension: {} });
+    return {
+      target: {
+        version: response.etag ?? "",
+        details: [{ label: "属性名", value: response.name }],
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      message:
+        error instanceof HttpError && error.status === 404
+          ? DELETE_TARGET_MISSING_MESSAGE
+          : DELETE_TARGET_LOAD_FAILED_MESSAGE,
+    };
+  }
 };

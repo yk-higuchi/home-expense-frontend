@@ -41,6 +41,17 @@ export const DELETE_FAILED_MESSAGE =
 export const CONFLICT_MESSAGE =
   "ほかの操作で内容が更新されています。画面を読み込み直してから、もう一度保存してください。";
 
+const REORDER_FAILED_MESSAGE =
+  "並べ替えを保存できませんでした。時間をおいてもう一度お試しください。";
+
+const REORDER_CONFLICT_MESSAGE =
+  "ほかの操作で一覧が更新されています。画面を読み込み直してから、もう一度並べ替えてください。";
+
+export const reorderFailureMessage = (error: unknown): string =>
+  error instanceof HttpError && [412, 422, 428].includes(error.status)
+    ? REORDER_CONFLICT_MESSAGE
+    : REORDER_FAILED_MESSAGE;
+
 export const DELETE_CONFLICT_MESSAGE =
   "ほかの操作で内容が更新されています。画面を読み込み直してから、もう一度削除してください。";
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
 import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
-import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
+import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import { getExpenseSummary } from "@/service/expense-service";
 import Expense from "@/ui/expense";
 
@@ -31,12 +31,9 @@ const ExpensePage = async (props: Props): Promise<ReactElement> => {
   const _category = isExpenseAttributeCategory(category) ? category : undefined;
   const [expenseAttributes, { expenses, pagination }] = await Promise.all([
     _category
-      ? getExpenseAttributeSummary({
-          category: _category,
-          page: 1,
-          perPage: 100,
-          tag: `expense-expense-attribute-${page}-${perPage}-${_category}`,
-        }).then(({ expenseAttributes }) => expenseAttributes)
+      ? getExpenseAttributes({ category: _category }).then(
+          ({ expenseAttributes }) => expenseAttributes,
+        )
       : Promise.resolve([]),
     getExpenseSummary({
       page,

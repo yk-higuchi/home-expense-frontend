@@ -4,7 +4,6 @@ import { useOptimistic, useState } from "react";
 
 interface Row {
   id?: string;
-  version?: string;
 }
 
 export const useOptimisticDelete = <T extends Row>(source: T[]) => {
@@ -19,7 +18,6 @@ export const useOptimisticDelete = <T extends Row>(source: T[]) => {
     requestDelete: setTargetId,
     dialogProps: {
       targetId,
-      targetVersion: source.find((row) => row.id === targetId)?.version,
       onDeleteStart: (id: string) => {
         setError(null);
         removeOptimistic(id);

@@ -27,6 +27,12 @@ const _delete = async (
   return await sendAndResolve({ ...params, method: "DELETE" });
 };
 
+const _patch = async (
+  params: Omit<HttpRequest, "method">,
+): Promise<HttpResponse> => {
+  return await sendAndResolve({ ...params, method: "PATCH" });
+};
+
 const sendAndResolve = async (params: HttpRequest): Promise<HttpResponse> => {
   try {
     const response = await send({ ...params });
@@ -67,8 +73,8 @@ const send = async ({
     return await fetch(urlValue, {
       method,
       headers: {
-        ...headers,
         "content-type": "application/json",
+        ...headers,
       },
       body,
       signal: controller.signal,
@@ -134,5 +140,6 @@ export const http = {
   get: _get,
   post: _post,
   put: _put,
+  patch: _patch,
   delete: _delete,
 };

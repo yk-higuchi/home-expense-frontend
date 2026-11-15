@@ -14,7 +14,7 @@ import type { ReactElement, ReactNode } from "react";
 import type { Expenses } from "@/lib/expense";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import type { Pagination } from "@/lib/pagination/pagination";
-import { deleteExpense } from "@/service/expense-service";
+import { deleteExpense, loadExpenseForDelete } from "@/service/expense-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
@@ -91,6 +91,7 @@ const ExpenseTable = ({
       </Table>
       <DeleteDialog
         {...dialogProps}
+        loadTarget={loadExpenseForDelete}
         title="経費の削除"
         idFieldName="expenseId"
         action={deleteExpense}

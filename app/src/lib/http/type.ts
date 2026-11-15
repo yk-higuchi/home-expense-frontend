@@ -1,6 +1,6 @@
 import type { JTDSchema } from "@/lib/json/type";
 
-type Method = "GET" | "POST" | "PUT" | "DELETE";
+type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 type Mode = RequestMode;
 type Cache = RequestCache;
 type Credentials = RequestCredentials;

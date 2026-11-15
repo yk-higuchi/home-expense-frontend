@@ -2,60 +2,82 @@ import process from "node:process";
 
 import {
   ExpenseAttributeGetResponse,
+  ExpenseAttributeListPatchRequest,
   ExpenseAttributeListResponse,
   ExpenseAttributePostRequest,
   ExpenseAttributePutRequest,
 } from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
-import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
 
 const getSummaryResponse = ExpenseAttributeListResponse;
 const getResponse = ExpenseAttributeGetResponse;
 const postRequest = ExpenseAttributePostRequest;
 const putRequest = ExpenseAttributePutRequest;
+const patchRequest = ExpenseAttributeListPatchRequest;
 
 type GetSummaryResponse = JTD<typeof getSummaryResponse>;
 type GetResponse = JTD<typeof getResponse>;
 type PostRequest = JTD<typeof postRequest>;
 type PutRequest = JTD<typeof putRequest>;
 
-const _getSummary = async ({
+const _getList = async ({
   category,
-  page,
-  perPage,
   extension,
 }: {
   category?: string;
-  page: number;
-  perPage: number;
   extension: object;
-}): Promise<{ pagination: Pagination; response: GetSummaryResponse }> => {
+}): Promise<{ response: GetSummaryResponse; etag: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
     path: "/v1/expense-attributes",
-    queries: {
-      category,
-      page: page.toString(),
-      per_page: perPage.toString(),
-    },
+    queries: { category },
     extension,
   });
   switch (response.type) {
-    case "success": {
-      const { headers } = response;
-      if (headers) {
-        const pagination = parseLinkHeader(headers);
-        const responseBody =
-          await response.body<GetSummaryResponse>(getSummaryResponse);
-        return {
-          pagination,
-          response: responseBody,
-        };
-      }
+    case "success":
+      return {
+        response: await response.body<GetSummaryResponse>(getSummaryResponse),
+        etag: response.headers?.etag ?? "",
+      };
+    case "failure":
+      throw response.error;
+  }
+};
 
-      throw new Error("");
-    }
+const _reorder = async ({
+  category,
+  from,
+  to,
+  ifMatch,
+}: {
+  category: string;
+  from: number;
+  to: number;
+  ifMatch: string;
+}): Promise<{ etag: string }> => {
+  const response = await http.patch({
+    url: process.env.BACKEND_URL,
+    path: "/v1/expense-attributes",
+    queries: { category },
+    headers: {
+      "content-type": "application/json-patch+json",
+      "if-match": ifMatch,
+    },
+    requestBody: {
+      schema: patchRequest,
+      data: [
+        {
+          op: "move",
+          from: `/expense_attributes/${from}`,
+          path: `/expense_attributes/${to}`,
+        },
+      ],
+    },
+  });
+  switch (response.type) {
+    case "success":
+      return { etag: response.headers?.etag ?? "" };
     case "failure":
       throw response.error;
   }
@@ -154,7 +176,8 @@ const _delete = async ({
 };
 
 export const expenseAttributesApi = {
-  getSummary: _getSummary,
+  getList: _getList,
+  reorder: _reorder,
   get: _get,
   post: _post,
   put: _put,

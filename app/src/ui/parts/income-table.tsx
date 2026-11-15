@@ -14,7 +14,7 @@ import type { ReactElement, ReactNode } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
-import { deleteIncome } from "@/service/income-service";
+import { deleteIncome, loadIncomeForDelete } from "@/service/income-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
@@ -89,6 +89,7 @@ const IncomeTable = ({
       </Table>
       <DeleteDialog
         {...dialogProps}
+        loadTarget={loadIncomeForDelete}
         title="収入の削除"
         idFieldName="incomeId"
         action={deleteIncome}

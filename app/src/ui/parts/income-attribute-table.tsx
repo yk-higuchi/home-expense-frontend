@@ -1,5 +1,8 @@
 import {
+  DragHandle,
   ErrorMessage,
+  ReorderButtons,
+  SortableStatus,
   Table,
   TableActions,
   TableBody,
@@ -8,75 +11,102 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
+  useSortableList,
 } from "@home-expense/ui";
-import type { ReactElement, ReactNode } from "react";
+import type { ReactElement } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
+import { useOptimisticReorder } from "@/lib/hooks/use-optimistic-reorder";
 import type { IncomeAttributes } from "@/lib/income-attribute";
-import type { Pagination } from "@/lib/pagination/pagination";
-import { deleteIncomeAttribute } from "@/service/income-attribute-service";
+import {
+  deleteIncomeAttribute,
+  loadIncomeAttributeForDelete,
+  reorderIncomeAttributes,
+} from "@/service/income-attribute-service";
+import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
-  pagination: Pagination;
+  version: string;
   onEdit: (id: string) => void;
-  footer?: ReactNode;
   loading?: boolean;
 }
 
 const IncomeAttributeTable = ({
   incomeAttributes,
-  pagination,
+  version,
   onEdit,
-  footer,
   loading,
 }: Props): ReactElement => {
+  const reordering = useOptimisticReorder({
+    source: incomeAttributes,
+    version,
+    save: (move) => reorderIncomeAttributes({ ...move }),
+  });
   const {
-    rows: optimisticIncomeAttributes,
+    rows,
     error: deleteError,
     requestDelete,
     dialogProps,
-  } = useOptimisticDelete(incomeAttributes);
-  const { page, perPage } = pagination.current;
+  } = useOptimisticDelete(reordering.rows);
+  const { handleProps, rowProps, canMove, moveBy, announcement } =
+    useSortableList({
+      items: rows,
+      getId: (row) => row.id ?? "",
+      getLabel: (row) => row.name,
+      onReorder: reordering.reorder,
+      disabled: reordering.isPending || loading,
+    });
+  const error = reordering.error ?? deleteError;
 
   return (
     <>
-      {deleteError && <ErrorMessage>{deleteError}</ErrorMessage>}
-      <Table footer={footer} loading={loading}>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      <Table loading={loading}>
         <TableHead>
           <TableRow>
+            <TableHeaderCell width={64} aria-label="並べ替え" />
             <TableHeaderCell width={102}>No.</TableHeaderCell>
             <TableHeaderCell>属性名</TableHeaderCell>
-            <TableHeaderCell width={104}>編集</TableHeaderCell>
+            <TableHeaderCell width={146}>操作</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {optimisticIncomeAttributes.length === 0 && (
-            <TableEmpty colSpan={3} />
-          )}
-          {optimisticIncomeAttributes.map(({ id, name }, index) => {
-            const no = index + 1 + (page - 1) * perPage;
-            return (
-              <TableRow key={id ?? no}>
-                <TableCell>{no}</TableCell>
-                <TableCell>{name}</TableCell>
-                <TableCell>
-                  {id && (
+          {rows.length === 0 && <TableEmpty colSpan={4} />}
+          {rows.map((row, index) => (
+            <TableRow key={row.id ?? index} {...rowProps(row)}>
+              <TableCell>
+                <DragHandle {...handleProps(row)} />
+              </TableCell>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>
+                <div className={style.actions}>
+                  <ReorderButtons
+                    label={row.name}
+                    onMoveUp={() => moveBy(row, -1)}
+                    onMoveDown={() => moveBy(row, 1)}
+                    canMoveUp={canMove(row, -1)}
+                    canMoveDown={canMove(row, 1)}
+                  />
+                  {row.id && (
                     <TableActions
-                      onEdit={() => onEdit(id)}
-                      onDelete={() => requestDelete(id)}
-                      editLabel={`${name}を編集`}
-                      deleteLabel={`${name}を削除`}
+                      onEdit={() => onEdit(row.id ?? "")}
+                      onDelete={() => requestDelete(row.id ?? null)}
+                      editLabel={`${row.name}を編集`}
+                      deleteLabel={`${row.name}を削除`}
                     />
                   )}
-                </TableCell>
-              </TableRow>
-            );
-          })}
+                </div>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
+      <SortableStatus message={announcement} />
       <DeleteDialog
         {...dialogProps}
+        loadTarget={loadIncomeAttributeForDelete}
         title="収入属性の削除"
         idFieldName="incomeAttributeId"
         action={deleteIncomeAttribute}

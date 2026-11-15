@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { connection } from "next/server";
 import type { ReactElement } from "react";
 
-import { getIncomeAttributeSummary } from "@/service/income-attribute-service";
+import { getIncomeAttributes } from "@/service/income-attribute-service";
 import IncomeRegistration from "@/ui/income-registration";
 
 export const metadata: Metadata = {
@@ -11,11 +11,7 @@ export const metadata: Metadata = {
 
 const IncomeRegistrationPage = async (): Promise<ReactElement> => {
   await connection();
-  const { incomeAttributes } = await getIncomeAttributeSummary({
-    page: 1,
-    perPage: 100,
-    tag: `income-attribute`,
-  });
+  const { incomeAttributes } = await getIncomeAttributes();
   return <IncomeRegistration incomeAttributes={incomeAttributes} />;
 };
 export default IncomeRegistrationPage;

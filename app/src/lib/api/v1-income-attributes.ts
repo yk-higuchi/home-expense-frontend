@@ -2,57 +2,76 @@ import process from "node:process";
 
 import {
   IncomeAttributeGetResponse,
+  IncomeAttributeListPatchRequest,
   IncomeAttributeListResponse,
   IncomeAttributePostRequest,
   IncomeAttributePutRequest,
 } from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
-import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
 
 const getSummaryResponse = IncomeAttributeListResponse;
 const getResponse = IncomeAttributeGetResponse;
 const postRequest = IncomeAttributePostRequest;
 const putRequest = IncomeAttributePutRequest;
+const patchRequest = IncomeAttributeListPatchRequest;
 
 type GetSummaryResponse = JTD<typeof getSummaryResponse>;
 type GetResponse = JTD<typeof getResponse>;
 type PostRequest = JTD<typeof postRequest>;
 type PutRequest = JTD<typeof putRequest>;
 
-const _getSummary = async ({
-  page,
-  perPage,
+const _getList = async ({
   extension,
 }: {
-  page: number;
-  perPage: number;
   extension: object;
-}): Promise<{ pagination: Pagination; response: GetSummaryResponse }> => {
+}): Promise<{ response: GetSummaryResponse; etag: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
     path: "/v1/income-attributes",
-    queries: {
-      page: page.toString(),
-      per_page: perPage.toString(),
-    },
     extension,
   });
   switch (response.type) {
-    case "success": {
-      const { headers } = response;
-      if (headers) {
-        const pagination = parseLinkHeader(headers);
-        const responseBody =
-          await response.body<GetSummaryResponse>(getSummaryResponse);
-        return {
-          pagination,
-          response: responseBody,
-        };
-      }
+    case "success":
+      return {
+        response: await response.body<GetSummaryResponse>(getSummaryResponse),
+        etag: response.headers?.etag ?? "",
+      };
+    case "failure":
+      throw response.error;
+  }
+};
 
-      throw new Error("");
-    }
+const _reorder = async ({
+  from,
+  to,
+  ifMatch,
+}: {
+  from: number;
+  to: number;
+  ifMatch: string;
+}): Promise<{ etag: string }> => {
+  const response = await http.patch({
+    url: process.env.BACKEND_URL,
+    path: "/v1/income-attributes",
+    headers: {
+      "content-type": "application/json-patch+json",
+      "if-match": ifMatch,
+    },
+    requestBody: {
+      schema: patchRequest,
+      data: [
+        {
+          op: "move",
+          from: `/income_attributes/${from}`,
+          path: `/income_attributes/${to}`,
+        },
+      ],
+    },
+  });
+  switch (response.type) {
+    case "success":
+      return { etag: response.headers?.etag ?? "" };
     case "failure":
       throw response.error;
   }
@@ -150,7 +169,8 @@ const _delete = async ({
 };
 
 export const incomeAttributesApi = {
-  getSummary: _getSummary,
+  getList: _getList,
+  reorder: _reorder,
   get: _get,
   post: _post,
   put: _put,

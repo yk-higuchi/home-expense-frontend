@@ -2,48 +2,21 @@
 import { Button, PlusIcon } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
 import type { ReactElement } from "react";
-import { useNavigation } from "@/lib/hooks/use-navigation";
 
 import type { IncomeAttributes } from "@/lib/income-attribute";
-import type { Pagination } from "@/lib/pagination/pagination";
 import IncomeAttributeTable from "@/ui/parts/income-attribute-table";
 import layout from "@/ui/parts/list-layout.module.css";
-import PaginationComponent from "@/ui/parts/pagination-component";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
-  pagination: Pagination;
+  version: string;
 }
 
 const IncomeAttribute = ({
   incomeAttributes,
-  pagination,
+  version,
 }: Props): ReactElement => {
   const router = useRouter();
-  const { isPending, navigate } = useNavigation();
-  const handleMovePrevious = (page: number, perPage: number) => {
-    const searchParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: perPage.toString(),
-    });
-    navigate(`/income-attribute?${searchParams.toString()}`);
-  };
-
-  const handleMoveNext = (page: number, perPage: number) => {
-    const searchParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: perPage.toString(),
-    });
-    navigate(`/income-attribute?${searchParams.toString()}`);
-  };
-
-  const handleMovePage = (page: number, perPage: number) => {
-    const searchParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: perPage.toString(),
-    });
-    navigate(`/income-attribute?${searchParams.toString()}`);
-  };
 
   const handleRegistrationClick = (): void => {
     router.push("/income-attribute/registration");
@@ -60,18 +33,9 @@ const IncomeAttribute = ({
         </Button>
       </div>
       <IncomeAttributeTable
-        loading={isPending}
         incomeAttributes={incomeAttributes}
-        pagination={pagination}
+        version={version}
         onEdit={handleEdit}
-        footer={
-          <PaginationComponent
-            pagination={pagination}
-            onMovePrevious={handleMovePrevious}
-            onMoveNext={handleMoveNext}
-            onMovePage={handleMovePage}
-          />
-        }
       />
     </div>
   );

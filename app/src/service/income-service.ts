@@ -3,6 +3,12 @@ import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { incomesApi } from "@/lib/api/v1-incomes";
 import {
+  DELETE_TARGET_LOAD_FAILED_MESSAGE,
+  DELETE_TARGET_MISSING_MESSAGE,
+  type DeleteTargetResult,
+  formatYen,
+} from "@/lib/delete-target";
+import {
   CONFLICT_MESSAGE,
   collectErrors,
   DELETE_CONFLICT_MESSAGE,
@@ -52,7 +58,6 @@ export const getIncomeSummary = async ({
   const _incomes: Incomes = incomes.map((value) => {
     const {
       id,
-      version,
       description,
       income_attribute: incomeAttribute,
       amount,
@@ -61,7 +66,6 @@ export const getIncomeSummary = async ({
     const { id: attributeId, name } = incomeAttribute;
     const income: Income = {
       id,
-      version: `"${version}"`,
       description,
       amount,
       receiveDate,
@@ -210,4 +214,31 @@ export const deleteIncome = async (formData: FormData): Promise<FormState> => {
   }
   updateTag("income");
   return {};
+};
+
+export const loadIncomeForDelete = async (
+  id: string,
+): Promise<DeleteTargetResult> => {
+  try {
+    const response = await incomesApi.get({ id, extension: {} });
+    return {
+      target: {
+        version: response.etag ?? "",
+        details: [
+          { label: "説明", value: response.description },
+          { label: "金額", value: formatYen(response.amount) },
+          { label: "受取日", value: response.receive_date },
+          { label: "属性名", value: response.income_attribute.name },
+        ],
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      message:
+        error instanceof HttpError && error.status === 404
+          ? DELETE_TARGET_MISSING_MESSAGE
+          : DELETE_TARGET_LOAD_FAILED_MESSAGE,
+    };
+  }
 };

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
-import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
+import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import { getExpense } from "@/service/expense-service";
 import ExpenseEdit from "@/ui/expense-edit";
 
@@ -24,12 +24,7 @@ const ExpenseEditPage = async (props: Props): Promise<ReactElement> => {
   const { id } = params;
   const expense = await getExpense({ id, tag: `expense-${id}` });
   const { category = expense.category } = searchParams;
-  const { expenseAttributes } = await getExpenseAttributeSummary({
-    category,
-    page: 1,
-    perPage: 100,
-    tag: `expense-attribute-${category}`,
-  });
+  const { expenseAttributes } = await getExpenseAttributes({ category });
   return (
     <ExpenseEdit expense={expense} expenseAttributes={expenseAttributes} />
   );
