@@ -1,6 +1,7 @@
 {
   "name": "home-expense-frontend-workspace",
   "private": true,
+  "packageManager": "pnpm@12.21.0",
   "scripts": {
     "lint": "pnpm -r lint && pnpm lint:knip",
     "lint:knip": "knip",
