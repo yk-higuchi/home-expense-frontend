@@ -28,7 +28,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 合計行（金額なしは「内訳」などの見出し） */
 export const SummaryRows: Story = {
   render: () => (
     <>
@@ -44,7 +43,6 @@ export const SummaryRows: Story = {
   ),
 };
 
-/** 内訳（見出しをクリック・Enter キーで開閉できる） */
 export const BreakdownTree: Story = {
   render: () => (
     <Breakdown>
@@ -64,7 +62,6 @@ export const BreakdownTree: Story = {
   ),
 };
 
-/** 内訳を閉じた状態 */
 export const BreakdownClosed: Story = {
   render: () => (
     <Breakdown>

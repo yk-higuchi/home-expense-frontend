@@ -38,10 +38,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 削除の確認（開いた状態） */
 export const DeleteConfirm: Story = {};
 
-/** ボタンで開閉する。削除を押すと 1.5 秒「処理中」になってから閉じる */
 export const Interactive: Story = {
   render: (args) => {
     const [open, setOpen] = useState(false);

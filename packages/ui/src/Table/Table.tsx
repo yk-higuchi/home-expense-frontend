@@ -12,23 +12,11 @@ const cx = (...names: (string | false | undefined)[]): string =>
   names.filter(Boolean).join(" ");
 
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {
-  /** 表の下（枠の内側）に置く要素。ページネーションなど */
   footer?: ReactNode;
-  /** 読み込み中（絞り込み・ページ送りの切り替え中）。表を薄くして操作を止める */
   loading?: boolean;
-  /**
-   * 見た目
-   * - default: 外枠あり・見出しは水色（一覧の表）
-   * - plain: 外枠なし・見出しは下線だけ（カードの中の集計表。Figma: 月別一覧）
-   */
   variant?: "default" | "plain";
 }
 
-/**
- * 表
- *
- * Figma: コンポーネント / テーブル（外枠 1px・角丸 8px、行の間は横線のみ）
- */
 export const Table = ({
   footer,
   loading = false,
@@ -69,11 +57,9 @@ export const TableRow = (
 
 export interface TableHeaderCellProps
   extends ThHTMLAttributes<HTMLTableCellElement> {
-  /** 列の幅（px や % など）。省略すると残りの幅を分け合う */
   width?: number | string;
 }
 
-/** 見出しセル（Figma: テーブルセル 種類=見出し） */
 export const TableHeaderCell = ({
   width,
   className,
@@ -89,7 +75,6 @@ export const TableHeaderCell = ({
   />
 );
 
-/** データセル（Figma: テーブルセル 種類=データ） */
 export const TableCell = ({
   className,
   ...rest
@@ -98,12 +83,10 @@ export const TableCell = ({
 );
 
 export interface TableEmptyProps {
-  /** 表の列数（セルを横いっぱいに広げるため） */
   colSpan: number;
   children?: ReactNode;
 }
 
-/** データが 0 件のときの行（Figma: 空のテーブル行） */
 export const TableEmpty = ({
   colSpan,
   children = "データがありません",

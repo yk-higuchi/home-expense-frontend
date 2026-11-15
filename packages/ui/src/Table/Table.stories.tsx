@@ -60,7 +60,6 @@ const AttributeHead = () => (
   </TableHead>
 );
 
-/** 経費属性一覧の表 */
 export const ExpenseAttributes: Story = {
   render: (args) => (
     <Table {...args}>
@@ -86,7 +85,6 @@ export const ExpenseAttributes: Story = {
   ),
 };
 
-/** 経費一覧の表（列が多い場合） */
 export const Expenses: Story = {
   render: (args) => (
     <Table {...args}>
@@ -118,7 +116,6 @@ export const Expenses: Story = {
   ),
 };
 
-/** データが 0 件 */
 export const Empty: Story = {
   render: (args) => (
     <Table {...args}>
@@ -130,7 +127,6 @@ export const Empty: Story = {
   ),
 };
 
-/** 表の枠の内側・下にページネーションを置く（Figma の一覧画面と同じ形） */
 export const WithFooter: Story = {
   args: {
     footer: <Pagination currentPage={1} totalPages={10} onPageChange={noop} />,
@@ -138,13 +134,11 @@ export const WithFooter: Story = {
   render: ExpenseAttributes.render,
 };
 
-/** 読み込み中（絞り込み・ページ送りの切り替え中） */
 export const Loading: Story = {
   args: { loading: true },
   render: ExpenseAttributes.render,
 };
 
-/** plain（カードの中の集計表。Figma: 月別一覧） */
 export const Plain: Story = {
   args: { variant: "plain" },
   render: ExpenseAttributes.render,

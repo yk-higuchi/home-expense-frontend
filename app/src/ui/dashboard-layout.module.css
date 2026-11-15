@@ -1,8 +1,3 @@
-/*
-  * 画面全体の枠
-  * Figma: 外側の余白 32px / サイドバーと右カラムの間隔 16px /
-  *        ナビバーとメインコンテンツの間隔 16px
-*/
 .parent {
   box-sizing: border-box;
   display: grid;
@@ -20,7 +15,6 @@
   min-height: 0;
 }
 
-/* メインコンテンツ（Figma: 基本/面 / 枠線 1px / 角丸 8px / 余白 24px） */
 .content {
   box-sizing: border-box;
   flex: 1;

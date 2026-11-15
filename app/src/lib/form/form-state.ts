@@ -1,12 +1,8 @@
 import { HttpError } from "@/lib/http/error";
 
-/** Server Action が useActionState に返すフォームの状態 */
 export interface FormState {
-  /** 項目ごとのエラーメッセージ（name 属性がキー） */
   errors?: Record<string, string>;
-  /** エラー時に入力欄へ戻す入力値（React 19 は送信後にフォームを空に戻すため） */
   values?: Record<string, string>;
-  /** フォーム全体のエラー（API の失敗など） */
   message?: string;
 }
 
@@ -17,7 +13,6 @@ export type FormAction = (
 
 export const initialFormState: FormState = {};
 
-/** 指定した項目の入力値を文字列として取り出す */
 export const formValues = <K extends string>(
   formData: FormData,
   names: readonly K[],
@@ -26,7 +21,6 @@ export const formValues = <K extends string>(
     names.map((name) => [name, String(formData.get(name) ?? "").trim()]),
   ) as Record<K, string>;
 
-/** エラーメッセージのうち、値があるものだけを集める。なければ undefined */
 export const collectErrors = (
   candidates: Record<string, string | undefined>,
 ): Record<string, string> | undefined => {
@@ -50,12 +44,6 @@ export const CONFLICT_MESSAGE =
 export const DELETE_CONFLICT_MESSAGE =
   "ほかの操作で内容が更新されています。画面を読み込み直してから、もう一度削除してください。";
 
-/**
- * API の失敗を利用者向けの文言にする。
- * - 412（バージョンが合わない）: ほかの操作で更新された旨
- * - そのほかの 4xx: バックエンドの detail（例: 既に登録されています）
- * - 5xx・通信エラー: fallback
- */
 export const failureMessage = (
   error: unknown,
   fallback: string,

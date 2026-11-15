@@ -24,32 +24,19 @@ import { formatCompact, formatYen } from "./format";
 import { computeScale, type Plot, type Scale, tickCountFor } from "./scales";
 
 export interface ChartSeries {
-  /** 凡例・ツールチップ・データ表に出す名前 */
   label: string;
-  /** labels と同じ並びの値。null は欠損（線は途切れ、棒は描かない） */
   values: readonly (number | null)[];
-  /** 棒か線か。同じ単位（同じ縦軸）のものだけを重ねる */
   type: "bar" | "line";
-  /** 色（CSS の値。例: "var(--color-chart-1)"）。項目ごとに固定し、順位で変えない */
   color: string;
 }
 
 export interface ChartProps {
-  /** グラフの名前（読み上げ・データ表の見出しに使う） */
   title: string;
-  /** 横軸のラベル（例: 1月〜12月） */
   labels: readonly string[];
   series: readonly ChartSeries[];
-  /** ツールチップとデータ表の値の表示。既定は金額（￥44,000） */
   formatValue?: (value: number) => string;
-  /** 縦軸の目盛りの表示。既定は短い表記（10万） */
   formatTick?: (value: number) => string;
-  /** グラフ部分の高さ（px） */
   height?: number;
-  /**
-   * 「表で見る」（同じ値のデータ表）を出すか。既定は出す。
-   * 同じ値の表が画面にすでにあるときだけ false にする（表が 2 つ並ばないように）
-   */
   showTable?: boolean;
 }
 
@@ -62,7 +49,6 @@ const MARKER_LIMIT = 60;
 const isNumber = (v: number | null | undefined): v is number =>
   typeof v === "number" && Number.isFinite(v);
 
-/** 先端だけ 4px 丸めた棒（基準線側は四角） */
 const barPath = (x: number, y0: number, y1: number, w: number): string => {
   const h = Math.abs(y1 - y0);
   if (h === 0) return "";
@@ -81,7 +67,6 @@ const barPath = (x: number, y0: number, y1: number, w: number): string => {
   ].join(" ");
 };
 
-/** 欠損（null）で区切った、値が続いている区間 */
 const segmentsOf = (values: readonly (number | null)[]): IndexedPoint[][] => {
   const segments: IndexedPoint[][] = [];
   let current: IndexedPoint[] = [];
@@ -97,9 +82,6 @@ const segmentsOf = (values: readonly (number | null)[]): IndexedPoint[][] => {
   return segments;
 };
 
-/**
- * 欠損で途切れる線。区間ごとに間引くので、間引きで番号が飛んでも線は切れない
- */
 const linePath = (
   values: readonly (number | null)[],
   scale: Scale,
@@ -121,7 +103,6 @@ const linePath = (
     .join(" ");
 };
 
-/** 読み上げ用の説明 */
 const describe = (
   labels: readonly string[],
   series: readonly ChartSeries[],
@@ -131,12 +112,6 @@ const describe = (
   return `${labels[0]}から${labels[labels.length - 1]}までの${names}（${labels.length}件）`;
 };
 
-/**
- * 棒と線を重ねられるグラフ（縦軸は 1 本）
- *
- * Figma: コンポーネント / 推移グラフ
- * 参考実装 wc-line-chart（Web Components）の計算部分を移植し、React と SVG で描く。
- */
 export const Chart = ({
   title,
   labels,
@@ -184,8 +159,6 @@ export const Chart = ({
         )
       : 0;
   const groupW = k * barW + BAR_GAP * Math.max(0, k - 1);
-  // 横軸のラベルが重なる場合は間引く（1 ラベル 40px を目安）
-  // ラベル（14px）が重ならないよう、1 つあたり 48px 以上あける
   const labelStep = Math.max(1, Math.ceil(48 / Math.max(1, scale.band)));
   const empty = count === 0 || series.length === 0 || allValues.length === 0;
 
@@ -273,7 +246,6 @@ export const Chart = ({
           >
             <title id={titleId}>{title}</title>
             <desc id={descId}>{describe(labels, series)}</desc>
-            {/* グリッドと縦軸の目盛り */}
             {scale.yTicks.map((tick) => (
               <g key={tick}>
                 <line
@@ -294,7 +266,6 @@ export const Chart = ({
                 </text>
               </g>
             ))}
-            {/* 選択中の月の帯 */}
             {active >= 0 && (
               <rect
                 className={styles.activeBand}
@@ -304,7 +275,6 @@ export const Chart = ({
                 height={plot.h}
               />
             )}
-            {/* 棒（項目ごとに 2px の間を空けて並べる） */}
             {barSeries.map((s, j) => (
               <g key={s.label} style={{ fill: s.color }}>
                 {s.values.map((v, i) =>
@@ -323,7 +293,6 @@ export const Chart = ({
                 )}
               </g>
             ))}
-            {/* 線と点（点が多いときは間引き、点を省く） */}
             {lineSeries.map((s) => {
               const points: IndexedPoint[] = s.values.flatMap((value, index) =>
                 isNumber(value) ? [{ index, value }] : [],
@@ -350,7 +319,6 @@ export const Chart = ({
                 </g>
               );
             })}
-            {/* 横軸のラベル */}
             {labels.map((label, i) =>
               i % labelStep === 0 ? (
                 <text
@@ -364,7 +332,6 @@ export const Chart = ({
                 </text>
               ) : null,
             )}
-            {/* マウスの当たり判定（グラフ全体） */}
             <rect
               className={styles.hitArea}
               x={plot.x}

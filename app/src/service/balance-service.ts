@@ -19,7 +19,6 @@ const toBreakdown = (value: {
   })),
 });
 
-/** 年（month を省略）または月の収支 */
 export const getBalanceStatistics = async ({
   year,
   month,
@@ -43,7 +42,6 @@ export const getBalanceStatistics = async ({
   };
 };
 
-/** 月ごとの収支の推移（from の月の初めから to の月の終わりまで） */
 export const getMonthlyBalanceSeries = async ({
   from,
   to,

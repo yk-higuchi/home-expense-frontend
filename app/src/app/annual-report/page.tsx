@@ -20,7 +20,6 @@ interface Props {
 const AnnualReportPage = async (props: Props): Promise<ReactElement> => {
   const searchParams = await props.searchParams;
   const year = Number(searchParams.year) || new Date(Date.now()).getFullYear();
-  // 1 年分の収支と、月ごとの推移を同時に取得する
   const [statistics, series] = await Promise.all([
     getBalanceStatistics({ year, tag: `balance-statistics-${year}` }),
     getMonthlyBalanceSeries({

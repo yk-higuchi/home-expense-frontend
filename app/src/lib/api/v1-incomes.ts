@@ -10,7 +10,6 @@ import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
 import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
 
-// スキーマは、バックエンドが OpenAPI から生成したもの（src/lib/api/generated/jtd.ts。pnpm gen:api で作り直す）
 const getSummaryResponse = IncomeListResponse;
 const getResponse = IncomeGetResponse;
 const postRequest = IncomePostRequest;
@@ -76,7 +75,6 @@ const _get = async ({
   });
   switch (response.type) {
     case "success":
-      // ETag はデータのバージョン。更新（PUT）の If-Match にそのまま使う
       return {
         ...(await response.body<GetResponse>(getResponse)),
         etag: response.headers?.etag,
@@ -123,7 +121,6 @@ const _put = async ({
   ifMatch,
 }: {
   id: string;
-  /** 取得時の ETag（楽観的ロック） */
   ifMatch: string;
 } & PutRequest): Promise<void> => {
   const data = {
@@ -154,7 +151,6 @@ const _delete = async ({
   ifMatch,
 }: {
   id: string;
-  /** 一覧で表示したときのバージョン（楽観的ロック） */
   ifMatch: string;
 }): Promise<void> => {
   const response = await http.delete({

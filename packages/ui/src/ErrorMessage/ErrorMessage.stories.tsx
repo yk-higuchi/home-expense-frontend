@@ -19,10 +19,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 保存に失敗したとき */
 export const SubmitFailed: Story = {};
 
-/** ほかの操作で更新されていたとき（楽観的ロック） */
 export const Conflict: Story = {
   args: {
     children:

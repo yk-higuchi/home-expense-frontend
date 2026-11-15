@@ -13,30 +13,15 @@ import {
 import styles from "./Dialog.module.css";
 
 export interface DialogProps {
-  /** 開いているか */
   open: boolean;
-  /** 閉じる操作（Esc キー・背景のクリック）があったとき */
   onClose: () => void;
-  /** 見出し */
   title: string;
-  /** 見出しの下の説明 */
   description?: ReactNode;
-  /** 説明の下に置く内容（フォームの hidden 項目など） */
   children?: ReactNode;
-  /** 右下に並べるボタン */
   actions: ReactNode;
-  /**
-   * 指定すると、中身を <form> で包む。actions の type="submit" のボタンで送信できる。
-   * 例: { action: deleteExpense }
-   */
   formProps?: FormHTMLAttributes<HTMLFormElement>;
 }
 
-/**
- * ダイアログ（モーダル）
- *
- * Figma: コンポーネント / 削除確認ダイアログ
- */
 export const Dialog = ({
   open,
   onClose,
@@ -57,7 +42,6 @@ export const Dialog = ({
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
-  // 背景（::backdrop）のクリックで閉じる
   const handleClick = (event: MouseEvent<HTMLDialogElement>): void => {
     if (event.target === event.currentTarget) onClose();
   };

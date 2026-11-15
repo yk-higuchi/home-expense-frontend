@@ -6,14 +6,10 @@ const workspaceRoot = path.join(
   "..",
 );
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  // 部品ライブラリ（packages/ui）を TypeScript のまま取り込む
   transpilePackages: ["@home-expense/ui"],
-  // モノレポのルートを基準に standalone 出力を作る
   outputFileTracingRoot: workspaceRoot,
-  // React Compiler で再レンダーの最適化を自動化する（useCallback / useMemo を手で書かない）
   reactCompiler: true,
 };
 

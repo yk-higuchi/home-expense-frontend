@@ -14,7 +14,6 @@ interface FieldProps {
 const descriptionId = (id: string): string => `${id}-description`;
 const errorId = (id: string): string => `${id}-error`;
 
-/** aria-describedby に入れる ID（説明・エラーがあるものだけ） */
 export const describedBy = (
   id: string,
   description?: string,
@@ -24,9 +23,6 @@ export const describedBy = (
     .filter(Boolean)
     .join(" ") || undefined;
 
-/**
- * ラベル・説明・エラーで入力部品を囲む共通部品（ライブラリ内部用）
- */
 export const Field = ({
   id,
   label,

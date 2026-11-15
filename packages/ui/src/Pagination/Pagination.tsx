@@ -3,13 +3,9 @@ import type { ReactElement } from "react";
 import styles from "./Pagination.module.css";
 
 export interface PaginationProps {
-  /** 今のページ（1 始まり） */
   currentPage: number;
-  /** 全ページ数 */
   totalPages: number;
-  /** ページを選んだとき */
   onPageChange: (page: number) => void;
-  /** 今のページの前後に表示するページ数 */
   siblingCount?: number;
   previousLabel?: string;
   nextLabel?: string;
@@ -18,7 +14,6 @@ export interface PaginationProps {
 
 type Item = number | "gap-start" | "gap-end";
 
-/** 先頭・今のページの前後・最後を並べ、間を省略記号にする */
 const paginationItems = (
   currentPage: number,
   totalPages: number,
@@ -55,11 +50,6 @@ const Arrow = ({ direction }: { direction: "left" | "right" }) => (
   </svg>
 );
 
-/**
- * ページネーション
- *
- * Figma: コンポーネント / ページネーション
- */
 export const Pagination = ({
   currentPage,
   totalPages,

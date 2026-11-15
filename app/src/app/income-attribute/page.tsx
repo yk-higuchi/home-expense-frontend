@@ -17,7 +17,6 @@ interface Props {
 
 const IncomeAttributePage = async (props: Props): Promise<ReactElement> => {
   const searchParams = await props.searchParams;
-  // 画面の URL は per_page（API と同じ名前）
   const page = Number(searchParams.page) || 1;
   const perPage = Number(searchParams.per_page) || 20;
   const { incomeAttributes, pagination } = await getIncomeAttributeSummary({

@@ -11,7 +11,6 @@ interface Props {
   onMovePage: (page: number, perPage: number) => void;
 }
 
-/** API の Link ヘッダーから作ったページ情報を、ライブラリのページネーションにつなぐ */
 const PaginationComponent = ({
   pagination,
   onMovePrevious,

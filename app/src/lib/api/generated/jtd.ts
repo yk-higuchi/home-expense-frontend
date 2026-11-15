@@ -1,6 +1,3 @@
-// このファイルは scripts/gen-api.mjs が生成する。手で編集しない（pnpm gen:api で作り直す）
-// 元: バックエンドの openapi.jtd.json（api-version: 2.1.0、sha256: 2ab11b4361cd259c）
-
 export const BalanceSeriesResponse = {
   properties: {
     granularity: { enum: ["day", "week", "month", "quarter", "year"] },

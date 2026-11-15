@@ -5,7 +5,6 @@ import type { ReactElement } from "react";
 
 import style from "./state.module.css";
 
-/** エラー画面（Figma: 共通の状態 / エラー） */
 const ErrorPage = ({
   error,
   reset,

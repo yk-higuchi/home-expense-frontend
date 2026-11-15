@@ -33,10 +33,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** フォーム用（ラベル付き） */
 export const Default: Story = {};
 
-/** 期間選択用（ラベルなし） */
 export const WithoutLabel: Story = {
   args: {
     label: undefined,

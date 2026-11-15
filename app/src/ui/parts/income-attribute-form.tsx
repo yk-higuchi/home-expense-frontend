@@ -8,7 +8,6 @@ import style from "./form.module.css";
 
 interface Props {
   incomeAttribute?: IncomeAttribute | Record<string, never>;
-  /** 登録・更新の Server Action（入力エラーを返す） */
   action: FormAction;
   buttonTitle: string;
 }
@@ -24,7 +23,6 @@ const IncomeAttributeForm = ({
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="incomeAttributeId" value={id} />
-      {/* 取得時のバージョン（更新時に If-Match として送る） */}
       <input type="hidden" name="version" value={version ?? ""} />
       <TextInput
         label="属性名"

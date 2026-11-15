@@ -22,25 +22,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 最初のページ（前へは押せない） */
 export const FirstPage: Story = {};
 
-/** 途中のページ（前後が省略される） */
 export const MiddlePage: Story = {
   args: { currentPage: 6, totalPages: 20 },
 };
 
-/** 最後のページ（次へは押せない） */
 export const LastPage: Story = {
   args: { currentPage: 10 },
 };
 
-/** 1 ページだけ */
 export const SinglePage: Story = {
   args: { totalPages: 1 },
 };
 
-/** クリックでページが切り替わる */
 export const Interactive: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.currentPage);

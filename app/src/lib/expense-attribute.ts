@@ -2,7 +2,6 @@ export type ExpenseAttributeCategory = "固定費" | "変動費";
 
 export interface ExpenseAttribute {
   id?: string;
-  /** データのバージョン（取得時の ETag。更新時の If-Match に使う） */
   version?: string;
   name: string;
   category: ExpenseAttributeCategory;

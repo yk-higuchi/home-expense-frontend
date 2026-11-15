@@ -1,8 +1,3 @@
-/**
- * グラフの目盛りと座標の計算（参考実装 wc-line-chart の scales.ts を移植）
- * 変更点: 0 を必ず範囲に含める（金額のグラフで 0 を基準にするため）
- */
-
 export interface Plot {
   readonly x: number;
   readonly y: number;
@@ -11,10 +6,8 @@ export interface Plot {
 }
 
 export interface Scale {
-  /** i 番目の区間の中心の x 座標 */
   readonly toX: (i: number) => number;
   readonly toY: (v: number) => number;
-  /** 1 区間の幅 */
   readonly band: number;
   readonly yTicks: readonly number[];
 }
@@ -46,7 +39,6 @@ export const computeScale = (
   };
 };
 
-/** 切りのいい目盛り（1・2・5 × 10^n 刻み） */
 const niceTicks = (
   min: number,
   max: number,
@@ -69,6 +61,5 @@ const niceNum = (range: number): number => {
   return nice * 10 ** exp;
 };
 
-/** 高さに応じた目盛りの数（40px に 1 本、2〜10 本） */
 export const tickCountFor = (plotH: number): number =>
   Math.max(2, Math.min(10, Math.round(plotH / 40)));

@@ -1,4 +1,3 @@
-/* サイドバー（Figma: 幅 242px / 余白 24px / 項目の間隔 8px / 角丸 8px / 影 Drop Shadow/200） */
 .sideBar {
   box-sizing: border-box;
   width: 242px;
@@ -20,21 +19,17 @@
   list-style: none;
 }
 
-/* ナビ項目（Figma: ナビ項目 / 余白 8px 12px / 角丸 8px） */
 .item {
   display: block;
   padding: var(--space-200) var(--space-300);
   border-radius: var(--radius-200);
   color: var(--color-text);
   font-size: var(--text-body-size);
-
-  /* Figma: 文字/本文（1行）。項目の高さは 32px（文字 16px ＋ 上下の余白 8px） */
   line-height: var(--text-single-line-line-height);
   text-decoration: none;
   transition: background-color 120ms ease;
 }
 
-/* 選択中（Figma: 状態=選択中 / 水色） */
 .active {
   background-color: var(--color-interactive-selected);
 }
@@ -44,7 +39,6 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-/* ホバーは選択中より薄い水色で区別し、押下は 1 段濃くする */
 .item:not(.active):hover {
   background-color: var(--color-interactive-hover);
 }

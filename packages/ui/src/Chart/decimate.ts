@@ -1,8 +1,3 @@
-/**
- * Largest Triangle Three Buckets（参考実装 wc-line-chart の decimate.ts を移植）
- * 変更点: 間引いた点の元の位置（index）を返す。
- * 参考実装は間引き後の配列を元の x 座標で描くため、間引きが効くと線が左に縮んでいた。
- */
 export interface IndexedPoint {
   readonly index: number;
   readonly value: number;

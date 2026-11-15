@@ -42,7 +42,6 @@ export const getIncomeAttributeSummary = async ({
     const { id, version, name } = value;
     const incomeAttribute: IncomeAttribute = {
       id,
-      // ETag と同じ形（"3"）にして、削除の If-Match にそのまま使う
       version: `"${version}"`,
       name,
     };
@@ -111,7 +110,6 @@ export const updateIncomeAttribute = async (
     ),
   });
   if (errors) return { errors, values };
-  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
   if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await incomeAttributesApi.put({
@@ -134,14 +132,12 @@ export const deleteIncomeAttribute = async (
 ): Promise<FormState> => {
   const id = formData.get("incomeAttributeId");
   if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
-  // 一覧で表示したときのバージョン。ないと、ほかの操作による更新を検出できない
   const version = formData.get("version");
   if (!isString(version) || version === "")
     return { message: DELETE_CONFLICT_MESSAGE };
   try {
     await incomeAttributesApi.delete({ id, ifMatch: version });
   } catch (error) {
-    // すでに削除されている（404）ときは、削除できたときと同じく一覧を取得し直す
     if (error instanceof HttpError && error.status === 404) {
       updateTag("income-attribute");
       return {};

@@ -1,4 +1,3 @@
-/* テキスト入力・プルダウンで共通の、ラベル・説明・エラーの見た目 */
 .field {
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@
   line-height: var(--text-body-line-height);
 }
 
-/* 無効のときは、ラベルと説明も無効の文字色にする（Figma: プルダウン / 状態=無効） */
 .field:has(.control:disabled) .label,
 .field:has(.control:disabled) .description {
   color: var(--color-text-disabled);
@@ -33,16 +31,9 @@
   line-height: var(--text-body-line-height);
 }
 
-/* 入力欄・プルダウンの枠（Figma: テキスト入力・プルダウン） */
 .control {
   box-sizing: border-box;
   width: 100%;
-
-  /*
-   * 高さは --size-control（40px）に固定し、上下の余白は付けない。
-   * 上下に余白を取ると文字の表示領域が 16px しか残らず、
-   * Noto Sans JP の文字の上下が欠けるため（文字はブラウザが上下中央に置く）。
-   */
   height: var(--size-control);
   margin: 0;
   padding: 0 var(--padding-control-x);
@@ -56,7 +47,6 @@
   transition: border-color 120ms ease;
 }
 
-/* 無効（Figma: 無効/背景・枠線・文字） */
 .control:disabled {
   border-color: var(--color-disabled-border);
   background-color: var(--color-disabled-bg);
@@ -64,12 +54,10 @@
   cursor: not-allowed;
 }
 
-/* エラー: 赤い枠線（エラーメッセージの文字と併せて伝える） */
 .control[aria-invalid="true"] {
   border-color: var(--color-danger);
 }
 
-/* フォーカス: 枠線を濃くし、2px の隙間＋2px の線（ボタンと同じ） */
 .control:focus-visible {
   border-color: var(--color-focus-ring);
   outline: var(--focus-ring-width) solid var(--color-focus-ring);
@@ -81,7 +69,6 @@
   outline-color: var(--color-danger);
 }
 
-/* ホバー: 枠線を少し濃くする */
 .control:hover:not(:disabled, :focus-visible, [aria-invalid="true"]) {
   border-color: var(--color-input-border-hover);
 }

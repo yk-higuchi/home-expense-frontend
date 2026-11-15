@@ -50,7 +50,6 @@ export const getExpenseAttributeSummary = async ({
       const { id, version, name, category } = value;
       const expenseAttribute: ExpenseAttribute = {
         id,
-        // ETag と同じ形（"3"）にして、削除の If-Match にそのまま使う
         version: `"${version}"`,
         name,
         category,
@@ -123,7 +122,6 @@ export const updateExpenseAttribute = async (
     "version",
     "name",
   ]);
-  // 分類は登録後に変更できないため、属性名だけを送る
   const errors = collectErrors({
     name: first(
       required(values.name, "属性名"),
@@ -131,7 +129,6 @@ export const updateExpenseAttribute = async (
     ),
   });
   if (errors) return { errors, values };
-  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
   if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await expenseAttributesApi.put({
@@ -154,14 +151,12 @@ export const deleteExpenseAttribute = async (
 ): Promise<FormState> => {
   const id = formData.get("expenseAttributeId");
   if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
-  // 一覧で表示したときのバージョン。ないと、ほかの操作による更新を検出できない
   const version = formData.get("version");
   if (!isString(version) || version === "")
     return { message: DELETE_CONFLICT_MESSAGE };
   try {
     await expenseAttributesApi.delete({ id, ifMatch: version });
   } catch (error) {
-    // すでに削除されている（404）ときは、削除できたときと同じく一覧を取得し直す
     if (error instanceof HttpError && error.status === 404) {
       updateTag("expense-attribute");
       return {};

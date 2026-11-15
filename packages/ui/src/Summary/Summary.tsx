@@ -3,17 +3,10 @@ import type { ReactElement, ReactNode } from "react";
 import styles from "./Summary.module.css";
 
 export interface SummaryRowProps {
-  /** 項目名（例: 収入合計） */
   label: string;
-  /** 金額。省略すると「内訳」などの見出しとして使う */
   amount?: ReactNode;
 }
 
-/**
- * 合計行（下に水色の線）
- *
- * Figma: コンポーネント / 合計行
- */
 export const SummaryRow = ({ label, amount }: SummaryRowProps): ReactElement =>
   amount === undefined ? (
     <h2 className={styles.summaryRow}>{label}</h2>
@@ -24,23 +17,16 @@ export const SummaryRow = ({ label, amount }: SummaryRowProps): ReactElement =>
     </div>
   );
 
-/** 合計行をまとめる（<dl> で項目名と金額を対応づける） */
 export const SummaryList = ({
   children,
 }: {
   children: ReactNode;
 }): ReactElement => <dl className={styles.summaryList}>{children}</dl>;
 
-/**
- * 内訳のカード（内訳グループを並べる）
- *
- * Figma: 画面 / HOME の「内訳ツリー」
- */
 export const Breakdown = ({
   className,
   children,
 }: {
-  /** 高さやスクロールなど、置き場所に合わせた指定を足すとき */
   className?: string;
   children: ReactNode;
 }): ReactElement => (
@@ -50,21 +36,12 @@ export const Breakdown = ({
 );
 
 export interface BreakdownGroupProps {
-  /** 分類名（例: 固定費） */
   label: string;
-  /** 小計 */
   amount: ReactNode;
-  /** 最初から開いておくか */
   defaultOpen?: boolean;
-  /** 内訳行（BreakdownItem） */
   children?: ReactNode;
 }
 
-/**
- * 内訳の分類見出しと小計。クリックやキーボードで開閉できる
- *
- * Figma: コンポーネント / 内訳グループ見出し（状態=開 / 閉）
- */
 export const BreakdownGroup = ({
   label,
   amount,
@@ -73,7 +50,6 @@ export const BreakdownGroup = ({
 }: BreakdownGroupProps): ReactElement => (
   <details className={styles.group} open={defaultOpen}>
     <summary className={styles.groupHeader}>
-      {/* Figma: アイコン/右向き（開いているときは下向きに回す） */}
       <svg
         className={styles.chevron}
         width="20"
@@ -96,16 +72,10 @@ export const BreakdownGroup = ({
 );
 
 export interface BreakdownItemProps {
-  /** 属性名（例: 家賃） */
   name: string;
   amount: ReactNode;
 }
 
-/**
- * 内訳の行（属性ごとの金額）
- *
- * Figma: コンポーネント / 内訳行
- */
 export const BreakdownItem = ({
   name,
   amount,

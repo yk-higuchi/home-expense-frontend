@@ -20,9 +20,7 @@ interface Props {
   incomeAttributes: IncomeAttributes;
   pagination: Pagination;
   onEdit: (id: string) => void;
-  /** 表の枠の内側・下に置く要素（ページネーション） */
   footer?: ReactNode;
-  /** 絞り込み・ページ送りの切り替え中 */
   loading?: boolean;
 }
 

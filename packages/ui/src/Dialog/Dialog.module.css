@@ -1,4 +1,3 @@
-/* <dialog> 本体は枠を持たず、中のカードで見た目を作る */
 .dialog {
   width: min(466px, calc(100vw - 32px));
   max-width: none;
@@ -13,7 +12,6 @@
   background-color: var(--color-scrim);
 }
 
-/* Figma: 削除確認ダイアログ（余白 32px / 間隔 24px / 角丸 8px / 影 Drop Shadow/200） */
 .card {
   box-sizing: border-box;
   display: flex;
@@ -35,7 +33,6 @@
   gap: var(--space-300);
 }
 
-/* 文字/見出し（24px / 120%）。字間 -2% */
 .title {
   margin: 0;
   font-size: var(--text-heading-size);
@@ -59,7 +56,6 @@
   min-width: var(--size-control-min);
 }
 
-/* 開くときの短いフェード（「視差効果を減らす」設定のときは付けない） */
 @media (prefers-reduced-motion: no-preference) {
   .dialog[open] .card {
     animation: dialog-in 160ms ease-out;

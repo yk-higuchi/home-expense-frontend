@@ -26,7 +26,6 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
     setSelectedYear(next);
     navigate(`/income?${new URLSearchParams({ year: String(next) })}`);
   };
-  /** ページ送り（選んでいる年を保ったまま） */
   const handleMove = (page: number, perPage: number) => {
     const searchParams = new URLSearchParams({
       year: String(selectedYear),
@@ -46,7 +45,6 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
 
   return (
     <div className={layout.page}>
-      {/* 絞り込みと追加ボタンは表の上に並べる */}
       <div className={layout.toolbar}>
         <div className={layout.filters}>
           <Select

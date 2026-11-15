@@ -25,7 +25,6 @@ interface Props {
   attributeId?: string;
 }
 
-/** 値が undefined の項目を取り除く（クエリ文字列を作る前に使う） */
 const cleanUpObject = (obj: object): Record<string, string> =>
   Object.fromEntries(
     Object.entries(obj).filter(([, v]) => v !== undefined),
@@ -102,7 +101,6 @@ const Expense = ({
       per_page: undefined,
     });
     const searchParams = new URLSearchParams(_query).toString();
-    // 「すべて」に戻したことを覚えておかないと、次の絞り込みで古い分類が復活する
     setQueryParam(_query);
     navigate(`/expense?${searchParams}`);
   };
@@ -165,7 +163,6 @@ const Expense = ({
 
   return (
     <div className={layout.page}>
-      {/* 絞り込みと追加ボタンは表の上に並べる */}
       <div className={layout.toolbar}>
         <div className={layout.filters}>
           <Select

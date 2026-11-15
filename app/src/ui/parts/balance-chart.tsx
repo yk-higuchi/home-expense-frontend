@@ -7,14 +7,9 @@ import { type BalancePoint, monthLabel } from "@/lib/balance";
 interface Props {
   title: string;
   points: BalancePoint[];
-  /** 「表で見る」を出すか（同じ値の表が画面にあるときは false） */
   showTable?: boolean;
 }
 
-/**
- * 月ごとの収入・支出（棒）と収支（線）のグラフ（Figma: 推移グラフ）
- * 色は項目ごとに固定する（収入=1・支出=2・収支=3）
- */
 const BalanceChart = ({ title, points, showTable }: Props): ReactElement => (
   <Card title={title}>
     <Chart

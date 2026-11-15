@@ -13,7 +13,6 @@ import style from "./form.module.css";
 
 interface Props {
   expenseAttribute?: ExpenseAttribute | Record<string, never>;
-  /** 登録・更新の Server Action（入力エラーを返す） */
   action: FormAction;
   buttonTitle: string;
 }
@@ -30,7 +29,6 @@ const ExpenseAttributeForm = ({
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="expenseAttributeId" value={id} />
-      {/* 取得時のバージョン（更新時に If-Match として送る） */}
       <input type="hidden" name="version" value={version ?? ""} />
       <TextInput
         label="属性名"
@@ -39,7 +37,6 @@ const ExpenseAttributeForm = ({
         errorMessage={errors?.name}
         required
       />
-      {/* 分類は登録後に変更できない（更新では送らない） */}
       <Select
         label="分類"
         name="category"

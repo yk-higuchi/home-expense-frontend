@@ -7,12 +7,6 @@ export interface ErrorMessageProps {
   className?: string;
 }
 
-/**
- * 画面の中のエラー（保存・削除の失敗など）。読み上げのため role="alert" を付ける。
- * 入力欄ごとのエラーは TextInput・Select の errorMessage を使う
- *
- * Figma: コンポーネント / エラーメッセージ
- */
 export const ErrorMessage = ({
   children,
   className,

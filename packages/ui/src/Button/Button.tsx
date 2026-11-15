@@ -5,29 +5,12 @@ import styles from "./Button.module.css";
 export type ButtonVariant = "primary" | "secondary" | "danger" | "subtle";
 
 export interface ButtonProps extends ComponentPropsWithRef<"button"> {
-  /**
-   * 種類
-   * - primary: 主な操作（登録・更新・追加）
-   * - secondary: キャンセルなど
-   * - danger: 削除の確定
-   * - subtle: 目立たない操作
-   */
   variant?: ButtonVariant;
-  /** 処理中。回転アイコンを出し、押せなくする（二度押し防止） */
   loading?: boolean;
-  /** 親要素の幅いっぱいに広げる */
   fullWidth?: boolean;
-  /** ラベルの前に置くアイコン（例: <PlusIcon />）。処理中は回転アイコンに置き換わる */
   icon?: ReactNode;
 }
 
-/**
- * ボタン
- *
- * Figma: コンポーネント / ボタン（Variant × State）
- * 状態: ホバーで 1 段濃く、押下でさらに 1 段濃く、フォーカスは 2px の隙間＋2px の線、
- * 無効は 無効/* の色、処理中は回転アイコン
- */
 export const Button = ({
   variant = "primary",
   loading = false,
@@ -57,7 +40,6 @@ export const Button = ({
     >
       {!loading && icon}
       {loading && (
-        // Figma: アイコン/読み込み中
         <svg
           className={styles.spinner}
           width="16"

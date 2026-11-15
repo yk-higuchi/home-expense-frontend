@@ -1,15 +1,4 @@
-/*
- * バックエンドが OpenAPI から生成した JTD スキーマ（openapi.jtd.json）を取得し、
- * src/lib/api/generated/jtd.ts（スキーマごとの `export const X = {...} as const;`）に変換する。
- *
- * 取得元
- * - 環境変数 API_JTD_SOURCE があれば、そのファイル（バックエンドのリポジトリの docs/openapi.jtd.json など）
- * - なければ、api-version に書いた版の GitHub Release に添付された openapi.jtd.json（gh が必要）
- *
- * JSON をそのまま import すると文字列が string に広がり、JTDDataType で正しい型にならないため、as const 付きの TS にする。
- */
 import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
@@ -53,7 +42,6 @@ const readSource = () => {
 
 const source = readSource();
 const schemas = JSON.parse(source);
-const digest = createHash("sha256").update(source).digest("hex").slice(0, 16);
 const body = Object.keys(schemas)
   .sort()
   .map(
@@ -61,14 +49,7 @@ const body = Object.keys(schemas)
       `export const ${name} = ${JSON.stringify(schemas[name])} as const;`,
   )
   .join("\n\n");
-writeFileSync(
-  output,
-  `// このファイルは scripts/gen-api.mjs が生成する。手で編集しない（pnpm gen:api で作り直す）
-// 元: バックエンドの openapi.jtd.json（api-version: ${version}、sha256: ${digest}）
-
-${body}
-`,
-);
+writeFileSync(output, `${body}\n`);
 execFileSync("npx", ["biome", "format", "--write", output], {
   cwd: root,
   stdio: "ignore",

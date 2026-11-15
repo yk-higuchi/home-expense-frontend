@@ -1,14 +1,3 @@
-/*
- * Figma の定義（design-tokens/figma-tokens.json）と src/tokens.css が一致しているか確かめる。
- * 一致しなければ終了コード 1（lint の一部として CI で動く）。
- *
- * - 色: Figma「補助カラー」の各変数のコード名（WEB）= CSS 変数名。値と、両方にあるかを確かめる
- * - 余白・大きさ・角丸・線: Figma「サイズ」の各変数のコード名（WEB）= CSS 変数名。
- *   値に加えて、役割（--gap-stack など）がどの段階を参照しているかも突き合わせる
- * - 文字・影: Figma の文字スタイル・影のスタイルにはコード名がないので、下の対応表で突き合わせる
- *
- * Figma を変えたら scripts/export-figma-tokens.js で JSON を書き出し直してから、このスクリプトを動かす。
- */
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,10 +8,6 @@ const figma = JSON.parse(
 );
 const css = readFileSync(join(root, "src/tokens.css"), "utf8");
 
-/**
- * 文字スタイル → CSS 変数（size: 文字の大きさ, lineHeight: 行の高さ, weight: 太さ, numeric: 数字の形）
- * numeric は Figma の API から読めないため、CSS の値だけを確かめる（Figma 側は「数字: 等幅」を手で設定する）
- */
 const TEXT_STYLES = {
   "文字/本文": {
     size: "--text-body-size",
@@ -51,11 +36,9 @@ const TEXT_STYLES = {
     numeric: ["--text-amount-numeric", "tabular-nums"],
   },
 };
-/** 影のスタイル → CSS 変数 */
 const EFFECT_STYLES = { "影/浮き上がり": "--shadow-raised" };
 const FONT_WEIGHTS = { Regular: 400, Medium: 500, Bold: 700 };
 
-// tokens.css の :root の宣言（コメントを除いて読む）
 const declarations = new Map(
   [
     ...css
@@ -75,7 +58,6 @@ const errors = [];
 const warnings = [];
 const checked = new Set();
 
-/** CSS の色を「#rrggbb」か「#rrggbb/透明度」にそろえる */
 const normalizeColor = (value) => {
   const short = value.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
   if (short)
@@ -113,7 +95,6 @@ const expect = (name, actual, expected, label) => {
   }
 };
 
-// 色
 for (const color of figma.colors) {
   if (!color.css) {
     errors.push(`Figma の「${color.name}」にコード名（WEB）がない`);
@@ -128,8 +109,6 @@ for (const color of figma.colors) {
   );
 }
 
-// 余白・大きさ・角丸・線
-/** var(--x) をたどって値を得る */
 const resolveVar = (value, depth = 0) => {
   const ref = value?.match(/^var\((--[a-z0-9-]+)\)$/)?.[1];
   return ref && depth < 5
@@ -144,7 +123,6 @@ for (const size of figma.sizes) {
   }
   const value = declarations.get(size.css);
   expect(size.css, value && px(resolveVar(value)), size.value, size.name);
-  // 役割は、Figma と同じ段階を参照していること（例: --gap-stack: var(--space-400)）
   if (value && size.ref) {
     const expected = `var(${cssBySizeName.get(size.ref)})`;
     if (value !== expected) {
@@ -155,7 +133,6 @@ for (const size of figma.sizes) {
   }
 }
 
-// 文字
 const fontFamily = declarations.get("--font-family-base") ?? "";
 checked.add("--font-family-base");
 for (const style of figma.textStyles) {
@@ -208,7 +185,6 @@ for (const name of Object.keys(TEXT_STYLES)) {
   }
 }
 
-// 影
 for (const effect of figma.effectStyles) {
   const name = EFFECT_STYLES[effect.name];
   if (!name) {
@@ -229,7 +205,6 @@ for (const effect of figma.effectStyles) {
   expect(name, declarations.get(name), expected, effect.name);
 }
 
-// tokens.css にあって Figma と突き合わせていないもの
 for (const name of declarations.keys()) {
   if (!checked.has(name)) {
     errors.push(

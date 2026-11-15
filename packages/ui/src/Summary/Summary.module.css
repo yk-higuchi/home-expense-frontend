@@ -1,7 +1,3 @@
-/*
- * 集計の部品（Figma: 合計行 / 内訳グループ見出し / 内訳行）
- * 行の高さは --size-control（40px）、文字は 文字/本文
- */
 .summaryList {
   display: flex;
   flex-direction: column;
@@ -9,16 +5,11 @@
   margin: 0;
 }
 
-/*
- * 金額の列の位置（行の左端から 283px）。合計行・内訳の見出し・内訳行で金額の列をそろえるため、
- * 各要素の項目名の幅はこの値から、その要素の左側にあるもの（余白・アイコン・間隔）を引いて求める
- */
 .summaryRow,
 .breakdown {
   --amount-column: 283px;
 }
 
-/* 合計行（Figma: 左の余白 12px / 下に水色の線 1px） */
 .summaryRow {
   box-sizing: border-box;
   display: flex;
@@ -43,7 +34,6 @@
   margin: 0;
 }
 
-/* 内訳のカード（Figma: 白 / 枠線 1px / 角丸 8px / 余白 24px） */
 .breakdown {
   box-sizing: border-box;
   display: flex;
@@ -59,7 +49,6 @@
   line-height: var(--text-body-line-height);
 }
 
-/* 分類見出し（Figma: アイコン 20px・間隔 8px・下線） */
 .groupHeader {
   display: flex;
   align-items: center;
@@ -98,7 +87,6 @@
   transform: rotate(90deg);
 }
 
-/* 見出しは、アイコン（20px）と前後の間隔のぶんを引く */
 .groupLabel {
   flex: 0 0 calc(var(--amount-column) - 20px - var(--gap-inline) * 2);
 }
@@ -107,7 +95,6 @@
   margin: 0;
 }
 
-/* 内訳行（Figma: 左の余白 32px） */
 .item {
   display: flex;
   align-items: center;

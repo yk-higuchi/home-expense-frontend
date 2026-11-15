@@ -1,7 +1,3 @@
-/**
- * インタラクションの決まりを、部品ごとに状態を並べて確認するページ
- * （storybook-addon-pseudo-states で :hover / :active / :focus-visible を強制表示している）
- */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
 
@@ -106,13 +102,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/**
- * 共通の決まり
- * - ホバー: 1 段濃く（選択中がある部品は、選択中より薄い水色で区別）
- * - 押下: ホバーよりさらに 1 段濃く
- * - フォーカス: 2px の隙間＋2px の濃い線（#3f4a4c）
- * - 無効: 無効/* の色
- */
 export const 状態の一覧: Story = {
   render: () => (
     <>

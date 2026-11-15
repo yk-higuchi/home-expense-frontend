@@ -48,7 +48,6 @@ const all: { variant: ButtonVariant; label: string }[] = [
   { variant: "subtle", label: "詳細" },
 ];
 
-/** 全種類を、通常・無効・処理中で並べる（通常はマウスや Tab キーで状態が変わる） */
 export const AllVariants: Story = {
   render: () => (
     <div
@@ -74,7 +73,6 @@ export const AllVariants: Story = {
   ),
 };
 
-/** アイコン付き（一覧の「追加」ボタン） */
 export const WithIcon: Story = {
   args: { icon: <PlusIcon />, children: "追加" },
 };

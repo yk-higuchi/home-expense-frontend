@@ -56,10 +56,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 月別の収入・支出（棒）と収支（線）。マウスやキーボード（←→）で値を確認できる */
 export const MonthlyBalance: Story = {};
 
-/** 欠損のある月（線は途切れ、棒は描かない） */
 export const WithMissing: Story = {
   args: {
     series: [
@@ -79,7 +77,6 @@ export const WithMissing: Story = {
   },
 };
 
-/** 日ごとの推移（点が多いので点は省き、線を間引く） */
 export const Daily: Story = {
   args: {
     title: "日ごとの収支",
@@ -97,7 +94,6 @@ export const Daily: Story = {
   },
 };
 
-/** データなし */
 export const Empty: Story = {
   args: { labels: [], series: [] },
 };

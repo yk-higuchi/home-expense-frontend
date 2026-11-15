@@ -70,7 +70,6 @@ export const getExpenseSummary = async ({
     const { id: attributeId, name, category } = expenseAttribute;
     const expense: Expense = {
       id,
-      // ETag と同じ形（"3"）にして、削除の If-Match にそのまま使う
       version: `"${version}"`,
       description,
       amount,
@@ -185,7 +184,6 @@ export const updateExpense = async (
     attributeId: selected(values.attributeId, "属性名"),
   });
   if (errors) return { errors, values };
-  // 取得時のバージョンがないと、ほかの操作による更新を検出できない
   if (!values.version) return { values, message: CONFLICT_MESSAGE };
   try {
     await expensesApi.put({
@@ -214,14 +212,12 @@ export const updateExpense = async (
 export const deleteExpense = async (formData: FormData): Promise<FormState> => {
   const id = formData.get("expenseId");
   if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
-  // 一覧で表示したときのバージョン。ないと、ほかの操作による更新を検出できない
   const version = formData.get("version");
   if (!isString(version) || version === "")
     return { message: DELETE_CONFLICT_MESSAGE };
   try {
     await expensesApi.delete({ id, ifMatch: version });
   } catch (error) {
-    // すでに削除されている（404）ときは、削除できたときと同じく一覧を取得し直す
     if (error instanceof HttpError && error.status === 404) {
       updateTag("expense");
       return {};

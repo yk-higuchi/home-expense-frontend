@@ -5,14 +5,10 @@ import styles from "./TableActions.module.css";
 export interface TableActionsProps {
   onEdit?: () => void;
   onDelete?: () => void;
-  /** ボタンの読み上げ名。行の内容を含めると分かりやすい（例: 「家賃を編集」） */
   editLabel?: string;
   deleteLabel?: string;
 }
 
-/**
- * 表の編集・削除ボタン（Figma: 操作セル / アイコン/編集・削除）
- */
 export const TableActions = ({
   onEdit,
   onDelete,

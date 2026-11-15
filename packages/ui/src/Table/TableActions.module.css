@@ -1,7 +1,3 @@
-/*
- * Figma: 操作セル（アイコンはセルの左端から 16px、アイコンの間隔 16px）
- * ボタンの余白 4px ぶんを打ち消し、間隔は 8px + 余白 4px × 2 = 16px にする
- */
 .actions {
   display: flex;
   align-items: center;
@@ -9,7 +5,6 @@
   margin-left: calc(var(--space-100) * -1);
 }
 
-/* アイコンボタン（ボタンの Subtle と同じ決まり） */
 .button {
   display: inline-flex;
   align-items: center;
@@ -39,7 +34,6 @@
   background-color: var(--color-button-subtle-bg-active);
 }
 
-/* 削除アイコン: ホバー・押下で薄い赤にし、危険な操作だと伝える */
 .danger:hover {
   background-color: var(--color-danger-hover);
   color: var(--color-danger);

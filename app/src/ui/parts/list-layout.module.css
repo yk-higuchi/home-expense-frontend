@@ -1,14 +1,9 @@
-/*
-  * 一覧画面のレイアウト（経費・経費属性・収入・収入属性で共通）
-  * Figma: 絞り込みと追加ボタン（右端）→ 表（ページ送りは表の中）、間隔 16px
-*/
 .page {
   display: flex;
   flex-direction: column;
   gap: var(--gap-stack);
 }
 
-/* 絞り込み（Figma: 絞り込み / プルダウンの間隔は横並びの間 8px。経費の 4 つでも追加ボタンと 1 行に収まる） */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -16,7 +11,6 @@
   gap: var(--gap-inline);
 }
 
-/* 絞り込みのプルダウンの幅（用途ごと。年・月は部品の最小幅 120px） */
 .yearFilter,
 .monthFilter {
   width: var(--size-control-min);
@@ -30,7 +24,6 @@
   width: 200px;
 }
 
-/* 表の上の行。左に絞り込み、右端に追加ボタン */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -39,7 +32,6 @@
   gap: var(--gap-stack);
 }
 
-/* 絞り込みがない画面でも右端に寄せる */
 .actions {
   display: flex;
   justify-content: flex-end;

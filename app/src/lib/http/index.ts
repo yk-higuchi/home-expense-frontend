@@ -110,7 +110,6 @@ const resolveWithResponse = async (
       body,
     };
   }
-  // エラーの本文（Problem Details）から、利用者向けの説明と trace_id を取り出す
   const { detail, traceId } = await parseProblem(response);
   return {
     type: "failure",

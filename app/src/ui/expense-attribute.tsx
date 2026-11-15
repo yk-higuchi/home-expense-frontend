@@ -65,7 +65,6 @@ const ExpenseAttribute = ({
   };
   return (
     <div className={layout.page}>
-      {/* 絞り込みと追加ボタンは表の上に並べる */}
       <div className={layout.toolbar}>
         <div className={layout.filters}>
           <Select

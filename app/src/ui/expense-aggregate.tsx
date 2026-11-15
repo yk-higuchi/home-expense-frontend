@@ -19,14 +19,11 @@ import style from "./expense-aggregate.module.css";
 interface Props {
   year: number;
   month: number;
-  /** その月の収支 */
   statistics: BalanceStatistics;
 }
 
-/** HOME（Figma: HOME） */
 const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
-  // 経費一覧の絞り込みと同じ「年」「月」のプルダウン（月ごとの集計なので「すべて」はない）
   const [selected, setSelected] = useState({ year, month });
   const changeTo = (next: { year: number; month: number }) => {
     setSelected(next);

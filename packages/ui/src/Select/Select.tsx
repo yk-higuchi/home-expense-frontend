@@ -7,22 +7,11 @@ import styles from "./Select.module.css";
 
 export interface SelectProps
   extends Omit<ComponentPropsWithRef<"select">, "size"> {
-  /**
-   * プルダウンの上に出すラベル。
-   * 期間選択のようにラベルを出さない場合は省略し、aria-label を指定する。
-   */
   label?: string;
-  /** ラベルの下に出す補足 */
   description?: string;
-  /** 入力エラーのメッセージ。指定するとエラー表示になる */
   errorMessage?: string;
 }
 
-/**
- * プルダウン（選択肢は <option> を children で渡す）
- *
- * Figma: コンポーネント / プルダウン
- */
 export const Select = ({
   label,
   description,
@@ -52,7 +41,6 @@ export const Select = ({
         >
           {children}
         </select>
-        {/* Figma: アイコン/下向き（16px） */}
         <svg
           className={styles.chevron}
           width="16"

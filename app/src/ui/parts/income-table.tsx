@@ -21,9 +21,7 @@ interface Props {
   incomes: Incomes;
   pagination: Pagination;
   onEdit: (id: string) => void;
-  /** 表の枠の内側・下に置く要素（ページネーション） */
   footer?: ReactNode;
-  /** 絞り込み・ページ送りの切り替え中 */
   loading?: boolean;
 }
 
@@ -48,7 +46,6 @@ const IncomeTable = ({
       <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>
-            {/* 通し番号は 5 桁（99999）まで収まる幅 */}
             <TableHeaderCell width={88}>No.</TableHeaderCell>
             <TableHeaderCell>説明</TableHeaderCell>
             <TableHeaderCell width={128}>金額</TableHeaderCell>

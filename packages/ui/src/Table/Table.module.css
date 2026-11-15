@@ -1,4 +1,3 @@
-/* 外枠（Figma: 枠線 1px / 角丸 8px、はみ出しは切る） */
 .frame {
   overflow: hidden;
   border: var(--border-width) solid var(--color-border);
@@ -7,7 +6,6 @@
   font-family: var(--font-family-base);
 }
 
-/* 読み込み中: 薄くして操作を止める（切り替えは少し遅らせ、速いときはちらつかせない） */
 .loading {
   opacity: 0.5;
   pointer-events: none;
@@ -26,7 +24,6 @@
   table-layout: fixed;
 }
 
-/* セル（Figma: 高さ 40px / 左右の余白 16px / 下線 1px、縦線なし） */
 .cell {
   box-sizing: border-box;
   height: var(--size-control);
@@ -43,18 +40,15 @@
   white-space: nowrap;
 }
 
-/* 見出し（Figma: 全体背景の水色） */
 .headerCell {
   background-color: var(--color-background);
 }
 
-/* データ 0 件（Figma: 高さ 96px / 中央寄せ） */
 .empty {
   height: 96px;
   text-align: center;
 }
 
-/* 最終行の下線は外枠と重なるので消す（フッターがある場合は区切りとして残す） */
 .frame > .table:last-child tbody tr:last-child > .cell {
   border-bottom: none;
 }
@@ -63,7 +57,6 @@
   padding: var(--space-200) var(--space-400);
 }
 
-/* plain: カードの中の集計表（外枠なし、見出しは下線だけ） */
 .plain {
   border: none;
   border-radius: 0;

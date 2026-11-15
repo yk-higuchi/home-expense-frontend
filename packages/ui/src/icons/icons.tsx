@@ -1,7 +1,6 @@
 import type { ReactElement, SVGProps } from "react";
 
 type IconProps = Omit<SVGProps<SVGSVGElement>, "children"> & {
-  /** 一辺の大きさ（px） */
   size?: number;
 };
 
@@ -26,7 +25,6 @@ const Icon = ({
   </svg>
 );
 
-/** 追加（Figma: アイコン/追加） */
 export const PlusIcon = (props: IconProps): ReactElement => (
   <Icon {...props}>
     <path d="M12 5v14" />
@@ -34,7 +32,6 @@ export const PlusIcon = (props: IconProps): ReactElement => (
   </Icon>
 );
 
-/** 読み込み中（Figma: アイコン/読み込み中）。回転は使う側の CSS で付ける */
 export const LoaderIcon = (props: IconProps): ReactElement => (
   <Icon {...props}>
     <path d="M12 2v4" />
@@ -48,7 +45,6 @@ export const LoaderIcon = (props: IconProps): ReactElement => (
   </Icon>
 );
 
-/** 警告（Figma: アイコン/警告） */
 export const WarningIcon = (props: IconProps): ReactElement => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" />

@@ -27,13 +27,10 @@ import style from "./annual-report.module.css";
 
 interface Props {
   year: number;
-  /** 1 年分の収支 */
   statistics: BalanceStatistics;
-  /** 月ごとの推移（1〜12 月） */
   series: BalancePoint[];
 }
 
-/** 年間レポート（Figma: 年間レポート） */
 const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
   const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -73,7 +70,6 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
             amount={<Amount value={statistics.net} />}
           />
         </SummaryList>
-        {/* 同じ値は下の「月別の収支」の表で見られるので、グラフの「表で見る」は出さない */}
         <BalanceChart title="月別の推移" points={series} showTable={false} />
         <Card title="月別の収支">
           <Table variant="plain">

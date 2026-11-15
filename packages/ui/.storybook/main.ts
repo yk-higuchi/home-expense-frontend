@@ -5,7 +5,6 @@ import type { StorybookConfig } from "@storybook/react-vite";
 
 const require = createRequire(import.meta.url);
 
-// pnpm のモノレポでパッケージを確実に解決するため、絶対パスで指定する
 const getAbsolutePath = (value: string): string =>
   dirname(require.resolve(join(value, "package.json")));
 

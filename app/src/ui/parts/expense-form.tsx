@@ -16,7 +16,6 @@ interface Props {
   expense?: Expense | Record<string, never>;
   expenseAttributes: ExpenseAttributes;
   onCategoryChange: (category: string) => void;
-  /** 登録・更新の Server Action（入力エラーを返す） */
   action: FormAction;
   buttonTitle: string;
 }
@@ -45,7 +44,6 @@ const ExpenseForm = ({
   return (
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="expenseId" value={id} />
-      {/* 取得時のバージョン（更新時に If-Match として送る） */}
       <input type="hidden" name="version" value={version ?? ""} />
       <TextInput
         label="説明"

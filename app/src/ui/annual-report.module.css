@@ -1,6 +1,3 @@
-/*
-  * 年間レポート（Figma: 年の選択 → 合計行 → 推移グラフ → 月別の収支、間隔 16px）
-*/
 .page {
   display: flex;
   flex-direction: column;

@@ -1,48 +1,26 @@
-/*
- * デザイントークン
- * Figma「経費管理システム」の変数・スタイルと同じ名前・値。
- * - 色: Figma の「補助カラー」コレクション。各変数のコード名（WEB）がここの変数名と一致する
- * - 余白・大きさ・角丸・線: Figma の「サイズ」コレクション（コード名 WEB と一致）。値は SDS の 4px 刻みを参考にした
- * - 影: Figma の影のスタイル「影/浮き上がり」
- * - 文字: Figma の文字スタイル「文字/*」
- * 名前の付け方: 基礎の段階は数字（--space-400 = 16px）、役割は用途の名前（--gap-stack など）
- * Figma の値を変えたら、ここも合わせて更新する。
- */
 :root {
-  /* 基本の色: 補助カラー / 基本/* */
-  --color-background: #e0f2f5; /* 基本/背景 */
-  --color-surface: #fff; /* 基本/面 */
-  --color-text: #757575; /* 基本/文字 */
-  --color-border: #dedede; /* 基本/枠線 */
-  --color-accent-line: #90e0f1; /* 基本/ライン */
-  --color-danger: #900b09; /* 基本/危険 */
-  --color-scrim: rgb(255 255 255 / 80%); /* 基本/スクリム */
-
-  /* 無効・フォーカス: 補助カラー / 無効/*・フォーカス */
-  --color-text-disabled: #b3b3b3; /* 無効/文字 */
-  --color-disabled-bg: #d9d9d9; /* 無効/背景 */
-  --color-disabled-border: #b3b3b3; /* 無効/枠線 */
-  --color-focus-ring: #3f4a4c; /* フォーカス */
-
-  /* 操作できる部品の共通の状態: 補助カラー / 状態/*（ナビ項目・ページ送り・アイコンボタンなど） */
-  --color-interactive-hover: #f2f9fa; /* ホバー（選択中の水色と区別する薄い水色） */
-  --color-interactive-active: #cbe8ee; /* 押下 */
-  --color-interactive-selected: #e0f2f5; /* 選択中 */
-  --color-input-border-hover: #b3b3b3; /* 入力欄のホバー時の枠線 */
-  --color-danger-hover: #fee9e7; /* 危険な操作のホバー */
-  --color-danger-active: #fdd3d0; /* 危険な操作の押下 */
-
-  /*
-   * グラフ: Figma の「補助カラー / チャート/*」（dataviz の検証済み配色の 1〜3 番）
-   * 項目と色は固定（収入=1・支出=2・収支=3）。3 番は白地で 3:1 未満のため、必ずデータ表を併せて出す
-   */
+  --color-background: #e0f2f5;
+  --color-surface: #fff;
+  --color-text: #757575;
+  --color-border: #dedede;
+  --color-accent-line: #90e0f1;
+  --color-danger: #900b09;
+  --color-scrim: rgb(255 255 255 / 80%);
+  --color-text-disabled: #b3b3b3;
+  --color-disabled-bg: #d9d9d9;
+  --color-disabled-border: #b3b3b3;
+  --color-focus-ring: #3f4a4c;
+  --color-interactive-hover: #f2f9fa;
+  --color-interactive-active: #cbe8ee;
+  --color-interactive-selected: #e0f2f5;
+  --color-input-border-hover: #b3b3b3;
+  --color-danger-hover: #fee9e7;
+  --color-danger-active: #fdd3d0;
   --color-chart-1: #2a78d6;
   --color-chart-2: #eb6834;
   --color-chart-3: #1baf7a;
   --color-chart-grid: #efefef;
   --color-chart-baseline: #b3b3b3;
-
-  /* ボタン: Figma の「補助カラー / ボタン/*」 */
   --color-button-fg: #3f4a4c;
   --color-button-primary-bg: #e0f2f5;
   --color-button-primary-bg-hover: #cbe8ee;
@@ -57,11 +35,6 @@
   --color-button-danger-fg: #900b09;
   --color-button-subtle-bg-hover: #e0f2f5;
   --color-button-subtle-bg-active: #cfeaf0;
-
-  /*
-   * 余白の段階（4px 刻み。100 = 4px）。役割に当てはまらない細部はこれを直接使う
-   * 段階の外の値（6px・13px など）は使わない。0 は変数にせず 0 と書く
-   */
   --space-50: 2px;
   --space-100: 4px;
   --space-200: 8px;
@@ -69,53 +42,31 @@
   --space-400: 16px;
   --space-600: 24px;
   --space-800: 32px;
-
-  /* 余白の役割（部品と画面はまずこちらを使う） */
-
-  /* 横に並ぶ小さな要素の間（アイコンと文字、ページ番号、表の操作） */
   --gap-inline: var(--space-200);
-
-  /* 画面の要素の縦の並び（年月の選択・合計・表・カード）と画面の大枠 */
   --gap-stack: var(--space-400);
-
-  /* まとまり同士の間（フォームの項目、ダイアログの見出し・本文・操作） */
   --gap-section: var(--space-600);
-
-  /* 入力欄・プルダウン・表のセルの左右 */
   --padding-control-x: var(--space-400);
-
-  /* カード・サイドバー・内訳の内側 */
   --padding-card: var(--space-600);
-
-  /* メインコンテンツ（右側の白い枠）の内側 */
   --padding-page: var(--space-600);
-
-  /* 大きさ・角丸・線 */
-  --size-control: 40px; /* 入力欄・プルダウン・表の行・合計行の高さ */
-  --size-control-min: 120px; /* 入力欄・プルダウン・ボタンの最小幅 */
-  --radius-100: 4px; /* フォーカスの枠・小さい部品 */
-  --radius-200: 8px; /* カード・入力欄・ボタン・ダイアログ */
+  --size-control: 40px;
+  --size-control-min: 120px;
+  --radius-100: 4px;
+  --radius-200: 8px;
   --border-width: 1px;
-
-  /* フォーカス（全部品で共通）: 部品との間に 2px の隙間を空けて 2px の線 */
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
-
-  /* 影: 影/浮き上がり（カード・サイドバー・ナビバー・ダイアログ） */
   --shadow-raised:
     0 1px 4px 0 rgb(12 12 13 / 5%), 0 1px 4px 0 rgb(12 12 13 / 10%);
-
-  /* 文字: Figma の文字スタイル「文字/*」（Noto Sans JP） */
   --font-family-base: var(--font-noto-sans-jp, "Noto Sans JP"), sans-serif;
-  --text-body-size: 16px; /* 文字/本文 */
+  --text-body-size: 16px;
   --text-body-line-height: 1.4;
-  --text-single-line-line-height: 1; /* 文字/本文（1行）: ボタン・入力欄・ナビ */
-  --text-caption-size: 14px; /* 文字/補足: グラフの凡例・軸・ツールチップ */
+  --text-single-line-line-height: 1;
+  --text-caption-size: 14px;
   --text-caption-line-height: 1.4;
-  --text-subheading-size: 20px; /* 文字/小見出し: ナビバーのタイトル */
+  --text-subheading-size: 20px;
   --text-subheading-line-height: 1.2;
-  --text-heading-size: 24px; /* 文字/見出し: ダイアログの見出し */
+  --text-heading-size: 24px;
   --text-heading-line-height: 1.2;
   --text-heading-weight: 700;
-  --text-amount-numeric: tabular-nums; /* 文字/金額: 本文と同じ大きさで、数字の幅をそろえる */
+  --text-amount-numeric: tabular-nums;
 }
