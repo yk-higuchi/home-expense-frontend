@@ -58,6 +58,11 @@ const IncomeAttribute = ({
   };
   return (
     <div className={layout.page}>
+      <div className={layout.actions}>
+        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+          追加
+        </Button>
+      </div>
       <IncomeAttributeTable
         loading={isPending}
         incomeAttributes={incomeAttributes}
@@ -72,11 +77,6 @@ const IncomeAttribute = ({
           />
         }
       />
-      <div className={layout.actions}>
-        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
-          追加
-        </Button>
-      </div>
     </div>
   );
 };

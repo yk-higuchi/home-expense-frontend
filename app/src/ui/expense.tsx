@@ -169,59 +169,67 @@ const Expense = ({
 
   return (
     <div className={layout.page}>
-      <div className={layout.filters}>
-        <Select
-          label="年"
-          className={layout.yearFilter}
-          name="year"
-          value={queryParam.year}
-          onChange={handleYearChange}
-        >
-          {YEARS.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </Select>
-        <Select
-          label="月"
-          className={layout.monthFilter}
-          name="month"
-          value={queryParam.month}
-          onChange={handleMonthChange}
-        >
-          <option value="">すべて</option>
-          {MONTHS.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </Select>
-        <Select
-          label="分類"
-          className={layout.categoryFilter}
-          name="category"
-          defaultValue={queryParam.category}
-          onChange={handleCategoryChange}
-        >
-          <option value="">すべて</option>
-          <option value="固定費">固定費</option>
-          <option value="変動費">変動費</option>
-        </Select>
-        <Select
-          label="属性名"
-          className={layout.attributeFilter}
-          name="attributeId"
-          defaultValue={queryParam.attributeId}
-          onChange={handleAttributeIdChange}
-        >
-          <option value="">すべて</option>
-          {expenseAttributes.map(({ id, name }) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </Select>
+      {/* 絞り込みと追加ボタンは表の上に並べる */}
+      <div className={layout.toolbar}>
+        <div className={layout.filters}>
+          <Select
+            label="年"
+            className={layout.yearFilter}
+            name="year"
+            value={queryParam.year}
+            onChange={handleYearChange}
+          >
+            {YEARS.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
+          <Select
+            label="月"
+            className={layout.monthFilter}
+            name="month"
+            value={queryParam.month}
+            onChange={handleMonthChange}
+          >
+            <option value="">すべて</option>
+            {MONTHS.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
+          <Select
+            label="分類"
+            className={layout.categoryFilter}
+            name="category"
+            defaultValue={queryParam.category}
+            onChange={handleCategoryChange}
+          >
+            <option value="">すべて</option>
+            <option value="固定費">固定費</option>
+            <option value="変動費">変動費</option>
+          </Select>
+          <Select
+            label="属性名"
+            className={layout.attributeFilter}
+            name="attributeId"
+            defaultValue={queryParam.attributeId}
+            onChange={handleAttributeIdChange}
+          >
+            <option value="">すべて</option>
+            {expenseAttributes.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </Select>
+        </div>
+        <div className={layout.actions}>
+          <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+            追加
+          </Button>
+        </div>
       </div>
       <ExpenseTable
         loading={isPending}
@@ -237,11 +245,6 @@ const Expense = ({
           />
         }
       />
-      <div className={layout.actions}>
-        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
-          追加
-        </Button>
-      </div>
     </div>
   );
 };

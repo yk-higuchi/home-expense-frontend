@@ -9,7 +9,7 @@ export { Chart } from "./Chart/Chart";
 export { formatCompact, formatYen } from "./Chart/format";
 export type { DialogProps } from "./Dialog/Dialog";
 export { Dialog } from "./Dialog/Dialog";
-export { PlusIcon } from "./icons/icons";
+export { LoaderIcon, PlusIcon, WarningIcon } from "./icons/icons";
 export type { NavBarProps } from "./NavBar/NavBar";
 export { NavBar } from "./NavBar/NavBar";
 export type { PaginationProps } from "./Pagination/Pagination";

@@ -50,20 +50,28 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
 
   return (
     <div className={layout.page}>
-      <div className={layout.filters}>
-        <Select
-          label="年"
-          className={layout.yearFilter}
-          name="year"
-          value={selectedYear}
-          onChange={handleYearChange}
-        >
-          {YEARS.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </Select>
+      {/* 絞り込みと追加ボタンは表の上に並べる */}
+      <div className={layout.toolbar}>
+        <div className={layout.filters}>
+          <Select
+            label="年"
+            className={layout.yearFilter}
+            name="year"
+            value={selectedYear}
+            onChange={handleYearChange}
+          >
+            {YEARS.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
+        </div>
+        <div className={layout.actions}>
+          <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+            追加
+          </Button>
+        </div>
       </div>
       <IncomeTable
         loading={isPending}
@@ -79,11 +87,6 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
           />
         }
       />
-      <div className={layout.actions}>
-        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
-          追加
-        </Button>
-      </div>
     </div>
   );
 };

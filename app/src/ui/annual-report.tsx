@@ -73,7 +73,8 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
             amount={<Amount value={statistics.net} />}
           />
         </SummaryList>
-        <BalanceChart title="月別の推移" points={series} />
+        {/* 同じ値は下の「月別の収支」の表で見られるので、グラフの「表で見る」は出さない */}
+        <BalanceChart title="月別の推移" points={series} showTable={false} />
         <Card title="月別の収支">
           <Table variant="plain">
             <TableHead>

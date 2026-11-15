@@ -46,6 +46,11 @@ export interface ChartProps {
   formatTick?: (value: number) => string;
   /** グラフ部分の高さ（px） */
   height?: number;
+  /**
+   * 「表で見る」（同じ値のデータ表）を出すか。既定は出す。
+   * 同じ値の表が画面にすでにあるときだけ false にする（表が 2 つ並ばないように）
+   */
+  showTable?: boolean;
 }
 
 const PADDING = { top: 8, right: 8, bottom: 28, left: 56 } as const;
@@ -139,6 +144,7 @@ export const Chart = ({
   formatValue = formatYen,
   formatTick = formatCompact,
   height = 200,
+  showTable = true,
 }: ChartProps): ReactElement => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(FALLBACK_WIDTH);
@@ -404,7 +410,7 @@ export const Chart = ({
       <p className={styles.srOnly} role="status" aria-live="polite">
         {announcement}
       </p>
-      {!empty && (
+      {showTable && !empty && (
         <details className={styles.details}>
           <summary className={styles.summary}>表で見る</summary>
           <Table aria-label={title}>

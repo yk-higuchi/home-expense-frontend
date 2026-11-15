@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@home-expense/ui";
+import { Button, WarningIcon } from "@home-expense/ui";
 import type { ReactElement } from "react";
 
-import style from "./error.module.css";
+import style from "./state.module.css";
 
 /** エラー画面（Figma: 共通の状態 / エラー） */
 const ErrorPage = ({
@@ -15,9 +15,10 @@ const ErrorPage = ({
 }): ReactElement => {
   console.error(error);
   return (
-    <div className={style.error} role="alert">
+    <div className={style.state} role="alert">
+      <WarningIcon size={32} />
       <p className={style.message}>予期せぬエラーが発生しました</p>
-      <Button variant="secondary" onClick={() => reset()}>
+      <Button className={style.retry} onClick={() => reset()}>
         もう一度試す
       </Button>
     </div>

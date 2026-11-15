@@ -26,10 +26,33 @@ const Icon = ({
   </svg>
 );
 
-/** 追加（SDS の Plus アイコン） */
+/** 追加（Figma: アイコン/追加） */
 export const PlusIcon = (props: IconProps): ReactElement => (
   <Icon {...props}>
     <path d="M12 5v14" />
     <path d="M5 12h14" />
+  </Icon>
+);
+
+/** 読み込み中（Figma: アイコン/読み込み中）。回転は使う側の CSS で付ける */
+export const LoaderIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <path d="M12 2v4" />
+    <path d="M12 18v4" />
+    <path d="M4.93 4.93l2.83 2.83" />
+    <path d="M16.24 16.24l2.83 2.83" />
+    <path d="M2 12h4" />
+    <path d="M18 12h4" />
+    <path d="M4.93 19.07l2.83-2.83" />
+    <path d="M16.24 7.76l2.83-2.83" />
+  </Icon>
+);
+
+/** 警告（Figma: アイコン/警告） */
+export const WarningIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 8v4" />
+    <path d="M12 16h.01" />
   </Icon>
 );

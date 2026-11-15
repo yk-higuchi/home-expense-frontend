@@ -69,17 +69,25 @@ const ExpenseAttribute = ({
   };
   return (
     <div className={layout.page}>
-      <div className={layout.filters}>
-        <Select
-          label="分類"
-          className={layout.categoryFilter}
-          name="category"
-          defaultValue={category}
-          onChange={handleCategoryChange}
-        >
-          <option value="固定費">固定費</option>
-          <option value="変動費">変動費</option>
-        </Select>
+      {/* 絞り込みと追加ボタンは表の上に並べる */}
+      <div className={layout.toolbar}>
+        <div className={layout.filters}>
+          <Select
+            label="分類"
+            className={layout.categoryFilter}
+            name="category"
+            defaultValue={category}
+            onChange={handleCategoryChange}
+          >
+            <option value="固定費">固定費</option>
+            <option value="変動費">変動費</option>
+          </Select>
+        </div>
+        <div className={layout.actions}>
+          <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+            追加
+          </Button>
+        </div>
       </div>
       <ExpenseAttributeTable
         loading={isPending}
@@ -95,11 +103,6 @@ const ExpenseAttribute = ({
           />
         }
       />
-      <div className={layout.actions}>
-        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
-          追加
-        </Button>
-      </div>
     </div>
   );
 };
