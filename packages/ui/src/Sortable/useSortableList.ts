@@ -16,7 +16,7 @@ export interface SortableListOptions<T> {
   items: readonly T[];
   getId: (item: T) => string;
   getLabel: (item: T) => string;
-  onReorder: (ids: string[]) => void;
+  onReorder: (ids: string[], move: { from: number; to: number }) => void;
   disabled?: boolean;
 }
 
@@ -86,7 +86,7 @@ export const useSortableList = <T>({
       setAnnouncement(`${labelOf(state.id)}は元の位置のままです`);
       return;
     }
-    onReorder(moveItem(ids, state.from, to));
+    onReorder(moveItem(ids, state.from, to), { from: state.from, to });
     setAnnouncement(`${labelOf(state.id)}を ${to + 1} 番目に移動しました`);
   };
 
@@ -250,7 +250,7 @@ export const useSortableList = <T>({
   const moveBy = (item: T, step: -1 | 1): void => {
     if (!canMove(item, step)) return;
     const from = ids.indexOf(getId(item));
-    onReorder(moveItem(ids, from, from + step));
+    onReorder(moveItem(ids, from, from + step), { from, to: from + step });
     setAnnouncement(
       `${getLabel(item)}を ${from + step + 1} 番目に移動しました`,
     );
