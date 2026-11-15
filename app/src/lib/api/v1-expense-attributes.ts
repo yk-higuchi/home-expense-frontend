@@ -1,61 +1,24 @@
 import process from "node:process";
 
+import {
+  ExpenseAttributeGetResponse,
+  ExpenseAttributeListResponse,
+  ExpenseAttributePostRequest,
+  ExpenseAttributePutRequest,
+} from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
 import type { JTD } from "@/lib/json/type";
 import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
 
-const getSummaryResponse = {
-  properties: {
-    expense_attributes: {
-      elements: {
-        properties: {
-          id: { type: "string" },
-          // データのバージョン（int64。JTD に int64 がないため float64 で受ける）。削除の If-Match に使う
-          version: { type: "float64" },
-          name: { type: "string" },
-          category: { enum: ["固定費", "変動費"] },
-        },
-      },
-    },
-  },
-} as const;
+// スキーマは、バックエンドが OpenAPI から生成したもの（src/lib/api/generated/jtd.ts。pnpm gen:api で作り直す）
+const getSummaryResponse = ExpenseAttributeListResponse;
+const getResponse = ExpenseAttributeGetResponse;
+const postRequest = ExpenseAttributePostRequest;
+const putRequest = ExpenseAttributePutRequest;
 
 type GetSummaryResponse = JTD<typeof getSummaryResponse>;
-
-const getResponse = {
-  properties: {
-    id: { type: "string" },
-    // データのバージョン（int64。JTD に int64 がないため float64 で受ける）。削除の If-Match に使う
-    version: { type: "float64" },
-    name: { type: "string" },
-    category: { enum: ["固定費", "変動費"] },
-  },
-} as const;
-
 type GetResponse = JTD<typeof getResponse>;
-
-const postRequest = {
-  properties: {
-    name: {
-      type: "string",
-    },
-    category: {
-      enum: ["固定費", "変動費"],
-    },
-  },
-} as const;
-
 type PostRequest = JTD<typeof postRequest>;
-
-/** 更新できるのは属性名だけ（分類は登録後に変更できない） */
-const putRequest = {
-  properties: {
-    name: {
-      type: "string",
-    },
-  },
-} as const;
-
 type PutRequest = JTD<typeof putRequest>;
 
 const _getSummary = async ({
