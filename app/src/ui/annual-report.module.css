@@ -4,14 +4,14 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-400);
+  gap: var(--gap-stack);
 }
 
 .content,
 .pending {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-400);
+  gap: var(--gap-stack);
   transition: opacity 120ms ease 200ms;
 }
 

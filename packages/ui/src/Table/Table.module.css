@@ -1,8 +1,8 @@
 /* 外枠（Figma: 枠線 1px / 角丸 8px、はみ出しは切る） */
 .frame {
   overflow: hidden;
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background-color: var(--color-surface);
   font-family: var(--font-family-base);
 }
@@ -29,9 +29,9 @@
 /* セル（Figma: 高さ 40px / 左右の余白 16px / 下線 1px、縦線なし） */
 .cell {
   box-sizing: border-box;
-  height: 40px;
-  padding: 0 var(--sds-size-space-400);
-  border-bottom: var(--sds-size-stroke-border) solid var(--color-border);
+  height: var(--size-control);
+  padding: 0 var(--padding-control-x);
+  border-bottom: var(--border-width) solid var(--color-border);
   color: var(--color-text);
   font-size: var(--text-body-size);
   font-weight: 400;
@@ -60,7 +60,7 @@
 }
 
 .footer {
-  padding: var(--sds-size-space-200) var(--sds-size-space-400);
+  padding: var(--space-200) var(--space-400);
 }
 
 /* plain: カードの中の集計表（外枠なし、見出しは下線だけ） */

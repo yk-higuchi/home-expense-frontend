@@ -18,13 +18,13 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-600);
+  gap: var(--gap-section);
   margin: 0;
-  padding: var(--sds-size-space-800);
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  padding: var(--space-800);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background-color: var(--color-surface);
-  box-shadow: var(--sds-effect-shadow-200);
+  box-shadow: var(--shadow-raised);
   color: var(--color-text);
   font-family: var(--font-family-base);
 }
@@ -32,10 +32,10 @@
 .text {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-300);
+  gap: var(--space-300);
 }
 
-/* SDS/Heading（24px / 120% / -2%） */
+/* 文字/見出し（24px / 120%）。字間 -2% は SDS の Heading に合わせたもの */
 .title {
   margin: 0;
   font-size: var(--text-heading-size);
@@ -52,7 +52,7 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--sds-size-space-400);
+  gap: var(--space-400);
 }
 
 .actions > * {

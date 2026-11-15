@@ -5,8 +5,8 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--sds-size-space-200);
-  margin-left: calc(var(--sds-size-space-100) * -1);
+  gap: var(--gap-inline);
+  margin-left: calc(var(--space-100) * -1);
 }
 
 /* アイコンボタン（ボタンの Subtle と同じ決まり） */
@@ -15,9 +15,9 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: var(--sds-size-space-100);
+  padding: var(--space-100);
   border: none;
-  border-radius: var(--sds-size-radius-200);
+  border-radius: var(--radius-200);
   background: transparent;
   color: var(--color-text);
   cursor: pointer;

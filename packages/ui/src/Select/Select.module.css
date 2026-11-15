@@ -4,11 +4,7 @@
 
 .select {
   /* 右側の矢印のぶん余白を空ける（SDS Select: 左 16px / 右 12px + 矢印 16px + 間隔 8px） */
-  padding-right: calc(
-    var(--sds-size-space-300) +
-    16px +
-    var(--sds-size-space-200)
-  );
+  padding-right: calc(var(--space-300) + 16px + var(--space-200));
   appearance: none;
   cursor: pointer;
 }
@@ -16,7 +12,7 @@
 .chevron {
   position: absolute;
   top: 50%;
-  right: var(--sds-size-space-300);
+  right: var(--space-300);
   color: var(--color-text);
   transform: translateY(-50%);
   pointer-events: none;

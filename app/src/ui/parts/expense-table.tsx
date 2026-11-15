@@ -1,4 +1,5 @@
 import {
+  Amount,
   Table,
   TableActions,
   TableBody,
@@ -29,11 +30,6 @@ interface Props {
   /** 絞り込み・ページ送りの切り替え中 */
   loading?: boolean;
 }
-
-const yen = new Intl.NumberFormat("ja-JP", {
-  style: "currency",
-  currency: "JPY",
-});
 
 const ExpenseTable = ({
   expenses,
@@ -82,7 +78,9 @@ const ExpenseTable = ({
                 <TableRow key={id ?? no}>
                   <TableCell>{no}</TableCell>
                   <TableCell>{description}</TableCell>
-                  <TableCell>{yen.format(amount)}</TableCell>
+                  <TableCell>
+                    <Amount value={amount} />
+                  </TableCell>
                   <TableCell>{paymentDate}</TableCell>
                   <TableCell>{attributeName}</TableCell>
                   <TableCell>{category}</TableCell>

@@ -1,9 +1,10 @@
+/* 金額（文字/金額: 数字の幅をそろえ、表や合計行で桁が縦にそろうようにする） */
 .amount {
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--text-amount-numeric);
 }
 
-/* マイナス: SDS の Text/Danger/Default */
+/* マイナス: 基本/危険 */
 .negative {
   color: var(--color-danger);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--text-amount-numeric);
 }

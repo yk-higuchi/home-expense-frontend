@@ -2,7 +2,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-200);
+  gap: var(--space-200);
   min-width: 120px;
   font-family: var(--font-family-base);
 }
@@ -33,15 +33,15 @@
   width: 100%;
 
   /*
-   * 高さは SDS と同じ 40px に固定し、上下の余白は付けない。
+   * 高さは --size-control（40px）に固定し、上下の余白は付けない。
    * 上下に余白を取ると文字の表示領域が 16px しか残らず、
    * Noto Sans JP の文字の上下が欠けるため（文字はブラウザが上下中央に置く）。
    */
-  height: 40px;
+  height: var(--size-control);
   margin: 0;
-  padding: 0 var(--sds-size-space-400);
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  padding: 0 var(--padding-control-x);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background-color: var(--color-surface);
   color: var(--color-text);
   font-family: inherit;

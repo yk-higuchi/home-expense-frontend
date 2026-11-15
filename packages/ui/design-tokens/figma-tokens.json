@@ -220,56 +220,103 @@
     }
   ],
   "sizes": [
-    { "name": "Radius/200", "css": "--sds-size-radius-200", "value": 8 },
-    { "name": "Space/0", "css": "--sds-size-space-0", "value": 0 },
-    { "name": "Space/1200", "css": "--sds-size-space-1200", "value": 48 },
-    { "name": "Space/200", "css": "--sds-size-space-200", "value": 8 },
-    { "name": "Space/300", "css": "--sds-size-space-300", "value": 12 },
-    { "name": "Space/400", "css": "--sds-size-space-400", "value": 16 },
-    { "name": "Space/600", "css": "--sds-size-space-600", "value": 24 },
-    { "name": "Space/800", "css": "--sds-size-space-800", "value": 32 },
-    { "name": "Stroke/Border", "css": "--sds-size-stroke-border", "value": 1 }
+    { "name": "余白/0", "css": "--space-0", "value": 0 },
+    { "name": "余白/100", "css": "--space-100", "value": 4 },
+    { "name": "余白/1200", "css": "--space-1200", "value": 48 },
+    { "name": "余白/200", "css": "--space-200", "value": 8 },
+    { "name": "余白/300", "css": "--space-300", "value": 12 },
+    { "name": "余白/400", "css": "--space-400", "value": 16 },
+    { "name": "余白/50", "css": "--space-50", "value": 2 },
+    { "name": "余白/600", "css": "--space-600", "value": 24 },
+    { "name": "余白/800", "css": "--space-800", "value": 32 },
+    {
+      "name": "余白（役割）/まとまりの間",
+      "css": "--gap-section",
+      "ref": "余白/600",
+      "value": 24
+    },
+    {
+      "name": "余白（役割）/カードの内側",
+      "css": "--padding-card",
+      "ref": "余白/600",
+      "value": 24
+    },
+    {
+      "name": "余白（役割）/入力欄の左右",
+      "css": "--padding-control-x",
+      "ref": "余白/400",
+      "value": 16
+    },
+    {
+      "name": "余白（役割）/横並びの間",
+      "css": "--gap-inline",
+      "ref": "余白/200",
+      "value": 8
+    },
+    {
+      "name": "余白（役割）/画面の内側",
+      "css": "--padding-page",
+      "ref": "余白/600",
+      "value": 24
+    },
+    {
+      "name": "余白（役割）/縦の並び",
+      "css": "--gap-stack",
+      "ref": "余白/400",
+      "value": 16
+    },
+    { "name": "大きさ/部品の高さ", "css": "--size-control", "value": 40 },
+    { "name": "線/枠線", "css": "--border-width", "value": 1 },
+    { "name": "角丸/100", "css": "--radius-100", "value": 4 },
+    { "name": "角丸/200", "css": "--radius-200", "value": 8 }
   ],
   "textStyles": [
     {
-      "name": "SDS/Body Base",
+      "name": "文字/小見出し",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 20,
+      "lineHeight": 1.2
+    },
+    {
+      "name": "文字/本文",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 16,
       "lineHeight": 1.4
     },
     {
-      "name": "SDS/Body Small",
-      "fontFamily": "Noto Sans JP",
-      "fontStyle": "Regular",
-      "fontSize": 14,
-      "lineHeight": 1.4
-    },
-    {
-      "name": "SDS/Heading",
-      "fontFamily": "Noto Sans JP",
-      "fontStyle": "Bold",
-      "fontSize": 24,
-      "lineHeight": 1.2
-    },
-    {
-      "name": "SDS/Single Line/Body Base",
+      "name": "文字/本文（1行）",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 16,
       "lineHeight": 1
     },
     {
-      "name": "SDS/Subheading",
+      "name": "文字/補足",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
-      "fontSize": 20,
+      "fontSize": 14,
+      "lineHeight": 1.4
+    },
+    {
+      "name": "文字/見出し",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Bold",
+      "fontSize": 24,
       "lineHeight": 1.2
+    },
+    {
+      "name": "文字/金額",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": 1.4
     }
   ],
   "effectStyles": [
     {
-      "name": "Drop Shadow/200",
+      "name": "影/浮き上がり",
       "shadows": [
         {
           "x": 0,

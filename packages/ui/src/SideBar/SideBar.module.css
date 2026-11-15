@@ -3,18 +3,18 @@
   box-sizing: border-box;
   width: 242px;
   height: 100%;
-  padding: var(--sds-size-space-600);
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  padding: var(--padding-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background-color: var(--color-surface);
-  box-shadow: var(--sds-effect-shadow-200);
+  box-shadow: var(--shadow-raised);
   font-family: var(--font-family-base);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-200);
+  gap: var(--space-200);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -23,8 +23,8 @@
 /* ナビ項目（SDS Navigation Pill: 余白 8px 12px / 角丸 8px） */
 .item {
   display: block;
-  padding: var(--sds-size-space-200) var(--sds-size-space-300);
-  border-radius: var(--sds-size-radius-200);
+  padding: var(--space-200) var(--space-300);
+  border-radius: var(--radius-200);
   color: var(--color-text);
   font-size: var(--text-body-size);
   line-height: var(--text-body-line-height);

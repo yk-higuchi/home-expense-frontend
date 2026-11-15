@@ -5,7 +5,7 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-400);
+  gap: var(--gap-stack);
 }
 
 /* 絞り込み（Figma: 絞り込み / プルダウンの間隔 16px） */
@@ -13,7 +13,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  gap: var(--sds-size-space-400);
+  gap: var(--space-400);
 }
 
 /* 絞り込みの幅（SDS のプルダウンは最小 120px） */

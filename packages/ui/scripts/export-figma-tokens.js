@@ -9,9 +9,9 @@
  *
  * 書き出すもの
  * - colors: 「補助カラー」の変数（コード名 WEB = CSS 変数名、参照している「基礎カラー」の名前）
- * - sizes: SDS の Size コレクションのうち、このファイルが参照している Space / Radius / Stroke
- * - textStyles: ローカルの文字スタイル（SDS/*）
- * - effectStyles: 部品で使っている影のスタイル
+ * - sizes: 「サイズ」コレクションの変数（コード名 WEB = CSS 変数名、役割は参照している段階の名前）
+ * - textStyles: ローカルの文字スタイル（文字/*）
+ * - effectStyles: ローカルの影のスタイル（影/*）
  */
 
 // biome-ignore lint/correctness/noUnusedVariables: Figma 上で呼び出す
@@ -55,31 +55,13 @@ async function exportFigmaTokens() {
     colors.push({ name: v.name, css: cssName(v), ref, ...hex(value) });
   }
 
-  // 余白・角丸・線: SDS の Size コレクション。
-  // SDS はコミュニティのライブラリでチームライブラリの API からは読めないため、
-  // このファイルが参照している SDS の変数から Size コレクションをたどる
-  const page = f.root.children.find((p) => p.name.startsWith("コンポーネント"));
-  await f.setCurrentPageAsync(page);
-  const nodes = page.findAll(() => true);
-  let sizeCollection;
-  for (const n of nodes) {
-    const b = n.boundVariables?.itemSpacing ?? n.boundVariables?.paddingLeft;
-    if (!b) continue;
-    const v = await f.variables.getVariableByIdAsync(b.id);
-    const col = await f.variables.getVariableCollectionByIdAsync(
-      v.variableCollectionId,
-    );
-    if (col.remote && col.name === "Size") {
-      sizeCollection = col;
-      break;
-    }
-  }
+  // 余白・大きさ・角丸・線: 「サイズ」コレクション（段階と役割。役割は段階を参照する）
+  const sizeCollection = collections.find((c) => c.name === "サイズ");
   const sizes = [];
-  for (const id of sizeCollection?.variableIds ?? []) {
+  for (const id of sizeCollection.variableIds) {
     const v = await f.variables.getVariableByIdAsync(id);
-    if (!/^(Space|Radius|Stroke)\//.test(v.name)) continue;
-    const { value } = await resolve(v, sizeCollection.defaultModeId);
-    sizes.push({ name: v.name, css: cssName(v), value });
+    const { value, ref } = await resolve(v, sizeCollection.defaultModeId);
+    sizes.push({ name: v.name, css: cssName(v), ref, value });
   }
 
   // 文字スタイル
@@ -94,14 +76,9 @@ async function exportFigmaTokens() {
         : s.lineHeight,
   }));
 
-  // 影: 部品のページで使っている影のスタイル
-  const effectIds = new Set();
-  for (const n of nodes)
-    if ("effectStyleId" in n && typeof n.effectStyleId === "string")
-      if (n.effectStyleId) effectIds.add(n.effectStyleId);
+  // 影: ローカルの影のスタイル（影/*）
   const effectStyles = [];
-  for (const id of effectIds) {
-    const s = await f.getStyleByIdAsync(id);
+  for (const s of await f.getLocalEffectStylesAsync()) {
     effectStyles.push({
       name: s.name,
       shadows: s.effects

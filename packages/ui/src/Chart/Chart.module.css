@@ -2,12 +2,12 @@
  * グラフ（Figma: 推移グラフ / dataviz の決まりに沿う）
  * 棒は 24px 以下・先端 4px 丸め・間 2px、線は 2px、点は半径 4px＋白い縁 2px、
  * グリッドは 1px の実線で控えめに、文字の色はデータの色にしない
- * 小さい文字はすべて SDS/Body Small（14px）。項目名と金額の差は太さで付ける
+ * 小さい文字はすべて 文字/補足（14px）。項目名と金額の差は太さで付ける
  */
 .chart {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-300);
+  gap: var(--space-300);
   color: var(--color-text);
   font-family: var(--font-family-base);
 }
@@ -15,18 +15,18 @@
 .legend {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sds-size-space-100) var(--sds-size-space-400);
+  gap: var(--space-100) var(--space-400);
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-line-height);
+  font-size: var(--text-caption-size);
+  line-height: var(--text-caption-line-height);
 }
 
 .legendItem {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-200);
 }
 
 /* 凡例の記号は形もそろえる（棒=四角、線=短い線） */
@@ -44,7 +44,7 @@
 
 .plot {
   position: relative;
-  border-radius: var(--sds-size-radius-100);
+  border-radius: var(--radius-100);
 }
 
 .plot:focus-visible {
@@ -73,8 +73,8 @@
 
 .tick {
   fill: var(--color-text);
-  font-size: var(--text-small-size);
-  font-variant-numeric: tabular-nums;
+  font-size: var(--text-caption-size);
+  font-variant-numeric: var(--text-amount-numeric);
 }
 
 .activeBand {
@@ -112,22 +112,22 @@
   position: absolute;
   z-index: 1;
   min-width: 160px;
-  padding: var(--sds-size-space-200) var(--sds-size-space-300);
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  padding: var(--space-200) var(--space-300);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background: var(--color-surface);
-  box-shadow: var(--sds-effect-shadow-200);
+  box-shadow: var(--shadow-raised);
   pointer-events: none;
 }
 
 .tooltipLabel {
-  margin: 0 0 var(--sds-size-space-100);
-  font-size: var(--text-small-size);
+  margin: 0 0 var(--space-100);
+  font-size: var(--text-caption-size);
 }
 
 .tooltipRows {
   display: grid;
-  gap: 2px;
+  gap: var(--space-50);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -137,8 +137,8 @@
   display: grid;
   grid-template-columns: 12px auto 1fr;
   align-items: center;
-  gap: var(--sds-size-space-200);
-  font-size: var(--text-small-size);
+  gap: var(--gap-inline);
+  font-size: var(--text-caption-size);
 }
 
 .tooltipKey {
@@ -150,21 +150,21 @@
 .tooltipValue {
   color: var(--color-button-fg);
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: var(--text-amount-numeric);
 }
 
 .tooltipName {
-  font-size: var(--text-small-size);
+  font-size: var(--text-caption-size);
 }
 
 .details {
-  font-size: var(--text-small-size);
+  font-size: var(--text-caption-size);
 }
 
 .summary {
   width: fit-content;
-  padding: var(--sds-size-space-100) var(--sds-size-space-200);
-  border-radius: var(--sds-size-radius-100);
+  padding: var(--space-100) var(--space-200);
+  border-radius: var(--radius-100);
   cursor: pointer;
 }
 
@@ -178,7 +178,7 @@
 }
 
 .details[open] .summary {
-  margin-bottom: var(--sds-size-space-200);
+  margin-bottom: var(--space-200);
 }
 
 .srOnly {

@@ -6,11 +6,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--sds-size-space-200);
+  gap: var(--gap-inline);
   margin: 0;
-  padding: var(--sds-size-space-300);
-  border: var(--sds-size-stroke-border) solid var(--button-border);
-  border-radius: var(--sds-size-radius-200);
+  padding: var(--space-300);
+  border: var(--border-width) solid var(--button-border);
+  border-radius: var(--radius-200);
   background-color: var(--button-bg);
   color: var(--button-fg);
   font-family: var(--font-family-base);

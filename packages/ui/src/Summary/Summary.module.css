@@ -1,11 +1,11 @@
 /*
  * 集計の部品（Figma: 合計行 / 内訳グループ見出し / 内訳行）
- * 行の高さは 40px、文字は SDS/Body Base
+ * 行の高さは --size-control（40px）、文字は 文字/本文
  */
 .summaryList {
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-400);
+  gap: var(--gap-stack);
   margin: 0;
 }
 
@@ -14,10 +14,10 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  min-height: 40px;
+  min-height: var(--size-control);
   margin: 0;
-  padding-left: var(--sds-size-space-300);
-  border-bottom: var(--sds-size-stroke-border) solid var(--color-accent-line);
+  padding-left: var(--space-300);
+  border-bottom: var(--border-width) solid var(--color-accent-line);
   color: var(--color-text);
   font-family: var(--font-family-base);
   font-size: var(--text-body-size);
@@ -39,10 +39,10 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-200);
-  padding: var(--sds-size-space-600);
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  gap: var(--space-200);
+  padding: var(--padding-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background-color: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-family-base);
@@ -54,10 +54,10 @@
 .groupHeader {
   display: flex;
   align-items: center;
-  gap: var(--sds-size-space-200);
-  min-height: 40px;
-  border-bottom: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-100) var(--sds-size-radius-100) 0 0;
+  gap: var(--gap-inline);
+  min-height: var(--size-control);
+  border-bottom: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-100) var(--radius-100) 0 0;
   list-style: none;
   cursor: pointer;
   transition: background-color 120ms ease;
@@ -102,8 +102,8 @@
 .item {
   display: flex;
   align-items: center;
-  min-height: 40px;
-  padding-left: var(--sds-size-space-800);
+  min-height: var(--size-control);
+  padding-left: var(--space-800);
 }
 
 .itemName {

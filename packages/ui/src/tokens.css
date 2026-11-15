@@ -2,8 +2,10 @@
  * デザイントークン
  * Figma「経費管理システム」の変数・スタイルと同じ名前・値。
  * - 色: Figma の「補助カラー」コレクション。各変数のコード名（WEB）がここの変数名と一致する
- * - 余白・角丸・線・影: SDS の変数（コード名 --sds-* がそのまま一致する）
- * - 文字: SDS の文字スタイル
+ * - 余白・大きさ・角丸・線: Figma の「サイズ」コレクション（コード名 WEB と一致）。値は SDS の 4px 刻みを参考にした
+ * - 影: Figma の影のスタイル「影/浮き上がり」
+ * - 文字: Figma の文字スタイル「文字/*」
+ * 名前の付け方: 基礎の段階は数字（--space-400 = 16px）、役割は用途の名前（--gap-stack など）
  * Figma の値を変えたら、ここも合わせて更新する。
  */
 :root {
@@ -56,37 +58,61 @@
   --color-button-subtle-bg-hover: #e0f2f5;
   --color-button-subtle-bg-active: #cfeaf0;
 
-  /* Space: SDS の Space/* */
-  --sds-size-space-0: 0;
-  --sds-size-space-100: 4px;
-  --sds-size-space-200: 8px;
-  --sds-size-space-300: 12px;
-  --sds-size-space-400: 16px;
-  --sds-size-space-600: 24px;
-  --sds-size-space-800: 32px;
-  --sds-size-space-1200: 48px;
+  /*
+   * 余白の段階（4px 刻み。100 = 4px）。役割に当てはまらない細部はこれを直接使う
+   * 段階の外の値（6px・13px など）は使わない
+   */
+  --space-0: 0;
+  --space-50: 2px;
+  --space-100: 4px;
+  --space-200: 8px;
+  --space-300: 12px;
+  --space-400: 16px;
+  --space-600: 24px;
+  --space-800: 32px;
+  --space-1200: 48px;
 
-  /* Radius: SDS の Radius/* */
-  --sds-size-radius-100: 4px;
-  --sds-size-radius-200: 8px;
+  /* 余白の役割（部品と画面はまずこちらを使う） */
 
-  /* Stroke: SDS の Stroke/Border */
-  --sds-size-stroke-border: 1px;
+  /* 横に並ぶ小さな要素の間（アイコンと文字、ページ番号、表の操作） */
+  --gap-inline: var(--space-200);
 
-  /* Shadow: SDS の Drop Shadow/200 */
-  --sds-effect-shadow-200:
+  /* 画面の要素の縦の並び（年月の選択・合計・表・カード）と画面の大枠 */
+  --gap-stack: var(--space-400);
+
+  /* まとまり同士の間（フォームの項目、ダイアログの見出し・本文・操作） */
+  --gap-section: var(--space-600);
+
+  /* 入力欄・プルダウン・表のセルの左右 */
+  --padding-control-x: var(--space-400);
+
+  /* カード・サイドバー・内訳の内側 */
+  --padding-card: var(--space-600);
+
+  /* メインコンテンツ（右側の白い枠）の内側 */
+  --padding-page: var(--space-600);
+
+  /* 大きさ・角丸・線 */
+  --size-control: 40px; /* 入力欄・プルダウン・表の行・合計行の高さ */
+  --radius-100: 4px; /* フォーカスの枠・小さい部品 */
+  --radius-200: 8px; /* カード・入力欄・ボタン・ダイアログ */
+  --border-width: 1px;
+
+  /* 影: 影/浮き上がり（カード・サイドバー・ナビバー・ダイアログ） */
+  --shadow-raised:
     0 1px 4px 0 rgb(12 12 13 / 5%), 0 1px 4px 0 rgb(12 12 13 / 10%);
 
-  /* Typography: SDS の文字スタイルを Noto Sans JP で再現したもの */
+  /* 文字: Figma の文字スタイル「文字/*」（Noto Sans JP） */
   --font-family-base: var(--font-noto-sans-jp, "Noto Sans JP"), sans-serif;
-  --text-body-size: 16px; /* SDS/Body Base */
+  --text-body-size: 16px; /* 文字/本文 */
   --text-body-line-height: 1.4;
-  --text-single-line-line-height: 1; /* SDS/Single Line/Body Base */
-  --text-subheading-size: 20px; /* SDS/Subheading */
+  --text-single-line-line-height: 1; /* 文字/本文（1行）: ボタン・入力欄・ナビ */
+  --text-caption-size: 14px; /* 文字/補足: グラフの凡例・軸・ツールチップ */
+  --text-caption-line-height: 1.4;
+  --text-subheading-size: 20px; /* 文字/小見出し: ナビバーのタイトル */
   --text-subheading-line-height: 1.2;
-  --text-small-size: 14px; /* SDS/Body Small（グラフの凡例・軸・ツールチップ） */
-  --text-small-line-height: 1.4;
-  --text-heading-size: 24px; /* SDS/Heading（ダイアログの見出し） */
+  --text-heading-size: 24px; /* 文字/見出し: ダイアログの見出し */
   --text-heading-line-height: 1.2;
   --text-heading-weight: 700;
+  --text-amount-numeric: tabular-nums; /* 文字/金額: 本文と同じ大きさで、数字の幅をそろえる */
 }

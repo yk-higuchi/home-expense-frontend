@@ -3,7 +3,8 @@
  * 一致しなければ終了コード 1（lint の一部として CI で動く）。
  *
  * - 色: Figma「補助カラー」の各変数のコード名（WEB）= CSS 変数名。値と、両方にあるかを確かめる
- * - 余白・角丸・線: SDS の変数のコード名（--sds-size-*）。Figma のファイルが参照していないものは警告だけ
+ * - 余白・大きさ・角丸・線: Figma「サイズ」の各変数のコード名（WEB）= CSS 変数名。
+ *   値に加えて、役割（--gap-stack など）がどの段階を参照しているかも突き合わせる
  * - 文字・影: Figma の文字スタイル・影のスタイルにはコード名がないので、下の対応表で突き合わせる
  *
  * Figma を変えたら scripts/export-figma-tokens.js で JSON を書き出し直してから、このスクリプトを動かす。
@@ -18,32 +19,40 @@ const figma = JSON.parse(
 );
 const css = readFileSync(join(root, "src/tokens.css"), "utf8");
 
-/** 文字スタイル → CSS 変数（size: 文字の大きさ, lineHeight: 行の高さ, weight: 太さ） */
+/**
+ * 文字スタイル → CSS 変数（size: 文字の大きさ, lineHeight: 行の高さ, weight: 太さ, numeric: 数字の形）
+ * numeric は Figma の API から読めないため、CSS の値だけを確かめる（Figma 側は「数字: 等幅」を手で設定する）
+ */
 const TEXT_STYLES = {
-  "SDS/Body Base": {
+  "文字/本文": {
     size: "--text-body-size",
     lineHeight: "--text-body-line-height",
   },
-  "SDS/Single Line/Body Base": {
+  "文字/本文（1行）": {
     size: "--text-body-size",
     lineHeight: "--text-single-line-line-height",
   },
-  "SDS/Subheading": {
+  "文字/補足": {
+    size: "--text-caption-size",
+    lineHeight: "--text-caption-line-height",
+  },
+  "文字/小見出し": {
     size: "--text-subheading-size",
     lineHeight: "--text-subheading-line-height",
   },
-  "SDS/Body Small": {
-    size: "--text-small-size",
-    lineHeight: "--text-small-line-height",
-  },
-  "SDS/Heading": {
+  "文字/見出し": {
     size: "--text-heading-size",
     lineHeight: "--text-heading-line-height",
     weight: "--text-heading-weight",
   },
+  "文字/金額": {
+    size: "--text-body-size",
+    lineHeight: "--text-body-line-height",
+    numeric: ["--text-amount-numeric", "tabular-nums"],
+  },
 };
 /** 影のスタイル → CSS 変数 */
-const EFFECT_STYLES = { "Drop Shadow/200": "--sds-effect-shadow-200" };
+const EFFECT_STYLES = { "影/浮き上がり": "--shadow-raised" };
 const FONT_WEIGHTS = { Regular: 400, Medium: 500, Bold: 700 };
 
 // tokens.css の :root の宣言（コメントを除いて読む）
@@ -52,7 +61,14 @@ const declarations = new Map(
     ...css
       .replace(/\/\*[\s\S]*?\*\//g, "")
       .matchAll(/(--[a-z0-9-]+)\s*:\s*([^;]+);/g),
-  ].map(([, name, value]) => [name, value.trim().replace(/\s+/g, " ")]),
+  ].map(([, name, value]) => [
+    name,
+    value
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(/\(\s+/g, "(")
+      .replace(/\s+\)/g, ")"),
+  ]),
 );
 
 const errors = [];
@@ -112,19 +128,31 @@ for (const color of figma.colors) {
   );
 }
 
-// 余白・角丸・線
-const sizes = new Map(figma.sizes.map((s) => [s.css, s]));
-for (const [name, value] of declarations) {
-  if (!name.startsWith("--sds-size-")) continue;
-  const size = sizes.get(name);
-  if (!size) {
-    checked.add(name);
-    warnings.push(
-      `${name}（${value}）は Figma のファイルで使われていないため、SDS の値と照合できない`,
-    );
+// 余白・大きさ・角丸・線
+/** var(--x) をたどって値を得る */
+const resolveVar = (value, depth = 0) => {
+  const ref = value?.match(/^var\((--[a-z0-9-]+)\)$/)?.[1];
+  return ref && depth < 5
+    ? resolveVar(declarations.get(ref), depth + 1)
+    : value;
+};
+const cssBySizeName = new Map(figma.sizes.map((s) => [s.name, s.css]));
+for (const size of figma.sizes) {
+  if (!size.css) {
+    errors.push(`Figma の「${size.name}」にコード名（WEB）がない`);
     continue;
   }
-  expect(name, px(value), size.value, size.name);
+  const value = declarations.get(size.css);
+  expect(size.css, value && px(resolveVar(value)), size.value, size.name);
+  // 役割は、Figma と同じ段階を参照していること（例: --gap-stack: var(--space-400)）
+  if (value && size.ref) {
+    const expected = `var(${cssBySizeName.get(size.ref)})`;
+    if (value !== expected) {
+      errors.push(
+        `${size.css}: tokens.css は ${value} を参照、Figma（${size.name}）は ${size.ref}（${expected}）を参照`,
+      );
+    }
+  }
 }
 
 // 文字
@@ -156,6 +184,10 @@ for (const style of figma.textStyles) {
     style.lineHeight,
     style.name,
   );
+  if (map.numeric) {
+    const [name, value] = map.numeric;
+    expect(name, get(name), value, style.name);
+  }
   const weight = FONT_WEIGHTS[style.fontStyle];
   if (map.weight) {
     expect(

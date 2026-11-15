@@ -1,14 +1,14 @@
-/* ナビバー（Figma: 余白 16px 24px / 角丸 8px / 影 Drop Shadow/200 / タイトルは SDS/Subheading） */
+/* ナビバー（Figma: 余白 16px 24px / 角丸 8px / 影 --shadow-raised / タイトルは 文字/小見出し） */
 .navBar {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--sds-size-space-400) var(--sds-size-space-600);
-  border: var(--sds-size-stroke-border) solid var(--color-border);
-  border-radius: var(--sds-size-radius-200);
+  padding: var(--space-400) var(--space-600);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
   background-color: var(--color-surface);
-  box-shadow: var(--sds-effect-shadow-200);
+  box-shadow: var(--shadow-raised);
   font-family: var(--font-family-base);
 }
 
