@@ -101,7 +101,11 @@ export const useSortableList = <T>({
     if (to !== drag.to) setDrag({ ...drag, to });
   });
 
-  const cancelByEscape = useEffectEvent(() => {
+  const releasePointer = useEffectEvent((y: number) => {
+    if (drag?.mode === "pointer") finish(drag, targetIndex(y, drag.id));
+  });
+
+  const cancelDrag = useEffectEvent(() => {
     if (drag !== null) cancel(drag);
   });
 
@@ -126,14 +130,33 @@ export const useSortableList = <T>({
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
-    const onKeyDown = (event: globalThis.KeyboardEvent): void => {
-      if (event.key === "Escape") cancelByEscape();
+    const onPointerMove = (event: globalThis.PointerEvent): void => {
+      if (event.buttons === 0) {
+        releasePointer(event.clientY);
+        return;
+      }
+      pointerY.current = event.clientY;
     };
+    const onPointerUp = (event: globalThis.PointerEvent): void => {
+      releasePointer(event.clientY);
+    };
+    const onKeyDown = (event: globalThis.KeyboardEvent): void => {
+      if (event.key === "Escape") cancelDrag();
+    };
+    const onCancel = (): void => cancelDrag();
     const { userSelect } = document.body.style;
     document.body.style.userSelect = "none";
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onCancel);
+    window.addEventListener("blur", onCancel);
     window.addEventListener("keydown", onKeyDown);
     return () => {
       cancelAnimationFrame(frame);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onCancel);
+      window.removeEventListener("blur", onCancel);
       window.removeEventListener("keydown", onKeyDown);
       document.body.style.userSelect = userSelect;
     };
@@ -148,22 +171,11 @@ export const useSortableList = <T>({
       "aria-pressed": isLifted,
       disabled,
       onPointerDown: (event: PointerEvent<HTMLButtonElement>) => {
-        if (disabled || event.button !== 0 || drag !== null) return;
+        if (disabled || event.button !== 0 || drag?.mode === "keyboard") return;
         event.preventDefault();
         event.currentTarget.setPointerCapture(event.pointerId);
         pointerY.current = event.clientY;
         setDrag({ id, from: index, to: index, mode: "pointer" });
-      },
-      onPointerMove: (event: PointerEvent<HTMLButtonElement>) => {
-        if (drag?.mode !== "pointer" || drag.id !== id) return;
-        pointerY.current = event.clientY;
-      },
-      onPointerUp: (event: PointerEvent<HTMLButtonElement>) => {
-        if (drag?.mode !== "pointer" || drag.id !== id) return;
-        finish(drag, targetIndex(event.clientY, id));
-      },
-      onPointerCancel: () => {
-        if (drag?.mode === "pointer" && drag.id === id) cancel(drag);
       },
       onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => {
         if (disabled) return;
