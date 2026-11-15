@@ -9,6 +9,8 @@ export { Chart } from "./Chart/Chart";
 export { formatCompact, formatYen } from "./Chart/format";
 export type { DialogProps } from "./Dialog/Dialog";
 export { Dialog } from "./Dialog/Dialog";
+export type { ErrorMessageProps } from "./ErrorMessage/ErrorMessage";
+export { ErrorMessage } from "./ErrorMessage/ErrorMessage";
 export { LoaderIcon, PlusIcon, WarningIcon } from "./icons/icons";
 export type { NavBarProps } from "./NavBar/NavBar";
 export { NavBar } from "./NavBar/NavBar";
@@ -22,6 +24,8 @@ export type {
   SideBarProps,
 } from "./SideBar/SideBar";
 export { SideBar } from "./SideBar/SideBar";
+export type { SubmitButtonProps } from "./SubmitButton/SubmitButton";
+export { SubmitButton } from "./SubmitButton/SubmitButton";
 export type {
   BreakdownGroupProps,
   BreakdownItemProps,

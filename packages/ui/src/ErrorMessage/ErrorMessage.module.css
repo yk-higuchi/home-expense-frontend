@@ -1,5 +1,5 @@
-/* 画面内のエラーメッセージ（削除の失敗など） */
-.error {
+/* エラーメッセージ（Figma: 文字/本文・基本/危険） */
+.errorMessage {
   margin: 0;
   color: var(--color-danger);
   font-family: var(--font-family-base);
