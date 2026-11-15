@@ -46,7 +46,6 @@ export const getExpenseSummary = async ({
   expenses: Expenses;
   pagination: Pagination;
 }> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const { pagination, response } = await expensesApi.getSummary({
     page,
     perPage,
@@ -95,7 +94,6 @@ export const getExpense = async ({
   id: string;
   tag: string;
 }): Promise<Expense> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const response = await expensesApi.get({
     id,
     extension: {

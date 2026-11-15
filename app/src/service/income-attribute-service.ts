@@ -61,7 +61,6 @@ export const getIncomeAttribute = async ({
   id: string;
   tag: string;
 }): Promise<IncomeAttribute> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const response = await incomeAttributesApi.get({
     id,
     extension: {

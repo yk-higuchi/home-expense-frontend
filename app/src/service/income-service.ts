@@ -40,7 +40,6 @@ export const getIncomeSummary = async ({
   incomes: Incomes;
   pagination: Pagination;
 }> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const { pagination, response } = await incomesApi.getSummary({
     page,
     perPage,
@@ -85,7 +84,6 @@ export const getIncome = async ({
   id: string;
   tag: string;
 }): Promise<Income> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const response = await incomesApi.get({
     id,
     extension: {

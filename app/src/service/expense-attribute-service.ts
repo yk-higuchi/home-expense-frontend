@@ -71,7 +71,6 @@ export const getExpenseAttribute = async ({
   id: string;
   tag: string;
 }): Promise<ExpenseAttribute> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const response = await expenseAttributesApi.get({
     id,
     extension: {
