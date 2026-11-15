@@ -19,7 +19,7 @@ export interface PaginationProps {
 type Item = number | "gap-start" | "gap-end";
 
 /** 先頭・今のページの前後・最後を並べ、間を省略記号にする */
-export const paginationItems = (
+const paginationItems = (
   currentPage: number,
   totalPages: number,
   siblingCount = 2,

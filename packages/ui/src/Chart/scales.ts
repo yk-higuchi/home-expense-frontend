@@ -47,7 +47,7 @@ export const computeScale = (
 };
 
 /** 切りのいい目盛り（1・2・5 × 10^n 刻み） */
-export const niceTicks = (
+const niceTicks = (
   min: number,
   max: number,
   count: number,

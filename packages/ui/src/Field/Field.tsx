@@ -2,7 +2,7 @@ import type { ReactElement, ReactNode } from "react";
 
 import styles from "./Field.module.css";
 
-export interface FieldProps {
+interface FieldProps {
   id: string;
   label?: string;
   description?: string;
@@ -11,8 +11,8 @@ export interface FieldProps {
   children: ReactNode;
 }
 
-export const descriptionId = (id: string): string => `${id}-description`;
-export const errorId = (id: string): string => `${id}-error`;
+const descriptionId = (id: string): string => `${id}-description`;
+const errorId = (id: string): string => `${id}-error`;
 
 /** aria-describedby に入れる ID（説明・エラーがあるものだけ） */
 export const describedBy = (

@@ -14,7 +14,7 @@ export const maxLength = (
   value.length > max ? `${label}は${max}文字以内で入力してください` : undefined;
 
 /** API の金額の上限（10 億円） */
-export const AMOUNT_MAX = 1_000_000_000;
+const AMOUNT_MAX = 1_000_000_000;
 
 /** 1 以上 10 億以下の整数（3,000 のようなカンマ区切りも受け付ける） */
 export const amount = (value: string, label: string): string | undefined => {
