@@ -1,6 +1,7 @@
 import {
   Amount,
   ErrorMessage,
+  StatusMessage,
   Table,
   TableActions,
   TableBody,
@@ -12,10 +13,12 @@ import {
 } from "@home-expense/ui";
 import type { ReactElement, ReactNode } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
+import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome, loadIncomeForDelete } from "@/service/income-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
+import savedStyle from "@/ui/parts/saved-row.module.css";
 
 interface Props {
   incomes: Incomes;
@@ -23,6 +26,7 @@ interface Props {
   onEdit: (id: string) => void;
   footer?: ReactNode;
   loading?: boolean;
+  savedId?: string;
 }
 
 const IncomeTable = ({
@@ -31,18 +35,26 @@ const IncomeTable = ({
   onEdit,
   footer,
   loading,
+  savedId,
 }: Props): ReactElement => {
   const {
     rows: optimisticIncomes,
     error: deleteError,
     requestDelete,
+    notice: deleteNotice,
     dialogProps,
-  } = useOptimisticDelete(incomes);
+  } = useOptimisticDelete(incomes, (row) => row.description);
+  const saved = useSavedHighlight(savedId, incomes, (row) => row.description);
+  const notice = deleteNotice ?? saved.message;
   const { page, perPage } = pagination.current;
 
   return (
     <>
-      {deleteError && <ErrorMessage>{deleteError}</ErrorMessage>}
+      {deleteError ? (
+        <ErrorMessage>{deleteError}</ErrorMessage>
+      ) : (
+        notice && <StatusMessage>{notice}</StatusMessage>
+      )}
       <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>
@@ -63,7 +75,13 @@ const IncomeTable = ({
             ) => {
               const no = index + 1 + (page - 1) * perPage;
               return (
-                <TableRow key={id ?? no}>
+                <TableRow
+                  key={id ?? no}
+                  id={`row-${id}`}
+                  className={
+                    saved.highlightedId === id ? savedStyle.saved : undefined
+                  }
+                >
                   <TableCell>{no}</TableCell>
                   <TableCell>{description}</TableCell>
                   <TableCell>

@@ -12,11 +12,12 @@ export const metadata: Metadata = {
 interface Props {
   searchParams: Promise<{
     category?: string;
+    saved?: string;
   }>;
 }
 
 const ExpenseAttributePage = async (props: Props): Promise<ReactElement> => {
-  const { category: requested } = await props.searchParams;
+  const { category: requested, saved } = await props.searchParams;
   const category = isExpenseAttributeCategory(requested) ? requested : "固定費";
   const { expenseAttributes, version } = await getExpenseAttributes({
     category,
@@ -26,6 +27,7 @@ const ExpenseAttributePage = async (props: Props): Promise<ReactElement> => {
       category={category}
       expenseAttributes={expenseAttributes}
       version={version}
+      savedId={saved}
     />
   );
 };

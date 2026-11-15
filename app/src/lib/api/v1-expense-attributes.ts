@@ -106,7 +106,7 @@ const _get = async ({
   }
 };
 
-const _post = async ({ name, category }: PostRequest): Promise<void> => {
+const _post = async ({ name, category }: PostRequest): Promise<string> => {
   const data = {
     name,
     category,
@@ -121,7 +121,7 @@ const _post = async ({ name, category }: PostRequest): Promise<void> => {
   });
   switch (response.type) {
     case "success":
-      return;
+      return response.headers?.location?.split("/").pop() ?? "";
     case "failure":
       throw response.error;
   }

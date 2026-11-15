@@ -30,6 +30,7 @@ const ExpenseAttributeForm = ({
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="expenseAttributeId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
+      {isEdit && <input type="hidden" name="category" value={category} />}
       <TextInput
         label="属性名"
         name="name"

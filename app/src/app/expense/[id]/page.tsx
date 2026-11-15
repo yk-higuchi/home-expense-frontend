@@ -14,7 +14,8 @@ interface Props {
     id: string;
   }>;
   searchParams: Promise<{
-    category: string;
+    category?: string;
+    from?: string;
   }>;
 }
 
@@ -26,7 +27,11 @@ const ExpenseEditPage = async (props: Props): Promise<ReactElement> => {
   const { category = expense.category } = searchParams;
   const { expenseAttributes } = await getExpenseAttributes({ category });
   return (
-    <ExpenseEdit expense={expense} expenseAttributes={expenseAttributes} />
+    <ExpenseEdit
+      expense={expense}
+      expenseAttributes={expenseAttributes}
+      returnTo={searchParams.from}
+    />
   );
 };
 export default ExpenseEditPage;

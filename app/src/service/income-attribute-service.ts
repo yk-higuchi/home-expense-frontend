@@ -95,8 +95,9 @@ export const registerIncomeAttribute = async (
     ),
   });
   if (errors) return { errors, values };
+  let id: string;
   try {
-    await incomeAttributesApi.post({ name: values.name });
+    id = await incomeAttributesApi.post({ name: values.name });
   } catch (error) {
     console.error(error);
     return {
@@ -104,7 +105,7 @@ export const registerIncomeAttribute = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect("/income-attribute");
+  redirect(`/income-attribute?${new URLSearchParams({ saved: id })}`);
 };
 
 export const updateIncomeAttribute = async (
@@ -133,7 +134,9 @@ export const updateIncomeAttribute = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect("/income-attribute");
+  redirect(
+    `/income-attribute?${new URLSearchParams({ saved: values.incomeAttributeId })}`,
+  );
 };
 
 export const deleteIncomeAttribute = async (

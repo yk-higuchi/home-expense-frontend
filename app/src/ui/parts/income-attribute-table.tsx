@@ -3,6 +3,7 @@ import {
   ErrorMessage,
   ReorderButtons,
   SortableStatus,
+  StatusMessage,
   Table,
   TableActions,
   TableBody,
@@ -16,6 +17,7 @@ import {
 import type { ReactElement } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useOptimisticReorder } from "@/lib/hooks/use-optimistic-reorder";
+import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import {
   deleteIncomeAttribute,
@@ -24,12 +26,14 @@ import {
 } from "@/service/income-attribute-service";
 import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
+import savedStyle from "@/ui/parts/saved-row.module.css";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
   version: string;
   onEdit: (id: string) => void;
   loading?: boolean;
+  savedId?: string;
 }
 
 const IncomeAttributeTable = ({
@@ -37,6 +41,7 @@ const IncomeAttributeTable = ({
   version,
   onEdit,
   loading,
+  savedId,
 }: Props): ReactElement => {
   const reordering = useOptimisticReorder({
     source: incomeAttributes,
@@ -46,9 +51,11 @@ const IncomeAttributeTable = ({
   const {
     rows,
     error: deleteError,
+    notice: deleteNotice,
     requestDelete,
     dialogProps,
-  } = useOptimisticDelete(reordering.rows);
+  } = useOptimisticDelete(reordering.rows, (row) => row.name);
+  const saved = useSavedHighlight(savedId, incomeAttributes, (row) => row.name);
   const { handleProps, rowProps, canMove, moveBy, announcement } =
     useSortableList({
       items: rows,
@@ -58,10 +65,15 @@ const IncomeAttributeTable = ({
       disabled: reordering.isPending || loading,
     });
   const error = reordering.error ?? deleteError;
+  const notice = deleteNotice ?? saved.message;
 
   return (
     <>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error ? (
+        <ErrorMessage>{error}</ErrorMessage>
+      ) : (
+        notice && <StatusMessage>{notice}</StatusMessage>
+      )}
       <Table loading={loading}>
         <TableHead>
           <TableRow>
@@ -74,7 +86,19 @@ const IncomeAttributeTable = ({
         <TableBody>
           {rows.length === 0 && <TableEmpty colSpan={4} />}
           {rows.map((row, index) => (
-            <TableRow key={row.id ?? index} {...rowProps(row)}>
+            <TableRow
+              key={row.id ?? index}
+              {...rowProps(row)}
+              id={`row-${row.id}`}
+              className={
+                [
+                  rowProps(row).className,
+                  saved.highlightedId === row.id && savedStyle.saved,
+                ]
+                  .filter(Boolean)
+                  .join(" ") || undefined
+              }
+            >
               <TableCell>
                 <DragHandle {...handleProps(row)} />
               </TableCell>

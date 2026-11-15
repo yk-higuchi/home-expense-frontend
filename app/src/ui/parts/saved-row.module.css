@@ -1,0 +1,20 @@
+.saved > * {
+  animation: saved-fade 3s ease-out;
+}
+
+@keyframes saved-fade {
+  from {
+    background-color: var(--color-interactive-selected);
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saved > * {
+    animation: none;
+    background-color: var(--color-interactive-selected);
+  }
+}

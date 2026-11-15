@@ -18,6 +18,7 @@ interface Props {
   onCategoryChange: (category: string) => void;
   action: FormAction;
   buttonTitle: string;
+  returnTo?: string;
 }
 
 const ExpenseForm = ({
@@ -26,6 +27,7 @@ const ExpenseForm = ({
   onCategoryChange,
   action,
   buttonTitle,
+  returnTo,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
   const {
@@ -45,6 +47,7 @@ const ExpenseForm = ({
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="expenseId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
+      <input type="hidden" name="returnTo" value={returnTo ?? ""} />
       <TextInput
         label="説明"
         name="description"

@@ -111,8 +111,9 @@ export const registerExpenseAttribute = async (
   if (errors || !isExpenseAttributeCategory(category)) {
     return { errors: errors ?? { category: "分類を選択してください" }, values };
   }
+  let id: string;
   try {
-    await expenseAttributesApi.post({ name: values.name, category });
+    id = await expenseAttributesApi.post({ name: values.name, category });
   } catch (error) {
     console.error(error);
     return {
@@ -120,7 +121,9 @@ export const registerExpenseAttribute = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect("/expense-attribute");
+  redirect(
+    `/expense-attribute?${new URLSearchParams({ category, saved: id })}`,
+  );
 };
 
 export const updateExpenseAttribute = async (
@@ -131,6 +134,7 @@ export const updateExpenseAttribute = async (
     "expenseAttributeId",
     "version",
     "name",
+    "category",
   ]);
   const errors = collectErrors({
     name: first(
@@ -153,7 +157,9 @@ export const updateExpenseAttribute = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect("/expense-attribute");
+  redirect(
+    `/expense-attribute?${new URLSearchParams({ category: values.category, saved: values.expenseAttributeId })}`,
+  );
 };
 
 export const deleteExpenseAttribute = async (

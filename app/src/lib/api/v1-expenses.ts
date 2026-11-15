@@ -98,7 +98,7 @@ const _post = async ({
   attribute_id,
   amount,
   payment_date,
-}: PostRequest): Promise<void> => {
+}: PostRequest): Promise<string> => {
   const data = {
     description,
     attribute_id,
@@ -115,7 +115,7 @@ const _post = async ({
   });
   switch (response.type) {
     case "success":
-      return;
+      return response.headers?.location?.split("/").pop() ?? "";
     case "failure":
       throw response.error;
   }

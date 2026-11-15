@@ -13,6 +13,7 @@ interface Props {
   loadTarget: (id: string) => Promise<DeleteTargetResult>;
   action: (formData: FormData) => Promise<FormState>;
   onDeleteStart: (id: string) => void;
+  onDeleted: (id: string) => void;
   onDeleteFailed: (message: string) => void;
   onClose: () => void;
 }
@@ -28,6 +29,7 @@ const DeleteDialog = ({
   loadTarget,
   action,
   onDeleteStart,
+  onDeleted,
   onDeleteFailed,
   onClose,
 }: Props): ReactElement => {
@@ -56,11 +58,13 @@ const DeleteDialog = ({
       description="削除したデータは復元できません。削除しますか？"
       formProps={{
         action: async (formData: FormData) => {
-          if (targetId !== null) onDeleteStart(targetId);
+          const id = targetId;
+          if (id !== null) onDeleteStart(id);
           setOpen(false);
           onClose();
           const { message } = await action(formData);
           if (message) onDeleteFailed(message);
+          else if (id !== null) onDeleted(id);
         },
       }}
       actions={

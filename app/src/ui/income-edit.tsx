@@ -9,15 +9,21 @@ import IncomeForm from "@/ui/parts/income-form";
 interface Props {
   income: Income;
   incomeAttributes: IncomeAttributes;
+  returnTo?: string;
 }
 
-const IncomeEdit = ({ income, incomeAttributes }: Props): ReactElement => {
+const IncomeEdit = ({
+  income,
+  incomeAttributes,
+  returnTo,
+}: Props): ReactElement => {
   return (
     <IncomeForm
       income={income}
       incomeAttributes={incomeAttributes}
       action={updateIncome}
       buttonTitle="更新"
+      returnTo={returnTo}
     />
   );
 };

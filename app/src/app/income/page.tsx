@@ -13,6 +13,7 @@ interface Props {
     page?: string;
     per_page?: string;
     year?: string;
+    saved?: string;
   }>;
 }
 
@@ -28,6 +29,13 @@ const IncomePage = async (props: Props): Promise<ReactElement> => {
     year,
     tag: `income-${year}`,
   });
-  return <Income incomes={incomes} pagination={pagination} year={year} />;
+  return (
+    <Income
+      incomes={incomes}
+      pagination={pagination}
+      year={year}
+      savedId={searchParams.saved}
+    />
+  );
 };
 export default IncomePage;

@@ -1,7 +1,12 @@
 "use client";
 import { Button, PlusIcon, Select } from "@home-expense/ui";
-import { useRouter } from "next/navigation";
-import { type ChangeEvent, type ReactElement, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  type ChangeEvent,
+  type ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 
 import type { Incomes } from "@/lib/income";
@@ -15,10 +20,25 @@ interface Props {
   incomes: Incomes;
   pagination: Pagination;
   year: number;
+  savedId?: string;
 }
 
-const Income = ({ incomes, pagination, year }: Props): ReactElement => {
+const Income = ({
+  incomes,
+  pagination,
+  year,
+  savedId,
+}: Props): ReactElement => {
   const router = useRouter();
+  const currentSearchParams = useSearchParams();
+
+  useEffect(() => {
+    const { page } = pagination.current;
+    if (incomes.length > 0 || page <= 1) return;
+    const params = new URLSearchParams(currentSearchParams);
+    params.set("page", String(page - 1));
+    router.replace(`/income?${params}`);
+  }, [incomes.length, pagination, currentSearchParams, router]);
   const { isPending, navigate } = useNavigation();
   const [selectedYear, setSelectedYear] = useState(year);
   const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -40,7 +60,9 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
   };
 
   const handleEdit = (id: string) => {
-    router.push(`/income/${id}`);
+    router.push(
+      `/income/${id}?${new URLSearchParams({ from: currentSearchParams.toString() })}`,
+    );
   };
 
   return (
@@ -68,6 +90,7 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
         </div>
       </div>
       <IncomeTable
+        savedId={savedId}
         loading={isPending}
         incomes={incomes}
         pagination={pagination}

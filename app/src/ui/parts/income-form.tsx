@@ -17,6 +17,7 @@ interface Props {
   incomeAttributes: IncomeAttributes;
   action: FormAction;
   buttonTitle: string;
+  returnTo?: string;
 }
 
 const IncomeForm = ({
@@ -24,6 +25,7 @@ const IncomeForm = ({
   incomeAttributes,
   action,
   buttonTitle,
+  returnTo,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
   const { id, version, description, amount, receiveDate, attributeId } = income;
@@ -32,6 +34,7 @@ const IncomeForm = ({
     <form action={formAction} className={style.formStyle} noValidate>
       <input type="hidden" name="incomeId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
+      <input type="hidden" name="returnTo" value={returnTo ?? ""} />
       <TextInput
         label="説明"
         name="description"

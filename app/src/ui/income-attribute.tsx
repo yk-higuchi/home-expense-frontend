@@ -10,11 +10,13 @@ import layout from "@/ui/parts/list-layout.module.css";
 interface Props {
   incomeAttributes: IncomeAttributes;
   version: string;
+  savedId?: string;
 }
 
 const IncomeAttribute = ({
   incomeAttributes,
   version,
+  savedId,
 }: Props): ReactElement => {
   const router = useRouter();
 
@@ -33,6 +35,7 @@ const IncomeAttribute = ({
         </Button>
       </div>
       <IncomeAttributeTable
+        savedId={savedId}
         incomeAttributes={incomeAttributes}
         version={version}
         onEdit={handleEdit}

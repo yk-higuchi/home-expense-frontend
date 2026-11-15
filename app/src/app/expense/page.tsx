@@ -18,6 +18,7 @@ interface Props {
     month?: string;
     category?: string;
     attributeId?: string;
+    saved?: string;
   }>;
 }
 
@@ -54,6 +55,7 @@ const ExpensePage = async (props: Props): Promise<ReactElement> => {
       category={_category}
       expenseAttributes={expenseAttributes}
       attributeId={attributeId}
+      savedId={searchParams.saved}
     />
   );
 };

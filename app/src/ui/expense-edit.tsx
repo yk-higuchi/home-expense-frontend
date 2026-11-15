@@ -10,13 +10,19 @@ import ExpenseForm from "@/ui/parts/expense-form";
 interface Props {
   expense: Expense;
   expenseAttributes: ExpenseAttributes;
+  returnTo?: string;
 }
 
-const ExpenseEdit = ({ expense, expenseAttributes }: Props): ReactElement => {
+const ExpenseEdit = ({
+  expense,
+  expenseAttributes,
+  returnTo,
+}: Props): ReactElement => {
   const router = useRouter();
   const handleCategoryChange = (category: string) => {
     const searchParams = new URLSearchParams({
       category,
+      ...(returnTo && { from: returnTo }),
     }).toString();
     router.push(`/expense/${expense.id}?${searchParams}`);
   };
@@ -27,6 +33,7 @@ const ExpenseEdit = ({ expense, expenseAttributes }: Props): ReactElement => {
       onCategoryChange={handleCategoryChange}
       action={updateExpense}
       buttonTitle="更新"
+      returnTo={returnTo}
     />
   );
 };

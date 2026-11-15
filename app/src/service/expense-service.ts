@@ -29,6 +29,7 @@ import {
   selected,
 } from "@/lib/form/validation";
 import { HttpError } from "@/lib/http/error";
+import { expenseListUrl } from "@/lib/list-return";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
@@ -143,8 +144,9 @@ export const registerExpense = async (
     attributeId: selected(values.attributeId, "属性名"),
   });
   if (errors) return { errors, values };
+  let id: string;
   try {
-    await expensesApi.post({
+    id = await expensesApi.post({
       description: values.description,
       attribute_id: values.attributeId,
       amount: parseAmount(values.amount),
@@ -157,12 +159,14 @@ export const registerExpense = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  const now = new Date(Date.now());
-  const searchParams = new URLSearchParams({
-    year: now.getFullYear().toString(),
-    month: (now.getMonth() + 1).toString(),
-  }).toString();
-  redirect(`/expense?${searchParams}`);
+  redirect(
+    expenseListUrl({
+      paymentDate: values.paymentDate,
+      category: values.category,
+      attributeId: values.attributeId,
+      savedId: id,
+    }),
+  );
 };
 
 export const updateExpense = async (
@@ -177,6 +181,7 @@ export const updateExpense = async (
     "paymentDate",
     "category",
     "attributeId",
+    "returnTo",
   ]);
   const errors = collectErrors({
     description: first(
@@ -205,12 +210,15 @@ export const updateExpense = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  const now = new Date(Date.now());
-  const searchParams = new URLSearchParams({
-    year: now.getFullYear().toString(),
-    month: (now.getMonth() + 1).toString(),
-  }).toString();
-  redirect(`/expense?${searchParams}`);
+  redirect(
+    expenseListUrl({
+      from: values.returnTo || undefined,
+      paymentDate: values.paymentDate,
+      category: values.category,
+      attributeId: values.attributeId,
+      savedId: values.expenseId,
+    }),
+  );
 };
 
 export const deleteExpense = async (formData: FormData): Promise<FormState> => {

@@ -1,7 +1,12 @@
 "use client";
 import { Button, PlusIcon, Select } from "@home-expense/ui";
-import { useRouter } from "next/navigation";
-import { type ChangeEvent, type ReactElement, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  type ChangeEvent,
+  type ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import type { Expenses } from "@/lib/expense";
 import {
   type ExpenseAttributeCategory,
@@ -23,6 +28,7 @@ interface Props {
   category?: ExpenseAttributeCategory;
   expenseAttributes: ExpenseAttributes;
   attributeId?: string;
+  savedId?: string;
 }
 
 const cleanUpObject = (obj: object): Record<string, string> =>
@@ -38,8 +44,18 @@ const Expense = ({
   category,
   expenseAttributes,
   attributeId,
+  savedId,
 }: Props): ReactElement => {
   const router = useRouter();
+  const currentSearchParams = useSearchParams();
+
+  useEffect(() => {
+    const { page } = pagination.current;
+    if (expenses.length > 0 || page <= 1) return;
+    const params = new URLSearchParams(currentSearchParams);
+    params.set("page", String(page - 1));
+    router.replace(`/expense?${params}`);
+  }, [expenses.length, pagination, currentSearchParams, router]);
   const { isPending, navigate } = useNavigation();
 
   const [queryParam, setQueryParam] = useState({
@@ -158,7 +174,9 @@ const Expense = ({
   };
 
   const handleEdit = (id: string) => {
-    router.push(`/expense/${id}`);
+    router.push(
+      `/expense/${id}?${new URLSearchParams({ from: currentSearchParams.toString() })}`,
+    );
   };
 
   return (
@@ -225,6 +243,7 @@ const Expense = ({
         </div>
       </div>
       <ExpenseTable
+        savedId={savedId}
         loading={isPending}
         expenses={expenses}
         pagination={pagination}

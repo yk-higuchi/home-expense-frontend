@@ -13,6 +13,9 @@ interface Props {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{
+    from?: string;
+  }>;
 }
 
 const IncomeEditPage = async (props: Props): Promise<ReactElement> => {
@@ -20,6 +23,13 @@ const IncomeEditPage = async (props: Props): Promise<ReactElement> => {
   const { id } = params;
   const income = await getIncome({ id, tag: `income-${id}` });
   const { incomeAttributes } = await getIncomeAttributes();
-  return <IncomeEdit income={income} incomeAttributes={incomeAttributes} />;
+  const { from } = await props.searchParams;
+  return (
+    <IncomeEdit
+      income={income}
+      incomeAttributes={incomeAttributes}
+      returnTo={from}
+    />
+  );
 };
 export default IncomeEditPage;

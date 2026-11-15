@@ -29,6 +29,7 @@ import {
 } from "@/lib/form/validation";
 import { HttpError } from "@/lib/http/error";
 import type { Income, Incomes } from "@/lib/income";
+import { incomeListUrl } from "@/lib/list-return";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { isString } from "@/lib/type-guard";
 
@@ -131,8 +132,9 @@ export const registerIncome = async (
     attributeId: selected(values.attributeId, "属性名"),
   });
   if (errors) return { errors, values };
+  let id: string;
   try {
-    await incomesApi.post({
+    id = await incomesApi.post({
       description: values.description,
       attribute_id: values.attributeId,
       amount: parseAmount(values.amount),
@@ -145,7 +147,7 @@ export const registerIncome = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect("/income");
+  redirect(incomeListUrl({ receiveDate: values.receiveDate, savedId: id }));
 };
 
 export const updateIncome = async (
@@ -159,6 +161,7 @@ export const updateIncome = async (
     "amount",
     "receiveDate",
     "attributeId",
+    "returnTo",
   ]);
   const errors = collectErrors({
     description: first(
@@ -187,7 +190,13 @@ export const updateIncome = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect("/income");
+  redirect(
+    incomeListUrl({
+      from: values.returnTo || undefined,
+      receiveDate: values.receiveDate,
+      savedId: values.incomeId,
+    }),
+  );
 };
 
 export const deleteIncome = async (formData: FormData): Promise<FormState> => {

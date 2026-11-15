@@ -11,12 +11,14 @@ interface Props {
   category: string;
   expenseAttributes: ExpenseAttributes;
   version: string;
+  savedId?: string;
 }
 
 const ExpenseAttribute = ({
   category,
   expenseAttributes,
   version,
+  savedId,
 }: Props): ReactElement => {
   const router = useRouter();
   const { isPending, navigate } = useNavigation();
@@ -57,6 +59,7 @@ const ExpenseAttribute = ({
         </div>
       </div>
       <ExpenseAttributeTable
+        savedId={savedId}
         loading={isPending}
         expenseAttributes={expenseAttributes}
         version={version}
