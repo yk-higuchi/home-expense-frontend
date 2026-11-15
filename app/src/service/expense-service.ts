@@ -218,7 +218,7 @@ export const deleteExpense = async (formData: FormData): Promise<FormState> => {
   // 一覧で表示したときのバージョン。ないと、ほかの操作による更新を検出できない
   const version = formData.get("version");
   if (!isString(version) || version === "")
-    return { message: CONFLICT_MESSAGE };
+    return { message: DELETE_CONFLICT_MESSAGE };
   try {
     await expensesApi.delete({ id, ifMatch: version });
   } catch (error) {
