@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",
+    "gen:api": "node scripts/gen-api.mjs",
     "lint": "pnpm lint:biome && pnpm lint:stylelint && pnpm typecheck",
     "lint:biome": "biome check .",
     "lint:stylelint": "stylelint \"src/**/*.css\"",
