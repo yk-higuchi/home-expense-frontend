@@ -1,5 +1,19 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## API のスキーマ（JTD）
+
+API のリクエスト・レスポンスの JTD スキーマは、バックエンドが OpenAPI から生成した `openapi.jtd.json` を取り込んだもの（`src/lib/api/generated/jtd.ts`）を使う。手で書かない。
+
+- 使うバックエンドの版は `api-version` に書く。
+- `pnpm gen:api` で取得して `jtd.ts` を作り直し、コミットする。
+- バックエンドの Release（v2.1.0〜）ができるまでは、手元のバックエンドのファイルから作る。
+
+  ```sh
+  API_JTD_SOURCE=../../home-expense-backend/docs/openapi.jtd.json pnpm gen:api
+  ```
+
+- CI で「`pnpm gen:api` の結果がコミット済みのファイルと同じか」を確かめる検査は、Release から取得できるようになってから入れる。
+
 ## Getting Started
 
 First, run the development server:
