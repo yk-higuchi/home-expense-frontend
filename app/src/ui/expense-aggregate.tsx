@@ -82,7 +82,7 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
             label="支出合計"
             amount={<Amount value={expenseTotal} />}
           />
-          <SummaryRow label="収入 − 支出" amount={<Amount value={net} />} />
+          <SummaryRow label="収支合計" amount={<Amount value={net} />} />
         </SummaryList>
         <SummaryRow label="内訳" />
         <Breakdown className={style.breakdown}>

@@ -35,7 +35,7 @@ export const SummaryRows: Story = {
       <SummaryList>
         <SummaryRow label="収入合計" amount="￥250,000" />
         <SummaryRow label="支出合計" amount="￥44,000" />
-        <SummaryRow label="収入 − 支出" amount="￥206,000" />
+        <SummaryRow label="収支合計" amount="￥206,000" />
       </SummaryList>
       <div style={{ marginTop: 16 }}>
         <SummaryRow label="内訳" />

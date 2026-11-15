@@ -69,7 +69,7 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
             amount={<Amount value={statistics.expenseTotal} />}
           />
           <SummaryRow
-            label="収入 − 支出"
+            label="収支合計"
             amount={<Amount value={statistics.net} />}
           />
         </SummaryList>
@@ -82,7 +82,7 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
                 <TableHeaderCell width={120}>月</TableHeaderCell>
                 <TableHeaderCell>収入</TableHeaderCell>
                 <TableHeaderCell>支出</TableHeaderCell>
-                <TableHeaderCell>収入 − 支出</TableHeaderCell>
+                <TableHeaderCell>収支</TableHeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>
