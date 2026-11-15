@@ -2,12 +2,13 @@
 
 import { type ReactElement, useEffect, useRef, useState } from "react";
 
-import { CheckIcon, CloseIcon } from "../icons/icons";
+import { CheckIcon, CloseIcon, WarningIcon } from "../icons/icons";
 import styles from "./Toast.module.css";
 
 export interface ToastNotice {
   id: number;
   text: string;
+  tone?: "success" | "error";
 }
 
 export interface ToastProps {
@@ -37,7 +38,7 @@ export const Toast = ({
   }, [shown]);
 
   useEffect(() => {
-    if (shown === null || paused) return;
+    if (shown === null || paused || shown.tone === "error") return;
     const timer = setTimeout(() => setShown(null), duration);
     return () => clearTimeout(timer);
   }, [shown, paused, duration]);
@@ -45,13 +46,18 @@ export const Toast = ({
   return (
     <>
       <p className={styles.srOnly} role="status">
-        {shown?.text}
+        {shown?.tone !== "error" && shown?.text}
+      </p>
+      <p className={styles.srOnly} role="alert">
+        {shown?.tone === "error" && shown.text}
       </p>
       <output
         ref={popover}
         popover="manual"
         aria-live="off"
-        className={styles.toast}
+        className={[styles.toast, shown?.tone === "error" && styles.error]
+          .filter(Boolean)
+          .join(" ")}
         onPointerEnter={() => setPaused(true)}
         onPointerLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -59,7 +65,11 @@ export const Toast = ({
       >
         {shown && (
           <>
-            <CheckIcon size={20} />
+            {shown.tone === "error" ? (
+              <WarningIcon size={20} />
+            ) : (
+              <CheckIcon size={20} />
+            )}
             <span className={styles.text}>{shown.text}</span>
             <button
               type="button"

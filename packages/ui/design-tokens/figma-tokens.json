@@ -141,6 +141,18 @@
       "hex": "#900b09"
     },
     {
+      "name": "基本/危険の枠線",
+      "css": "--color-danger-border",
+      "ref": "赤/200",
+      "hex": "#fcb3ad"
+    },
+    {
+      "name": "基本/危険の面",
+      "css": "--color-danger-surface",
+      "ref": "赤/50",
+      "hex": "#fee9e7"
+    },
+    {
       "name": "基本/文字",
       "css": "--color-text",
       "ref": "グレー/600",

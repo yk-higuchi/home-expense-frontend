@@ -32,3 +32,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+const ErrorDemo = (): ReactElement => (
+  <Toast
+    notice={{
+      id: 1,
+      text: "並べ替えを保存できませんでした。時間をおいてもう一度お試しください。",
+      tone: "error",
+    }}
+  />
+);
+
+export const ErrorTone: Story = { render: () => <ErrorDemo /> };

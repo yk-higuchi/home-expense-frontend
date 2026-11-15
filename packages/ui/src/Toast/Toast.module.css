@@ -18,6 +18,12 @@
   animation: toast-in 160ms ease-out;
 }
 
+.error {
+  border-color: var(--color-danger-border);
+  background-color: var(--color-danger-surface);
+  color: var(--color-danger);
+}
+
 .toast:popover-open {
   display: flex;
 }
@@ -36,7 +42,7 @@
   border: none;
   border-radius: var(--radius-200);
   background: transparent;
-  color: var(--color-text);
+  color: inherit;
   cursor: pointer;
 }
 
@@ -57,6 +63,10 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+.error .close:hover {
+  background-color: var(--color-danger-active);
 }
 
 @keyframes toast-in {
