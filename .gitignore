@@ -56,3 +56,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .idea/
+
+# AI エージェント向けのローカルのメモ
+app/AGENTS.md
