@@ -1,6 +1,6 @@
 /** 収支の集計（balance-statistics / balance-series）を画面で使う形 */
 
-export interface AttributeAmount {
+interface AttributeAmount {
   id: string;
   name: string;
   amount: number;

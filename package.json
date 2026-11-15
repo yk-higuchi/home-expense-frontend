@@ -2,9 +2,13 @@
   "name": "home-expense-frontend-workspace",
   "private": true,
   "scripts": {
-    "lint": "pnpm -r lint",
+    "lint": "pnpm -r lint && pnpm lint:knip",
+    "lint:knip": "knip",
     "fix": "pnpm -r fix",
     "storybook": "pnpm --filter @home-expense/ui storybook",
     "build-storybook": "pnpm --filter @home-expense/ui build-storybook"
+  },
+  "devDependencies": {
+    "knip": "6.45.1"
   }
 }
