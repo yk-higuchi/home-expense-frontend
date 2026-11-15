@@ -58,7 +58,7 @@ const ExpenseTable = ({
         <TableHead>
           <TableRow>
             {/* 通し番号は 5 桁（99999）まで収まる幅 */}
-            <TableHeaderCell width={88}>#</TableHeaderCell>
+            <TableHeaderCell width={88}>No.</TableHeaderCell>
             <TableHeaderCell>説明</TableHeaderCell>
             <TableHeaderCell width={112}>金額</TableHeaderCell>
             <TableHeaderCell width={128}>支払日</TableHeaderCell>

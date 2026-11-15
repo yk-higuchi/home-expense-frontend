@@ -92,7 +92,7 @@ export const Expenses: Story = {
     <Table {...args}>
       <TableHead>
         <TableRow>
-          <TableHeaderCell width={56}>#</TableHeaderCell>
+          <TableHeaderCell width={88}>No.</TableHeaderCell>
           <TableHeaderCell>説明</TableHeaderCell>
           <TableHeaderCell width={112}>金額</TableHeaderCell>
           <TableHeaderCell width={128}>支払日</TableHeaderCell>
