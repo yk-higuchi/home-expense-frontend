@@ -3,7 +3,6 @@ import {
   ErrorMessage,
   ReorderButtons,
   SortableStatus,
-  StatusMessage,
   Table,
   TableActions,
   TableBody,
@@ -12,6 +11,7 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
+  Toast,
   useSortableList,
 } from "@home-expense/ui";
 import type { ReactElement } from "react";
@@ -65,15 +65,11 @@ const IncomeAttributeTable = ({
       disabled: reordering.isPending || loading,
     });
   const error = reordering.error ?? deleteError;
-  const notice = deleteNotice ?? saved.message;
+  const notice = deleteNotice ?? saved.notice;
 
   return (
     <>
-      {error ? (
-        <ErrorMessage>{error}</ErrorMessage>
-      ) : (
-        notice && <StatusMessage>{notice}</StatusMessage>
-      )}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Table loading={loading}>
         <TableHead>
           <TableRow>
@@ -128,6 +124,7 @@ const IncomeAttributeTable = ({
         </TableBody>
       </Table>
       <SortableStatus message={announcement} />
+      <Toast notice={notice} />
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadIncomeAttributeForDelete}

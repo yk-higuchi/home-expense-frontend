@@ -12,7 +12,9 @@ export const useOptimisticDelete = <T extends Row>(
 ) => {
   const [targetId, setTargetId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<{ id: number; text: string } | null>(
+    null,
+  );
   const [rows, removeOptimistic] = useOptimistic(source, (state, id: string) =>
     state.filter((row) => row.id !== id),
   );
@@ -34,9 +36,11 @@ export const useOptimisticDelete = <T extends Row>(
       },
       onDeleted: (id: string) => {
         const label = labelOf(id);
-        setNotice(
-          label === undefined ? "削除しました" : `「${label}」を削除しました`,
-        );
+        setNotice({
+          id: Date.now(),
+          text:
+            label === undefined ? "削除しました" : `「${label}」を削除しました`,
+        });
       },
       onDeleteFailed: setError,
       onClose: () => setTargetId(null),

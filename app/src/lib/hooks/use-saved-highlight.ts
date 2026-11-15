@@ -8,9 +8,12 @@ export const useSavedHighlight = <T extends { id?: string }>(
   getLabel: (row: T) => string,
 ) => {
   const [highlightedId] = useState(savedId);
-  const [label] = useState(() => {
+  const [notice] = useState(() => {
+    if (savedId === undefined) return null;
     const row = rows.find((candidate) => candidate.id === savedId);
-    return row === undefined ? undefined : getLabel(row);
+    const text =
+      row === undefined ? "保存しました" : `「${getLabel(row)}」を保存しました`;
+    return { id: 0, text };
   });
 
   useEffect(() => {
@@ -23,13 +26,5 @@ export const useSavedHighlight = <T extends { id?: string }>(
     window.history.replaceState(null, "", url);
   }, [highlightedId]);
 
-  return {
-    highlightedId,
-    message:
-      highlightedId === undefined
-        ? undefined
-        : label === undefined
-          ? "保存しました"
-          : `「${label}」を保存しました`,
-  };
+  return { highlightedId, notice };
 };
