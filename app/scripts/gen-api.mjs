@@ -9,9 +9,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const output = join(root, "src/lib/api/generated/jtd.ts");
 const version = readFileSync(join(root, "api-version"), "utf8").trim();
 
-const readSource = () => {
-  const local = process.env.API_JTD_SOURCE;
-  if (local) return readFileSync(local, "utf8");
+const COMMIT = /^[0-9a-f]{40}$/;
+
+const readFromRelease = () => {
   const dir = mkdtempSync(join(tmpdir(), "openapi-jtd-"));
   try {
     execFileSync(
@@ -30,17 +30,27 @@ const readSource = () => {
       { stdio: ["ignore", "ignore", "inherit"] },
     );
     return readFileSync(join(dir, "openapi.jtd.json"), "utf8");
-  } catch (error) {
-    console.error(
-      `v${version} の openapi.jtd.json を取得できませんでした。Release がまだない場合は、API_JTD_SOURCE にバックエンドの docs/openapi.jtd.json を指定してください。`,
-    );
-    throw error;
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
 };
 
-const source = readSource();
+const readFromCommit = async () => {
+  const url = `https://raw.githubusercontent.com/${BACKEND_REPOSITORY}/${version}/docs/openapi.jtd.json`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`${url} を取得できませんでした（${response.status}）`);
+  }
+  return response.text();
+};
+
+const readSource = async () => {
+  const local = process.env.API_JTD_SOURCE;
+  if (local) return readFileSync(local, "utf8");
+  return COMMIT.test(version) ? readFromCommit() : readFromRelease();
+};
+
+const source = await readSource();
 const schemas = JSON.parse(source);
 const body = Object.keys(schemas)
   .sort()

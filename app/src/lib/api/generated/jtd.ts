@@ -86,9 +86,18 @@ export const ExpenseAttributeGetResponse = {
     category: { enum: ["固定費", "変動費"] },
     id: { type: "string" },
     name: { type: "string" },
-    version: { type: "float64" },
   },
   additionalProperties: true,
+} as const;
+
+export const ExpenseAttributeListPatchRequest = {
+  elements: {
+    properties: {
+      from: { type: "string" },
+      op: { enum: ["move"] },
+      path: { type: "string" },
+    },
+  },
 } as const;
 
 export const ExpenseAttributeListResponse = {
@@ -99,7 +108,6 @@ export const ExpenseAttributeListResponse = {
           category: { enum: ["固定費", "変動費"] },
           id: { type: "string" },
           name: { type: "string" },
-          version: { type: "float64" },
         },
         additionalProperties: true,
       },
@@ -133,7 +141,6 @@ export const ExpenseGetResponse = {
     },
     id: { type: "string" },
     payment_date: { type: "string" },
-    version: { type: "float64" },
   },
   additionalProperties: true,
 } as const;
@@ -155,7 +162,6 @@ export const ExpenseListResponse = {
           },
           id: { type: "string" },
           payment_date: { type: "string" },
-          version: { type: "float64" },
         },
         additionalProperties: true,
       },
@@ -183,23 +189,25 @@ export const ExpensePutRequest = {
 } as const;
 
 export const IncomeAttributeGetResponse = {
-  properties: {
-    id: { type: "string" },
-    name: { type: "string" },
-    version: { type: "float64" },
-  },
+  properties: { id: { type: "string" }, name: { type: "string" } },
   additionalProperties: true,
+} as const;
+
+export const IncomeAttributeListPatchRequest = {
+  elements: {
+    properties: {
+      from: { type: "string" },
+      op: { enum: ["move"] },
+      path: { type: "string" },
+    },
+  },
 } as const;
 
 export const IncomeAttributeListResponse = {
   properties: {
     income_attributes: {
       elements: {
-        properties: {
-          id: { type: "string" },
-          name: { type: "string" },
-          version: { type: "float64" },
-        },
+        properties: { id: { type: "string" }, name: { type: "string" } },
         additionalProperties: true,
       },
     },
@@ -225,7 +233,6 @@ export const IncomeGetResponse = {
       additionalProperties: true,
     },
     receive_date: { type: "string" },
-    version: { type: "float64" },
   },
   additionalProperties: true,
 } as const;
@@ -243,7 +250,6 @@ export const IncomeListResponse = {
             additionalProperties: true,
           },
           receive_date: { type: "string" },
-          version: { type: "float64" },
         },
         additionalProperties: true,
       },
