@@ -56,7 +56,7 @@
 }
 
 .actions > * {
-  min-width: 120px;
+  min-width: var(--size-control-min);
 }
 
 /* 開くときの短いフェード（「視差効果を減らす」設定のときは付けない） */

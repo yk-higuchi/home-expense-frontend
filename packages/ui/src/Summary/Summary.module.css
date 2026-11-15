@@ -9,7 +9,16 @@
   margin: 0;
 }
 
-/* 合計行（Figma: 左の余白 12px / 項目名の幅 271px / 下に水色の線 1px） */
+/*
+ * 金額の列の位置（行の左端から 283px）。合計行・内訳の見出し・内訳行で金額の列をそろえるため、
+ * 各要素の項目名の幅はこの値から、その要素の左側にあるもの（余白・アイコン・間隔）を引いて求める
+ */
+.summaryRow,
+.breakdown {
+  --amount-column: 283px;
+}
+
+/* 合計行（Figma: 左の余白 12px / 下に水色の線 1px） */
 .summaryRow {
   box-sizing: border-box;
   display: flex;
@@ -26,7 +35,7 @@
 }
 
 .label {
-  flex: 0 0 271px;
+  flex: 0 0 calc(var(--amount-column) - var(--space-300));
   margin: 0;
 }
 
@@ -68,8 +77,8 @@
 }
 
 .groupHeader:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .groupHeader:hover {
@@ -89,16 +98,16 @@
   transform: rotate(90deg);
 }
 
-/* 金額の列を内訳行とそろえる（20 + 8 + 247 + 8 = 283px） */
+/* 見出しは、アイコン（20px）と前後の間隔のぶんを引く */
 .groupLabel {
-  flex: 0 0 247px;
+  flex: 0 0 calc(var(--amount-column) - 20px - var(--gap-inline) * 2);
 }
 
 .items {
   margin: 0;
 }
 
-/* 内訳行（Figma: 左の余白 32px / 属性名の幅 251px） */
+/* 内訳行（Figma: 左の余白 32px） */
 .item {
   display: flex;
   align-items: center;
@@ -107,7 +116,7 @@
 }
 
 .itemName {
-  flex: 0 0 251px;
+  flex: 0 0 calc(var(--amount-column) - var(--space-800));
   margin: 0;
 }
 

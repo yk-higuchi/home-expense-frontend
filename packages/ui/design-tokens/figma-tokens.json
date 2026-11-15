@@ -220,15 +220,41 @@
     }
   ],
   "sizes": [
-    { "name": "余白/0", "css": "--space-0", "value": 0 },
-    { "name": "余白/100", "css": "--space-100", "value": 4 },
-    { "name": "余白/1200", "css": "--space-1200", "value": 48 },
-    { "name": "余白/200", "css": "--space-200", "value": 8 },
-    { "name": "余白/300", "css": "--space-300", "value": 12 },
-    { "name": "余白/400", "css": "--space-400", "value": 16 },
-    { "name": "余白/50", "css": "--space-50", "value": 2 },
-    { "name": "余白/600", "css": "--space-600", "value": 24 },
-    { "name": "余白/800", "css": "--space-800", "value": 32 },
+    {
+      "name": "余白/100",
+      "css": "--space-100",
+      "value": 4
+    },
+    {
+      "name": "余白/200",
+      "css": "--space-200",
+      "value": 8
+    },
+    {
+      "name": "余白/300",
+      "css": "--space-300",
+      "value": 12
+    },
+    {
+      "name": "余白/400",
+      "css": "--space-400",
+      "value": 16
+    },
+    {
+      "name": "余白/50",
+      "css": "--space-50",
+      "value": 2
+    },
+    {
+      "name": "余白/600",
+      "css": "--space-600",
+      "value": 24
+    },
+    {
+      "name": "余白/800",
+      "css": "--space-800",
+      "value": 32
+    },
     {
       "name": "余白（役割）/まとまりの間",
       "css": "--gap-section",
@@ -265,10 +291,41 @@
       "ref": "余白/400",
       "value": 16
     },
-    { "name": "大きさ/部品の高さ", "css": "--size-control", "value": 40 },
-    { "name": "線/枠線", "css": "--border-width", "value": 1 },
-    { "name": "角丸/100", "css": "--radius-100", "value": 4 },
-    { "name": "角丸/200", "css": "--radius-200", "value": 8 }
+    {
+      "name": "大きさ/部品の最小幅",
+      "css": "--size-control-min",
+      "value": 120
+    },
+    {
+      "name": "大きさ/部品の高さ",
+      "css": "--size-control",
+      "value": 40
+    },
+    {
+      "name": "線/フォーカス",
+      "css": "--focus-ring-width",
+      "value": 2
+    },
+    {
+      "name": "線/フォーカスの間隔",
+      "css": "--focus-ring-offset",
+      "value": 2
+    },
+    {
+      "name": "線/枠線",
+      "css": "--border-width",
+      "value": 1
+    },
+    {
+      "name": "角丸/100",
+      "css": "--radius-100",
+      "value": 4
+    },
+    {
+      "name": "角丸/200",
+      "css": "--radius-200",
+      "value": 8
+    }
   ],
   "textStyles": [
     {

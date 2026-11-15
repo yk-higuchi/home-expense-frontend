@@ -16,10 +16,10 @@
   gap: var(--gap-inline);
 }
 
-/* 絞り込みのプルダウンの幅（用途ごと。プルダウンの最小幅 120px を下限にした） */
+/* 絞り込みのプルダウンの幅（用途ごと。年・月は部品の最小幅 120px） */
 .yearFilter,
 .monthFilter {
-  width: 120px;
+  width: var(--size-control-min);
 }
 
 .categoryFilter {
@@ -47,5 +47,5 @@
 }
 
 .actions > button {
-  min-width: 120px;
+  min-width: var(--size-control-min);
 }
