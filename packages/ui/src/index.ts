@@ -12,6 +12,7 @@ export { Dialog } from "./Dialog/Dialog";
 export type { ErrorMessageProps } from "./ErrorMessage/ErrorMessage";
 export { ErrorMessage } from "./ErrorMessage/ErrorMessage";
 export {
+  CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   GripIcon,
@@ -43,6 +44,8 @@ export {
 } from "./Sortable/Sortable";
 export type { SortableListOptions } from "./Sortable/useSortableList";
 export { useSortableList } from "./Sortable/useSortableList";
+export type { StatusMessageProps } from "./StatusMessage/StatusMessage";
+export { StatusMessage } from "./StatusMessage/StatusMessage";
 export type { SubmitButtonProps } from "./SubmitButton/SubmitButton";
 export { SubmitButton } from "./SubmitButton/SubmitButton";
 export type {
