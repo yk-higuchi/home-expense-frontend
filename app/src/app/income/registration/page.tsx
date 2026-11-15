@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import type { ReactElement } from "react";
 
 import { getIncomeAttributeSummary } from "@/service/income-attribute-service";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 const IncomeRegistrationPage = async (): Promise<ReactElement> => {
+  await connection();
   const { incomeAttributes } = await getIncomeAttributeSummary({
     page: 1,
     perPage: 100,
