@@ -13,7 +13,7 @@ export const useSavedHighlight = <T extends { id?: string }>(
     const row = rows.find((candidate) => candidate.id === savedId);
     const text =
       row === undefined ? "保存しました" : `「${getLabel(row)}」を保存しました`;
-    return { id: 0, text };
+    return { id: 0, text, tone: "success" as const };
   });
 
   useEffect(() => {

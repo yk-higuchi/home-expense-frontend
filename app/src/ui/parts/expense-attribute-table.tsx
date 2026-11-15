@@ -1,6 +1,5 @@
 import {
   DragHandle,
-  ErrorMessage,
   ReorderButtons,
   SortableStatus,
   Table,
@@ -19,6 +18,7 @@ import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useOptimisticReorder } from "@/lib/hooks/use-optimistic-reorder";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
+import { useToast } from "@/lib/hooks/use-toast";
 import {
   deleteExpenseAttribute,
   loadExpenseAttributeForDelete,
@@ -45,22 +45,22 @@ const ExpenseAttributeTable = ({
   loading,
   savedId,
 }: Props): ReactElement => {
-  const reordering = useOptimisticReorder({
-    source: expenseAttributes,
-    version,
-    save: (move) => reorderExpenseAttributes({ category, ...move }),
-  });
-  const {
-    rows,
-    error: deleteError,
-    notice: deleteNotice,
-    requestDelete,
-    dialogProps,
-  } = useOptimisticDelete(reordering.rows, (row) => row.name);
   const saved = useSavedHighlight(
     savedId,
     expenseAttributes,
     (row) => row.name,
+  );
+  const toast = useToast(saved.notice);
+  const reordering = useOptimisticReorder({
+    source: expenseAttributes,
+    version,
+    save: (move) => reorderExpenseAttributes({ category, ...move }),
+    onError: toast.error,
+  });
+  const { rows, requestDelete, dialogProps } = useOptimisticDelete(
+    reordering.rows,
+    (row) => row.name,
+    toast,
   );
   const { handleProps, rowProps, canMove, moveBy, announcement } =
     useSortableList({
@@ -70,12 +70,9 @@ const ExpenseAttributeTable = ({
       onReorder: reordering.reorder,
       disabled: reordering.isPending || loading,
     });
-  const error = reordering.error ?? deleteError;
-  const notice = deleteNotice ?? saved.notice;
 
   return (
     <>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Table loading={loading}>
         <TableHead>
           <TableRow>
@@ -132,7 +129,7 @@ const ExpenseAttributeTable = ({
         </TableBody>
       </Table>
       <SortableStatus message={announcement} />
-      <Toast notice={notice} />
+      <Toast notice={toast.notice} />
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadExpenseAttributeForDelete}

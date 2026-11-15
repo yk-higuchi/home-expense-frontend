@@ -1,6 +1,5 @@
 import {
   Amount,
-  ErrorMessage,
   Table,
   TableActions,
   TableBody,
@@ -15,6 +14,7 @@ import type { ReactElement, ReactNode } from "react";
 import type { Expenses } from "@/lib/expense";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
+import { useToast } from "@/lib/hooks/use-toast";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpense, loadExpenseForDelete } from "@/service/expense-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
@@ -37,20 +37,17 @@ const ExpenseTable = ({
   loading,
   savedId,
 }: Props): ReactElement => {
+  const saved = useSavedHighlight(savedId, expenses, (row) => row.description);
+  const toast = useToast(saved.notice);
   const {
     rows: optimisticExpenses,
-    error: deleteError,
     requestDelete,
-    notice: deleteNotice,
     dialogProps,
-  } = useOptimisticDelete(expenses, (row) => row.description);
-  const saved = useSavedHighlight(savedId, expenses, (row) => row.description);
-  const notice = deleteNotice ?? saved.notice;
+  } = useOptimisticDelete(expenses, (row) => row.description, toast);
   const { page, perPage } = pagination.current;
 
   return (
     <>
-      {deleteError && <ErrorMessage>{deleteError}</ErrorMessage>}
       <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>
@@ -103,7 +100,7 @@ const ExpenseTable = ({
           )}
         </TableBody>
       </Table>
-      <Toast notice={notice} />
+      <Toast notice={toast.notice} />
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadExpenseForDelete}

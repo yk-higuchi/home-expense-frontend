@@ -1,6 +1,5 @@
 import {
   Amount,
-  ErrorMessage,
   Table,
   TableActions,
   TableBody,
@@ -14,6 +13,7 @@ import {
 import type { ReactElement, ReactNode } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
+import { useToast } from "@/lib/hooks/use-toast";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome, loadIncomeForDelete } from "@/service/income-service";
@@ -37,20 +37,17 @@ const IncomeTable = ({
   loading,
   savedId,
 }: Props): ReactElement => {
+  const saved = useSavedHighlight(savedId, incomes, (row) => row.description);
+  const toast = useToast(saved.notice);
   const {
     rows: optimisticIncomes,
-    error: deleteError,
     requestDelete,
-    notice: deleteNotice,
     dialogProps,
-  } = useOptimisticDelete(incomes, (row) => row.description);
-  const saved = useSavedHighlight(savedId, incomes, (row) => row.description);
-  const notice = deleteNotice ?? saved.notice;
+  } = useOptimisticDelete(incomes, (row) => row.description, toast);
   const { page, perPage } = pagination.current;
 
   return (
     <>
-      {deleteError && <ErrorMessage>{deleteError}</ErrorMessage>}
       <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>
@@ -101,7 +98,7 @@ const IncomeTable = ({
           )}
         </TableBody>
       </Table>
-      <Toast notice={notice} />
+      <Toast notice={toast.notice} />
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadIncomeForDelete}

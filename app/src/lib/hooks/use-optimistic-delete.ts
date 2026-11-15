@@ -1,6 +1,7 @@
 "use client";
 
 import { useOptimistic, useState } from "react";
+import type { ToastControl } from "@/lib/hooks/use-toast";
 
 interface Row {
   id?: string;
@@ -9,12 +10,9 @@ interface Row {
 export const useOptimisticDelete = <T extends Row>(
   source: T[],
   getLabel: (row: T) => string,
+  toast: ToastControl,
 ) => {
   const [targetId, setTargetId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<{ id: number; text: string } | null>(
-    null,
-  );
   const [rows, removeOptimistic] = useOptimistic(source, (state, id: string) =>
     state.filter((row) => row.id !== id),
   );
@@ -24,25 +22,20 @@ export const useOptimisticDelete = <T extends Row>(
   };
   return {
     rows,
-    error,
-    notice,
     requestDelete: setTargetId,
     dialogProps: {
       targetId,
       onDeleteStart: (id: string) => {
-        setError(null);
-        setNotice(null);
+        toast.clear();
         removeOptimistic(id);
       },
       onDeleted: (id: string) => {
         const label = labelOf(id);
-        setNotice({
-          id: Date.now(),
-          text:
-            label === undefined ? "削除しました" : `「${label}」を削除しました`,
-        });
+        toast.success(
+          label === undefined ? "削除しました" : `「${label}」を削除しました`,
+        );
       },
-      onDeleteFailed: setError,
+      onDeleteFailed: toast.error,
       onClose: () => setTargetId(null),
     },
   };
