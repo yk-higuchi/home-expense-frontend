@@ -37,10 +37,7 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
     navigate(`/income?${searchParams}`);
   };
 
-  const handleRegistrationClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
+  const handleRegistrationClick = (): void => {
     router.push("/income/registration");
   };
 

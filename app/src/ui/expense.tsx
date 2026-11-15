@@ -156,10 +156,7 @@ const Expense = ({
     navigate(`/expense?${searchParams.toString()}`);
   };
 
-  const handleRegistrationClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
+  const handleRegistrationClick = (): void => {
     router.push("/expense/registration");
   };
 

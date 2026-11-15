@@ -13,7 +13,6 @@ interface Props {
 }
 
 const ExpenseEdit = ({ expense, expenseAttributes }: Props): ReactElement => {
-  console.log(expense);
   const router = useRouter();
   const handleCategoryChange = (category: string) => {
     const searchParams = new URLSearchParams({

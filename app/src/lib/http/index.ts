@@ -61,11 +61,9 @@ const send = async ({
           (entry): entry is [string, string] => entry[1] !== undefined,
         ),
       );
-      console.log(new URLSearchParams(_queries).toString());
       urlValue.search = new URLSearchParams(_queries).toString();
     }
     const body = serializeRequestBody(requestBody);
-    console.log(urlValue);
     return await fetch(urlValue, {
       method,
       headers: {
@@ -100,13 +98,10 @@ const resolveWithResponse = async (
     const responseJson: unknown = await response.json();
     return parse<T>(schema, JSON.stringify(responseJson));
   };
-  console.log(response.status);
   const headers: Record<string, string> = {};
   response.headers.forEach((value, key) => {
-    console.log(key, value);
     headers[key] = value;
   });
-  console.log(headers);
   if (response.ok) {
     return {
       type: "success",

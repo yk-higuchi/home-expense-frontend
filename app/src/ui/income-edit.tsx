@@ -12,7 +12,6 @@ interface Props {
 }
 
 const IncomeEdit = ({ income, incomeAttributes }: Props): ReactElement => {
-  console.log(income);
   return (
     <IncomeForm
       income={income}

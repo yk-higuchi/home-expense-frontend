@@ -47,7 +47,6 @@ const _getSummary = async ({
       const { headers } = response;
       if (headers) {
         const pagination = parseLinkHeader(headers);
-        console.log(pagination);
         const responseBody =
           await response.body<GetSummaryResponse>(getSummaryResponse);
         return {
@@ -107,7 +106,6 @@ const _post = async ({
       data,
     },
   });
-  console.log("POST /v1/incomes");
   switch (response.type) {
     case "success":
       return;
@@ -143,7 +141,6 @@ const _put = async ({
       data,
     },
   });
-  console.log("PUT /v1/incomes");
   switch (response.type) {
     case "success":
       return;

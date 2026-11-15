@@ -29,7 +29,6 @@ const IncomePage = async (props: Props): Promise<ReactElement> => {
     year,
     tag: `income-${year}`,
   });
-  console.log(pagination);
   return <Income incomes={incomes} pagination={pagination} year={year} />;
 };
 export default IncomePage;

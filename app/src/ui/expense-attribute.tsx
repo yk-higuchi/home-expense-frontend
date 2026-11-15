@@ -50,10 +50,7 @@ const ExpenseAttribute = ({
     navigate(`/expense-attribute?${searchParams.toString()}`);
   };
 
-  const handleRegistrationClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
+  const handleRegistrationClick = (): void => {
     router.push("/expense-attribute/registration");
   };
 

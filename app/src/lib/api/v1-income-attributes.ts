@@ -95,7 +95,6 @@ const _post = async ({ name }: PostRequest): Promise<void> => {
       data,
     },
   });
-  console.log("POST /v1/income-attributes");
   switch (response.type) {
     case "success":
       return;
@@ -125,7 +124,6 @@ const _put = async ({
       data,
     },
   });
-  console.log("PUT /v1/income-attributes");
   switch (response.type) {
     case "success":
       return;
