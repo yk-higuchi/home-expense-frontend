@@ -1,7 +1,6 @@
 "use client";
 import { Button, PlusIcon } from "@home-expense/ui";
 import { useRouter } from "next/navigation";
-import type React from "react";
 import type { ReactElement } from "react";
 import { useNavigation } from "@/lib/hooks/use-navigation";
 

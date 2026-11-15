@@ -1,10 +1,9 @@
 "use client";
 
-import { TextInput } from "@home-expense/ui";
+import { ErrorMessage, SubmitButton, TextInput } from "@home-expense/ui";
 import { type ReactElement, useActionState } from "react";
 import { type FormAction, initialFormState } from "@/lib/form/form-state";
 import type { IncomeAttribute } from "@/lib/income-attribute";
-import SubmitButton from "@/ui/parts/submit-button";
 import style from "./form.module.css";
 
 interface Props {
@@ -34,11 +33,7 @@ const IncomeAttributeForm = ({
         errorMessage={errors?.name}
         required
       />
-      {message && (
-        <p className={style.formError} role="alert">
-          {message}
-        </p>
-      )}
+      {message && <ErrorMessage>{message}</ErrorMessage>}
       <SubmitButton fullWidth>{buttonTitle}</SubmitButton>
     </form>
   );

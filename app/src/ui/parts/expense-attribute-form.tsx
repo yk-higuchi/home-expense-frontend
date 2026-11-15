@@ -1,10 +1,14 @@
 "use client";
 
-import { Select, TextInput } from "@home-expense/ui";
+import {
+  ErrorMessage,
+  Select,
+  SubmitButton,
+  TextInput,
+} from "@home-expense/ui";
 import { type ReactElement, useActionState } from "react";
 import type { ExpenseAttribute } from "@/lib/expense-attribute";
 import { type FormAction, initialFormState } from "@/lib/form/form-state";
-import SubmitButton from "@/ui/parts/submit-button";
 import style from "./form.module.css";
 
 interface Props {
@@ -47,11 +51,7 @@ const ExpenseAttributeForm = ({
         <option value="固定費">固定費</option>
         <option value="変動費">変動費</option>
       </Select>
-      {message && (
-        <p className={style.formError} role="alert">
-          {message}
-        </p>
-      )}
+      {message && <ErrorMessage>{message}</ErrorMessage>}
       <SubmitButton fullWidth>{buttonTitle}</SubmitButton>
     </form>
   );

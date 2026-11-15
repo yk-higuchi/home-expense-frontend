@@ -1,5 +1,6 @@
 import {
   Amount,
+  ErrorMessage,
   Table,
   TableActions,
   TableBody,
@@ -19,7 +20,6 @@ import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome } from "@/service/income-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
-import message from "@/ui/parts/message.module.css";
 
 interface Props {
   incomes: Incomes;
@@ -49,11 +49,7 @@ const IncomeTable = ({
 
   return (
     <>
-      {deleteError && (
-        <p className={message.error} role="alert">
-          {deleteError}
-        </p>
-      )}
+      {deleteError && <ErrorMessage>{deleteError}</ErrorMessage>}
       <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>

@@ -14,12 +14,3 @@
   /* 余白はメインコンテンツ側（24px）だけ。フォーム自身は余白を持たず、中央に置く */
   margin: 0 auto;
 }
-
-/* フォーム全体のエラー（API の失敗など） */
-.formError {
-  margin: 0;
-  color: var(--color-danger);
-  font-family: var(--font-family-base);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-line-height);
-}

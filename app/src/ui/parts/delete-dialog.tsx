@@ -1,9 +1,8 @@
 "use client";
 
-import { Button, Dialog } from "@home-expense/ui";
+import { Button, Dialog, SubmitButton } from "@home-expense/ui";
 import { type ReactElement, useOptimistic } from "react";
 import type { FormState } from "@/lib/form/form-state";
-import SubmitButton from "@/ui/parts/submit-button";
 
 interface Props {
   /** 削除する対象の ID。null のときは閉じている */

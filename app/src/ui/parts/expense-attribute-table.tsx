@@ -1,4 +1,5 @@
 import {
+  ErrorMessage,
   Table,
   TableActions,
   TableBody,
@@ -18,7 +19,6 @@ import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpenseAttribute } from "@/service/expense-attribute-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
-import message from "@/ui/parts/message.module.css";
 
 interface Props {
   expenseAttributes: ExpenseAttributes;
@@ -48,11 +48,7 @@ const ExpenseAttributeTable = ({
 
   return (
     <>
-      {deleteError && (
-        <p className={message.error} role="alert">
-          {deleteError}
-        </p>
-      )}
+      {deleteError && <ErrorMessage>{deleteError}</ErrorMessage>}
       <Table footer={footer} loading={loading}>
         <TableHead>
           <TableRow>

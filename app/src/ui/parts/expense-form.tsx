@@ -1,11 +1,15 @@
 "use client";
 
-import { Select, TextInput } from "@home-expense/ui";
+import {
+  ErrorMessage,
+  Select,
+  SubmitButton,
+  TextInput,
+} from "@home-expense/ui";
 import { type ChangeEvent, type ReactElement, useActionState } from "react";
 import type { Expense } from "@/lib/expense";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { type FormAction, initialFormState } from "@/lib/form/form-state";
-import SubmitButton from "@/ui/parts/submit-button";
 import style from "./form.module.css";
 
 interface Props {
@@ -87,11 +91,7 @@ const ExpenseForm = ({
           </option>
         ))}
       </Select>
-      {message && (
-        <p className={style.formError} role="alert">
-          {message}
-        </p>
-      )}
+      {message && <ErrorMessage>{message}</ErrorMessage>}
       <SubmitButton fullWidth>{buttonTitle}</SubmitButton>
     </form>
   );
