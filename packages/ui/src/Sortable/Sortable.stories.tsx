@@ -85,6 +85,12 @@ const SortableAttributes = ({
 const meta = {
   title: "Components/Sortable",
   component: SortableAttributes,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2079-1549",
+    },
+  },
 } satisfies Meta<typeof SortableAttributes>;
 
 export default meta;
