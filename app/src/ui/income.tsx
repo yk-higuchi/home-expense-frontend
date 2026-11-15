@@ -53,7 +53,7 @@ const Income = ({ incomes, pagination, year }: Props): ReactElement => {
       <div className={layout.filters}>
         <Select
           label="年"
-          className={layout.narrow}
+          className={layout.yearFilter}
           name="year"
           value={selectedYear}
           onChange={handleYearChange}

@@ -47,7 +47,7 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
       <div className={layout.filters}>
         <Select
           label="年"
-          className={layout.narrow}
+          className={layout.yearFilter}
           name="year"
           value={selected.year}
           onChange={handleYearChange}
@@ -60,7 +60,7 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
         </Select>
         <Select
           label="月"
-          className={layout.narrow}
+          className={layout.monthFilter}
           name="month"
           value={selected.month}
           onChange={handleMonthChange}

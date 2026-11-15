@@ -46,7 +46,7 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
       <div className={layout.filters}>
         <Select
           label="年"
-          className={layout.narrow}
+          className={layout.yearFilter}
           name="year"
           value={year}
           onChange={handleYearChange}

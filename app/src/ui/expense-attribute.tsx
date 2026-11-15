@@ -72,7 +72,7 @@ const ExpenseAttribute = ({
       <div className={layout.filters}>
         <Select
           label="分類"
-          className={layout.medium}
+          className={layout.categoryFilter}
           name="category"
           defaultValue={category}
           onChange={handleCategoryChange}

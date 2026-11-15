@@ -172,7 +172,7 @@ const Expense = ({
       <div className={layout.filters}>
         <Select
           label="年"
-          className={layout.narrow}
+          className={layout.yearFilter}
           name="year"
           value={queryParam.year}
           onChange={handleYearChange}
@@ -185,7 +185,7 @@ const Expense = ({
         </Select>
         <Select
           label="月"
-          className={layout.narrow}
+          className={layout.monthFilter}
           name="month"
           value={queryParam.month}
           onChange={handleMonthChange}
@@ -199,7 +199,7 @@ const Expense = ({
         </Select>
         <Select
           label="分類"
-          className={layout.medium}
+          className={layout.categoryFilter}
           name="category"
           defaultValue={queryParam.category}
           onChange={handleCategoryChange}
@@ -210,7 +210,7 @@ const Expense = ({
         </Select>
         <Select
           label="属性名"
-          className={layout.wide}
+          className={layout.attributeFilter}
           name="attributeId"
           defaultValue={queryParam.attributeId}
           onChange={handleAttributeIdChange}

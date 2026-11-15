@@ -16,16 +16,17 @@
   gap: var(--space-400);
 }
 
-/* 絞り込みの幅（SDS のプルダウンは最小 120px） */
-.narrow {
+/* 絞り込みのプルダウンの幅（用途ごと。SDS のプルダウンの最小幅 120px を下限にした） */
+.yearFilter,
+.monthFilter {
   width: 120px;
 }
 
-.medium {
+.categoryFilter {
   width: 152px;
 }
 
-.wide {
+.attributeFilter {
   width: 200px;
 }
 
