@@ -179,7 +179,8 @@ export const Chart = ({
       : 0;
   const groupW = k * barW + BAR_GAP * Math.max(0, k - 1);
   // 横軸のラベルが重なる場合は間引く（1 ラベル 40px を目安）
-  const labelStep = Math.max(1, Math.ceil(40 / Math.max(1, scale.band)));
+  // ラベル（14px）が重ならないよう、1 つあたり 48px 以上あける
+  const labelStep = Math.max(1, Math.ceil(48 / Math.max(1, scale.band)));
   const empty = count === 0 || series.length === 0 || allValues.length === 0;
 
   const describeAt = (i: number): string =>

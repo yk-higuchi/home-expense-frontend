@@ -2,6 +2,7 @@
  * グラフ（Figma: 推移グラフ / dataviz の決まりに沿う）
  * 棒は 24px 以下・先端 4px 丸め・間 2px、線は 2px、点は半径 4px＋白い縁 2px、
  * グリッドは 1px の実線で控えめに、文字の色はデータの色にしない
+ * 小さい文字はすべて SDS/Body Small（14px）。項目名と金額の差は太さで付ける
  */
 .chart {
   display: flex;
@@ -18,8 +19,8 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-line-height);
 }
 
 .legendItem {
@@ -72,7 +73,7 @@
 
 .tick {
   fill: var(--color-text);
-  font-size: 12px;
+  font-size: var(--text-small-size);
   font-variant-numeric: tabular-nums;
 }
 
@@ -121,7 +122,7 @@
 
 .tooltipLabel {
   margin: 0 0 var(--sds-size-space-100);
-  font-size: 12px;
+  font-size: var(--text-small-size);
 }
 
 .tooltipRows {
@@ -137,7 +138,7 @@
   grid-template-columns: 12px auto 1fr;
   align-items: center;
   gap: var(--sds-size-space-200);
-  font-size: 14px;
+  font-size: var(--text-small-size);
 }
 
 .tooltipKey {
@@ -153,11 +154,11 @@
 }
 
 .tooltipName {
-  font-size: 12px;
+  font-size: var(--text-small-size);
 }
 
 .details {
-  font-size: 14px;
+  font-size: var(--text-small-size);
 }
 
 .summary {
