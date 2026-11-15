@@ -35,7 +35,7 @@
   gap: var(--space-300);
 }
 
-/* 文字/見出し（24px / 120%）。字間 -2% は SDS の Heading に合わせたもの */
+/* 文字/見出し（24px / 120%）。字間 -2% */
 .title {
   margin: 0;
   font-size: var(--text-heading-size);

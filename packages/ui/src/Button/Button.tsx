@@ -26,7 +26,7 @@ export interface ButtonProps extends ComponentPropsWithRef<"button"> {
  *
  * Figma: コンポーネント / ボタン（Variant × State）
  * 状態: ホバーで 1 段濃く、押下でさらに 1 段濃く、フォーカスは 2px の隙間＋2px の線、
- * 無効は SDS の無効色、処理中は回転アイコン
+ * 無効は 無効/* の色、処理中は回転アイコン
  */
 export const Button = ({
   variant = "primary",
@@ -57,7 +57,7 @@ export const Button = ({
     >
       {!loading && icon}
       {loading && (
-        // SDS の Loader アイコン
+        // Figma: アイコン/読み込み中
         <svg
           className={styles.spinner}
           width="16"

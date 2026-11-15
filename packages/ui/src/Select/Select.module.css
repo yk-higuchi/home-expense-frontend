@@ -3,7 +3,7 @@
 }
 
 .select {
-  /* 右側の矢印のぶん余白を空ける（SDS Select: 左 16px / 右 12px + 矢印 16px + 間隔 8px） */
+  /* 右側の矢印のぶん余白を空ける（左 16px / 右 12px + 矢印 16px + 間隔 8px） */
   padding-right: calc(var(--space-300) + 16px + var(--space-200));
   appearance: none;
   cursor: pointer;

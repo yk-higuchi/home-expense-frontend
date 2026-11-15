@@ -32,7 +32,7 @@ const Anchor = ({ children, ...props }: SideBarLinkProps): ReactElement => (
 /**
  * サイドバー（メニュー）
  *
- * Figma: コンポーネント / サイドバー・ナビ項目（SDS Navigation Pill ベース）
+ * Figma: コンポーネント / サイドバー・ナビ項目
  */
 export const SideBar = ({
   items,

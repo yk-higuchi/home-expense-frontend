@@ -21,7 +21,7 @@ export interface SelectProps
 /**
  * プルダウン（選択肢は <option> を children で渡す）
  *
- * Figma: コンポーネント / プルダウン（SDS Select Field ベース）
+ * Figma: コンポーネント / プルダウン
  */
 export const Select = ({
   label,
@@ -52,7 +52,7 @@ export const Select = ({
         >
           {children}
         </select>
-        {/* SDS の Chevron down（16px） */}
+        {/* Figma: アイコン/下向き（16px） */}
         <svg
           className={styles.chevron}
           width="16"

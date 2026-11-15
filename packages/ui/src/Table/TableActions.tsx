@@ -11,7 +11,7 @@ export interface TableActionsProps {
 }
 
 /**
- * 表の編集・削除ボタン（Figma: 操作セル / SDS の Edit 2・Trash アイコン）
+ * 表の編集・削除ボタン（Figma: 操作セル / アイコン/編集・削除）
  */
 export const TableActions = ({
   onEdit,

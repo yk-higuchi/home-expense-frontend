@@ -20,14 +20,16 @@
   list-style: none;
 }
 
-/* ナビ項目（SDS Navigation Pill: 余白 8px 12px / 角丸 8px） */
+/* ナビ項目（Figma: ナビ項目 / 余白 8px 12px / 角丸 8px） */
 .item {
   display: block;
   padding: var(--space-200) var(--space-300);
   border-radius: var(--radius-200);
   color: var(--color-text);
   font-size: var(--text-body-size);
-  line-height: var(--text-body-line-height);
+
+  /* Figma: 文字/本文（1行）。項目の高さは 32px（文字 16px ＋ 上下の余白 8px） */
+  line-height: var(--text-single-line-line-height);
   text-decoration: none;
   transition: background-color 120ms ease;
 }

@@ -1,13 +1,6 @@
-import type { ReactElement } from "react";
+import { redirect } from "next/navigation";
 
-import styles from "./page.module.css";
-
-const RootPage = (): ReactElement => {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}></div>
-    </main>
-  );
-};
+/** トップは HOME を表示する（専用の画面は持たない） */
+const RootPage = (): never => redirect("/home");
 
 export default RootPage;

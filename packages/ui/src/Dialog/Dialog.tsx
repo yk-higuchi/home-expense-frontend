@@ -35,7 +35,7 @@ export interface DialogProps {
 /**
  * ダイアログ（モーダル）
  *
- * Figma: コンポーネント / 削除確認ダイアログ（SDS Dialog の見た目）
+ * Figma: コンポーネント / 削除確認ダイアログ
  */
 export const Dialog = ({
   open,

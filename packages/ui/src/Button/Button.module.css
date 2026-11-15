@@ -80,7 +80,7 @@
   cursor: progress;
 }
 
-/* フォーカス: 2px の隙間＋2px の線（SDS の Stroke/Focus Ring = 2） */
+/* フォーカス: 2px の隙間＋2px の線 */
 .button:focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;

@@ -10,8 +10,9 @@
   gap: var(--gap-section);
   width: 100%;
   max-width: 652px;
+
+  /* 余白はメインコンテンツ側（24px）だけ。フォーム自身は余白を持たず、中央に置く */
   margin: 0 auto;
-  padding: var(--space-800) var(--space-600);
 }
 
 /* フォーム全体のエラー（API の失敗など） */

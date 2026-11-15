@@ -20,6 +20,12 @@
   line-height: var(--text-body-line-height);
 }
 
+/* 無効のときは、ラベルと説明も無効の文字色にする（Figma: プルダウン / 状態=無効） */
+.field:has(.control:disabled) .label,
+.field:has(.control:disabled) .description {
+  color: var(--color-text-disabled);
+}
+
 .error {
   margin: 0;
   color: var(--color-danger);
@@ -27,7 +33,7 @@
   line-height: var(--text-body-line-height);
 }
 
-/* 入力欄・プルダウンの枠（SDS Input / Select） */
+/* 入力欄・プルダウンの枠（Figma: テキスト入力・プルダウン） */
 .control {
   box-sizing: border-box;
   width: 100%;
@@ -50,7 +56,7 @@
   transition: border-color 120ms ease;
 }
 
-/* 無効: SDS の無効色 */
+/* 無効（Figma: 無効/背景・枠線・文字） */
 .control:disabled {
   border-color: var(--color-disabled-border);
   background-color: var(--color-disabled-bg);

@@ -73,7 +73,7 @@ export const BreakdownGroup = ({
 }: BreakdownGroupProps): ReactElement => (
   <details className={styles.group} open={defaultOpen}>
     <summary className={styles.groupHeader}>
-      {/* SDS の Chevron right（開いているときは下向きに回す） */}
+      {/* Figma: アイコン/右向き（開いているときは下向きに回す） */}
       <svg
         className={styles.chevron}
         width="20"

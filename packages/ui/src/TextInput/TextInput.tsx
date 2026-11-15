@@ -20,7 +20,7 @@ export interface TextInputProps
 /**
  * テキスト入力
  *
- * Figma: コンポーネント / テキスト入力（SDS Input Field ベース）
+ * Figma: コンポーネント / テキスト入力
  */
 export const TextInput = ({
   label,

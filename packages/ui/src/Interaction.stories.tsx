@@ -111,7 +111,7 @@ type Story = StoryObj<typeof meta>;
  * - ホバー: 1 段濃く（選択中がある部品は、選択中より薄い水色で区別）
  * - 押下: ホバーよりさらに 1 段濃く
  * - フォーカス: 2px の隙間＋2px の濃い線（#3f4a4c）
- * - 無効: SDS の無効色
+ * - 無効: 無効/* の色
  */
 export const 状態の一覧: Story = {
   render: () => (

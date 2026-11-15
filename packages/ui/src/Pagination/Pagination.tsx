@@ -58,7 +58,7 @@ const Arrow = ({ direction }: { direction: "left" | "right" }) => (
 /**
  * ページネーション
  *
- * Figma: コンポーネント / ページネーション（SDS Pagination ベース）
+ * Figma: コンポーネント / ページネーション
  */
 export const Pagination = ({
   currentPage,

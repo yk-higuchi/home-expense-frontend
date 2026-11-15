@@ -1,4 +1,4 @@
-/* Figma: ページネーション（SDS Pagination: 項目の間隔 8px） */
+/* Figma: ページネーション（項目の間隔 8px） */
 .pagination {
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
   list-style: none;
 }
 
-/* 前へ・次へ・ページ番号の共通（SDS: 余白 8px 12px / 角丸 8px） */
+/* 前へ・次へ・ページ番号の共通（余白 8px 12px / 角丸 8px） */
 .step,
 .page {
   display: inline-flex;
