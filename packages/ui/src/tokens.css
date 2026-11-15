@@ -69,8 +69,6 @@
   /* Radius: SDS の Radius/* */
   --sds-size-radius-100: 4px;
   --sds-size-radius-200: 8px;
-  --sds-size-radius-400: 16px;
-  --sds-size-radius-full: 9999px;
 
   /* Stroke: SDS の Stroke/Border */
   --sds-size-stroke-border: 1px;
