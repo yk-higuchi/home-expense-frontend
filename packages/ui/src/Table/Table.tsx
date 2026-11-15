@@ -1,4 +1,5 @@
 import type {
+  ComponentPropsWithRef,
   HTMLAttributes,
   ReactElement,
   ReactNode,
@@ -51,9 +52,9 @@ export const TableBody = (
   props: HTMLAttributes<HTMLTableSectionElement>,
 ): ReactElement => <tbody {...props} />;
 
-export const TableRow = (
-  props: HTMLAttributes<HTMLTableRowElement>,
-): ReactElement => <tr {...props} />;
+export const TableRow = (props: ComponentPropsWithRef<"tr">): ReactElement => (
+  <tr {...props} />
+);
 
 export interface TableHeaderCellProps
   extends ThHTMLAttributes<HTMLTableCellElement> {

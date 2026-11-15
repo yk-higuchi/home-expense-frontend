@@ -37,3 +37,39 @@ pnpm fix              # Biome と Stylelint の自動修正
 - 金額（`Amount`）のマイナスは「−￥12,000」と赤字にする。色だけに頼らず記号も付ける。
 - `ErrorMessage` は `role="alert"` を付けて読み上げさせる。入力欄ごとのエラーは `TextInput`・`Select` の `errorMessage` を使う。
 - `SubmitButton` は、親の `<form>` が送信中のあいだ自動で「処理中」になる（React 19 の `useFormStatus`）。
+
+## 並べ替え（Sortable）
+
+ライブラリを使わず、Pointer Events で作っている。表の行をドラッグで並べ替えるときに使う（見本: Storybook の Components/Sortable）。
+
+```tsx
+const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList({
+  items,
+  getId: (item) => item.id,
+  getLabel: (item) => item.name,
+  onReorder: (ids) => save(ids),
+});
+
+<TableRow key={item.id} {...rowProps(item)}>
+  <TableCell><DragHandle {...handleProps(item)} /></TableCell>
+  …
+  <TableCell>
+    <ReorderButtons
+      label={item.name}
+      onMoveUp={() => moveBy(item, -1)}
+      onMoveDown={() => moveBy(item, 1)}
+      canMoveUp={canMove(item, -1)}
+      canMoveDown={canMove(item, 1)}
+    />
+  </TableCell>
+</TableRow>
+<SortableStatus message={announcement} />
+```
+
+- `onReorder` は、並べ替えが確定したときに、新しい ID の並びで 1 回だけ呼ばれる（ドラッグを離したとき、キーボードで確定したとき、上へ・下へを押したとき）。並びは呼び出し側が持つ。
+- マウス・タッチ: つまみを押して動かす。ポインタを捕まえる（`setPointerCapture`）ので、行の外に出ても追い続ける。スクロールする枠の上下の端に近づくと、自動でスクロールする。Esc で取り消す。
+- ドラッグ中は行を動かさず、持っている行を半透明にし、落とす位置に線を出す。行の DOM を動かすと、ポインタの捕捉が外れることがあるため。
+- キーボード: つまみで Space・Enter を押して持ち上げ、↑↓ で動かし、Space・Enter で確定、Esc で取り消す。フォーカスが外れても取り消す。
+- 読み上げ: 持ち上げ・移動・確定・取り消しを `SortableStatus`（`aria-live`）で伝える。
+- 上へ・下へのボタンは、ドラッグせずに 1 回の操作で並べ替える手段（WCAG 2.2 の 2.5.7）。
+- つまみの列の幅は 64px 以上にする（ボタン 28px ＋ セルの左右の余白）。

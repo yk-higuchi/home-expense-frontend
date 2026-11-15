@@ -52,3 +52,26 @@ export const WarningIcon = (props: IconProps): ReactElement => (
     <path d="M12 16h.01" />
   </Icon>
 );
+
+export const GripIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <circle cx="9" cy="6" r="1.5" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="6" r="1.5" fill="currentColor" stroke="none" />
+    <circle cx="9" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    <circle cx="9" cy="18" r="1.5" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="18" r="1.5" fill="currentColor" stroke="none" />
+  </Icon>
+);
+
+export const ChevronUpIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <path d="M6 15l6-6 6 6" />
+  </Icon>
+);
+
+export const ChevronDownIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <path d="M6 9l6 6 6-6" />
+  </Icon>
+);
