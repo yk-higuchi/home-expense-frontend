@@ -20,7 +20,7 @@
   min-height: 0;
 }
 
-/* メインコンテンツ（Figma: 白 60% / 枠線 1px / 角丸 8px / 余白 24px） */
+/* メインコンテンツ（Figma: 基本/面 / 枠線 1px / 角丸 8px / 余白 24px） */
 .content {
   box-sizing: border-box;
   flex: 1;
@@ -29,5 +29,5 @@
   padding: var(--padding-page);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-200);
-  background-color: rgb(255 255 255 / 60%);
+  background-color: var(--color-surface);
 }
