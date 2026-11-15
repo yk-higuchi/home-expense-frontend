@@ -292,6 +292,11 @@
       "value": 16
     },
     {
+      "name": "大きさ/押す対象（タッチ）",
+      "css": "--size-target-touch",
+      "value": 44
+    },
+    {
       "name": "大きさ/部品の最小幅",
       "css": "--size-control-min",
       "value": 120

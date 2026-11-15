@@ -50,6 +50,7 @@
   --padding-page: var(--space-600);
   --size-control: 40px;
   --size-control-min: 120px;
+  --size-target-touch: 44px;
   --radius-100: 4px;
   --radius-200: 8px;
   --border-width: 1px;

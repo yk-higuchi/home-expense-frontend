@@ -44,7 +44,7 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: var(--space-50);
+  padding: var(--space-100);
   border: none;
   border-radius: var(--radius-100);
   background: transparent;
@@ -92,6 +92,14 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+  .handle,
+  .moveButton {
+    min-width: var(--size-target-touch);
+    min-height: var(--size-target-touch);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -113,3 +113,10 @@
     transition: none;
   }
 }
+
+@media (pointer: coarse) {
+  .groupHeader {
+    box-sizing: border-box;
+    min-height: var(--size-target-touch);
+  }
+}

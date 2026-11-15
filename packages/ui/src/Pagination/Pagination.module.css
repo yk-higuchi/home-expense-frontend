@@ -72,3 +72,11 @@
   font-size: var(--text-body-size);
   line-height: var(--text-body-line-height);
 }
+
+@media (pointer: coarse) {
+  .step,
+  .page {
+    min-width: var(--size-target-touch);
+    min-height: var(--size-target-touch);
+  }
+}

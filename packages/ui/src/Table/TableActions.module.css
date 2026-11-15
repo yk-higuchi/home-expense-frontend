@@ -49,3 +49,10 @@
     transition: none;
   }
 }
+
+@media (pointer: coarse) {
+  .button {
+    min-width: var(--size-target-touch);
+    min-height: var(--size-target-touch);
+  }
+}
