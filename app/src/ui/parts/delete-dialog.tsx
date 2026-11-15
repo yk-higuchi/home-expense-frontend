@@ -8,6 +8,8 @@ import SubmitButton from "@/ui/parts/submit-button";
 interface Props {
   /** 削除する対象の ID。null のときは閉じている */
   targetId: string | null;
+  /** 削除する対象のバージョン（If-Match として送る） */
+  targetVersion?: string;
   /** 見出し（例: 「経費の削除」） */
   title: string;
   /** hidden 項目の name（Server Action が受け取る名前） */
@@ -24,6 +26,7 @@ interface Props {
 /** 削除の確認ダイアログ（Figma: 削除確認ダイアログ） */
 const DeleteDialog = ({
   targetId,
+  targetVersion,
   title,
   idFieldName,
   action,
@@ -60,6 +63,7 @@ const DeleteDialog = ({
       }
     >
       <input type="hidden" name={idFieldName} value={targetId ?? ""} />
+      <input type="hidden" name="version" value={targetVersion ?? ""} />
     </Dialog>
   );
 };

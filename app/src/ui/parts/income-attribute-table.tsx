@@ -88,6 +88,9 @@ const IncomeAttributeTable = ({
       </Table>
       <DeleteDialog
         targetId={deleteTargetId}
+        targetVersion={
+          incomeAttributes.find((row) => row.id === deleteTargetId)?.version
+        }
         title="収入属性の削除"
         idFieldName="incomeAttributeId"
         action={deleteIncomeAttribute}

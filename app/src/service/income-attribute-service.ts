@@ -5,6 +5,7 @@ import { incomeAttributesApi } from "@/lib/api/v1-income-attributes";
 import {
   CONFLICT_MESSAGE,
   collectErrors,
+  DELETE_CONFLICT_MESSAGE,
   DELETE_FAILED_MESSAGE,
   type FormState,
   failureMessage,
@@ -37,9 +38,11 @@ export const getIncomeAttributeSummary = async ({
   });
   const { income_attributes: incomeAttributes } = response;
   const _incomeAttributes: IncomeAttributes = incomeAttributes.map((value) => {
-    const { id, name } = value;
+    const { id, version, name } = value;
     const incomeAttribute: IncomeAttribute = {
       id,
+      // ETag と同じ形（"3"）にして、削除の If-Match にそのまま使う
+      version: `"${version}"`,
       name,
     };
     return incomeAttribute;
@@ -131,11 +134,21 @@ export const deleteIncomeAttribute = async (
 ): Promise<FormState> => {
   const id = formData.get("incomeAttributeId");
   if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
+  // 一覧で表示したときのバージョン。ないと、ほかの操作による更新を検出できない
+  const version = formData.get("version");
+  if (!isString(version) || version === "")
+    return { message: CONFLICT_MESSAGE };
   try {
-    await incomeAttributesApi.delete({ id });
+    await incomeAttributesApi.delete({ id, ifMatch: version });
   } catch (error) {
     console.error(error);
-    return { message: failureMessage(error, DELETE_FAILED_MESSAGE) };
+    return {
+      message: failureMessage(
+        error,
+        DELETE_FAILED_MESSAGE,
+        DELETE_CONFLICT_MESSAGE,
+      ),
+    };
   }
   updateTag("income-attribute");
   return {};

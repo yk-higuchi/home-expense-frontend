@@ -47,15 +47,22 @@ export const DELETE_FAILED_MESSAGE =
 export const CONFLICT_MESSAGE =
   "ほかの操作で内容が更新されています。画面を読み込み直してから、もう一度保存してください。";
 
+export const DELETE_CONFLICT_MESSAGE =
+  "ほかの操作で内容が更新されています。画面を読み込み直してから、もう一度削除してください。";
+
 /**
  * API の失敗を利用者向けの文言にする。
  * - 412（バージョンが合わない）: ほかの操作で更新された旨
  * - そのほかの 4xx: バックエンドの detail（例: 既に登録されています）
  * - 5xx・通信エラー: fallback
  */
-export const failureMessage = (error: unknown, fallback: string): string => {
+export const failureMessage = (
+  error: unknown,
+  fallback: string,
+  conflictMessage: string = CONFLICT_MESSAGE,
+): string => {
   if (error instanceof HttpError) {
-    if (error.status === 412 || error.status === 428) return CONFLICT_MESSAGE;
+    if (error.status === 412 || error.status === 428) return conflictMessage;
     if (error.status >= 400 && error.status < 500 && error.detail) {
       return error.detail;
     }

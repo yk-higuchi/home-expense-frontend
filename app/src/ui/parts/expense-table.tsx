@@ -103,6 +103,9 @@ const ExpenseTable = ({
       </Table>
       <DeleteDialog
         targetId={deleteTargetId}
+        targetVersion={
+          expenses.find((row) => row.id === deleteTargetId)?.version
+        }
         title="経費の削除"
         idFieldName="expenseId"
         action={deleteExpense}

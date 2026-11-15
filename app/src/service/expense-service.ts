@@ -6,6 +6,7 @@ import type { Expense, Expenses } from "@/lib/expense";
 import {
   CONFLICT_MESSAGE,
   collectErrors,
+  DELETE_CONFLICT_MESSAGE,
   DELETE_FAILED_MESSAGE,
   type FormState,
   failureMessage,
@@ -60,6 +61,7 @@ export const getExpenseSummary = async ({
   const _expenses: Expenses = expenses.map((value) => {
     const {
       id,
+      version,
       description,
       expense_attribute: expenseAttribute,
       amount,
@@ -68,6 +70,8 @@ export const getExpenseSummary = async ({
     const { id: attributeId, name, category } = expenseAttribute;
     const expense: Expense = {
       id,
+      // ETag と同じ形（"3"）にして、削除の If-Match にそのまま使う
+      version: `"${version}"`,
       description,
       amount,
       paymentDate,
@@ -211,11 +215,21 @@ export const updateExpense = async (
 export const deleteExpense = async (formData: FormData): Promise<FormState> => {
   const id = formData.get("expenseId");
   if (!isString(id) || id === "") return { message: DELETE_FAILED_MESSAGE };
+  // 一覧で表示したときのバージョン。ないと、ほかの操作による更新を検出できない
+  const version = formData.get("version");
+  if (!isString(version) || version === "")
+    return { message: CONFLICT_MESSAGE };
   try {
-    await expensesApi.delete({ id });
+    await expensesApi.delete({ id, ifMatch: version });
   } catch (error) {
     console.error(error);
-    return { message: failureMessage(error, DELETE_FAILED_MESSAGE) };
+    return {
+      message: failureMessage(
+        error,
+        DELETE_FAILED_MESSAGE,
+        DELETE_CONFLICT_MESSAGE,
+      ),
+    };
   }
   updateTag("expense");
   return {};

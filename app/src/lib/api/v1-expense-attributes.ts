@@ -10,6 +10,8 @@ const getSummaryResponse = {
       elements: {
         properties: {
           id: { type: "string" },
+          // データのバージョン（int64。JTD に int64 がないため float64 で受ける）。削除の If-Match に使う
+          version: { type: "float64" },
           name: { type: "string" },
           category: { enum: ["固定費", "変動費"] },
         },
@@ -23,6 +25,8 @@ type GetSummaryResponse = JTD<typeof getSummaryResponse>;
 const getResponse = {
   properties: {
     id: { type: "string" },
+    // データのバージョン（int64。JTD に int64 がないため float64 で受ける）。削除の If-Match に使う
+    version: { type: "float64" },
     name: { type: "string" },
     category: { enum: ["固定費", "変動費"] },
   },
@@ -171,10 +175,18 @@ const _put = async ({
   }
 };
 
-const _delete = async ({ id }: { id: string }): Promise<void> => {
+const _delete = async ({
+  id,
+  ifMatch,
+}: {
+  id: string;
+  /** 一覧で表示したときのバージョン（楽観的ロック） */
+  ifMatch: string;
+}): Promise<void> => {
   const response = await http.delete({
     url: process.env.BACKEND_URL,
     path: `/v1/expense-attributes/${id}`,
+    headers: { "if-match": ifMatch },
   });
   switch (response.type) {
     case "success":

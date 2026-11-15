@@ -90,6 +90,9 @@ const ExpenseAttributeTable = ({
       </Table>
       <DeleteDialog
         targetId={deleteTargetId}
+        targetVersion={
+          expenseAttributes.find((row) => row.id === deleteTargetId)?.version
+        }
         title="経費属性の削除"
         idFieldName="expenseAttributeId"
         action={deleteExpenseAttribute}
