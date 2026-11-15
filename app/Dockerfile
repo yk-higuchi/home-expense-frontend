@@ -1,5 +1,3 @@
-# ビルドコンテキストはリポジトリのルート（pnpm ワークスペース全体）
-#   docker build -f app/Dockerfile .
 FROM node:24 AS deps
 
 WORKDIR /repo
@@ -23,9 +21,6 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-# outputFileTracingRoot をワークスペースのルートにしているため、
-# standalone 出力の中では app/server.js に配置される
-#COPY --chown=nonroot:nonroot --from=builder /repo/app/public ./app/public
 COPY --chown=nonroot:nonroot --from=builder /repo/app/.next/standalone ./
 COPY --chown=nonroot:nonroot --from=builder /repo/app/.next/static ./app/.next/static
 

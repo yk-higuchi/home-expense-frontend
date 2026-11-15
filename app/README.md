@@ -54,3 +54,16 @@ API のリクエスト・レスポンスの JTD スキーマは、バックエ�
 - `outputFileTracingRoot`: モノレポのルートを基準に standalone の出力を作るため。
 - `reactCompiler`: 再レンダーの最適化を React Compiler に任せる（`useCallback`・`useMemo` を手で書かない）。
 - フォントは next/font で取得して自前で配信する（Google のサーバーには取りに行かない）。CSS 変数 `--font-noto-sans-jp` を `<html>` に定義し、`tokens.css` の `--font-family-base` から使う。
+
+## コンテナのイメージと CI
+
+- イメージのビルドの文脈は、リポジトリのルート（pnpm のワークスペース全体）にする。
+
+  ```sh
+  container build -f app/Dockerfile .   # Docker の場合は docker build -f app/Dockerfile .
+  ```
+
+- `outputFileTracingRoot` をワークスペースのルートにしているため、standalone の出力の中では `app/server.js` に置かれる。
+- CI・CD では、ビルドの文脈をルートにする必要があるため、共通のワークフローを使わずにワークフローの中でイメージをビルドする（イメージ名は従来どおり `-app`）。
+- CI の lint は、ルートの `pnpm lint` で `app` と `packages/ui` の両方を対象にする。
+- Node は 24 を使う。`packages/ui` の Stylelint 18・Vite 8 が Node 22.22 以上・24.15 以上を必要とするため。

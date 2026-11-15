@@ -24,8 +24,6 @@ jobs:
           echo "version=$(pnpm pkg get version | tr -d \")" >> "${GITHUB_OUTPUT}"
         working-directory: app
   build-and-push:
-    # ビルドコンテキストをリポジトリのルートにする必要があるため、
-    # 共通ワークフローではなくここでビルドする（イメージ名は従来どおり -app）
     runs-on: ubuntu-latest
     needs:
       - pre-build-and-push
