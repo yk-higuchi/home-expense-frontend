@@ -181,7 +181,7 @@ const FIELDS: Record<string, readonly FieldKind[]> = {
   income: [
     ["説明", "text"],
     ["金額", "text"],
-    ["支払日", "text"],
+    ["受取日", "text"],
     ["属性名", "select"],
   ],
   "expense-attribute": [

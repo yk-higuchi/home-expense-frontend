@@ -51,7 +51,7 @@ const IncomeForm = ({
         required
       />
       <TextInput
-        label="支払日"
+        label="受取日"
         type="date"
         name="receiveDate"
         defaultValue={values?.receiveDate ?? receiveDate}
