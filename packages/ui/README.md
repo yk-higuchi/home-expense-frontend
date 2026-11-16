@@ -37,7 +37,7 @@ pnpm fix              # Biome と Stylelint の自動修正
 - `Chart/decimate.ts`（Largest Triangle Three Buckets）と `Chart/scales.ts` は、wc-line-chart の同名のファイルを移植したもの。変更点:
   - `decimate.ts`: 間引いた点の元の位置（index）を返す。移植元は間引き後の配列を元の x 座標で描くため、間引きが効くと線が左に縮んでいた。
   - `scales.ts`: 目盛りの範囲に 0 を必ず含める（金額のグラフで 0 を基準にするため）。
-- 金額（`Amount`）のマイナスは「−￥12,000」と赤字にする。色だけに頼らず記号も付ける。
+- 金額（`Amount`）のマイナスは「￥−12,000」と赤字にする。色だけに頼らず記号も付ける。金額は左寄せで並ぶため、マイナスの記号を￥のあとに置き、プラスとマイナスで￥の位置をそろえる（Excel の日本語の通貨の書式「¥-1,234」と同じ並び）。
 - `ErrorMessage` は `role="alert"` を付けて読み上げさせる。入力欄ごとのエラーは `TextInput`・`Select` の `errorMessage` を使う。
 - `SubmitButton` は、親の `<form>` が送信中のあいだ自動で「処理中」になる（React 19 の `useFormStatus`）。
 
