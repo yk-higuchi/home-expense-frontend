@@ -52,10 +52,6 @@
   gap: var(--space-400);
 }
 
-.actions > * {
-  min-width: var(--size-control-min);
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .dialog[open] .card {
     animation: dialog-in 160ms ease-out;

@@ -4,7 +4,8 @@
   justify-content: center;
   gap: var(--gap-inline);
   margin: 0;
-  padding: var(--space-300);
+  min-width: var(--size-control-min);
+  padding: calc(var(--space-300) - var(--border-width));
   border: var(--border-width) solid var(--button-border);
   border-radius: var(--radius-200);
   background-color: var(--button-bg);
