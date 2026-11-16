@@ -95,3 +95,7 @@ API のリクエスト・レスポンスの JTD スキーマは、バックエ�
 - pnpm 12 は、公開から間もない版を入れない（`minimumReleaseAge`）。インストール時のスクリプトは `pnpm-workspace.yaml` の `allowBuilds` に書いたもの（esbuild）だけ実行する。
 - 依存・イメージ・アクションの版は手で固定し、手で更新する（Renovate は使わない）。distroless のイメージは動くタグしかないため、ダイジェストで固定する。
 - イメージは、ビルドに `node:<版>-trixie-slim`、実行に distroless の `nodejs26-debian13:nonroot` を使う。実行時は `HOSTNAME=0.0.0.0` で、すべてのアドレスで待ち受ける。
+
+## 年間レポート
+
+- 画面（`ui/annual-report.tsx`）とグラフ（`ui/parts/balance-chart.tsx`）はサーバーコンポーネント。年のプルダウンと、移動中に内容を薄くする表示だけを `ui/parts/annual-report-frame.tsx`（クライアントコンポーネント）に分け、サーバーで描いた内容を `children` で受け取る。

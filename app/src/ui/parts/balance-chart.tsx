@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, Chart } from "@home-expense/ui";
 import type { ReactElement } from "react";
 import { type BalancePoint, monthLabel } from "@/lib/balance";
