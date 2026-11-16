@@ -11,6 +11,8 @@ pnpm lint                                     # Biome・Stylelint・型チェッ
 
 API はサーバー側（Server Components・Server Actions）からだけ呼び出す。`BACKEND_URL` はブラウザには渡らない。
 
+`BACKEND_URL` は `app/.env` に書いてもよい。`.env` は git の管理外にしてあるので、`cp .env.example .env` で作って値を変える。
+
 ## 層の構成
 
 `src/` は次の 5 つの層に分ける。依存は上から下への 1 方向だけにする。逆向きの import は、Biome の `noRestrictedImports`（`biome.jsonc` の `overrides`）で lint のエラーにする。
