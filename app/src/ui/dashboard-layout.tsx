@@ -26,7 +26,7 @@ const DashboardLayout = ({
     <div className={style.parent}>
       <AppSideBar items={items} />
       <div className={style.column}>
-        <NavBar title="家庭用" />
+        <NavBar title="家計簿" />
         <main className={style.content}>{children}</main>
       </div>
     </div>

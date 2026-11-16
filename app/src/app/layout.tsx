@@ -14,8 +14,8 @@ const noto = Noto_Sans_JP({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | 家庭用",
-    default: "家庭用",
+    template: "%s | 家計簿",
+    default: "家計簿",
   },
   description: "家計の収入と支出を管理するアプリ",
 };
