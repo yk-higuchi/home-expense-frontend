@@ -52,9 +52,11 @@ async function exportFigmaTokens() {
     fontStyle: s.fontName.style,
     fontSize: s.fontSize,
     lineHeight:
-      s.lineHeight.unit === "PERCENT"
-        ? Math.round(s.lineHeight.value) / 100
-        : s.lineHeight,
+      s.lineHeight.unit === "PIXELS"
+        ? `${s.lineHeight.value}px`
+        : s.lineHeight.unit === "PERCENT"
+          ? Math.round(s.lineHeight.value) / 100
+          : s.lineHeight,
   }));
 
   const effectStyles = [];

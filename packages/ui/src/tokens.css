@@ -64,14 +64,14 @@
     0 1px 4px 0 rgb(12 12 13 / 5%), 0 1px 4px 0 rgb(12 12 13 / 10%);
   --font-family-base: var(--font-noto-sans-jp, "Noto Sans JP"), sans-serif;
   --text-body-size: 16px;
-  --text-body-line-height: 1.4;
+  --text-body-line-height: calc(22 / 16);
   --text-single-line-line-height: 1;
   --text-caption-size: 14px;
-  --text-caption-line-height: 1.4;
+  --text-caption-line-height: calc(20 / 14);
   --text-subheading-size: 20px;
-  --text-subheading-line-height: 1.2;
+  --text-subheading-line-height: calc(24 / 20);
   --text-heading-size: 24px;
-  --text-heading-line-height: 1.2;
+  --text-heading-line-height: calc(29 / 24);
   --text-heading-weight: 700;
   --text-amount-numeric: tabular-nums;
 }

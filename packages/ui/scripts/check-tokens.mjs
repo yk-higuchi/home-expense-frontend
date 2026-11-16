@@ -155,12 +155,25 @@ for (const style of figma.textStyles) {
     style.fontSize,
     style.name,
   );
-  expect(
-    map.lineHeight,
-    get(map.lineHeight) && Number(get(map.lineHeight)),
-    style.lineHeight,
-    style.name,
-  );
+  const ratio = (value) => {
+    const match = value?.match(/^calc\(\s*([\d.]+)\s*\/\s*([\d.]+)\s*\)$/);
+    return match ? Number(match[1]) / Number(match[2]) : Number(value);
+  };
+  const expectedRatio =
+    typeof style.lineHeight === "string" && style.lineHeight.endsWith("px")
+      ? Number.parseFloat(style.lineHeight) / style.fontSize
+      : style.lineHeight;
+  checked.add(map.lineHeight);
+  const actualRatio = get(map.lineHeight) && ratio(get(map.lineHeight));
+  if (actualRatio === undefined) {
+    errors.push(
+      `${map.lineHeight} が tokens.css にない（Figma: ${style.name}）`,
+    );
+  } else if (Math.abs(actualRatio - expectedRatio) > 1e-6) {
+    errors.push(
+      `${map.lineHeight}: tokens.css は ${get(map.lineHeight)}、Figma（${style.name}）は ${style.lineHeight}`,
+    );
+  }
   if (map.numeric) {
     const [name, value] = map.numeric;
     expect(name, get(name), value, style.name);

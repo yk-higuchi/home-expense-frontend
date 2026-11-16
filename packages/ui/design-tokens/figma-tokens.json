@@ -362,42 +362,42 @@
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 20,
-      "lineHeight": 1.2
+      "lineHeight": "24px"
     },
     {
       "name": "文字/本文",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 16,
-      "lineHeight": 1.4
+      "lineHeight": "22px"
     },
     {
       "name": "文字/本文（1行）",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 16,
-      "lineHeight": 1
+      "lineHeight": "16px"
     },
     {
       "name": "文字/補足",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 14,
-      "lineHeight": 1.4
+      "lineHeight": "20px"
     },
     {
       "name": "文字/見出し",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Bold",
       "fontSize": 24,
-      "lineHeight": 1.2
+      "lineHeight": "29px"
     },
     {
       "name": "文字/金額",
       "fontFamily": "Noto Sans JP",
       "fontStyle": "Regular",
       "fontSize": 16,
-      "lineHeight": 1.4
+      "lineHeight": "22px"
     }
   ],
   "effectStyles": [
