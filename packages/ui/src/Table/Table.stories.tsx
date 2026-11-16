@@ -20,10 +20,12 @@ const attributes = [
   { id: "4", name: "食費", category: "変動費" },
 ];
 
+const EXPENSE_HEADERS = ["支払日", "説明", "属性名", "分類", "金額"] as const;
+
 const expenses = [
-  ["スーパー", "3,000円", "2024/10/05", "食費", "変動費"],
-  ["電気代", "4,000円", "2024/10/10", "電気", "変動費"],
-  ["家賃", "60,000円", "2024/10/25", "家賃", "固定費"],
+  ["2024/10/05", "スーパー", "食費", "変動費", "3,000円"],
+  ["2024/10/10", "電気代", "電気", "変動費", "4,000円"],
+  ["2024/10/25", "家賃", "家賃", "固定費", "60,000円"],
 ];
 
 const noop = (): void => {};
@@ -90,23 +92,24 @@ export const Expenses: Story = {
     <Table {...args}>
       <TableHead>
         <TableRow>
-          <TableHeaderCell width={88}>No.</TableHeaderCell>
-          <TableHeaderCell>説明</TableHeaderCell>
-          <TableHeaderCell width={112} align="end">
-            金額
-          </TableHeaderCell>
           <TableHeaderCell width={128}>支払日</TableHeaderCell>
+          <TableHeaderCell>説明</TableHeaderCell>
           <TableHeaderCell>属性名</TableHeaderCell>
           <TableHeaderCell width={96}>分類</TableHeaderCell>
+          <TableHeaderCell width={128} align="end">
+            金額
+          </TableHeaderCell>
           <TableHeaderCell width={104}>編集</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {expenses.map((row, i) => (
-          <TableRow key={row[0]}>
-            <TableCell>{i + 1}</TableCell>
+        {expenses.map((row) => (
+          <TableRow key={row.join()}>
             {row.map((value, column) => (
-              <TableCell key={value} align={column === 1 ? "end" : "start"}>
+              <TableCell
+                key={EXPENSE_HEADERS[column]}
+                align={EXPENSE_HEADERS[column] === "金額" ? "end" : "start"}
+              >
                 {value}
               </TableCell>
             ))}

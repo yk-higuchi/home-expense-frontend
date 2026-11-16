@@ -12,9 +12,12 @@ test("ページ送りはリンクで、押すと次のページを表示する",
   await page.goto("/expense?year=2026&month=3");
   const next = page.getByRole("link", { name: "2 ページ", exact: true });
   await expect(next).toHaveAttribute("href", /page=2/);
+  const firstRow = page.locator("main tbody tr").first();
+  const firstOnPage1 = await firstRow.textContent();
   await next.click();
   await expect(page).toHaveURL(/page=2/);
-  await expect(page.locator("main tbody tr").first()).toContainText("21");
+  await expect(next).toHaveAttribute("aria-current", "page");
+  await expect(firstRow).not.toHaveText(firstOnPage1 ?? "");
 });
 
 test("移動に時間がかかると、移動先の枠を出す", async ({ page }) => {
