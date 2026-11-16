@@ -1,10 +1,10 @@
-"use client";
-import { Button, PlusIcon, Select } from "@home-expense/ui";
-import { useRouter } from "next/navigation";
-import type { ChangeEvent, ReactElement } from "react";
+import { ButtonLink, PlusIcon } from "@home-expense/ui";
+import Link from "next/link";
+import type { ReactElement } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
-import { useNavigation } from "@/lib/hooks/use-navigation";
+import CategoryFilter from "@/ui/parts/category-filter";
 import ExpenseAttributeTable from "@/ui/parts/expense-attribute-table";
+import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
 
 interface Props {
@@ -19,54 +19,26 @@ const ExpenseAttribute = ({
   expenseAttributes,
   version,
   savedId,
-}: Props): ReactElement => {
-  const router = useRouter();
-  const { isPending, navigate } = useNavigation();
-
-  const handleRegistrationClick = (): void => {
-    router.push("/expense-attribute/registration");
-  };
-
-  const handleEdit = (id: string) => {
-    router.push(`/expense-attribute/${id}`);
-  };
-
-  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const searchParams = new URLSearchParams({
-      category: event.currentTarget.value,
-    }).toString();
-    navigate(`/expense-attribute?${searchParams}`);
-  };
-  return (
-    <div className={layout.page}>
-      <div className={layout.toolbar}>
-        <div className={layout.filters}>
-          <Select
-            label="分類"
-            className={layout.categoryFilter}
-            name="category"
-            defaultValue={category}
-            onChange={handleCategoryChange}
-          >
-            <option value="固定費">固定費</option>
-            <option value="変動費">変動費</option>
-          </Select>
-        </div>
-        <div className={layout.actions}>
-          <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
-            追加
-          </Button>
-        </div>
+}: Props): ReactElement => (
+  <ListFrame>
+    <div className={layout.toolbar}>
+      <CategoryFilter category={category} />
+      <div className={layout.actions}>
+        <ButtonLink
+          href="/expense-attribute/registration"
+          icon={<PlusIcon />}
+          linkComponent={Link}
+        >
+          追加
+        </ButtonLink>
       </div>
-      <ExpenseAttributeTable
-        savedId={savedId}
-        loading={isPending}
-        expenseAttributes={expenseAttributes}
-        version={version}
-        onEdit={handleEdit}
-        category={category}
-      />
     </div>
-  );
-};
+    <ExpenseAttributeTable
+      savedId={savedId}
+      expenseAttributes={expenseAttributes}
+      version={version}
+      category={category}
+    />
+  </ListFrame>
+);
 export default ExpenseAttribute;

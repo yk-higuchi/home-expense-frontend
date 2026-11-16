@@ -1,4 +1,3 @@
-"use client";
 import type { ReactElement } from "react";
 
 import type { Income } from "@/lib/income";

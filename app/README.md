@@ -96,6 +96,17 @@ API のリクエスト・レスポンスの JTD スキーマは、バックエ�
 - 依存・イメージ・アクションの版は手で固定し、手で更新する（Renovate は使わない）。distroless のイメージは動くタグしかないため、ダイジェストで固定する。
 - イメージは、ビルドに `node:<版>-trixie-slim`、実行に distroless の `nodejs26-debian13:nonroot` を使う。実行時は `HOSTNAME=0.0.0.0` で、すべてのアドレスで待ち受ける。
 
-## 年間レポート
+## HOME・年間レポート
 
-- 画面（`ui/annual-report.tsx`）とグラフ（`ui/parts/balance-chart.tsx`）はサーバーコンポーネント。年のプルダウンと、移動中に内容を薄くする表示だけを `ui/parts/annual-report-frame.tsx`（クライアントコンポーネント）に分け、サーバーで描いた内容を `children` で受け取る。
+- HOME（`ui/expense-aggregate.tsx`）・年間レポート（`ui/annual-report.tsx`）とグラフ（`ui/parts/balance-chart.tsx`）はサーバーコンポーネント。年（HOME は年と月）のプルダウンと、移動中に内容を薄くする表示だけを `ui/parts/period-filter-frame.tsx`（クライアントコンポーネント）に分け、サーバーで描いた内容を `children` で受け取る。
+
+## サーバーコンポーネントとクライアントコンポーネントの分け方
+
+- 画面（`ui/*.tsx`）はサーバーコンポーネントにし、操作が要る部分だけをクライアントコンポーネントにする。
+  - 一覧：絞り込み（`ui/parts/expense-filters.tsx`・`year-filter.tsx`・`category-filter.tsx`）と表（`ui/parts/*-table.tsx`。削除・並べ替え・強調・トースト）。
+  - 「追加」は `ButtonLink`、ページ送りはリンク（`ui/parts/pagination-component.tsx`）で、サーバーで描く。
+- 一覧は `ui/parts/list-frame.tsx`（クライアント）で包む。中の絞り込みと表に、画面を移動中かどうか（表を薄くする）と移動の関数を context で渡す。`data-list-link` の付いたリンク（ページ送り）のクリックは、ここで受け取り、移動中の表示を出しながら移動する。修飾キー付きのクリック（新しいタブなど）はブラウザに任せる。
+  - `data-list-link` の印は `lib/list-link.ts` に置く。`"use client"` のファイルから値を書き出すと、サーバー側では値ではなく参照になるため。
+- 表の「編集」は、表の中で移動する（支出・収入は、今の絞り込みとページを `from` に入れる）。
+- 削除で最後のページが空になったときの前のページへの移動は、表の中で行う（`lib/hooks/use-empty-page-fallback.ts`）。サーバーの `redirect` にすると、削除の結果を受け取る前に画面が移り、「削除しました」のトーストが出ない。
+- 読み込み中の表示（`app/loading.tsx`）の都合で、内容は JavaScript で差し込まれる。JavaScript を切ったブラウザでは画面が表示されない（リンクにしたことで JavaScript なしで動くわけではない）。

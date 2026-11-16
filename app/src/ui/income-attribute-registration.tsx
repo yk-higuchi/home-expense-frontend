@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactElement } from "react";
 
 import { registerIncomeAttribute } from "@/service/income-attribute-service";

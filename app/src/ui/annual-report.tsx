@@ -16,8 +16,9 @@ import {
   type BalanceStatistics,
   monthLabel,
 } from "@/lib/balance";
-import AnnualReportFrame from "@/ui/parts/annual-report-frame";
 import BalanceChart from "@/ui/parts/balance-chart";
+import PeriodFilterFrame from "@/ui/parts/period-filter-frame";
+import style from "./annual-report.module.css";
 
 interface Props {
   year: number;
@@ -27,7 +28,15 @@ interface Props {
 
 const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
   return (
-    <AnnualReportFrame year={year}>
+    <PeriodFilterFrame
+      path="/annual-report"
+      year={year}
+      classes={{
+        page: style.page,
+        content: style.content,
+        pending: style.pending,
+      }}
+    >
       <SummaryList>
         <SummaryRow
           label="収入合計"
@@ -71,7 +80,7 @@ const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
           </TableBody>
         </Table>
       </Card>
-    </AnnualReportFrame>
+    </PeriodFilterFrame>
   );
 };
 export default AnnualReport;

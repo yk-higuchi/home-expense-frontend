@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Amount,
   Table,
@@ -11,32 +13,39 @@ import {
   Toast,
   useToast,
 } from "@home-expense/ui";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
 import type { Expenses } from "@/lib/expense";
+import { useEmptyPageFallback } from "@/lib/hooks/use-empty-page-fallback";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpense, loadExpenseForDelete } from "@/service/expense-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
+import { useListNavigation } from "@/ui/parts/list-frame";
 import savedStyle from "@/ui/parts/saved-row.module.css";
 
 interface Props {
   expenses: Expenses;
   pagination: Pagination;
-  onEdit: (id: string) => void;
   footer?: ReactNode;
-  loading?: boolean;
   savedId?: string;
 }
 
 const ExpenseTable = ({
   expenses,
   pagination,
-  onEdit,
   footer,
-  loading,
   savedId,
 }: Props): ReactElement => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { isPending: loading } = useListNavigation();
+  const onEdit = (id: string): void => {
+    router.push(
+      `/expense/${id}?${new URLSearchParams({ from: searchParams.toString() })}`,
+    );
+  };
   const saved = useSavedHighlight(savedId, expenses, (row) => row.description);
   const toast = useToast(saved.notice);
   const {
@@ -45,6 +54,7 @@ const ExpenseTable = ({
     dialogProps,
   } = useOptimisticDelete(expenses, (row) => row.description, toast);
   const { page, perPage } = pagination.current;
+  useEmptyPageFallback("/expense", expenses.length, page);
 
   return (
     <>

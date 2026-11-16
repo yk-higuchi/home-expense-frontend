@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactElement } from "react";
 
 import { registerExpenseAttribute } from "@/service/expense-attribute-service";

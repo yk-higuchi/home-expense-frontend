@@ -1,40 +1,28 @@
-"use client";
-import { Button, PlusIcon, Select } from "@home-expense/ui";
-import { useRouter, useSearchParams } from "next/navigation";
-import {
-  type ChangeEvent,
-  type ReactElement,
-  useEffect,
-  useState,
-} from "react";
+import { ButtonLink, PlusIcon } from "@home-expense/ui";
+import Link from "next/link";
+import type { ReactElement } from "react";
 import type { Expenses } from "@/lib/expense";
-import {
-  type ExpenseAttributeCategory,
-  type ExpenseAttributes,
-  isExpenseAttributeCategory,
+import type {
+  ExpenseAttributeCategory,
+  ExpenseAttributes,
 } from "@/lib/expense-attribute";
-import { useNavigation } from "@/lib/hooks/use-navigation";
 import type { Pagination } from "@/lib/pagination/pagination";
+import ExpenseFilters from "@/ui/parts/expense-filters";
 import ExpenseTable from "@/ui/parts/expense-table";
+import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
 import PaginationComponent from "@/ui/parts/pagination-component";
-import { MONTHS, YEARS } from "@/ui/parts/year-month-options";
 
 interface Props {
   expenses: Expenses;
   pagination: Pagination;
-  year?: number;
+  year: number;
   month?: number;
   category?: ExpenseAttributeCategory;
   expenseAttributes: ExpenseAttributes;
   attributeId?: string;
   savedId?: string;
 }
-
-const cleanUpObject = (obj: object): Record<string, string> =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([, v]) => v !== undefined),
-  ) as Record<string, string>;
 
 const Expense = ({
   expenses,
@@ -46,218 +34,43 @@ const Expense = ({
   attributeId,
   savedId,
 }: Props): ReactElement => {
-  const router = useRouter();
-  const currentSearchParams = useSearchParams();
-
-  useEffect(() => {
-    const { page } = pagination.current;
-    if (expenses.length > 0 || page <= 1) return;
-    const params = new URLSearchParams(currentSearchParams);
-    params.set("page", String(page - 1));
-    router.replace(`/expense?${params}`);
-  }, [expenses.length, pagination, currentSearchParams, router]);
-  const { isPending, navigate } = useNavigation();
-
-  const [queryParam, setQueryParam] = useState({
-    ...(year && { year: year.toString() }),
-    ...(month && { month: month.toString() }),
-    ...(category && { category }),
-    ...(attributeId && { attributeId }),
-  });
-
-  const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const year = event.currentTarget.value;
-    const _query = {
-      ...queryParam,
-      year,
-      page: undefined,
-      per_page: undefined,
-    };
-    setQueryParam(cleanUpObject(_query));
-    const searchParams = new URLSearchParams({
-      ...cleanUpObject(_query),
-    }).toString();
-    navigate(`/expense?${searchParams}`);
-  };
-
-  const handleMonthChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const month = event.currentTarget.value;
-    const _query = cleanUpObject({
-      ...queryParam,
-      ...(month !== "" ? { month } : { month: undefined }),
-      page: undefined,
-      per_page: undefined,
-    });
-    setQueryParam(_query);
-    const searchParams = new URLSearchParams({
-      ..._query,
-    }).toString();
-    navigate(`/expense?${searchParams}`);
-  };
-
-  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const _category = event.currentTarget.value;
-    if (isExpenseAttributeCategory(_category)) {
-      const _query = cleanUpObject({
-        ...queryParam,
-        category: _category,
-        page: undefined,
-        per_page: undefined,
-      });
-      const searchParams = new URLSearchParams(_query).toString();
-      setQueryParam(_query);
-      navigate(`/expense?${searchParams}`);
-      return;
-    }
-    const _query = cleanUpObject({
-      ...queryParam,
-      category: undefined,
-      attributeId: undefined,
-      page: undefined,
-      per_page: undefined,
-    });
-    const searchParams = new URLSearchParams(_query).toString();
-    setQueryParam(_query);
-    navigate(`/expense?${searchParams}`);
-  };
-
-  const handleAttributeIdChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const attributeId = event.currentTarget.value;
-    const _query = cleanUpObject({
-      ...queryParam,
-      ...(attributeId !== "" ? { attributeId } : { attributeId: undefined }),
-      page: undefined,
-      per_page: undefined,
-    });
-    const searchParams = new URLSearchParams({
-      ..._query,
-    }).toString();
-    setQueryParam(_query);
-    navigate(`/expense?${searchParams}`);
-  };
-
-  const handleMovePrevious = (page: number, perPage: number) => {
-    const _query = {
-      ...queryParam,
-      page: page.toString(),
-      per_page: perPage.toString(),
-    };
-    const searchParams = new URLSearchParams(_query);
-    setQueryParam(_query);
-    navigate(`/expense?${searchParams.toString()}`);
-  };
-
-  const handleMoveNext = (page: number, perPage: number) => {
-    const _query = {
-      ...queryParam,
-      page: page.toString(),
-      per_page: perPage.toString(),
-    };
-    const searchParams = new URLSearchParams(_query);
-    setQueryParam(_query);
-    navigate(`/expense?${searchParams.toString()}`);
-  };
-
-  const handleMovePage = (page: number, perPage: number) => {
-    const _query = {
-      ...queryParam,
-      page: page.toString(),
-      per_page: perPage.toString(),
-    };
-    const searchParams = new URLSearchParams(_query);
-    setQueryParam(_query);
-    navigate(`/expense?${searchParams.toString()}`);
-  };
-
-  const handleRegistrationClick = (): void => {
-    router.push("/expense/registration");
-  };
-
-  const handleEdit = (id: string) => {
-    router.push(
-      `/expense/${id}?${new URLSearchParams({ from: currentSearchParams.toString() })}`,
-    );
-  };
-
+  const query: Record<string, string> = { year: String(year) };
+  if (month !== undefined) query.month = String(month);
+  if (category !== undefined) query.category = category;
+  if (attributeId !== undefined) query.attributeId = attributeId;
   return (
-    <div className={layout.page}>
+    <ListFrame>
       <div className={layout.toolbar}>
-        <div className={layout.filters}>
-          <Select
-            label="年"
-            className={layout.yearFilter}
-            name="year"
-            value={queryParam.year}
-            onChange={handleYearChange}
-          >
-            {YEARS.map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </Select>
-          <Select
-            label="月"
-            className={layout.monthFilter}
-            name="month"
-            value={queryParam.month}
-            onChange={handleMonthChange}
-          >
-            <option value="">すべて</option>
-            {MONTHS.map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </Select>
-          <Select
-            label="分類"
-            className={layout.categoryFilter}
-            name="category"
-            defaultValue={queryParam.category}
-            onChange={handleCategoryChange}
-          >
-            <option value="">すべて</option>
-            <option value="固定費">固定費</option>
-            <option value="変動費">変動費</option>
-          </Select>
-          <Select
-            label="属性名"
-            className={layout.attributeFilter}
-            name="attributeId"
-            defaultValue={queryParam.attributeId}
-            onChange={handleAttributeIdChange}
-          >
-            <option value="">すべて</option>
-            {expenseAttributes.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
-          </Select>
-        </div>
+        <ExpenseFilters
+          year={year}
+          month={month}
+          category={category}
+          attributeId={attributeId}
+          expenseAttributes={expenseAttributes}
+        />
         <div className={layout.actions}>
-          <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
+          <ButtonLink
+            href="/expense/registration"
+            icon={<PlusIcon />}
+            linkComponent={Link}
+          >
             追加
-          </Button>
+          </ButtonLink>
         </div>
       </div>
       <ExpenseTable
         savedId={savedId}
-        loading={isPending}
         expenses={expenses}
         pagination={pagination}
-        onEdit={handleEdit}
         footer={
           <PaginationComponent
             pagination={pagination}
-            onMovePrevious={handleMovePrevious}
-            onMoveNext={handleMoveNext}
-            onMovePage={handleMovePage}
+            path="/expense"
+            query={query}
           />
         }
       />
-    </div>
+    </ListFrame>
   );
 };
 export default Expense;

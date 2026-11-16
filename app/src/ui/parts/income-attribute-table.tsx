@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DragHandle,
   ReorderButtons,
@@ -14,6 +16,7 @@ import {
   useSortableList,
   useToast,
 } from "@home-expense/ui";
+import { useRouter } from "next/navigation";
 import type { ReactElement } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useOptimisticReorder } from "@/lib/hooks/use-optimistic-reorder";
@@ -26,23 +29,25 @@ import {
 } from "@/service/income-attribute-service";
 import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
+import { useListNavigation } from "@/ui/parts/list-frame";
 import savedStyle from "@/ui/parts/saved-row.module.css";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
   version: string;
-  onEdit: (id: string) => void;
-  loading?: boolean;
   savedId?: string;
 }
 
 const IncomeAttributeTable = ({
   incomeAttributes,
   version,
-  onEdit,
-  loading,
   savedId,
 }: Props): ReactElement => {
+  const router = useRouter();
+  const { isPending: loading } = useListNavigation();
+  const onEdit = (id: string): void => {
+    router.push(`/income-attribute/${id}`);
+  };
   const saved = useSavedHighlight(savedId, incomeAttributes, (row) => row.name);
   const toast = useToast(saved.notice);
   const reordering = useOptimisticReorder({

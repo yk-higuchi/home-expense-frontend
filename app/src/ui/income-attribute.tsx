@@ -1,10 +1,9 @@
-"use client";
-import { Button, PlusIcon } from "@home-expense/ui";
-import { useRouter } from "next/navigation";
+import { ButtonLink, PlusIcon } from "@home-expense/ui";
+import Link from "next/link";
 import type { ReactElement } from "react";
-
 import type { IncomeAttributes } from "@/lib/income-attribute";
 import IncomeAttributeTable from "@/ui/parts/income-attribute-table";
+import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
 
 interface Props {
@@ -17,30 +16,22 @@ const IncomeAttribute = ({
   incomeAttributes,
   version,
   savedId,
-}: Props): ReactElement => {
-  const router = useRouter();
-
-  const handleRegistrationClick = (): void => {
-    router.push("/income-attribute/registration");
-  };
-
-  const handleEdit = (id: string) => {
-    router.push(`/income-attribute/${id}`);
-  };
-  return (
-    <div className={layout.page}>
-      <div className={layout.actions}>
-        <Button icon={<PlusIcon />} onClick={handleRegistrationClick}>
-          追加
-        </Button>
-      </div>
-      <IncomeAttributeTable
-        savedId={savedId}
-        incomeAttributes={incomeAttributes}
-        version={version}
-        onEdit={handleEdit}
-      />
+}: Props): ReactElement => (
+  <ListFrame>
+    <div className={layout.actions}>
+      <ButtonLink
+        href="/income-attribute/registration"
+        icon={<PlusIcon />}
+        linkComponent={Link}
+      >
+        追加
+      </ButtonLink>
     </div>
-  );
-};
+    <IncomeAttributeTable
+      savedId={savedId}
+      incomeAttributes={incomeAttributes}
+      version={version}
+    />
+  </ListFrame>
+);
 export default IncomeAttribute;

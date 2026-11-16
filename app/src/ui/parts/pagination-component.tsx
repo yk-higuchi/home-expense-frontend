@@ -1,37 +1,32 @@
-"use client";
-
 import { Pagination as PaginationNav } from "@home-expense/ui";
 import type { ReactElement } from "react";
+import { LIST_LINK } from "@/lib/list-link";
 import type { Pagination } from "@/lib/pagination/pagination";
 
 interface Props {
   pagination: Pagination;
-  onMovePrevious: (page: number, perPage: number) => void;
-  onMoveNext: (page: number, perPage: number) => void;
-  onMovePage: (page: number, perPage: number) => void;
+  path: string;
+  query: Record<string, string>;
 }
 
 const PaginationComponent = ({
   pagination,
-  onMovePrevious,
-  onMoveNext,
-  onMovePage,
+  path,
+  query,
 }: Props): ReactElement => {
-  const { previous, next, current, last } = pagination;
-  const handlePageChange = (page: number): void => {
-    if (previous && page === previous.page) {
-      onMovePrevious(previous.page, previous.perPage);
-    } else if (next && page === next.page) {
-      onMoveNext(next.page, next.perPage);
-    } else {
-      onMovePage(page, current.perPage);
-    }
-  };
+  const { current, last } = pagination;
   return (
     <PaginationNav
       currentPage={current.page}
       totalPages={Math.max(last.page, current.page, 1)}
-      onPageChange={handlePageChange}
+      hrefFor={(page) =>
+        `${path}?${new URLSearchParams({
+          ...query,
+          page: String(page),
+          per_page: String(current.perPage),
+        })}`
+      }
+      linkAttributes={LIST_LINK}
     />
   );
 };
