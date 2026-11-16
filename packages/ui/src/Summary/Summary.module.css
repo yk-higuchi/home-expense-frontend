@@ -11,13 +11,6 @@
   --amount-width: 8em;
 }
 
-@media (width <= 767px) {
-  .summaryRow,
-  .breakdown {
-    --amount-column: 50%;
-  }
-}
-
 .summaryRow {
   box-sizing: border-box;
   display: flex;
@@ -45,6 +38,8 @@
 }
 
 .breakdown {
+  --amount-column: calc(283px - var(--padding-card) - var(--border-width));
+
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -115,6 +110,18 @@
 .itemName {
   flex: 0 0 calc(var(--amount-column) - var(--space-800));
   margin: 0;
+}
+
+@media (width <= 767px) {
+  .label,
+  .groupLabel,
+  .itemName {
+    flex: 1 1 0;
+  }
+
+  .summaryRow > .amount {
+    margin-right: calc(var(--padding-card) + var(--border-width));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
