@@ -150,13 +150,27 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 バックエンドと同じ仕組みでリリースする。
 
 - コミットは Conventional Commits で書く（例：`feat: …`・`fix(ui): …`）。pull request では、Lint（`lint.yaml`）の commitlint（`@commitlint/config-conventional`、`.commitlintrc.json`）で検査する。
-- `main` への push では、CI（`ci.yaml`）が次の順に動く。
-  1. `lint`・`test`（Storybook の見本のアクセシビリティの検査）・`image`。`image` はイメージを 1 回だけ作って Trivy で検査し、`ghcr.io/<リポジトリ>-app:sha-<コミット>` として置く。
-  2. すべて通ったら、`release` で release-please がリリースの PR を作る（作り直す）。版の番号は Conventional Commits から決まる。
-  3. リリースの PR をマージしてタグ（`v1.1.0` の形）とリリースができたら、同じ実行の中で `deliver` が CD（`cd.yaml`）を呼ぶ。CD は、テスト済みの `sha-<コミット>` のイメージを作り直さずに、版のタグと `latest` に付け替える（digest が同じことを確かめる）。
+
+1. **プルリクエスト**：CI（`ci.yaml`）が lint・`test`（Storybook の見本のアクセシビリティの検査）・`image`（hadolint、イメージのビルドと Trivy の検査）を行う。イメージはまだ push しない。Lint（`lint.yaml`）がアプリ以外の検査とコミットの検査を行う。
+2. **`main` への push**：
+   - CI が同じ検査を行い、テスト済みのイメージを `ghcr.io/<リポジトリ>-app:sha-<コミット>` として push する。
+   - 同時に Release（`release.yaml`）が release-please を動かし、リリースの PR を作るか更新する。版の番号は Conventional Commits から決まる。
+   - リリースの PR を作った・更新したときは、Release がそのブランチで CI と Lint を起動する（下の「`GITHUB_TOKEN` の制約」）。
+3. **リリースの PR のマージ**：Release がタグ（`v1.1.0` の形）と GitHub のリリースを作り、同じ実行の中で CD（`cd.yaml`）を呼ぶ。CD は次を行う。
+   - タグのコミットで、`main` への push の CI が成功するのを待つ（失敗したら止まる）。
+   - テスト済みの `sha-<コミット>` のイメージを、作り直さずに digest のまま版のタグと `latest` に付け替える。
+
 - 設定は `release-please-config.json`、今の版は `.release-please-manifest.json`。版の番号は `app/package.json` の `version` も一緒に書き換える。変更履歴は `CHANGELOG.md` に書かれる。`packages/ui` は外に公開しないので、版は上げない。
 - `CHANGELOG.md` と `.release-please-manifest.json` は release-please が書くので、Biome の対象から外している。
-- CD は手動でも動かせる（`workflow_dispatch`、版と元のコミットを指定する）。
+- CD は、版を指定して手動でも動かせる（`workflow_dispatch`）。元のコミットはタグ `v<版>` から調べる。GitHub の画面で手作業でリリースを作った場合は、自動では動かないので手動で動かす。
+
+### `GITHUB_TOKEN` の制約
+
+release-please は `GITHUB_TOKEN` で動かす。`GITHUB_TOKEN` で作った PR・タグ・リリースは、ほかのワークフローを起動しない。例外は `workflow_dispatch` と `workflow_call` なので、バックエンドと同じく次のように回避している。
+
+- リリースの PR：Release が `gh workflow run` で、リリースの PR のブランチに対して CI と Lint を起動する。実行はリリースの PR の先頭のコミットに紐づく（実行の一覧では `workflow_dispatch` と表示される）。
+- リリース：Release が `workflow_call` で CD を呼ぶ。
+- リポジトリの設定で「Allow GitHub Actions to create and approve pull requests」を有効にしておく必要がある（このリポジトリでは有効）。
 
 ## HOME・年間レポート
 
