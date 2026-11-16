@@ -2,6 +2,11 @@ export type { AmountProps } from "./Amount/Amount";
 export { Amount } from "./Amount/Amount";
 export type { ButtonProps, ButtonVariant } from "./Button/Button";
 export { Button } from "./Button/Button";
+export type {
+  ButtonLinkComponentProps,
+  ButtonLinkProps,
+} from "./Button/ButtonLink";
+export { ButtonLink } from "./Button/ButtonLink";
 export type { CardProps } from "./Card/Card";
 export { Card } from "./Card/Card";
 export type { ChartProps, ChartSeries } from "./Chart/Chart";

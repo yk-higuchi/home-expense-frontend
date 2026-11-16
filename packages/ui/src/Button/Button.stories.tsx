@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { PlusIcon } from "../icons/icons";
 import { Button, type ButtonVariant } from "./Button";
+import { ButtonLink } from "./ButtonLink";
 
 const meta = {
   title: "Components/Button",
@@ -94,4 +95,12 @@ export const FullWidth: Story = {
       </div>
     ),
   ],
+};
+
+export const AsLink: Story = {
+  render: () => (
+    <ButtonLink href="#registration" icon={<PlusIcon />}>
+      追加
+    </ButtonLink>
+  ),
 };

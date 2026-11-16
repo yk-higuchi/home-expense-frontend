@@ -1,5 +1,3 @@
-"use client";
-
 import { type ComponentPropsWithRef, type ReactElement, useId } from "react";
 
 import { controlClassName, describedBy, Field } from "../Field/Field";

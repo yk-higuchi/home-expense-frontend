@@ -29,11 +29,13 @@
   font-family: inherit;
   font-size: var(--text-body-size);
   line-height: var(--text-single-line-line-height);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 120ms ease;
 }
 
-.step:disabled {
+.step:disabled,
+.step[aria-disabled="true"] {
   color: var(--color-text-disabled);
   cursor: not-allowed;
 }
@@ -49,12 +51,12 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-.step:hover:not(:disabled),
+.step:hover:not(:disabled, [aria-disabled="true"]),
 .page:hover:not([aria-current="page"]) {
   background-color: var(--color-interactive-hover);
 }
 
-.step:active:not(:disabled),
+.step:active:not(:disabled, [aria-disabled="true"]),
 .page:active:not([aria-current="page"]) {
   background-color: var(--color-interactive-active);
 }

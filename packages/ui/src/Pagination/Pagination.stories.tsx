@@ -42,3 +42,7 @@ export const Interactive: Story = {
     return <Pagination {...args} currentPage={page} onPageChange={setPage} />;
   },
 };
+
+export const Links: Story = {
+  args: { currentPage: 1, hrefFor: (page: number) => `?page=${page}` },
+};

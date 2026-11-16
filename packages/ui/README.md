@@ -78,3 +78,6 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - つまみの列の幅は 64px 以上にする（ボタン 28px ＋ セルの左右の余白）。
 - `Toast` は、HTML の Popover API（`<output popover="manual">`）で最前面の層（top layer）に出す。z-index を考えなくても、ダイアログを含むほかの要素の上に出る。`manual` なので、ほかの場所を押しても勝手に閉じない。表示された瞬間の読み上げは読み上げソフトによって違うため、読み上げは別の見えない領域で行う（成功は `role="status"`、エラーは `role="alert"`。トーストの `output` は `aria-live="off"`）。知らせは `{ id, text, tone }` で渡し、同じ文言でも `id` が変われば出し直す。知らせは `useToast` で作る（`success` / `error` / `clear`。`id` は自動で振る）。`tone: "error"` は赤（`--color-danger-surface` / `--color-danger-border` / `--color-danger`）と警告アイコンで出し、自動では消さない。
 - 金額などの整形（`formatYen` / `formatCompact`）は `src/format/format.ts` に置く。部品の入口（`@home-expense/ui`）からも使えるが、Server Action などのサーバー側のコードからは `@home-expense/ui/format` を読む（部品をまとめて読み込まないため）。
+- サーバーコンポーネントからも使えるよう、フックやイベントが要らない部品には `"use client"` を付けない（`Select`・`TextInput` は `useId` だけなので付けない）。
+- `ButtonLink` はボタンの見た目のリンク。画面の移動はボタンではなくリンクにする（新しいタブで開け、URL をコピーできる）。Next.js では `linkComponent={Link}` を渡す。
+- `Pagination` は `hrefFor` を渡すと、ページの番号を `<a href>` で描く（サーバーで描ける）。`onPageChange` だけを渡すと、今までどおりボタンで描く。前・次がないときは `aria-disabled` の `span` にする。

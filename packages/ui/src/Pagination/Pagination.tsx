@@ -1,11 +1,13 @@
-import type { ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 import styles from "./Pagination.module.css";
 
 export interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  onPageChange?: (page: number) => void;
+  hrefFor?: (page: number) => string;
+  linkAttributes?: Record<`data-${string}`, string>;
   siblingCount?: number;
   previousLabel?: string;
   nextLabel?: string;
@@ -54,6 +56,8 @@ export const Pagination = ({
   currentPage,
   totalPages,
   onPageChange,
+  hrefFor,
+  linkAttributes,
   siblingCount = 2,
   previousLabel = "Previous",
   nextLabel = "Next",
@@ -61,31 +65,71 @@ export const Pagination = ({
 }: PaginationProps): ReactElement => {
   const hasPrevious = currentPage > 1;
   const hasNext = currentPage < totalPages;
-  return (
-    <nav className={styles.pagination} aria-label={ariaLabel}>
+  const step = (
+    page: number,
+    enabled: boolean,
+    content: ReactNode,
+  ): ReactElement => {
+    if (!hrefFor) {
+      return (
+        <button
+          type="button"
+          className={styles.step}
+          disabled={!enabled}
+          onClick={() => onPageChange?.(page)}
+        >
+          {content}
+        </button>
+      );
+    }
+    return enabled ? (
+      <a className={styles.step} href={hrefFor(page)} {...linkAttributes}>
+        {content}
+      </a>
+    ) : (
+      <span className={styles.step} aria-disabled="true">
+        {content}
+      </span>
+    );
+  };
+  const pageItem = (page: number): ReactElement => {
+    const current = page === currentPage;
+    return hrefFor ? (
+      <a
+        className={styles.page}
+        href={hrefFor(page)}
+        aria-current={current ? "page" : undefined}
+        aria-label={`${page} ページ`}
+        {...linkAttributes}
+      >
+        {page}
+      </a>
+    ) : (
       <button
         type="button"
-        className={styles.step}
-        disabled={!hasPrevious}
-        onClick={() => onPageChange(currentPage - 1)}
+        className={styles.page}
+        aria-current={current ? "page" : undefined}
+        aria-label={`${page} ページ`}
+        onClick={() => !current && onPageChange?.(page)}
       >
-        <Arrow direction="left" />
-        {previousLabel}
+        {page}
       </button>
+    );
+  };
+  return (
+    <nav className={styles.pagination} aria-label={ariaLabel}>
+      {step(
+        currentPage - 1,
+        hasPrevious,
+        <>
+          <Arrow direction="left" />
+          {previousLabel}
+        </>,
+      )}
       <ul className={styles.list}>
         {paginationItems(currentPage, totalPages, siblingCount).map((item) =>
           typeof item === "number" ? (
-            <li key={item}>
-              <button
-                type="button"
-                className={styles.page}
-                aria-current={item === currentPage ? "page" : undefined}
-                aria-label={`${item} ページ`}
-                onClick={() => item !== currentPage && onPageChange(item)}
-              >
-                {item}
-              </button>
-            </li>
+            <li key={item}>{pageItem(item)}</li>
           ) : (
             <li key={item} className={styles.gap} aria-hidden="true">
               …
@@ -93,15 +137,14 @@ export const Pagination = ({
           ),
         )}
       </ul>
-      <button
-        type="button"
-        className={styles.step}
-        disabled={!hasNext}
-        onClick={() => onPageChange(currentPage + 1)}
-      >
-        {nextLabel}
-        <Arrow direction="right" />
-      </button>
+      {step(
+        currentPage + 1,
+        hasNext,
+        <>
+          {nextLabel}
+          <Arrow direction="right" />
+        </>,
+      )}
     </nav>
   );
 };

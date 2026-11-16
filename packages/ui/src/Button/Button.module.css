@@ -13,6 +13,7 @@
   font-size: var(--text-body-size);
   font-weight: 400;
   line-height: var(--text-single-line-line-height);
+  text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   transition:
