@@ -30,8 +30,8 @@ ENV NODE_ENV=production \
     PORT=3000 \
     HOSTNAME=0.0.0.0
 WORKDIR /app
-COPY --from=builder --chown=nonroot:nonroot /repo/app/.next/standalone ./
-COPY --from=builder --chown=nonroot:nonroot /repo/app/.next/static ./app/.next/static
-USER nonroot
+COPY --from=builder --chown=65532:65532 /repo/app/.next/standalone ./
+COPY --from=builder --chown=65532:65532 /repo/app/.next/static ./app/.next/static
+USER 65532:65532
 EXPOSE 3000
 CMD ["app/server.js"]

@@ -31,22 +31,6 @@ jobs:
         run: |
           pnpm --filter home-expense-frontend-new gen:api
           git diff --exit-code -- app/src/network/generated
-  commitlint:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: 26
-          cache: pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Lint commits
-        run: pnpm commitlint --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
   test:
     runs-on: ubuntu-latest
     needs:
@@ -81,6 +65,16 @@ jobs:
       - name: Read version
         id: version
         run: echo "version=$(jq -r .version app/package.json)" >> "${GITHUB_OUTPUT}"
+      - name: Install hadolint
+        env:
+          HADOLINT_VERSION: 2.15.1
+          HADOLINT_SHA256: c7187db94eeeeca956519a6af171adc31453941a1e777961f6e680f697c8c507
+        run: |
+          curl -fsSL -o hadolint "https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-linux-x86_64"
+          echo "${HADOLINT_SHA256}  hadolint" | sha256sum -c -
+          sudo install -m 0755 hadolint /usr/local/bin/hadolint
+      - name: Lint app/Dockerfile
+        run: hadolint app/Dockerfile
       - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
       - name: Build app
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0

@@ -16,6 +16,7 @@
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@playwright/test": "1.65.1",
-    "knip": "6.45.1"
+    "knip": "6.45.1",
+    "markdownlint-cli2": "0.24.0"
   }
 }

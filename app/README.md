@@ -116,14 +116,40 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 - pnpm はルートの `package.json` の `packageManager`（12.21.0）で固定する。CI の `pnpm/action-setup` もこの版を使う。
 - pnpm 12 は、公開から間もない版を入れない（`minimumReleaseAge`）。インストール時のスクリプトは `pnpm-workspace.yaml` の `allowBuilds` に書いたもの（esbuild）だけ実行する。
 - 依存・イメージ・アクションの版は手で固定し、手で更新する（Renovate は使わない）。distroless のイメージは動くタグしかないため、ダイジェストで固定する。
-- イメージは、ビルドに `node:<版>-trixie-slim`、実行に distroless の `nodejs26-debian13:nonroot` を使う。実行時は `HOSTNAME=0.0.0.0` で、すべてのアドレスで待ち受ける。
-- アクションは、バックエンドと同じく、コミットの SHA で固定し、版をコメントに書く。
+- イメージは、ビルドに `node:<版>-trixie-slim`、実行に distroless の `nodejs26-debian13:nonroot` を使い、どちらも digest で固定する。実行時は `HOSTNAME=0.0.0.0` で、すべてのアドレスで待ち受ける。
+- 実行時の利用者は、バックエンドと同じく数字（`USER 65532:65532`、distroless の nonroot）で指定する。Kubernetes の `runAsNonRoot` は、利用者が名前だと root でないことを確かめられないため。
+- イメージには OCI のラベル（`org.opencontainers.image.*`）で、名前・ソース・ライセンス・版（`app/package.json` の `version`）・コミットを入れる。CI の `image` が `VERSION` と `GIT_SHA` を渡す。
+- CI の `image` は、ビルドの前に hadolint で `app/Dockerfile` を検査する。
+
+## lint
+
+ワークフローは 2 つに分ける。アプリの検査は CI（`ci.yaml`）、アプリ以外の検査は Lint（`lint.yaml`）で動かす。バックエンドと同じ分け方。
+
+| 対象                       | ツール                                                           | 設定                                   | 動かす場所      |
+| -------------------------- | ---------------------------------------------------------------- | -------------------------------------- | --------------- |
+| TypeScript・CSS・JSON      | Biome・Stylelint・TypeScript・knip・`lint:tokens`（`pnpm lint`） | `biome.json`・`.stylelintrc.json` など | CI（`lint`）    |
+| `app/Dockerfile`           | hadolint                                                         | 既定の規則                             | CI（`image`）   |
+| `.github/workflows/*.yaml` | actionlint                                                       | 既定の規則                             | Lint            |
+| YAML                       | yamllint                                                         | `.yamllint`                            | Lint            |
+| Markdown                   | markdownlint-cli2                                                | `.markdownlint-cli2.yaml`              | Lint            |
+| コミットメッセージ         | commitlint                                                       | `.commitlintrc.json`                   | Lint（PR のみ） |
+
+- yamllint は生成物（`node_modules/`、`pnpm-lock.yaml` など）を対象外にし、行の長さは検査しない。markdownlint も行の長さは検査しない。いずれも日本語の説明や URL が長くなるため。markdownlint は、release-please が書く `CHANGELOG.md` と、`next dev` が作る `app/AGENTS.md` も対象外にする。
+- シェルスクリプト・Python・SQL のファイルはないので、バックエンドにある ShellCheck・ruff・sqlfluff は入れていない。
+- 手元で yamllint を使うときは、`pip install -r requirements.txt` で CI と同じ版を入れる。Markdown は `pnpm markdownlint-cli2` で検査する。
+
+## CI の依存の固定
+
+- GitHub Actions の `uses:` は、すべてコミットのハッシュで固定し、行末に版をコメントで書く（例：`actions/checkout@<40 文字のハッシュ> # v7.0.1`）。タグは付け替えられるため、版の指定だけにはしない。
+- CI でダウンロードするツール（actionlint、hadolint）は、版と SHA-256 を `env` に書き、ダウンロードしたファイルを `sha256sum -c` で検証してから使う。
+- Python のツール（yamllint）は `requirements.txt` と `.python-version`、Node のツール（markdownlint-cli2、commitlint など）は `package.json` と `pnpm-lock.yaml` で版を固定する。
+- 版を上げるときは、ハッシュ（またはチェックサム）と版のコメントを必ず一緒に変える。
 
 ## リリース（release-please）
 
 バックエンドと同じ仕組みでリリースする。
 
-- コミットは Conventional Commits で書く（例：`feat: …`・`fix(ui): …`）。pull request では commitlint（`@commitlint/config-conventional`、`.commitlintrc.json`）で検査する。
+- コミットは Conventional Commits で書く（例：`feat: …`・`fix(ui): …`）。pull request では、Lint（`lint.yaml`）の commitlint（`@commitlint/config-conventional`、`.commitlintrc.json`）で検査する。
 - `main` への push では、CI（`ci.yaml`）が次の順に動く。
   1. `lint`・`test`（Storybook の見本のアクセシビリティの検査）・`image`。`image` はイメージを 1 回だけ作って Trivy で検査し、`ghcr.io/<リポジトリ>-app:sha-<コミット>` として置く。
   2. すべて通ったら、`release` で release-please がリリースの PR を作る（作り直す）。版の番号は Conventional Commits から決まる。
@@ -171,4 +197,4 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 
 - ルートの `playwright.config.ts` に 2 つのプロジェクトがある。手元では、インストール済みの Chrome を使う（CI では Playwright の Chromium）。
   - `pnpm test:a11y`：Storybook を作り、すべての見本を axe（WCAG 2.2 AA のルール）で検査する。CI でも実行する。動きを減らす設定で検査する（表示途中の半透明を検査しないため）。読み込み中の表（`Loading`）は、内容を薄くする表示なのでコントラストの検査から外す。Storybook の addon-a11y は見本を開くたびに axe を動かすため、テストでは `globals=a11y.manual:!true` を付けて止める（同時に動くと「Axe is already running」で失敗する）。検査の前に、動いているアニメーションが終わるのを待つ。
-  - `pnpm test:e2e`：起動中のアプリ（`APP_URL`、既定は http://localhost:3000）とバックエンドに対して、全画面を幅 1440px と 390px で axe 検査し、横にはみ出さないこと・`h1` が 1 つあることを確かめる。ほかに、本文へ移動・ページ送り・移動中の枠・読み込めないとき・見つからないとき・スマートフォンのメニューを確かめる。バックエンドとデータベースが要るので、CI では実行しない。
+  - `pnpm test:e2e`：起動中のアプリ（`APP_URL`、既定は `http://localhost:3000`）とバックエンドに対して、全画面を幅 1440px と 390px で axe 検査し、横にはみ出さないこと・`h1` が 1 つあることを確かめる。ほかに、本文へ移動・ページ送り・移動中の枠・読み込めないとき・見つからないとき・スマートフォンのメニューを確かめる。バックエンドとデータベースが要るので、CI では実行しない。
