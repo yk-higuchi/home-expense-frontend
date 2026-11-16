@@ -136,13 +136,13 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 
 - yamllint は生成物（`node_modules/`、`pnpm-lock.yaml` など）を対象外にし、行の長さは検査しない。markdownlint も行の長さは検査しない。いずれも日本語の説明や URL が長くなるため。markdownlint は、release-please が書く `CHANGELOG.md` と、`next dev` が作る `app/AGENTS.md` も対象外にする。
 - シェルスクリプト・Python・SQL のファイルはないので、バックエンドにある ShellCheck・ruff・sqlfluff は入れていない。
-- 手元で yamllint を使うときは、`pip install -r requirements.txt` で CI と同じ版を入れる。Markdown は `pnpm markdownlint-cli2` で検査する。
+- 手元で yamllint を使うときは、`pip install -r requirements.txt` で CI と同じ版を入れる。Python の版は、手元は `.python-version`（3.14.0）、CI は 3.14 系の最新を使う（GitHub の実行環境に、パッチの版まで指定した Python がないことがあるため。バックエンドと同じ）。Markdown は `pnpm markdownlint-cli2` で検査する。
 
 ## CI の依存の固定
 
 - GitHub Actions の `uses:` は、すべてコミットのハッシュで固定し、行末に版をコメントで書く（例：`actions/checkout@<40 文字のハッシュ> # v7.0.1`）。タグは付け替えられるため、版の指定だけにはしない。
 - CI でダウンロードするツール（actionlint、hadolint）は、版と SHA-256 を `env` に書き、ダウンロードしたファイルを `sha256sum -c` で検証してから使う。
-- Python のツール（yamllint）は `requirements.txt` と `.python-version`、Node のツール（markdownlint-cli2、commitlint など）は `package.json` と `pnpm-lock.yaml` で版を固定する。
+- Python のツール（yamllint）は `requirements.txt`、Node のツール（markdownlint-cli2、commitlint など）は `package.json` と `pnpm-lock.yaml` で版を固定する。
 - 版を上げるときは、ハッシュ（またはチェックサム）と版のコメントを必ず一緒に変える。
 
 ## リリース（release-please）
