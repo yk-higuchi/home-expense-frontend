@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-
+import { formatCompact, formatYen } from "../format/format";
 import {
   Table,
   TableBody,
@@ -20,7 +20,6 @@ import {
 } from "../Table/Table";
 import styles from "./Chart.module.css";
 import { decimateLTTB, type IndexedPoint } from "./decimate";
-import { formatCompact, formatYen } from "./format";
 import { computeScale, type Plot, type Scale, tickCountFor } from "./scales";
 
 export interface ChartSeries {

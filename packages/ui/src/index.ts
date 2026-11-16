@@ -6,11 +6,11 @@ export type { CardProps } from "./Card/Card";
 export { Card } from "./Card/Card";
 export type { ChartProps, ChartSeries } from "./Chart/Chart";
 export { Chart } from "./Chart/Chart";
-export { formatCompact, formatYen } from "./Chart/format";
 export type { DialogProps } from "./Dialog/Dialog";
 export { Dialog } from "./Dialog/Dialog";
 export type { ErrorMessageProps } from "./ErrorMessage/ErrorMessage";
 export { ErrorMessage } from "./ErrorMessage/ErrorMessage";
+export { formatCompact, formatYen } from "./format/format";
 export {
   CheckIcon,
   ChevronDownIcon,
@@ -81,3 +81,5 @@ export type { TextInputProps } from "./TextInput/TextInput";
 export { TextInput } from "./TextInput/TextInput";
 export type { ToastNotice, ToastProps } from "./Toast/Toast";
 export { Toast } from "./Toast/Toast";
+export type { ToastControl } from "./Toast/useToast";
+export { useToast } from "./Toast/useToast";

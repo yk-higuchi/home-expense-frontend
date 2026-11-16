@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { formatYen } from "../Chart/format";
+import { formatYen } from "../format/format";
 import styles from "./Amount.module.css";
 
 export interface AmountProps {

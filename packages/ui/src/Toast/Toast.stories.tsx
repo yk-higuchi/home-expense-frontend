@@ -1,24 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { type ReactElement, useState } from "react";
+import type { ReactElement } from "react";
 
 import { Button } from "../Button/Button";
-import { Toast, type ToastNotice } from "./Toast";
+import { Toast } from "./Toast";
+import { useToast } from "./useToast";
 
 const ToastDemo = (): ReactElement => {
-  const [notice, setNotice] = useState<ToastNotice | null>({
-    id: 1,
+  const toast = useToast({
+    id: 0,
     text: "「ルミネ」を保存しました",
+    tone: "success",
   });
   return (
     <>
-      <Button
-        onClick={() =>
-          setNotice({ id: Date.now(), text: "「ルミネ」を削除しました" })
-        }
-      >
+      <Button onClick={() => toast.success("「ルミネ」を削除しました")}>
         知らせを出す
       </Button>
-      <Toast notice={notice} />
+      <Button onClick={() => toast.error("削除できませんでした。")}>
+        エラーを出す
+      </Button>
+      <Toast notice={toast.notice} />
     </>
   );
 };

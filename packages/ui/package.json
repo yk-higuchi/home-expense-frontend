@@ -8,6 +8,7 @@
   ],
   "exports": {
     ".": "./src/index.ts",
+    "./format": "./src/format/format.ts",
     "./tokens.css": "./src/tokens.css"
   },
   "scripts": {
