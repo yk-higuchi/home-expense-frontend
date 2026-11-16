@@ -34,7 +34,7 @@ API はサーバー側（Server Components・Server Actions）からだけ呼び
 
 API のリクエスト・レスポンスは、バックエンドが OpenAPI から生成した JSON Schema 2020-12（`openapi.schema.json`）で検査する。手で書かない。
 
-- 取得するバックエンドの定義は `api-version` に書く。コミットのハッシュ（40 文字）なら、そのコミットの `docs/openapi.schema.json` を GitHub から取得する。版（例：`2.1.0`）なら、その版の GitHub Release から取得する（`gh` が必要）。バックエンドの v2.1.0 がリリースされるまでは、コミットを固定する。
+- 取得するバックエンドの定義は `api-version` に書く。コミットのハッシュ（40 文字）なら、そのコミットの `docs/openapi.schema.json` を GitHub から取得する。版（例：`2.1.0`）なら、その版の GitHub Release から取得する（`gh` が必要。CI では `GH_TOKEN` に `github.token` を渡す）。今は v2.1.0 を使う。
 - `pnpm gen:api` で取得して、次の 2 つを作り直し、コミットする。どちらも手で編集しない。
   - `src/network/generated/schema.ts`：スキーマそのもの（`openApiSchema`）。検査に使う。
   - `src/network/generated/types.ts`：`$defs` の各スキーマの型（`Schemas`）。同じファイルから生成するので、検査と型が食い違わない。

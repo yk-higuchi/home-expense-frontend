@@ -28,6 +28,8 @@ jobs:
       - name: Lint
         run: pnpm lint
       - name: Check API schemas are generated from JSON Schema
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           pnpm --filter home-expense-frontend-new gen:api
           git diff --exit-code -- app/src/network/generated
