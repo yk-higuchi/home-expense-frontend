@@ -1,6 +1,6 @@
 # デザイントークン（Figma との対応）
 
-色・余白・文字の定義は Figma「経費管理システム」（`k99TXVIrWbQ9YYSNBnbaFW`）が正で、
+色・余白・文字の定義は Figma「家計簿」（`k99TXVIrWbQ9YYSNBnbaFW`）が正で、
 `src/tokens.css` はそれと同じ名前・同じ値で持つ。
 
 | 種類             | Figma                                                                                              | tokens.css                                                                                                          |
