@@ -1,0 +1,146 @@
+import { HttpError, parseProblem } from "@/network/http/error";
+import type {
+  HttpRequest,
+  HttpResponse,
+  RequestBody,
+} from "@/network/http/type";
+import { json } from "@/network/schema";
+import type { SchemaName } from "@/network/schema/type";
+
+const _get = async (
+  params: Omit<HttpRequest, "method">,
+): Promise<HttpResponse> => {
+  return await sendAndResolve({ ...params, method: "GET" });
+};
+
+const _post = async (
+  params: Omit<HttpRequest, "method">,
+): Promise<HttpResponse> => {
+  return await sendAndResolve({ ...params, method: "POST" });
+};
+
+const _put = async (
+  params: Omit<HttpRequest, "method">,
+): Promise<HttpResponse> => {
+  return await sendAndResolve({ ...params, method: "PUT" });
+};
+
+const _delete = async (
+  params: Omit<HttpRequest, "method">,
+): Promise<HttpResponse> => {
+  return await sendAndResolve({ ...params, method: "DELETE" });
+};
+
+const _patch = async (
+  params: Omit<HttpRequest, "method">,
+): Promise<HttpResponse> => {
+  return await sendAndResolve({ ...params, method: "PATCH" });
+};
+
+const sendAndResolve = async (params: HttpRequest): Promise<HttpResponse> => {
+  try {
+    const response = await send({ ...params });
+    return await resolveWithResponse(response);
+  } catch (e: unknown) {
+    return resolveWithError(e);
+  }
+};
+
+const send = async ({
+  url,
+  path,
+  queries,
+  method,
+  headers,
+  requestBody,
+  mode = "cors",
+  cache = "no-store",
+  credentials = "same-origin",
+  timeout = 3000,
+  extension = {},
+}: HttpRequest): Promise<Response> => {
+  const controller = new AbortController();
+  const _timeout = setTimeout(() => {
+    controller.abort();
+  }, timeout);
+  try {
+    const urlValue = new URL(path, url);
+    if (queries) {
+      const _queries = Object.fromEntries(
+        Object.entries(queries).filter(
+          (entry): entry is [string, string] => entry[1] !== undefined,
+        ),
+      );
+      urlValue.search = new URLSearchParams(_queries).toString();
+    }
+    const body = serializeRequestBody(requestBody);
+    return await fetch(urlValue, {
+      method,
+      headers: {
+        "content-type": "application/json",
+        ...headers,
+      },
+      body,
+      signal: controller.signal,
+      mode,
+      cache,
+      credentials,
+      ...extension,
+    });
+  } finally {
+    clearTimeout(_timeout);
+  }
+};
+
+const serializeRequestBody = (requestBody?: RequestBody) => {
+  if (requestBody) {
+    const { serialize } = json;
+    return serialize(requestBody.schema, requestBody.data);
+  }
+  return;
+};
+
+const resolveWithResponse = async (
+  response: Response,
+): Promise<HttpResponse> => {
+  const body = async <N extends SchemaName>(name: N) =>
+    json.validate(name, await response.json());
+  const headers: Record<string, string> = {};
+  response.headers.forEach((value, key) => {
+    headers[key] = value;
+  });
+  if (response.ok) {
+    return {
+      type: "success",
+      code: response.status,
+      headers,
+      body,
+    };
+  }
+  const { detail, traceId } = await parseProblem(response);
+  return {
+    type: "failure",
+    error: new HttpError(response.status, detail, traceId),
+  };
+};
+
+const resolveWithError = (e: unknown): HttpResponse => {
+  if (e instanceof Error) {
+    return {
+      type: "failure",
+      error: e,
+    };
+  }
+  return {
+    type: "failure",
+    error: Error(String(e)),
+  };
+};
+
+export const http = {
+  get: _get,
+  post: _post,
+  put: _put,
+  patch: _patch,
+  delete: _delete,
+};

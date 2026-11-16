@@ -1,0 +1,125 @@
+# @home-expense/ui
+
+家計簿アプリの UI 部品ライブラリです。Next.js から独立していて、Storybook で部品ごとに確認できます。
+
+- デザイン: Figma「家計簿」（コンポーネントページ）
+- トークン: `src/tokens.css`（Figma の変数と同じ値）
+
+## コマンド
+
+```sh
+pnpm storybook        # Storybook を起動（http://localhost:6006）
+pnpm build-storybook  # 静的ビルド
+pnpm lint             # Biome（lint・整形）/ Stylelint / 型チェック
+pnpm fix              # Biome と Stylelint の自動修正
+```
+
+## ルール
+
+- `next/*`（`next/link`・`next/image`・`next/navigation` など）を使わない。リンクが必要な部品は、リンク部品を props で受け取る。
+- データ取得やサーバー処理（server actions）を持たせない。見た目とイベントの受け渡しだけにする。
+- スタイルは CSS Modules と `tokens.css` の CSS 変数で書く。値を直接書かない。
+- 状態を持つ部品には `"use client"` を付ける。
+- React 19 以上が前提。`ref` は props として受け取り、そのまま要素に渡す（`forwardRef` は使わない）。
+- 部品ごとに `*.stories.tsx` を書き、`parameters.design` に対応する Figma のノードの URL を入れる。
+
+## 実装メモ
+
+- Storybook の設定（`.storybook/main.ts`）では、アドオンとフレームワークを絶対パスで指定している。pnpm のモノレポでパッケージを確実に解決するため。
+- 入力欄・プルダウンの高さは `--size-control`（40px）に固定し、上下の余白は付けない。上下に余白を取ると文字の表示領域が 16px しか残らず、Noto Sans JP の文字の上下が欠けるため（文字はブラウザが上下中央に置く）。
+- 無効のプルダウン・入力欄は、ラベルと説明も無効の文字色にする（Figma: 状態=無効）。
+- フォーカスは、部品との間に 2px の隙間を空けて 2px の線（`--focus-ring-offset`・`--focus-ring-width`）。全部品で共通。
+- 集計の部品（`Summary`）は、金額の列の位置（行の左端から 283px、幅 767px 以下では行の半分）を基準にする。合計行・内訳の見出し・内訳行の項目名の幅は、この値から左側にあるもの（余白・アイコン・間隔）を引いて求める。
+- グラフ（`Chart`）の色は項目ごとに固定する（収入=1・支出=2・収支=3）。順位で変えない。3 番は白地とのコントラストが 3:1 未満なので、データ表を必ず併せて出す。`showTable={false}` は、同じ値の表が画面にすでにあるときだけ使う。
+- 棒の一覧（`BarList`）は、項目を多い順に横向きの棒と「金額（割合）」で並べる。HTML だけで描き、サーバーで出せる。系列（`series`）を 2 つ以上渡すと凡例を出し、読み上げでは項目名のあとに系列名を付ける（例：「家賃（固定費）」）。
+  - HOME の支出の多い順では、固定費＝`--color-chart-fixed`（濃紺）、変動費＝`--color-chart-variable`（黄色）。7 つの候補を Figma で見比べて選んだ。2 色どうしは色覚の違いを含めてはっきり見分けられ（ΔE 43）、年間レポートの 3 色（青・オレンジ・緑）とも違う。
+  - 黄色は白地とのコントラストが 3:1 未満（2.2）だが、各行に金額と割合の文字があり、凡例と読み上げで分類も分かるので、値と分類は色に頼らず読める。紫は、色覚によっては収入の青と見分けにくいので使わない。
+- `Chart` はサーバーコンポーネントとして描ける（`"use client"` を付けない）。絵（凡例・目盛り・棒・線・点・データ表）はサーバーで描き、マウス・キーボード・ツールチップ・読み上げは `ChartInteraction`（`"use client"`）が受け持つ。サーバーからクライアントへは関数を渡せないため、ツールチップと読み上げの文言は `Chart` 側で整形した文字列で渡す。
+  - 幅を測らずに描くため、横の位置はすべて割合で指定する。棒は HTML（`max(2px, min(24px, …%))` の幅）、点と目盛りの文字は SVG の `%`、線は `preserveAspectRatio="none"` の入れ子の SVG に描き、`vector-effect: non-scaling-stroke` で太さを保つ。点は楕円にならないよう、入れ子の SVG の外に置く。
+  - 横軸の文字は 640px を想定して間引き、グラフの幅が 520px 以下のときは 1 つおきに隠す（コンテナクエリ）。線の間引きは 400 点を目安にする。
+- `Chart/decimate.ts`（Largest Triangle Three Buckets）と `Chart/scales.ts` は、wc-line-chart の同名のファイルを移植したもの。変更点:
+  - `decimate.ts`: 間引いた点の元の位置（index）を返す。移植元は間引き後の配列を元の x 座標で描くため、間引きが効くと線が左に縮んでいた。
+  - `scales.ts`: 目盛りの範囲に 0 を必ず含める（金額のグラフで 0 を基準にするため）。
+- 金額（`Amount`・`formatYen`）は「12,000円」と書き、￥の記号は使わない。マイナスは「−12,000円」と赤字にする。色だけに頼らず記号も付ける。
+- 金額は右寄せにして一の位をそろえ、大小を比べやすくする。表の金額の列は、見出しと中身の両方に `align="end"`（`TableHeaderCell`・`TableCell`）を付ける。集計（`SummaryRow`・`BreakdownGroup`・`BreakdownItem`）の金額は、幅 `8em` の欄の中で右に寄せ、合計と内訳で右端をそろえる。内訳はカードの内側にあるため、項目名の欄をカードの余白と枠線の分だけ狭める。幅 767px 以下では項目名を残りの幅に広げ、合計の金額の右にカードの余白と枠線の分を空ける。
+- `ErrorMessage` は `role="alert"` を付けて読み上げさせる。入力欄ごとのエラーは `TextInput`・`Select` の `errorMessage` を使う。
+- `SubmitButton` は、親の `<form>` が送信中のあいだ自動で「処理中」になる（React 19 の `useFormStatus`）。
+
+## 並べ替え（Sortable）
+
+ライブラリを使わず、Pointer Events で作っている。表の行をドラッグで並べ替えるときに使う（見本: Storybook の Components/Sortable）。
+
+```tsx
+const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList({
+  items,
+  getId: (item) => item.id,
+  getLabel: (item) => item.name,
+  onReorder: (ids) => save(ids),
+});
+
+<TableRow key={item.id} {...rowProps(item)}>
+  <TableCell><DragHandle {...handleProps(item)} /></TableCell>
+  …
+  <TableCell>
+    <ReorderButtons
+      label={item.name}
+      onMoveUp={() => moveBy(item, -1)}
+      onMoveDown={() => moveBy(item, 1)}
+      canMoveUp={canMove(item, -1)}
+      canMoveDown={canMove(item, 1)}
+    />
+  </TableCell>
+</TableRow>
+<SortableStatus message={announcement} />
+```
+
+- `onReorder(ids, { from, to })` は、並べ替えが確定したときに、新しい ID の並びと、動かす前・動かしたあとの位置（0 始まり）で 1 回だけ呼ばれる（ドラッグを離したとき、キーボードで確定したとき、上へ・下へを押したとき）。並びは呼び出し側が持つ。
+- マウス・タッチ: つまみを押して動かす。ドラッグ中はウィンドウ全体で `pointermove`・`pointerup`・`pointercancel` を受ける（ポインタの捕捉は外れることがあるため、それだけに頼らない）。ボタンが押されていない `pointermove` が来たら（外で離した `pointerup` を受け取れなかったとき）、その位置で離したとみなす。ウィンドウのフォーカスが外れたら取り消す。スクロールする枠の上下の端に近づくと、自動でスクロールする。Esc で取り消す。
+- ドラッグ中は行を動かさず、持っている行を半透明にし、落とす位置に線を出す。行の DOM を動かすと、ポインタの捕捉が外れることがあるため。
+- キーボード: つまみで Space・Enter を押して持ち上げ、↑↓ で動かし、Space・Enter で確定、Esc で取り消す。フォーカスが外れても取り消す。
+- 読み上げ: 持ち上げ・移動・確定・取り消しを `SortableStatus`（`aria-live`）で伝える。
+- 上へ・下へのボタンは、ドラッグせずに 1 回の操作で並べ替える手段（WCAG 2.2 の 2.5.7）。
+- つまみの列の幅は 64px 以上にする（ボタン 28px ＋ セルの左右の余白）。
+- `Toast` は、HTML の Popover API（`<output popover="manual">`）で最前面の層（top layer）に出す。z-index を考えなくても、ダイアログを含むほかの要素の上に出る。`manual` なので、ほかの場所を押しても勝手に閉じない。表示された瞬間の読み上げは読み上げソフトによって違うため、読み上げは別の見えない領域で行う（成功は `role="status"`、エラーは `role="alert"`。トーストの `output` は `aria-live="off"`）。知らせは `{ id, text, tone }` で渡し、同じ文言でも `id` が変われば出し直す。知らせは `useToast` で作る（`success` / `error` / `clear`。`id` は自動で振る）。`tone: "error"` は赤（`--color-danger-surface` / `--color-danger-border` / `--color-danger`）と警告アイコンで出し、自動では消さない。
+- 金額などの整形（`formatYen` / `formatCompact`）は `src/format/format.ts` に置く。部品の入口（`@home-expense/ui`）からも使えるが、Server Action などのサーバー側のコードからは `@home-expense/ui/format` を読む（部品をまとめて読み込まないため）。
+- サーバーコンポーネントからも使えるよう、フックやイベントが要らない部品には `"use client"` を付けない（`Select`・`TextInput` は `useId` だけなので付けない）。
+- `ButtonLink` はボタンの見た目のリンク。画面の移動はボタンではなくリンクにする（新しいタブで開け、URL をコピーできる）。Next.js では `linkComponent={Link}` を渡す。
+- `Pagination` は `hrefFor` を渡すと、ページの番号を `<a href>` で描く（サーバーで描ける）。`onPageChange` だけを渡すと、今までどおりボタンで描く。前・次がないときは `aria-disabled` の `span` にする。
+- `Skeleton` は読み込み中に文字や金額の代わりに出す灰色の帯（`--color-skeleton`）。静止させる。`TextInput`・`Select`・`Button` の `skeleton` は、読み込み中の軽い見た目（白地・通常の枠線・無効の文字色、操作できない）。
+- `LoadError` はデータを読み込めないとき・見つからないときに、データが入るはずの枠の中に出す（アイコン・文言・`action` のボタンやリンク、`role="alert"`）。
+- 文字の色（`--color-text`、#636363）は、白地と水色の背景（選択中・押下中を含む）の上で 4.5:1 以上になる色にする。入力欄の枠線（`--color-input-border`、#8c8c8c）は、白地と 3:1 以上にする（WCAG 1.4.11）。表やカードの枠線（`--color-border`）は飾りなので対象外。
+- サイドバーの選択中の項目は、背景色に加えて太字にする（色だけに頼らない）。
+- 表のセルは省略せずに折り返す。表は最小幅 880px で、狭い画面では表の部分（`aria-label` 付きの `section`、キーボードでもスクロールできるよう `tabIndex=0`）だけを横にスクロールする。ページ送りは折り返す。
+- `Pagination` の前・次の文字を空にしたときは、見えない「前のページ」「次のページ」を入れる。
+- `NavBar` の `start` に、ナビバーの左に置く要素（スマートフォンのメニューのボタン）を渡せる。
+- `src/reset.css` はブラウザの標準のスタイルを打ち消す最小限のリセット。アプリ（`app/src/app/layout.tsx`）と Storybook（`.storybook/preview.ts`）の両方で、`tokens.css` より先に読み込む。設定の根拠は下の「リセット CSS の根拠」を参照。
+
+## リセット CSS の根拠
+
+方針：ブラウザごとの標準のスタイルの差をなくし、見た目を Figma に合わせる。迷う設定は「Figma と同じ見え方になるか」で決める。各設定の出典は 2026 年 11 月に確認した。
+
+| 設定                                                                                    | 理由                                                                                                                                                                                                                                                                                                                                                              | 出典                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 全体を `@layer reset` で包む                                                            | レイヤーに入れていないスタイルは、レイヤーの中のスタイルに必ず勝つ。リセットのセレクタの強さに関係なく、部品の CSS が優先される。`@layer` は 2022 年 3 月から Baseline（主要ブラウザで広く使える）。                                                                                                                                                              | [MDN: @layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer)                                                                                                                                                                                                                                           |
+| すべての要素と疑似要素を `box-sizing: border-box`                                       | 幅と高さに枠線と内側の余白を含める。Figma の部品の大きさ（枠線を含む）と同じ測り方になる。                                                                                                                                                                                                                                                                        | [MDN: box-sizing](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing)、[modern-normalize](https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css)                                                                                                                              |
+| `html` に `-webkit-text-size-adjust: 100%` と `text-size-adjust: 100%`                  | スマートフォンのブラウザが、横向きにしたときなどに文字を勝手に大きくするのを防ぐ。iOS の Safari は接頭辞付きにだけ対応しているため、両方を書く（stylelint の接頭辞の規則は、この行だけ外す）。MDN では実験的な機能で、Baseline ではない（対応しないブラウザでは無視される）。                                                                                     | [MDN: text-size-adjust](https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust)、[MDN の互換性データ](https://github.com/mdn/browser-compat-data/blob/main/css/properties/text-size-adjust.json)、[modern-normalize](https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css) |
+| `html` に `text-autospace: no-autospace`                                                | 漢字・かなと英数字のあいだに自動で空きを入れない。Figma は空きを入れないため。仕様上の初期値は `normal`（空きを入れる）で、2025 年 11 月から Baseline だが、Chrome 157 の初期値は `no-autospace` で、ブラウザによって違う可能性があるため明示する。                                                                                                               | [MDN: text-autospace](https://developer.mozilla.org/en-US/docs/Web/CSS/text-autospace)                                                                                                                                                                                                                           |
+| `body` の `margin: 0`                                                                   | ブラウザが標準で付ける 8px の余白を消す。                                                                                                                                                                                                                                                                                                                         | [modern-normalize](https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css)                                                                                                                                                                                                              |
+| `body` に `-webkit-font-smoothing: antialiased` と `-moz-osx-font-smoothing: grayscale` | macOS のブラウザは、標準では文字の線を太らせて描く。Figma はこれをしないため、同じ文字列を描くとインクの量が Figma より約 24% 多かった。この指定で差が 1% 未満になった。標準外の機能で、MDN は「本番では使わないことを勧める。ただし標準の代わりがない場合は除く」としている。標準の代わりがなく、Figma に合わせる目的で、承知のうえで使う。効くのは macOS だけ。 | [MDN: font-smooth](https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth)                                                                                                                                                                                                                                 |
+| 見出し・段落・`figure`・`blockquote`・`dl`・`dd` の `margin: 0`                         | ブラウザの標準の上下の余白を消し、余白は部品の CSS（トークン）だけで決める。リストの余白と点は意味を持つことがあるので打ち消さず、部品ごとに指定する。                                                                                                                                                                                                            | [WHATWG HTML: Rendering（ブラウザの標準のスタイル）](https://html.spec.whatwg.org/multipage/rendering.html)                                                                                                                                                                                                      |
+| 画像・`picture`・動画・`canvas` を `display: block; max-width: 100%`                    | 行の下にできる隙間をなくし、親より横に広がらないようにする。アイコンの `svg` は文字の行の中に置くことがあるので対象外。                                                                                                                                                                                                                                           | [MDN: display](https://developer.mozilla.org/en-US/docs/Web/CSS/display)                                                                                                                                                                                                                                         |
+| 入力欄・ボタン・`select`・`textarea` の `margin: 0` と `font: inherit`                  | ブラウザはフォーム部品に端末のフォントと 13px 前後の大きさを使い、Firefox と Safari は余白も付けるため。親の文字の設定を受け継がせ、余白を消す。                                                                                                                                                                                                                  | [modern-normalize](https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css)                                                                                                                                                                                                              |
+
+入れなかったもの：
+
+| 設定                                                                                                   | 入れない理由                                                                                                       | 出典                                                                                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `line-break: strict`（行頭禁則を厳しくする）                                                           | Figma には禁則の強さを変える設定がなく、標準の禁則で折り返す。合わせるため、ブラウザの標準（`auto`）のままにする。 | [MDN: line-break](https://developer.mozilla.org/en-US/docs/Web/CSS/line-break)                                                                                                                                           |
+| `word-break: auto-phrase`（日本語を文節で折り返す）                                                    | Chrome と Edge だけが対応し、Firefox と Safari は未対応。Figma も文節で折り返さない。                              | [MDN: word-break](https://developer.mozilla.org/en-US/docs/Web/CSS/word-break)、[Can I use](https://caniuse.com/wf-word-break-auto-phrase)、[Chrome for Developers](https://developer.chrome.com/blog/css-i18n-features) |
+| `text-wrap: balance`・`pretty`                                                                         | Figma は行の長さを揃えない。このアプリの見出しは短く、長い段落もない。                                             | [MDN: text-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap)                                                                                                                                             |
+| `interpolate-size: allow-keywords`                                                                     | Baseline ではない。高さを動かすアニメーションがない。                                                              | [MDN: interpolate-size](https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size)                                                                                                                               |
+| `text-spacing-trim`                                                                                    | 初期値の `normal` で、標準的な約物の詰め方になる。                                                                 | [MDN: text-spacing-trim](https://developer.mozilla.org/en-US/docs/Web/CSS/text-spacing-trim)                                                                                                                             |
+| modern-normalize のそのほかの設定（`b`・`strong`、`sub`・`sup`、検索欄、ファイル選択、`summary` など） | このアプリでは該当する要素を使っていないか、部品ごとに指定している。                                               | [modern-normalize](https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css)                                                                                                                      |
+
+- ボタン（`Button`・`ButtonLink`）は高さ 40px・最小幅 `--size-control-min`（120px）。Figma は枠線を内側に描くので、内側の余白は `--space-300` から枠線の太さを引く（枠線と合わせて 12px）。
+- 行の高さは px で決める（本文・金額 22px、補足 20px、小見出し 24px、見出し 29px、1 行 16px）。Figma は行の高さを行ごとに整数の px に丸めて描くため、割合（140% など）のままだとブラウザと端数がずれ、行が重なるほど差が開く。Figma の文字スタイルも px で持ち、トークンは継承の問題を避けるため単位なしの `calc(行の高さ / 文字の大きさ)` で書く。`check-tokens.mjs` は、この割合と Figma の px を文字の大きさで割った値を比べる。

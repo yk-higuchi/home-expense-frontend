@@ -1,21 +1,77 @@
 .parent {
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: minmax(100px, 25%) 1fr;
+  grid-template-columns: auto 1fr;
+  gap: var(--gap-stack);
+  max-width: 1440px;
+  height: 100vh;
+  margin-inline: auto;
+  padding: var(--space-800);
 }
 
-.dashboard {
+.column {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  /* padding: 3rem 2rem; */
+  flex-direction: column;
+  gap: var(--gap-stack);
+  min-width: 0;
+  min-height: 0;
 }
 
-/* viewコンテンツ背景スタイル */
-.expenseTableBackground {
-  width: 55.6vw;
-  height: 71vh;
-  flex-shrink: 0;
-  background-color: #fff9;
-  border-radius: 15px;
+.content {
+  box-sizing: border-box;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--padding-page);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
+  background-color: var(--color-surface);
+}
+
+.content:focus {
+  outline: none;
+}
+
+.skip {
+  position: absolute;
+  top: var(--space-200);
+  left: var(--space-200);
+  z-index: 20;
+  padding: var(--space-200) var(--space-400);
+  border-radius: var(--radius-200);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+  transform: translateY(-200%);
+}
+
+.skip:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  transform: none;
+}
+
+.menu {
+  min-height: 0;
+}
+
+@media (width <= 767px) {
+  .parent {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    min-height: 100vh;
+    padding: var(--space-400);
+  }
+
+  .column {
+    display: contents;
+  }
+
+  .column > header {
+    order: -1;
+  }
+
+  .content {
+    overflow: visible;
+    padding: var(--space-400);
+  }
 }

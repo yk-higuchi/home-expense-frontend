@@ -1,118 +1,113 @@
-import React, { ReactElement, useState } from "react";
+"use client";
 
-import style from "./expense-table.module.css";
-import { Expenses } from "@/lib/expense";
-import { useDialog } from "@/lib/hooks/dialog";
-import { Pagination } from "@/lib/pagination/pagination";
-import { deleteExpense } from "@/service/expense-service";
-import Dialog from "@/ui/parts/dialog";
+import {
+  Amount,
+  Table,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableEmpty,
+  TableRow,
+  Toast,
+  useToast,
+} from "@home-expense/ui";
+import { useSearchParams } from "next/navigation";
+import type { ReactElement, ReactNode } from "react";
+import type { Expenses } from "@/core/expense";
+import type { Pagination } from "@/core/pagination";
+import { deleteExpense, loadExpenseForDelete } from "@/server/actions/expense";
+import { useEmptyPageFallback } from "@/ui/hooks/use-empty-page-fallback";
+import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";
+import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
+import DeleteDialog from "@/ui/parts/delete-dialog";
+import { useListNavigation } from "@/ui/parts/list-frame";
+import { usePageTransition } from "@/ui/parts/page-transition";
+import savedStyle from "@/ui/parts/saved-row.module.css";
+import { ColumnsHead, EXPENSE_COLUMNS } from "@/ui/parts/table-columns";
 
 interface Props {
   expenses: Expenses;
   pagination: Pagination;
-  onEdit: (id: string) => void;
+  footer?: ReactNode;
+  savedId?: string;
 }
 
 const ExpenseTable = ({
   expenses,
   pagination,
-  onEdit,
+  footer,
+  savedId,
 }: Props): ReactElement => {
-  const { ref, onOpen, onClose } = useDialog();
-  const [expenseId, setExpenseId] = useState("");
-  const rows = expenses.map((value, index) => {
-    const {
-      id,
-      description,
-      price,
-      // attributeId,
-      attributeName,
-      paymentDate,
-      category,
-    } = value;
-    const { page, perPage } = pagination.current;
-    const indexValue = index + 1 + (page - 1) * perPage;
-    const handleEditClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        onEdit(id);
-      }
-    };
-    const handleTrashClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        setExpenseId(id);
-        onOpen();
-      }
-    };
-    const formattedPrice = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(price);
-    return (
-      <tr key={index}>
-        <td className={style.no}>{indexValue}</td>
-        <td className={style.description}>{description}</td>
-        <td className={style.price}>{formattedPrice}</td>
-        <td className={style.paymentDate}>{paymentDate}</td>
-        <td className={style.attribute}>{attributeName}</td>
-        <td className={style.category}>{category}</td>
-        <td className={style.edit}>
-          <div>
-            <button onClick={handleEditClick}>edit</button>
-            <button onClick={handleTrashClick}>delete</button>
-          </div>
-        </td>
-      </tr>
+  const { navigate } = usePageTransition();
+  const searchParams = useSearchParams();
+  const { isPending: loading } = useListNavigation();
+  const onEdit = (id: string): void => {
+    navigate(
+      `/expense/${id}?${new URLSearchParams({ from: searchParams.toString() })}`,
     );
-  });
+  };
+  const saved = useSavedHighlight(savedId, expenses, (row) => row.description);
+  const toast = useToast(saved.notice);
+  const {
+    rows: optimisticExpenses,
+    requestDelete,
+    dialogProps,
+  } = useOptimisticDelete(expenses, (row) => row.description, toast);
+  const { page, perPage } = pagination.current;
+  useEmptyPageFallback("/expense", expenses.length, page);
 
-  const handleCancelClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
-  const handleDeleteClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
   return (
     <>
-      <table className={style.expenseTable}>
-        <thead>
-          <tr>
-            <th className={style.noHeader}>#</th>
-            <th className={style.descriptionHeader}>説明</th>
-            <th className={style.priceHeader}>金額</th>
-            <th className={style.paymentDateHeader}>支払日</th>
-            <th className={style.attributeHeader}>属性名</th>
-            <th className={style.categoryHeader}>分類</th>
-            <th className={style.editHeader}></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-      <Dialog ref={ref} onClick={onClose}>
-        {}
-        <form action={deleteExpense}>
-          <h2>経費の削除</h2>
-          <p>削除したデータは復元できません。削除しますか？</p>
-          <input type="hidden" name="expenseId" value={expenseId} />
-          <button type="button" onClick={handleCancelClick}>
-            キャンセル
-          </button>
-          <button type="submit" onClick={handleDeleteClick}>
-            削除
-          </button>
-        </form>
-      </Dialog>
+      <Table footer={footer} loading={loading}>
+        <ColumnsHead columns={EXPENSE_COLUMNS} />
+        <TableBody>
+          {optimisticExpenses.length === 0 && <TableEmpty colSpan={7} />}
+          {optimisticExpenses.map(
+            (
+              { id, description, amount, attributeName, paymentDate, category },
+              index,
+            ) => {
+              const no = index + 1 + (page - 1) * perPage;
+              return (
+                <TableRow
+                  key={id ?? no}
+                  id={`row-${id}`}
+                  className={
+                    saved.highlightedId === id ? savedStyle.saved : undefined
+                  }
+                >
+                  <TableCell>{no}</TableCell>
+                  <TableCell>{description}</TableCell>
+                  <TableCell align="end">
+                    <Amount value={amount} />
+                  </TableCell>
+                  <TableCell>{paymentDate}</TableCell>
+                  <TableCell>{attributeName}</TableCell>
+                  <TableCell>{category}</TableCell>
+                  <TableCell>
+                    {id && (
+                      <TableActions
+                        onEdit={() => onEdit(id)}
+                        onDelete={() => requestDelete(id)}
+                        editLabel={`${description}を編集`}
+                        deleteLabel={`${description}を削除`}
+                      />
+                    )}
+                  </TableCell>
+                </TableRow>
+              );
+            },
+          )}
+        </TableBody>
+      </Table>
+      <Toast notice={toast.notice} />
+      <DeleteDialog
+        {...dialogProps}
+        loadTarget={loadExpenseForDelete}
+        title="支出の削除"
+        idFieldName="expenseId"
+        action={deleteExpense}
+      />
     </>
   );
 };

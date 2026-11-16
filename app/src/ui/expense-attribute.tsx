@@ -1,114 +1,49 @@
-"use client";
-import { useRouter } from "next/navigation";
-import React, { ChangeEvent, ReactElement, useCallback } from "react";
-
-import { ExpenseAttributes } from "@/lib/expense-attribute";
-import { Pagination } from "@/lib/pagination/pagination";
+import { ButtonLink, PlusIcon } from "@home-expense/ui";
+import Link from "next/link";
+import type { ReactElement } from "react";
+import type { ExpenseAttributes } from "@/core/expense-attribute";
+import CategoryFilter from "@/ui/parts/category-filter";
 import ExpenseAttributeTable from "@/ui/parts/expense-attribute-table";
-import PaginationComponent from "@/ui/parts/pagination-component";
+import ListFrame from "@/ui/parts/list-frame";
+import layout from "@/ui/parts/list-layout.module.css";
+import { LoadFailed } from "@/ui/parts/load-failed";
+import {
+  ErrorTable,
+  EXPENSE_ATTRIBUTE_COLUMNS,
+} from "@/ui/parts/table-columns";
 
 interface Props {
   category: string;
-  expenseAttributes: ExpenseAttributes;
-  pagination: Pagination;
+  list: { expenseAttributes: ExpenseAttributes; version: string } | null;
+  savedId?: string;
 }
 
-const ExpenseAttribute = ({
-  category,
-  expenseAttributes,
-  pagination,
-}: Props): ReactElement => {
-  const router = useRouter();
-  const handleMovePrevious = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        category,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      router.push(`/expense-attribute?${searchParams.toString()}`);
-    },
-    [category, router],
-  );
-
-  const handleMoveNext = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        category,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      router.push(`/expense-attribute?${searchParams.toString()}`);
-    },
-    [category, router],
-  );
-
-  const handleMovePage = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        category,
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      router.push(`/expense-attribute?${searchParams.toString()}`);
-    },
-    [category, router],
-  );
-
-  const handleRegistrationClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>): void => {
-      console.log(event);
-      router.push("/expense-attribute/registration");
-    },
-    [router],
-  );
-
-  const handleEdit = useCallback(
-    (id: string) => {
-      router.push(`/expense-attribute/${id}`);
-    },
-    [router],
-  );
-
-  const handleCategoryChange = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      const searchParams = new URLSearchParams({
-        category: event.currentTarget.value,
-      }).toString();
-      router.push(`/expense-attribute?${searchParams}`);
-    },
-    [router],
-  );
-  return (
-    <div>
-      <select
-        className="category-box"
-        name="category"
-        defaultValue={category}
-        onChange={handleCategoryChange}
-      >
-        <option value="固定費">固定費</option>
-        <option value="変動費">変動費</option>
-      </select>
-      <div className="foo">
-        <div className="foo2">
-          <ExpenseAttributeTable
-            expenseAttributes={expenseAttributes}
-            pagination={pagination}
-            onEdit={handleEdit}
-          />
-        </div>
-        <PaginationComponent
-          pagination={pagination}
-          onMovePrevious={handleMovePrevious}
-          onMoveNext={handleMoveNext}
-          onMovePage={handleMovePage}
-        />
-        <div className="add">
-          <button onClick={handleRegistrationClick}>追加</button>
-        </div>
+const ExpenseAttribute = ({ category, list, savedId }: Props): ReactElement => (
+  <ListFrame>
+    <div className={layout.toolbar}>
+      <CategoryFilter category={category} />
+      <div className={layout.actions}>
+        <ButtonLink
+          href="/expense-attribute/registration"
+          icon={<PlusIcon />}
+          linkComponent={Link}
+        >
+          追加
+        </ButtonLink>
       </div>
     </div>
-  );
-};
+    {list === null ? (
+      <ErrorTable columns={EXPENSE_ATTRIBUTE_COLUMNS}>
+        <LoadFailed />
+      </ErrorTable>
+    ) : (
+      <ExpenseAttributeTable
+        savedId={savedId}
+        expenseAttributes={list.expenseAttributes}
+        version={list.version}
+        category={category}
+      />
+    )}
+  </ListFrame>
+);
 export default ExpenseAttribute;

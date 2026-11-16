@@ -1,0 +1,438 @@
+{
+  "fileKey": "k99TXVIrWbQ9YYSNBnbaFW",
+  "colors": [
+    {
+      "name": "チャート/1（収入）",
+      "css": "--color-chart-1",
+      "ref": "青/500",
+      "hex": "#2a78d6"
+    },
+    {
+      "name": "チャート/2（支出）",
+      "css": "--color-chart-2",
+      "ref": "オレンジ/500",
+      "hex": "#eb6834"
+    },
+    {
+      "name": "チャート/3（収支）",
+      "css": "--color-chart-3",
+      "ref": "緑/500",
+      "hex": "#1baf7a"
+    },
+    {
+      "name": "チャート/グリッド",
+      "css": "--color-chart-grid",
+      "ref": "グレー/50",
+      "hex": "#efefef"
+    },
+    {
+      "name": "チャート/固定費",
+      "css": "--color-chart-fixed",
+      "ref": "濃紺/500",
+      "hex": "#1e3a5f"
+    },
+    {
+      "name": "チャート/基準線",
+      "css": "--color-chart-baseline",
+      "ref": "グレー/300",
+      "hex": "#b3b3b3"
+    },
+    {
+      "name": "チャート/変動費",
+      "css": "--color-chart-variable",
+      "ref": "黄/500",
+      "hex": "#e0a800"
+    },
+    {
+      "name": "フォーカス",
+      "css": "--color-focus-ring",
+      "ref": "グレー/800",
+      "hex": "#3f4a4c"
+    },
+    {
+      "name": "ボタン/Danger/文字",
+      "css": "--color-button-danger-fg",
+      "ref": "赤/900",
+      "hex": "#900b09"
+    },
+    {
+      "name": "ボタン/Danger/背景",
+      "css": "--color-button-danger-bg",
+      "ref": "赤/50",
+      "hex": "#fee9e7"
+    },
+    {
+      "name": "ボタン/Danger/背景（ホバー）",
+      "css": "--color-button-danger-bg-hover",
+      "ref": "赤/100",
+      "hex": "#fdd3d0"
+    },
+    {
+      "name": "ボタン/Danger/背景（押下）",
+      "css": "--color-button-danger-bg-active",
+      "ref": "赤/200",
+      "hex": "#fcb3ad"
+    },
+    {
+      "name": "ボタン/Primary/背景",
+      "css": "--color-button-primary-bg",
+      "ref": "水色/100",
+      "hex": "#e0f2f5"
+    },
+    {
+      "name": "ボタン/Primary/背景（ホバー）",
+      "css": "--color-button-primary-bg-hover",
+      "ref": "水色/200",
+      "hex": "#cbe8ee"
+    },
+    {
+      "name": "ボタン/Primary/背景（押下）",
+      "css": "--color-button-primary-bg-active",
+      "ref": "水色/300",
+      "hex": "#b5dde6"
+    },
+    {
+      "name": "ボタン/Secondary/枠線",
+      "css": "--color-button-secondary-border",
+      "ref": "グレー/100",
+      "hex": "#dedede"
+    },
+    {
+      "name": "ボタン/Secondary/背景",
+      "css": "--color-button-secondary-bg",
+      "ref": "白",
+      "hex": "#ffffff"
+    },
+    {
+      "name": "ボタン/Secondary/背景（ホバー）",
+      "css": "--color-button-secondary-bg-hover",
+      "ref": "水色/50",
+      "hex": "#f2f9fa"
+    },
+    {
+      "name": "ボタン/Secondary/背景（押下）",
+      "css": "--color-button-secondary-bg-active",
+      "ref": "水色/100",
+      "hex": "#e0f2f5"
+    },
+    {
+      "name": "ボタン/Subtle/背景（ホバー）",
+      "css": "--color-button-subtle-bg-hover",
+      "ref": "水色/100",
+      "hex": "#e0f2f5"
+    },
+    {
+      "name": "ボタン/Subtle/背景（押下）",
+      "css": "--color-button-subtle-bg-active",
+      "ref": "水色/150",
+      "hex": "#cfeaf0"
+    },
+    {
+      "name": "ボタン/文字",
+      "css": "--color-button-fg",
+      "ref": "グレー/800",
+      "hex": "#3f4a4c"
+    },
+    {
+      "name": "基本/スクリム",
+      "css": "--color-scrim",
+      "ref": "白/80%",
+      "hex": "#ffffff",
+      "alpha": 0.8
+    },
+    {
+      "name": "基本/スケルトン",
+      "css": "--color-skeleton",
+      "ref": "グレー/50",
+      "hex": "#efefef"
+    },
+    {
+      "name": "基本/ライン",
+      "css": "--color-accent-line",
+      "ref": "水色/400",
+      "hex": "#90e0f1"
+    },
+    {
+      "name": "基本/危険",
+      "css": "--color-danger",
+      "ref": "赤/900",
+      "hex": "#900b09"
+    },
+    {
+      "name": "基本/危険の枠線",
+      "css": "--color-danger-border",
+      "ref": "赤/200",
+      "hex": "#fcb3ad"
+    },
+    {
+      "name": "基本/危険の面",
+      "css": "--color-danger-surface",
+      "ref": "赤/50",
+      "hex": "#fee9e7"
+    },
+    {
+      "name": "基本/文字",
+      "css": "--color-text",
+      "ref": "グレー/700",
+      "hex": "#636363"
+    },
+    {
+      "name": "基本/枠線",
+      "css": "--color-border",
+      "ref": "グレー/100",
+      "hex": "#dedede"
+    },
+    {
+      "name": "基本/背景",
+      "css": "--color-background",
+      "ref": "水色/100",
+      "hex": "#e0f2f5"
+    },
+    {
+      "name": "基本/面",
+      "css": "--color-surface",
+      "ref": "白",
+      "hex": "#ffffff"
+    },
+    {
+      "name": "無効/文字",
+      "css": "--color-text-disabled",
+      "ref": "グレー/300",
+      "hex": "#b3b3b3"
+    },
+    {
+      "name": "無効/枠線",
+      "css": "--color-disabled-border",
+      "ref": "グレー/300",
+      "hex": "#b3b3b3"
+    },
+    {
+      "name": "無効/背景",
+      "css": "--color-disabled-bg",
+      "ref": "グレー/150",
+      "hex": "#d9d9d9"
+    },
+    {
+      "name": "状態/ホバー",
+      "css": "--color-interactive-hover",
+      "ref": "水色/50",
+      "hex": "#f2f9fa"
+    },
+    {
+      "name": "状態/入力欄の枠線",
+      "css": "--color-input-border",
+      "ref": "グレー/500",
+      "hex": "#8c8c8c"
+    },
+    {
+      "name": "状態/入力欄の枠線（ホバー）",
+      "css": "--color-input-border-hover",
+      "ref": "グレー/600",
+      "hex": "#757575"
+    },
+    {
+      "name": "状態/危険（ホバー）",
+      "css": "--color-danger-hover",
+      "ref": "赤/50",
+      "hex": "#fee9e7"
+    },
+    {
+      "name": "状態/危険（押下）",
+      "css": "--color-danger-active",
+      "ref": "赤/100",
+      "hex": "#fdd3d0"
+    },
+    {
+      "name": "状態/押下",
+      "css": "--color-interactive-active",
+      "ref": "水色/200",
+      "hex": "#cbe8ee"
+    },
+    {
+      "name": "状態/選択中",
+      "css": "--color-interactive-selected",
+      "ref": "水色/100",
+      "hex": "#e0f2f5"
+    }
+  ],
+  "sizes": [
+    {
+      "name": "余白/100",
+      "css": "--space-100",
+      "value": 4
+    },
+    {
+      "name": "余白/200",
+      "css": "--space-200",
+      "value": 8
+    },
+    {
+      "name": "余白/300",
+      "css": "--space-300",
+      "value": 12
+    },
+    {
+      "name": "余白/400",
+      "css": "--space-400",
+      "value": 16
+    },
+    {
+      "name": "余白/50",
+      "css": "--space-50",
+      "value": 2
+    },
+    {
+      "name": "余白/600",
+      "css": "--space-600",
+      "value": 24
+    },
+    {
+      "name": "余白/800",
+      "css": "--space-800",
+      "value": 32
+    },
+    {
+      "name": "余白（役割）/まとまりの間",
+      "css": "--gap-section",
+      "ref": "余白/600",
+      "value": 24
+    },
+    {
+      "name": "余白（役割）/カードの内側",
+      "css": "--padding-card",
+      "ref": "余白/600",
+      "value": 24
+    },
+    {
+      "name": "余白（役割）/入力欄の左右",
+      "css": "--padding-control-x",
+      "ref": "余白/400",
+      "value": 16
+    },
+    {
+      "name": "余白（役割）/横並びの間",
+      "css": "--gap-inline",
+      "ref": "余白/200",
+      "value": 8
+    },
+    {
+      "name": "余白（役割）/画面の内側",
+      "css": "--padding-page",
+      "ref": "余白/600",
+      "value": 24
+    },
+    {
+      "name": "余白（役割）/縦の並び",
+      "css": "--gap-stack",
+      "ref": "余白/400",
+      "value": 16
+    },
+    {
+      "name": "大きさ/押す対象（タッチ）",
+      "css": "--size-target-touch",
+      "value": 44
+    },
+    {
+      "name": "大きさ/部品の最小幅",
+      "css": "--size-control-min",
+      "value": 120
+    },
+    {
+      "name": "大きさ/部品の高さ",
+      "css": "--size-control",
+      "value": 40
+    },
+    {
+      "name": "線/フォーカス",
+      "css": "--focus-ring-width",
+      "value": 2
+    },
+    {
+      "name": "線/フォーカスの間隔",
+      "css": "--focus-ring-offset",
+      "value": 2
+    },
+    {
+      "name": "線/枠線",
+      "css": "--border-width",
+      "value": 1
+    },
+    {
+      "name": "角丸/100",
+      "css": "--radius-100",
+      "value": 4
+    },
+    {
+      "name": "角丸/200",
+      "css": "--radius-200",
+      "value": 8
+    }
+  ],
+  "textStyles": [
+    {
+      "name": "文字/小見出し",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 20,
+      "lineHeight": "24px"
+    },
+    {
+      "name": "文字/本文",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": "22px"
+    },
+    {
+      "name": "文字/本文（1行）",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": "16px"
+    },
+    {
+      "name": "文字/補足",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 14,
+      "lineHeight": "20px"
+    },
+    {
+      "name": "文字/見出し",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Bold",
+      "fontSize": 24,
+      "lineHeight": "29px"
+    },
+    {
+      "name": "文字/金額",
+      "fontFamily": "Noto Sans JP",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": "22px"
+    }
+  ],
+  "effectStyles": [
+    {
+      "name": "影/浮き上がり",
+      "shadows": [
+        {
+          "x": 0,
+          "y": 1,
+          "blur": 4,
+          "spread": 0,
+          "hex": "#0c0c0d",
+          "alpha": 0.05
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "blur": 4,
+          "spread": 0,
+          "hex": "#0c0c0d",
+          "alpha": 0.1
+        }
+      ]
+    }
+  ]
+}

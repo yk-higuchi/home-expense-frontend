@@ -1,0 +1,15 @@
+.chart {
+  height: 232px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  padding-block: var(--space-100);
+}
+
+.bars > * {
+  display: block;
+  margin-block: 5px;
+}

@@ -1,0 +1,40 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: biome (app)
+      root: "app/"
+      glob: "*.{js,mjs,ts,tsx,json,jsonc,css,md}"
+      run: node_modules/.bin/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+      stage_fixed: true
+    - name: biome (ui)
+      root: "packages/ui/"
+      glob: "*.{js,mjs,ts,tsx,json,jsonc,css,md}"
+      run: node_modules/.bin/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+      stage_fixed: true
+    - name: stylelint (app)
+      root: "app/"
+      glob: "*.css"
+      run: node_modules/.bin/stylelint --fix {staged_files}
+      stage_fixed: true
+    - name: stylelint (ui)
+      root: "packages/ui/"
+      glob: "*.css"
+      run: node_modules/.bin/stylelint --fix {staged_files}
+      stage_fixed: true
+    - name: markdownlint
+      glob: "*.md"
+      run: node_modules/.bin/markdownlint-cli2 {staged_files}
+    - name: yamllint
+      glob: "*.{yaml,yml}"
+      run: yamllint --strict {staged_files}
+    - name: actionlint
+      glob: ".github/workflows/*.{yaml,yml}"
+      run: actionlint {staged_files}
+    - name: hadolint
+      glob: "*Dockerfile"
+      run: hadolint {staged_files}
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: node_modules/.bin/commitlint --edit {1}

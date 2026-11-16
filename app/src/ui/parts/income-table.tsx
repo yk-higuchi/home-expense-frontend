@@ -1,111 +1,112 @@
-import React, { ReactElement, useState } from "react";
+"use client";
 
-import style from "./expense-table.module.css";
-import { useDialog } from "@/lib/hooks/dialog";
-import { Incomes } from "@/lib/income";
-import { Pagination } from "@/lib/pagination/pagination";
-import { deleteIncome } from "@/service/income-service";
-import Dialog from "@/ui/parts/dialog";
+import {
+  Amount,
+  Table,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableEmpty,
+  TableRow,
+  Toast,
+  useToast,
+} from "@home-expense/ui";
+import { useSearchParams } from "next/navigation";
+import type { ReactElement, ReactNode } from "react";
+import type { Incomes } from "@/core/income";
+import type { Pagination } from "@/core/pagination";
+import { deleteIncome, loadIncomeForDelete } from "@/server/actions/income";
+import { useEmptyPageFallback } from "@/ui/hooks/use-empty-page-fallback";
+import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";
+import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
+import DeleteDialog from "@/ui/parts/delete-dialog";
+import { useListNavigation } from "@/ui/parts/list-frame";
+import { usePageTransition } from "@/ui/parts/page-transition";
+import savedStyle from "@/ui/parts/saved-row.module.css";
+import { ColumnsHead, INCOME_COLUMNS } from "@/ui/parts/table-columns";
 
 interface Props {
   incomes: Incomes;
   pagination: Pagination;
-  onEdit: (id: string) => void;
+  footer?: ReactNode;
+  savedId?: string;
 }
 
-const IncomeTable = ({ incomes, pagination, onEdit }: Props): ReactElement => {
-  const { ref, onOpen, onClose } = useDialog();
-  const [incomeId, setIncomeId] = useState("");
-  const rows = incomes.map((value, index) => {
-    const {
-      id,
-      description,
-      amount,
-      // attributeId,
-      attributeName,
-      receiveDate,
-    } = value;
-    const { page, perPage } = pagination.current;
-    const indexValue = index + 1 + (page - 1) * perPage;
-    const handleEditClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        onEdit(id);
-      }
-    };
-    const handleTrashClick = (
-      event: React.MouseEvent<HTMLButtonElement>,
-    ): void => {
-      console.log(event);
-      if (id) {
-        setIncomeId(id);
-        onOpen();
-      }
-    };
-    const formattedPrice = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(amount);
-    return (
-      <tr key={index}>
-        <td className={style.no}>{indexValue}</td>
-        <td className={style.description}>{description}</td>
-        <td className={style.price}>{formattedPrice}</td>
-        <td className={style.paymentDate}>{receiveDate}</td>
-        <td className={style.attribute}>{attributeName}</td>
-        <td className={style.edit}>
-          <div>
-            <button onClick={handleEditClick}>edit</button>
-            <button onClick={handleTrashClick}>delete</button>
-          </div>
-        </td>
-      </tr>
+const IncomeTable = ({
+  incomes,
+  pagination,
+  footer,
+  savedId,
+}: Props): ReactElement => {
+  const { navigate } = usePageTransition();
+  const searchParams = useSearchParams();
+  const { isPending: loading } = useListNavigation();
+  const onEdit = (id: string): void => {
+    navigate(
+      `/income/${id}?${new URLSearchParams({ from: searchParams.toString() })}`,
     );
-  });
+  };
+  const saved = useSavedHighlight(savedId, incomes, (row) => row.description);
+  const toast = useToast(saved.notice);
+  const {
+    rows: optimisticIncomes,
+    requestDelete,
+    dialogProps,
+  } = useOptimisticDelete(incomes, (row) => row.description, toast);
+  const { page, perPage } = pagination.current;
+  useEmptyPageFallback("/income", incomes.length, page);
 
-  const handleCancelClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
-  const handleDeleteClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
-    console.log(event);
-    onClose();
-  };
   return (
     <>
-      <table className={style.expenseTable}>
-        <thead>
-          <tr>
-            <th className={style.noHeader}>#</th>
-            <th className={style.descriptionHeader}>説明</th>
-            <th className={style.priceHeader}>金額</th>
-            <th className={style.paymentDateHeader}>受取日</th>
-            <th className={style.attributeHeader}>属性名</th>
-            <th className={style.editHeader}></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-      <Dialog ref={ref} onClick={onClose}>
-        {}
-        <form action={deleteIncome}>
-          <h2>収入の削除</h2>
-          <p>削除したデータは復元できません。削除しますか？</p>
-          <input type="hidden" name="incomeId" value={incomeId} />
-          <button type="button" onClick={handleCancelClick}>
-            キャンセル
-          </button>
-          <button type="submit" onClick={handleDeleteClick}>
-            削除
-          </button>
-        </form>
-      </Dialog>
+      <Table footer={footer} loading={loading}>
+        <ColumnsHead columns={INCOME_COLUMNS} />
+        <TableBody>
+          {optimisticIncomes.length === 0 && <TableEmpty colSpan={6} />}
+          {optimisticIncomes.map(
+            (
+              { id, description, amount, attributeName, receiveDate },
+              index,
+            ) => {
+              const no = index + 1 + (page - 1) * perPage;
+              return (
+                <TableRow
+                  key={id ?? no}
+                  id={`row-${id}`}
+                  className={
+                    saved.highlightedId === id ? savedStyle.saved : undefined
+                  }
+                >
+                  <TableCell>{no}</TableCell>
+                  <TableCell>{description}</TableCell>
+                  <TableCell align="end">
+                    <Amount value={amount} />
+                  </TableCell>
+                  <TableCell>{receiveDate}</TableCell>
+                  <TableCell>{attributeName}</TableCell>
+                  <TableCell>
+                    {id && (
+                      <TableActions
+                        onEdit={() => onEdit(id)}
+                        onDelete={() => requestDelete(id)}
+                        editLabel={`${description}を編集`}
+                        deleteLabel={`${description}を削除`}
+                      />
+                    )}
+                  </TableCell>
+                </TableRow>
+              );
+            },
+          )}
+        </TableBody>
+      </Table>
+      <Toast notice={toast.notice} />
+      <DeleteDialog
+        {...dialogProps}
+        loadTarget={loadIncomeForDelete}
+        title="収入の削除"
+        idFieldName="incomeId"
+        action={deleteIncome}
+      />
     </>
   );
 };

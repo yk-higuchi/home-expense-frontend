@@ -1,33 +1,32 @@
-import { ReactElement } from "react";
-
-import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { isExpenseAttributeCategory } from "@/core/expense-attribute";
+import { getExpenseAttributes } from "@/server/queries/expense-attribute";
+import { load } from "@/server/queries/load";
 import ExpenseAttribute from "@/ui/expense-attribute";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "支出属性一覧",
+};
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     category?: string;
-    page: number;
-    perPage: number;
-  };
+    saved?: string;
+  }>;
 }
 
-const ExpenseAttributePage = async ({
-  searchParams,
-}: Props): Promise<ReactElement> => {
-  const { page = 1, perPage = 20, category = "固定費" } = searchParams;
-  console.log(page, perPage);
-  const { expenseAttributes, pagination } = await getExpenseAttributeSummary({
-    category,
-    page,
-    perPage,
-    tag: "expense-attribute",
-  });
+const ExpenseAttributePage = async (props: Props): Promise<ReactElement> => {
+  const { category: requested, saved } = await props.searchParams;
+  const category = isExpenseAttributeCategory(requested) ? requested : "固定費";
+  const loaded = await load(() => getExpenseAttributes({ category }));
   return (
     <ExpenseAttribute
       category={category}
-      expenseAttributes={expenseAttributes}
-      pagination={pagination}
+      list={loaded.ok ? loaded.value : null}
+      savedId={saved}
     />
   );
 };
-export default ExpenseAttributePage;
+export default withHeading("支出属性一覧", ExpenseAttributePage);

@@ -1,0 +1,22 @@
+{
+  "name": "home-expense-frontend-workspace",
+  "private": true,
+  "packageManager": "pnpm@12.21.0",
+  "scripts": {
+    "lint": "pnpm -r lint && pnpm lint:knip",
+    "lint:knip": "knip",
+    "fix": "pnpm -r fix",
+    "storybook": "pnpm --filter @home-expense/ui storybook",
+    "build-storybook": "pnpm --filter @home-expense/ui build-storybook",
+    "test:a11y": "pnpm build-storybook && playwright test --project=storybook",
+    "test:e2e": "playwright test --project=app"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
+    "@playwright/test": "1.65.1",
+    "knip": "6.45.1",
+    "markdownlint-cli2": "0.24.0"
+  }
+}

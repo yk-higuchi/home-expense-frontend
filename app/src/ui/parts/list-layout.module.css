@@ -1,0 +1,43 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-stack);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--gap-inline);
+}
+
+.yearFilter,
+.monthFilter {
+  width: var(--size-control-min);
+}
+
+.categoryFilter {
+  width: 152px;
+}
+
+.attributeFilter {
+  width: 200px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gap-stack);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.actions > button {
+  min-width: var(--size-control-min);
+}

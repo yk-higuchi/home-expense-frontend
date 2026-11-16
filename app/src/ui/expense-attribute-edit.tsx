@@ -1,8 +1,7 @@
-"use client";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import { ExpenseAttribute } from "@/lib/expense-attribute";
-import { updateExpenseAttribute } from "@/service/expense-attribute-service";
+import type { ExpenseAttribute } from "@/core/expense-attribute";
+import { updateExpenseAttribute } from "@/server/actions/expense-attribute";
 import ExpenseAttributeForm from "@/ui/parts/expense-attribute-form";
 
 interface Props {
@@ -13,7 +12,7 @@ const ExpenseAttributeEdit = ({ expenseAttribute }: Props): ReactElement => {
   return (
     <ExpenseAttributeForm
       expenseAttribute={expenseAttribute}
-      onSubmit={updateExpenseAttribute}
+      action={updateExpenseAttribute}
       buttonTitle="更新"
     />
   );

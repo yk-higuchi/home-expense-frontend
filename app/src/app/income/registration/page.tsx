@@ -1,14 +1,22 @@
-import { ReactElement } from "react";
-
-import { getIncomeAttributeSummary } from "@/service/income-attribute-service";
+import type { Metadata } from "next";
+import { connection } from "next/server";
+import type { ReactElement } from "react";
+import { getIncomeAttributes } from "@/server/queries/income-attribute";
+import { load } from "@/server/queries/load";
 import IncomeRegistration from "@/ui/income-registration";
+import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "収入登録",
+};
 
 const IncomeRegistrationPage = async (): Promise<ReactElement> => {
-  const { incomeAttributes } = await getIncomeAttributeSummary({
-    page: 1,
-    perPage: 100,
-    tag: `income-attribute`,
-  });
-  return <IncomeRegistration incomeAttributes={incomeAttributes} />;
+  await connection();
+  const loaded = await load(() => getIncomeAttributes());
+  if (!loaded.ok) return <FormLoadFailed />;
+  return (
+    <IncomeRegistration incomeAttributes={loaded.value.incomeAttributes} />
+  );
 };
-export default IncomeRegistrationPage;
+export default withHeading("収入登録", IncomeRegistrationPage);

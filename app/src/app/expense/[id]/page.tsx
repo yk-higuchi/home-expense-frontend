@@ -1,33 +1,47 @@
-import { ReactElement } from "react";
-
-import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
-import { getExpense } from "@/service/expense-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { getExpense } from "@/server/queries/expense";
+import { getExpenseAttributes } from "@/server/queries/expense-attribute";
+import { load } from "@/server/queries/load";
 import ExpenseEdit from "@/ui/expense-edit";
+import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "支出編集",
+};
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
-  searchParams: {
-    category: string;
-  };
+  }>;
+  searchParams: Promise<{
+    category?: string;
+    from?: string;
+  }>;
 }
 
-const ExpenseEditPage = async ({
-  params,
-  searchParams,
-}: Props): Promise<ReactElement> => {
+const ExpenseEditPage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const { id } = params;
-  const expense = await getExpense({ id, tag: `expense-${id}` });
-  const { category = expense.category } = searchParams;
-  const { expenseAttributes } = await getExpenseAttributeSummary({
-    category,
-    page: 1,
-    perPage: 100,
-    tag: `expense-attribute-${category}`,
-  });
+  const loaded = await load(
+    async () => {
+      const expense = await getExpense({ id, tag: `expense-${id}` });
+      const { category = expense.category } = searchParams;
+      const { expenseAttributes } = await getExpenseAttributes({ category });
+      return { expense, expenseAttributes };
+    },
+    { notFoundOn404: true },
+  );
+  if (!loaded.ok) return <FormLoadFailed />;
+  const { expense, expenseAttributes } = loaded.value;
   return (
-    <ExpenseEdit expense={expense} expenseAttributes={expenseAttributes} />
+    <ExpenseEdit
+      expense={expense}
+      expenseAttributes={expenseAttributes}
+      returnTo={searchParams.from}
+    />
   );
 };
-export default ExpenseEditPage;
+export default withHeading("支出編集", ExpenseEditPage);

@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ReactElement, useCallback } from "react";
+import type { ReactElement } from "react";
 
-import { ExpenseAttributes } from "@/lib/expense-attribute";
-import { registerExpense } from "@/service/expense-service";
+import type { ExpenseAttributes } from "@/core/expense-attribute";
+import { registerExpense } from "@/server/actions/expense";
 import ExpenseForm from "@/ui/parts/expense-form";
 
 interface Props {
@@ -13,20 +13,17 @@ interface Props {
 
 const ExpenseRegistration = ({ expenseAttributes }: Props): ReactElement => {
   const router = useRouter();
-  const handleCategoryChange = useCallback(
-    (category: string) => {
-      const searchParams = new URLSearchParams({
-        category,
-      }).toString();
-      router.push(`/expense/registration?${searchParams}`);
-    },
-    [router],
-  );
+  const handleCategoryChange = (category: string) => {
+    const searchParams = new URLSearchParams({
+      category,
+    }).toString();
+    router.push(`/expense/registration?${searchParams}`);
+  };
   return (
     <ExpenseForm
       expenseAttributes={expenseAttributes}
       onCategoryChange={handleCategoryChange}
-      onSubmit={registerExpense}
+      action={registerExpense}
       buttonTitle="登録"
     />
   );

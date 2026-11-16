@@ -1,24 +1,28 @@
-"use client";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import { Income } from "@/lib/income";
-import { IncomeAttributes } from "@/lib/income-attribute";
-import { updateIncome } from "@/service/income-service";
+import type { Income } from "@/core/income";
+import type { IncomeAttributes } from "@/core/income-attribute";
+import { updateIncome } from "@/server/actions/income";
 import IncomeForm from "@/ui/parts/income-form";
 
 interface Props {
   income: Income;
   incomeAttributes: IncomeAttributes;
+  returnTo?: string;
 }
 
-const IncomeEdit = ({ income, incomeAttributes }: Props): ReactElement => {
-  console.log(income);
+const IncomeEdit = ({
+  income,
+  incomeAttributes,
+  returnTo,
+}: Props): ReactElement => {
   return (
     <IncomeForm
       income={income}
       incomeAttributes={incomeAttributes}
-      onSubmit={updateIncome}
+      action={updateIncome}
       buttonTitle="更新"
+      returnTo={returnTo}
     />
   );
 };

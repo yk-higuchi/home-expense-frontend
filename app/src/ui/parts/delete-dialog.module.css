@@ -1,0 +1,29 @@
+.details {
+  display: grid;
+  gap: var(--space-100);
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 6em minmax(0, 1fr);
+  gap: var(--gap-inline);
+}
+
+.detail dt,
+.detail dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.loading {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}

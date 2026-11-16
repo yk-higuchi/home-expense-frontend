@@ -1,23 +1,45 @@
-import { ReactElement } from "react";
-
-import { getIncomeAttributeSummary } from "@/service/income-attribute-service";
-import { getIncome } from "@/service/income-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { getIncome } from "@/server/queries/income";
+import { getIncomeAttributes } from "@/server/queries/income-attribute";
+import { load } from "@/server/queries/load";
 import IncomeEdit from "@/ui/income-edit";
+import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "収入編集",
+};
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
+  searchParams: Promise<{
+    from?: string;
+  }>;
 }
 
-const IncomeEditPage = async ({ params }: Props): Promise<ReactElement> => {
+const IncomeEditPage = async (props: Props): Promise<ReactElement> => {
+  const params = await props.params;
   const { id } = params;
-  const income = await getIncome({ id, tag: `income-${id}` });
-  const { incomeAttributes } = await getIncomeAttributeSummary({
-    page: 1,
-    perPage: 100,
-    tag: `income-attribute`,
-  });
-  return <IncomeEdit income={income} incomeAttributes={incomeAttributes} />;
+  const loaded = await load(
+    async () => {
+      const income = await getIncome({ id, tag: `income-${id}` });
+      const { incomeAttributes } = await getIncomeAttributes();
+      return { income, incomeAttributes };
+    },
+    { notFoundOn404: true },
+  );
+  if (!loaded.ok) return <FormLoadFailed />;
+  const { income, incomeAttributes } = loaded.value;
+  const { from } = await props.searchParams;
+  return (
+    <IncomeEdit
+      income={income}
+      incomeAttributes={incomeAttributes}
+      returnTo={from}
+    />
+  );
 };
-export default IncomeEditPage;
+export default withHeading("収入編集", IncomeEditPage);

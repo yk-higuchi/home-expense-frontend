@@ -1,60 +1,79 @@
-/*
-  * HOME 画面CSS *
-*/
-
-/* テキスト設定 */
-.textStyle {
-  color: var(--textcolor);
-  text-align: left;
-
-  /* サイドバー文字スタイル */
-  font-family: var(--font-noto-sans-jp);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin: 20px;
-}
-
-/* 月選択カレンダースタイル */
-.yearMonth {
-  margin-top: 10px;
-  font-size: 17px;
-}
-
-/* labelスタイル */
-.labelStyale {
+.page {
   display: flex;
-  width: 45vw;
-  height: 3vh;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  /* 線スタイル */
-  border-bottom: 5px solid var(--linecolor);
-
-  /* 文字スタイル */
-  font-size: 23px;
-
-  /* font-weight:bold;  */
+  flex-direction: column;
+  gap: var(--gap-stack);
 }
 
-/* 内訳スタイル */
-.amountStyle {
-  width: 45vw;
-  height: 52vh;
-
-  /* justify-content: space-between; */
-  border-radius: 15px;
-  border: 1px solid #dedede;
-  background: #fff;
+.content,
+.pending {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-stack);
+  transition: opacity 120ms ease 200ms;
 }
 
-/* 内訳明細スタイル */
-.expensesStyle {
-  font-size: 18px;
-  max-height: 28vh;
-  overflow-y: scroll;
-  margin-left: 20px;
+.pending {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-stack);
+  min-width: 0;
+}
+
+@media (width >= 1280px) {
+  .page {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .content,
+  .pending {
+    display: grid;
+    flex: 1;
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: minmax(440px, 1fr) minmax(320px, 1fr);
+    min-height: 0;
+  }
+
+  .content > :only-child,
+  .pending > :only-child {
+    grid-column: 1 / -1;
+  }
+
+  .main {
+    min-height: 0;
+  }
+
+  .breakdown {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .ranking {
+    align-self: start;
+    max-height: 100%;
+    min-height: 0;
+  }
+
+  .rankingScroll {
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .rankingScroll:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .pending {
+    transition: none;
+  }
 }

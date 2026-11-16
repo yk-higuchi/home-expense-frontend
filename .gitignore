@@ -23,7 +23,6 @@ jspm_packages/
 web_modules/
 *.tsbuildinfo
 .npm
-.eslintcache
 .stylelintcache
 .rpt2_cache/
 .rts2_cache_cjs/
@@ -57,3 +56,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .idea/
+
+# AI エージェント向けのローカルのメモ
+app/AGENTS.md
+
+test-results/
+playwright-report/
+
+# Python の仮想環境（yamllint）
+.venv/

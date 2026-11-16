@@ -1,0 +1,91 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  min-width: var(--size-control-min);
+  font-family: var(--font-family-base);
+}
+
+.label {
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.field:has(.control:disabled) .label,
+.field:has(.control:disabled) .description {
+  color: var(--color-text-disabled);
+}
+
+.field:has(.control[data-skeleton]) .label {
+  color: var(--color-text);
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-line-height);
+}
+
+.control {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--size-control);
+  margin: 0;
+  padding: 0 var(--padding-control-x);
+  border: var(--border-width) solid var(--color-input-border);
+  border-radius: var(--radius-200);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  line-height: normal;
+  transition: border-color 120ms ease;
+}
+
+.control:disabled {
+  border-color: var(--color-disabled-border);
+  background-color: var(--color-disabled-bg);
+  color: var(--color-text-disabled);
+}
+
+.control[data-skeleton]:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-disabled);
+  cursor: progress;
+  cursor: not-allowed;
+}
+
+.control[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.control:focus-visible {
+  border-color: var(--color-focus-ring);
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.control[aria-invalid="true"]:focus-visible {
+  border-color: var(--color-danger);
+  outline-color: var(--color-danger);
+}
+
+.control:hover:not(:disabled, :focus-visible, [aria-invalid="true"]) {
+  border-color: var(--color-input-border-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control {
+    transition: none;
+  }
+}

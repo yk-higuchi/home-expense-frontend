@@ -1,9 +1,7 @@
-"use client";
+import type { ReactElement } from "react";
 
-import { ReactElement } from "react";
-
-import { IncomeAttributes } from "@/lib/income-attribute";
-import { registerIncome } from "@/service/income-service";
+import type { IncomeAttributes } from "@/core/income-attribute";
+import { registerIncome } from "@/server/actions/income";
 import IncomeForm from "@/ui/parts/income-form";
 
 interface Props {
@@ -14,7 +12,7 @@ const IncomeRegistration = ({ incomeAttributes }: Props): ReactElement => {
   return (
     <IncomeForm
       incomeAttributes={incomeAttributes}
-      onSubmit={registerIncome}
+      action={registerIncome}
       buttonTitle="登録"
     />
   );

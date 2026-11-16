@@ -1,67 +1,65 @@
-import { ReactElement } from "react";
-
-import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
-import { getExpenseAttributeSummary } from "@/service/expense-attribute-service";
-import { getExpenseSummary } from "@/service/expense-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { isExpenseAttributeCategory } from "@/core/expense-attribute";
+import { getExpenseSummary } from "@/server/queries/expense";
+import { getExpenseAttributes } from "@/server/queries/expense-attribute";
+import { load } from "@/server/queries/load";
 import Expense from "@/ui/expense";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "支出一覧",
+};
 
 interface Props {
-  searchParams: {
-    page: number;
-    perPage: number;
-    year?: number;
-    month?: number;
+  searchParams: Promise<{
+    page?: string;
+    per_page?: string;
+    year?: string;
+    month?: string;
     category?: string;
     attributeId?: string;
-  };
+    saved?: string;
+  }>;
 }
 
-const ExpensePage = async ({ searchParams }: Props): Promise<ReactElement> => {
-  const {
-    page = 1,
-    perPage = 20,
-    year,
-    month,
-    category,
-    attributeId,
-  } = searchParams;
+const ExpensePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
+  const page = Number(searchParams.page) || 1;
+  const perPage = Number(searchParams.per_page) || 20;
+  const year = Number(searchParams.year) || new Date(Date.now()).getFullYear();
+  const month = Number(searchParams.month) || undefined;
+  const { category, attributeId } = searchParams;
   const _category = isExpenseAttributeCategory(category) ? category : undefined;
-  const getExpenseAttributeIfCategoryExists = async () => {
-    if (_category) {
-      const { expenseAttributes } = await getExpenseAttributeSummary({
+  const loaded = await load(() =>
+    Promise.all([
+      _category
+        ? getExpenseAttributes({ category: _category }).then(
+            ({ expenseAttributes }) => expenseAttributes,
+          )
+        : Promise.resolve([]),
+      getExpenseSummary({
+        page,
+        perPage,
+        year,
+        month,
         category: _category,
-        page: 1,
-        perPage: 100,
-        tag: `expense-expense-attribute-${page}-${perPage}-${_category}`,
-      });
-      return expenseAttributes;
-    }
-    return [];
-  };
-  const expenseAttributes = await getExpenseAttributeIfCategoryExists();
-  console.log(page, perPage);
-  const { expenses, pagination } = await getExpenseSummary({
-    page,
-    perPage,
-    year,
-    month,
-    category: _category,
-    attributeId,
-    tag: `expense-${page}-${perPage}-${year}-${month}-${category}-${attributeId}`,
-  });
-  console.log(pagination);
-  console.log(month);
-  console.log(crypto.randomUUID());
+        attributeId,
+        tag: `expense-${page}-${perPage}-${year}-${month}-${category}-${attributeId}`,
+      }),
+    ]),
+  );
+  const [expenseAttributes, list] = loaded.ok ? loaded.value : [[], null];
   return (
     <Expense
-      expenses={expenses}
-      pagination={pagination}
+      list={list}
       year={year}
       month={month}
       category={_category}
       expenseAttributes={expenseAttributes}
       attributeId={attributeId}
+      savedId={searchParams.saved}
     />
   );
 };
-export default ExpensePage;
+export default withHeading("支出一覧", ExpensePage);

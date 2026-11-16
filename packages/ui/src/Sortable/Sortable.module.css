@@ -1,0 +1,110 @@
+.handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-100);
+  border: none;
+  border-radius: var(--radius-200);
+  background: transparent;
+  color: var(--color-text);
+  cursor: grab;
+  touch-action: none;
+  transition: background-color 120ms ease;
+}
+
+.handle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.handle:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.handle:not(:disabled):hover {
+  background-color: var(--color-button-subtle-bg-hover);
+}
+
+.handle:not(:disabled):active,
+.handle[aria-pressed="true"] {
+  background-color: var(--color-button-subtle-bg-active);
+  cursor: grabbing;
+}
+
+.moveButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-50);
+}
+
+.moveButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-100);
+  border: none;
+  border-radius: var(--radius-100);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.moveButton:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.moveButton:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.moveButton:not(:disabled):hover {
+  background-color: var(--color-button-subtle-bg-hover);
+}
+
+.moveButton:not(:disabled):active {
+  background-color: var(--color-button-subtle-bg-active);
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.dropBefore > * {
+  box-shadow: inset 0 var(--focus-ring-width) 0 var(--color-focus-ring);
+}
+
+.dropAfter > * {
+  box-shadow: inset 0 calc(var(--focus-ring-width) * -1) 0
+    var(--color-focus-ring);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+  .handle,
+  .moveButton {
+    min-width: var(--size-target-touch);
+    min-height: var(--size-target-touch);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handle,
+  .moveButton {
+    transition: none;
+  }
+}

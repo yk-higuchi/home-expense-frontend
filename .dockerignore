@@ -1,0 +1,9 @@
+**/node_modules
+**/.next
+**/storybook-static
+**/*.log
+**/*.tsbuildinfo
+**/.env*
+.git
+.github
+app/AGENTS.md

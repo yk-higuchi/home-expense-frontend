@@ -1,22 +1,31 @@
-import { ReactElement } from "react";
-
-import { getExpenseAttribute } from "@/service/expense-attribute-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { getExpenseAttribute } from "@/server/queries/expense-attribute";
+import { load } from "@/server/queries/load";
 import ExpenseAttributeEdit from "@/ui/expense-attribute-edit";
+import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "支出属性編集",
+};
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const ExpenseAttributeEditPage = async ({
-  params,
-}: Props): Promise<ReactElement> => {
+const ExpenseAttributeEditPage = async (
+  props: Props,
+): Promise<ReactElement> => {
+  const params = await props.params;
   const { id } = params;
-  const expenseAttribute = await getExpenseAttribute({
-    id,
-    tag: `expense-attribute-${id}`,
-  });
-  return <ExpenseAttributeEdit expenseAttribute={expenseAttribute} />;
+  const loaded = await load(
+    () => getExpenseAttribute({ id, tag: `expense-attribute-${id}` }),
+    { notFoundOn404: true },
+  );
+  if (!loaded.ok) return <FormLoadFailed />;
+  return <ExpenseAttributeEdit expenseAttribute={loaded.value} />;
 };
-export default ExpenseAttributeEditPage;
+export default withHeading("支出属性編集", ExpenseAttributeEditPage);

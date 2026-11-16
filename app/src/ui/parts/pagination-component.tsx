@@ -1,73 +1,33 @@
-import { ReactElement } from "react";
-
-import style from "./pagination-component.module.css";
-import { paginate, Pagination } from "@/lib/pagination/pagination";
+import { Pagination as PaginationNav } from "@home-expense/ui";
+import type { ReactElement } from "react";
+import type { Pagination } from "@/core/pagination";
+import { LIST_LINK } from "@/ui/parts/list-link";
 
 interface Props {
   pagination: Pagination;
-  onMovePrevious: (page: number, perPage: number) => void;
-  onMoveNext: (page: number, perPage: number) => void;
-  onMovePage: (page: number, perPage: number) => void;
+  path: string;
+  query: Record<string, string>;
 }
 
 const PaginationComponent = ({
   pagination,
-  onMovePrevious,
-  onMoveNext,
-  onMovePage,
+  path,
+  query,
 }: Props): ReactElement => {
-  console.log(pagination);
-  const items = paginate(pagination);
-  console.log(items);
-  const { previous, next, current } = pagination;
-  const handlePreviousClick = (): void => {
-    if (previous) {
-      console.log(previous);
-      const { page, perPage } = previous;
-      onMovePrevious(page, perPage);
-    }
-  };
-
-  const handleNextClick = (): void => {
-    if (next) {
-      console.log(next);
-      const { page, perPage } = next;
-      onMoveNext(page, perPage);
-    }
-  };
-
-  const paginationItem = items.map((value, index) => {
-    if (typeof value === "string") {
-      return (
-        <div className={style.pagenationText} key={index}>
-          {value}
-        </div>
-      );
-    }
-    const { page } = value;
-    const handleClick = (): void => {
-      if (current.page !== page) {
-        console.log(value);
-        const { page, perPage } = value;
-        onMovePage(page, perPage);
-      }
-    };
-    return (
-      <div className={style.pagenationText} key={index} onClick={handleClick}>
-        {page}
-      </div>
-    );
-  });
+  const { current, last } = pagination;
   return (
-    <div className={style.pagenation}>
-      <div className={style.pagenationText} onClick={handlePreviousClick}>
-        Previous
-      </div>
-      {paginationItem}
-      <div className={style.pagenationText} onClick={handleNextClick}>
-        Next
-      </div>
-    </div>
+    <PaginationNav
+      currentPage={current.page}
+      totalPages={Math.max(last.page, current.page, 1)}
+      hrefFor={(page) =>
+        `${path}?${new URLSearchParams({
+          ...query,
+          page: String(page),
+          per_page: String(current.perPage),
+        })}`
+      }
+      linkAttributes={LIST_LINK}
+    />
   );
 };
 export default PaginationComponent;

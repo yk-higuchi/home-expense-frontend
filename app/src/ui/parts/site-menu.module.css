@@ -1,0 +1,38 @@
+.button {
+  display: none;
+  align-items: center;
+  gap: var(--space-100);
+  min-height: var(--size-target-touch);
+  padding: 0 var(--space-200);
+  border: none;
+  border-radius: var(--radius-200);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-interactive-hover);
+}
+
+.button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (width <= 767px) {
+  .button {
+    display: inline-flex;
+  }
+
+  .menu:not(.open) {
+    display: none;
+  }
+
+  .menu > * {
+    width: 100%;
+    height: auto;
+  }
+}

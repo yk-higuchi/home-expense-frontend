@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    "packages/ui": {
+      "ignore": [
+        "scripts/export-figma-tokens.js"
+      ]
+    },
+    ".": {
+      "entry": [
+        "scripts/serve-static.mjs"
+      ]
+    }
+  }
+}

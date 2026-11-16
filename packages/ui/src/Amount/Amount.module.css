@@ -1,0 +1,8 @@
+.amount {
+  font-variant-numeric: var(--text-amount-numeric);
+}
+
+.negative {
+  color: var(--color-danger);
+  font-variant-numeric: var(--text-amount-numeric);
+}

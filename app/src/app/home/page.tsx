@@ -1,41 +1,39 @@
-import { ReactElement } from "react";
-
-import { getExpenseAggregate } from "@/service/expense-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { getBalanceStatistics } from "@/server/queries/balance";
+import { load } from "@/server/queries/load";
 import ExpenseAggregate from "@/ui/expense-aggregate";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "HOME",
+};
 
 interface Props {
-  searchParams: {
-    year: number;
-    month: number;
-  };
+  searchParams: Promise<{
+    year?: string;
+    month?: string;
+  }>;
 }
 
-const HomePage = async ({ searchParams }: Props): Promise<ReactElement> => {
+const HomePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const now = new Date(Date.now());
-  const { year = now.getFullYear(), month = now.getMonth() + 1 } = searchParams;
-  console.log(year, month);
-  const aggregate = await getExpenseAggregate({
-    year,
-    month,
-    tag: `expense-aggregate-${year}-${month}`,
-  });
-  const {
-    incomeTotalAmount,
-    disposalIncomeAmount,
-    totalAmount,
-    fixed,
-    variable,
-  } = aggregate;
+  const year = Number(searchParams.year) || now.getFullYear();
+  const month = Number(searchParams.month) || now.getMonth() + 1;
+  const loaded = await load(() =>
+    getBalanceStatistics({
+      year,
+      month,
+      tag: `balance-statistics-${year}-${month}`,
+    }),
+  );
   return (
     <ExpenseAggregate
       year={year}
       month={month}
-      incomeTotalAmount={incomeTotalAmount}
-      disposalIncomeAmount={disposalIncomeAmount}
-      totalAmount={totalAmount}
-      fixed={fixed}
-      variable={variable}
+      statistics={loaded.ok ? loaded.value : null}
     />
   );
 };
-export default HomePage;
+export default withHeading("HOME", HomePage);

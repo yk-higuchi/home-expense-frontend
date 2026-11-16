@@ -1,0 +1,125 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-inline);
+  margin: 0;
+  min-width: var(--size-control-min);
+  padding: calc(var(--space-300) - var(--border-width));
+  border: var(--border-width) solid var(--button-border);
+  border-radius: var(--radius-200);
+  background-color: var(--button-bg);
+  color: var(--button-fg);
+  font-family: var(--font-family-base);
+  font-size: var(--text-body-size);
+  font-weight: 400;
+  line-height: var(--text-single-line-line-height);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.primary {
+  --button-bg: var(--color-button-primary-bg);
+  --button-bg-hover: var(--color-button-primary-bg-hover);
+  --button-bg-active: var(--color-button-primary-bg-active);
+  --button-border: var(--color-button-primary-bg);
+  --button-border-hover: var(--color-button-primary-bg-hover);
+  --button-border-active: var(--color-button-primary-bg-active);
+  --button-fg: var(--color-button-fg);
+}
+
+.secondary {
+  --button-bg: var(--color-button-secondary-bg);
+  --button-bg-hover: var(--color-button-secondary-bg-hover);
+  --button-bg-active: var(--color-button-secondary-bg-active);
+  --button-border: var(--color-button-secondary-border);
+  --button-border-hover: var(--color-button-secondary-border);
+  --button-border-active: var(--color-button-secondary-border);
+  --button-fg: var(--color-button-fg);
+}
+
+.danger {
+  --button-bg: var(--color-button-danger-bg);
+  --button-bg-hover: var(--color-button-danger-bg-hover);
+  --button-bg-active: var(--color-button-danger-bg-active);
+  --button-border: var(--color-button-danger-bg);
+  --button-border-hover: var(--color-button-danger-bg-hover);
+  --button-border-active: var(--color-button-danger-bg-active);
+  --button-fg: var(--color-button-danger-fg);
+}
+
+.subtle {
+  --button-bg: transparent;
+  --button-bg-hover: var(--color-button-subtle-bg-hover);
+  --button-bg-active: var(--color-button-subtle-bg-active);
+  --button-border: transparent;
+  --button-border-hover: transparent;
+  --button-border-active: transparent;
+  --button-fg: var(--color-button-fg);
+}
+
+.button:disabled {
+  border-color: var(--color-disabled-border);
+  background-color: var(--color-disabled-bg);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.button[data-skeleton]:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-disabled);
+  cursor: progress;
+}
+
+.button[aria-busy="true"] {
+  border-color: var(--button-border);
+  background-color: var(--button-bg);
+  color: var(--button-fg);
+  cursor: progress;
+}
+
+.button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--button-border-hover);
+  background-color: var(--button-bg-hover);
+}
+
+.button:active:not(:disabled) {
+  border-color: var(--button-border-active);
+  background-color: var(--button-bg-active);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.spinner {
+  flex-shrink: 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}

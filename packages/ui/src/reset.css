@@ -1,0 +1,50 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    /* stylelint-disable-next-line property-no-vendor-prefix -- iOS の Safari は接頭辞付きにだけ対応している */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    text-autospace: no-autospace;
+  }
+
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  img,
+  picture,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    margin: 0;
+    font: inherit;
+  }
+}

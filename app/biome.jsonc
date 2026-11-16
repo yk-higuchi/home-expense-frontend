@@ -1,0 +1,110 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.7/schema.json",
+  "root": false,
+  "extends": "//",
+  "linter": {
+    "domains": {
+      "next": "recommended"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/core/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/app/**",
+                      "@/ui/**",
+                      "@/server/**",
+                      "@/network/**",
+                      "next",
+                      "next/**",
+                      "react",
+                      "react-dom"
+                    ],
+                    "message": "core は業務の型と決まりだけを置く層。画面・サーバー・通信・Next.js・React に依存しない。"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/network/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "@/app/**",
+                      "@/ui/**",
+                      "@/server/**",
+                      "@/core/**",
+                      "next",
+                      "next/**",
+                      "react",
+                      "react-dom"
+                    ],
+                    "message": "network はバックエンドとの通信だけを受け持つ層。ほかの層・Next.js・React に依存しない。"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/server/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/app/**", "@/ui/**"],
+                    "message": "server は画面とルーティングに依存しない。"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/ui/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["@/app/**", "@/network/**"],
+                    "message": "ui はルーティング（app）と通信（network）に依存しない。通信の結果は server を通して受け取る。"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,16 +1,11 @@
-"use client";
+import type { ReactElement } from "react";
 
-import { ReactElement } from "react";
-
-import { registerIncomeAttribute } from "@/service/income-attribute-service";
+import { registerIncomeAttribute } from "@/server/actions/income-attribute";
 import IncomeAttributeForm from "@/ui/parts/income-attribute-form";
 
 const IncomeRegistration = (): ReactElement => {
   return (
-    <IncomeAttributeForm
-      onSubmit={registerIncomeAttribute}
-      buttonTitle="登録"
-    />
+    <IncomeAttributeForm action={registerIncomeAttribute} buttonTitle="登録" />
   );
 };
 

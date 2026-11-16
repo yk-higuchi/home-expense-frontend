@@ -1,90 +1,40 @@
-"use client";
-import { useRouter } from "next/navigation";
-import React, { ReactElement, useCallback } from "react";
-
-import { IncomeAttributes } from "@/lib/income-attribute";
-import { Pagination } from "@/lib/pagination/pagination";
+import { ButtonLink, PlusIcon } from "@home-expense/ui";
+import Link from "next/link";
+import type { ReactElement } from "react";
+import type { IncomeAttributes } from "@/core/income-attribute";
 import IncomeAttributeTable from "@/ui/parts/income-attribute-table";
-import PaginationComponent from "@/ui/parts/pagination-component";
+import ListFrame from "@/ui/parts/list-frame";
+import layout from "@/ui/parts/list-layout.module.css";
+import { LoadFailed } from "@/ui/parts/load-failed";
+import { ErrorTable, INCOME_ATTRIBUTE_COLUMNS } from "@/ui/parts/table-columns";
 
 interface Props {
-  incomeAttributes: IncomeAttributes;
-  pagination: Pagination;
+  list: { incomeAttributes: IncomeAttributes; version: string } | null;
+  savedId?: string;
 }
 
-const IncomeAttribute = ({
-  incomeAttributes,
-  pagination,
-}: Props): ReactElement => {
-  const router = useRouter();
-  const handleMovePrevious = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      router.push(`/income-attribute?${searchParams.toString()}`);
-    },
-    [router],
-  );
-
-  const handleMoveNext = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      router.push(`/income-attribute?${searchParams.toString()}`);
-    },
-    [router],
-  );
-
-  const handleMovePage = useCallback(
-    (page: number, perPage: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: perPage.toString(),
-      });
-      router.push(`/income-attribute?${searchParams.toString()}`);
-    },
-    [router],
-  );
-
-  const handleRegistrationClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>): void => {
-      console.log(event);
-      router.push("/income-attribute/registration");
-    },
-    [router],
-  );
-
-  const handleEdit = useCallback(
-    (id: string) => {
-      router.push(`/income-attribute/${id}`);
-    },
-    [router],
-  );
-  return (
-    <div>
-      <div className="foo">
-        <div className="foo2">
-          <IncomeAttributeTable
-            incomeAttributes={incomeAttributes}
-            pagination={pagination}
-            onEdit={handleEdit}
-          />
-        </div>
-        <PaginationComponent
-          pagination={pagination}
-          onMovePrevious={handleMovePrevious}
-          onMoveNext={handleMoveNext}
-          onMovePage={handleMovePage}
-        />
-        <div className="add">
-          <button onClick={handleRegistrationClick}>追加</button>
-        </div>
-      </div>
+const IncomeAttribute = ({ list, savedId }: Props): ReactElement => (
+  <ListFrame>
+    <div className={layout.actions}>
+      <ButtonLink
+        href="/income-attribute/registration"
+        icon={<PlusIcon />}
+        linkComponent={Link}
+      >
+        追加
+      </ButtonLink>
     </div>
-  );
-};
+    {list === null ? (
+      <ErrorTable columns={INCOME_ATTRIBUTE_COLUMNS}>
+        <LoadFailed />
+      </ErrorTable>
+    ) : (
+      <IncomeAttributeTable
+        savedId={savedId}
+        incomeAttributes={list.incomeAttributes}
+        version={list.version}
+      />
+    )}
+  </ListFrame>
+);
 export default IncomeAttribute;

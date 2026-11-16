@@ -1,14 +1,12 @@
-"use client";
+import type { ReactElement } from "react";
 
-import { ReactElement } from "react";
-
-import { registerExpenseAttribute } from "@/service/expense-attribute-service";
+import { registerExpenseAttribute } from "@/server/actions/expense-attribute";
 import ExpenseAttributeForm from "@/ui/parts/expense-attribute-form";
 
 const ExpenseRegistration = (): ReactElement => {
   return (
     <ExpenseAttributeForm
-      onSubmit={registerExpenseAttribute}
+      action={registerExpenseAttribute}
       buttonTitle="登録"
     />
   );

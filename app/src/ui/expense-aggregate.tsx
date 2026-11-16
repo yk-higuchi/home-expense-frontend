@@ -1,133 +1,120 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, ReactElement, useCallback, useState } from "react";
-
+import {
+  Amount,
+  BarList,
+  Breakdown,
+  BreakdownGroup,
+  BreakdownItem,
+  Card,
+  SummaryList,
+  SummaryRow,
+} from "@home-expense/ui";
+import type { ReactElement } from "react";
+import type { BalanceStatistics } from "@/core/balance";
+import { LoadFailed } from "@/ui/parts/load-failed";
+import PeriodFilterFrame from "@/ui/parts/period-filter-frame";
 import style from "./expense-aggregate.module.css";
-import { ExpenseAttributeAggregates } from "@/lib/expense-attribute";
+
+const EXPENSE_SERIES = [
+  { id: "fixed", label: "固定費", color: "var(--color-chart-fixed)" },
+  { id: "variable", label: "変動費", color: "var(--color-chart-variable)" },
+];
 
 interface Props {
   year: number;
   month: number;
-  incomeTotalAmount: number;
-  disposalIncomeAmount: number;
-  totalAmount: number;
-  fixed: {
-    totalAmount: number;
-    attributeAggregates: ExpenseAttributeAggregates;
-  };
-  variable: {
-    totalAmount: number;
-    attributeAggregates: ExpenseAttributeAggregates;
-  };
+  statistics: BalanceStatistics | null;
 }
 
-const ExpenseAggregate = ({
-  year,
-  month,
-  incomeTotalAmount,
-  disposalIncomeAmount,
-  totalAmount,
-  fixed,
-  variable,
-}: Props): ReactElement => {
-  const router = useRouter();
-  const formattedYear = year.toString().padStart(2, "0");
-  const formattedMonth = month.toString().padStart(2, "0");
-  const [yearMonth, setYearMonth] = useState(
-    `${formattedYear}-${formattedMonth}`,
-  );
-  const handleYearMonthChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const date = new Date(event.currentTarget.value);
-      const year = date.getFullYear().toString();
-      const month = (date.getMonth() + 1).toString();
-      const searchParams = new URLSearchParams({
-        year: year,
-        month: month,
-      }).toString();
-      setYearMonth(`${year.padStart(2, "0")}-${month.padStart(2, "0")}`);
-      router.push(`/home?${searchParams}`);
-    },
-    [router],
-  );
-  const formattedIncomeTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(incomeTotalAmount);
-  const formattedDisposalIncomeAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(disposalIncomeAmount);
-  const formattedTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(totalAmount);
-  const formattedFixedTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(fixed.totalAmount);
-  const formattedVariableTotalAmount = new Intl.NumberFormat("ja-JP", {
-    style: "currency",
-    currency: "JPY",
-  }).format(variable.totalAmount);
-  const fixedExpenses = fixed.attributeAggregates.map((value, index) => {
-    const { name, totalAmount } = value;
-    const formattedAmount = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(totalAmount);
+const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
+  const classes = {
+    page: style.page,
+    content: style.content,
+    pending: style.pending,
+  };
+  if (statistics === null) {
     return (
-      <div key={index}>
-        {name} {formattedAmount}
-      </div>
+      <PeriodFilterFrame
+        path="/home"
+        year={year}
+        month={month}
+        classes={classes}
+      >
+        <LoadFailed />
+      </PeriodFilterFrame>
     );
-  });
-  const variableExpenses = variable.attributeAggregates.map((value, index) => {
-    const { name, totalAmount } = value;
-    const formattedAmount = new Intl.NumberFormat("ja-JP", {
-      style: "currency",
-      currency: "JPY",
-    }).format(totalAmount);
-    return (
-      <div key={index}>
-        {name} {formattedAmount}
-      </div>
-    );
-  });
+  }
+  const { income, fixedExpense, variableExpense, expenseTotal, net } =
+    statistics;
+  const ranking = [
+    ...fixedExpense.items.map((item) => ({ ...item, series: "fixed" })),
+    ...variableExpense.items.map((item) => ({ ...item, series: "variable" })),
+  ]
+    .filter(({ amount }) => amount > 0)
+    .sort((a, b) => b.amount - a.amount)
+    .map(({ id, name, amount, series }) => ({
+      id,
+      label: name,
+      value: amount,
+      series,
+    }));
   return (
-    <div className={style.textStyle}>
-      <input
-        className={style.yearMonth}
-        type="month"
-        value={yearMonth}
-        onChange={handleYearMonthChange}
-      />
-      <div className={style.labelStyale}>
-        <label>収入合計</label>
-        <div>{formattedIncomeTotalAmount}</div>
+    <PeriodFilterFrame path="/home" year={year} month={month} classes={classes}>
+      <div className={style.main}>
+        <SummaryList>
+          <SummaryRow
+            label="収入合計"
+            amount={<Amount value={income.total} />}
+          />
+          <SummaryRow
+            label="支出合計"
+            amount={<Amount value={expenseTotal} />}
+          />
+          <SummaryRow label="収支合計" amount={<Amount value={net} />} />
+        </SummaryList>
+        <SummaryRow label="内訳" />
+        <Breakdown className={style.breakdown}>
+          <BreakdownGroup
+            label="固定費"
+            amount={<Amount value={fixedExpense.total} />}
+          >
+            {fixedExpense.items.map(({ id, name, amount }) => (
+              <BreakdownItem
+                key={id}
+                name={name}
+                amount={<Amount value={amount} />}
+              />
+            ))}
+          </BreakdownGroup>
+          <BreakdownGroup
+            label="変動費"
+            amount={<Amount value={variableExpense.total} />}
+          >
+            {variableExpense.items.map(({ id, name, amount }) => (
+              <BreakdownItem
+                key={id}
+                name={name}
+                amount={<Amount value={amount} />}
+              />
+            ))}
+          </BreakdownGroup>
+        </Breakdown>
       </div>
-      <div className={style.labelStyale}>
-        <label>支出合計</label>
-        <div>{formattedTotalAmount}</div>
-      </div>
-      <div className={style.labelStyale}>
-        <label>収入 - 支出</label>
-        <div>{formattedDisposalIncomeAmount}</div>
-      </div>
-      <div>
-        <label className={style.labelStyale}>内訳</label>
-        <div className={style.amountStyle}>
-          <details>
-            <summary>固定費 {formattedFixedTotalAmount}</summary>
-            <div className={style.expensesStyle}>{fixedExpenses}</div>
-          </details>
-          <details>
-            <summary>変動費 {formattedVariableTotalAmount}</summary>
-            <div className={style.expensesStyle}>{variableExpenses}</div>
-          </details>
-        </div>
-      </div>
-    </div>
+      <Card title="支出の多い順" className={style.ranking}>
+        <section
+          className={style.rankingScroll}
+          aria-label="支出の多い順の一覧"
+          // biome-ignore lint/a11y/noNoninteractiveTabindex: 中だけスクロールする領域を、キーボードでもスクロールできるようにする
+          tabIndex={0}
+        >
+          <BarList
+            items={ranking}
+            total={expenseTotal}
+            series={EXPENSE_SERIES}
+            empty="この月の支出はありません"
+          />
+        </section>
+      </Card>
+    </PeriodFilterFrame>
   );
 };
 export default ExpenseAggregate;

@@ -1,0 +1,58 @@
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-inline);
+  margin-left: calc(var(--space-100) * -1);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-100);
+  border: none;
+  border-radius: var(--radius-200);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.button:hover {
+  background-color: var(--color-button-subtle-bg-hover);
+}
+
+.button:active {
+  background-color: var(--color-button-subtle-bg-active);
+}
+
+.danger:hover {
+  background-color: var(--color-danger-hover);
+  color: var(--color-danger);
+}
+
+.danger:active {
+  background-color: var(--color-danger-active);
+  color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .button {
+    min-width: var(--size-target-touch);
+    min-height: var(--size-target-touch);
+  }
+}

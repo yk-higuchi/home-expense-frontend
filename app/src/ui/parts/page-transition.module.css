@@ -1,0 +1,44 @@
+.stack {
+  display: grid;
+  height: 100%;
+  min-height: 0;
+}
+
+.current,
+.leaving,
+.next {
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.leaving {
+  animation: leave 0s linear 200ms forwards;
+}
+
+.next {
+  visibility: hidden;
+  animation: enter 0s linear 200ms forwards;
+}
+
+@keyframes leave {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes enter {
+  to {
+    visibility: visible;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

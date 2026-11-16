@@ -1,27 +1,43 @@
-import { ReactElement } from "react";
-
-import { getIncomeSummary } from "@/service/income-service";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
+import { getIncomeSummary } from "@/server/queries/income";
+import { load } from "@/server/queries/load";
 import Income from "@/ui/income";
+import { withHeading } from "@/ui/parts/page-heading";
+
+export const metadata: Metadata = {
+  title: "収入一覧",
+};
 
 interface Props {
-  searchParams: {
-    page: number;
-    perPage: number;
-    year: number;
-  };
+  searchParams: Promise<{
+    page?: string;
+    per_page?: string;
+    year?: string;
+    saved?: string;
+  }>;
 }
 
-const IncomePage = async ({ searchParams }: Props): Promise<ReactElement> => {
+const IncomePage = async (props: Props): Promise<ReactElement> => {
+  const searchParams = await props.searchParams;
   const now = new Date(Date.now());
-  const { page = 1, perPage = 20, year = now.getFullYear() } = searchParams;
-  console.log(page, perPage);
-  const { incomes, pagination } = await getIncomeSummary({
-    page,
-    perPage,
-    year,
-    tag: `income-${year}`,
-  });
-  console.log(pagination);
-  return <Income incomes={incomes} pagination={pagination} year={year} />;
+  const page = Number(searchParams.page) || 1;
+  const perPage = Number(searchParams.per_page) || 20;
+  const year = Number(searchParams.year) || now.getFullYear();
+  const loaded = await load(() =>
+    getIncomeSummary({
+      page,
+      perPage,
+      year,
+      tag: `income-${year}`,
+    }),
+  );
+  return (
+    <Income
+      list={loaded.ok ? loaded.value : null}
+      year={year}
+      savedId={searchParams.saved}
+    />
+  );
 };
-export default IncomePage;
+export default withHeading("収入一覧", IncomePage);
