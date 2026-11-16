@@ -9,6 +9,9 @@
     ".": {
       "entry": [
         "scripts/serve-static.mjs"
+      ],
+      "ignoreDependencies": [
+        "lefthook"
       ]
     }
   }

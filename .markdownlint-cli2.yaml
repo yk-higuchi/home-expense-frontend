@@ -11,3 +11,4 @@ ignores:
   - playwright-report/**
   - CHANGELOG.md
   - app/AGENTS.md
+  - .venv/**

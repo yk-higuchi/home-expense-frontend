@@ -127,18 +127,37 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 
 ワークフローは 2 つに分ける。アプリの検査は CI（`ci.yaml`）、アプリ以外の検査は Lint（`lint.yaml`）で動かす。バックエンドと同じ分け方。
 
-| 対象                       | ツール                                                           | 設定                                   | 動かす場所      |
-| -------------------------- | ---------------------------------------------------------------- | -------------------------------------- | --------------- |
-| TypeScript・CSS・JSON      | Biome・Stylelint・TypeScript・knip・`lint:tokens`（`pnpm lint`） | `biome.json`・`.stylelintrc.json` など | CI（`lint`）    |
-| `app/Dockerfile`           | hadolint                                                         | 既定の規則                             | CI（`image`）   |
-| `.github/workflows/*.yaml` | actionlint                                                       | 既定の規則                             | Lint            |
-| YAML                       | yamllint                                                         | `.yamllint`                            | Lint            |
-| Markdown                   | markdownlint-cli2                                                | `.markdownlint-cli2.yaml`              | Lint            |
-| コミットメッセージ         | commitlint                                                       | `.commitlintrc.json`                   | Lint（PR のみ） |
+| 対象                       | ツール                                                           | 設定                                      | 動かす場所      |
+| -------------------------- | ---------------------------------------------------------------- | ----------------------------------------- | --------------- |
+| TypeScript・CSS・JSON      | Biome・Stylelint・TypeScript・knip・`lint:tokens`（`pnpm lint`） | `biome.json`・`stylelint.config.mjs` など | CI（`lint`）    |
+| `app/Dockerfile`           | hadolint                                                         | 既定の規則                                | CI（`image`）   |
+| `.github/workflows/*.yaml` | actionlint                                                       | 既定の規則                                | Lint            |
+| YAML                       | yamllint                                                         | `.yamllint`                               | Lint            |
+| Markdown                   | markdownlint-cli2                                                | `.markdownlint-cli2.yaml`                 | Lint            |
+| コミットメッセージ         | commitlint                                                       | `.commitlintrc.json`                      | Lint（PR のみ） |
 
 - yamllint は生成物（`node_modules/`、`pnpm-lock.yaml` など）を対象外にし、行の長さは検査しない。markdownlint も行の長さは検査しない。いずれも日本語の説明や URL が長くなるため。markdownlint は、release-please が書く `CHANGELOG.md` と、`next dev` が作る `app/AGENTS.md` も対象外にする。
 - シェルスクリプト・Python・SQL のファイルはないので、バックエンドにある ShellCheck・ruff・sqlfluff は入れていない。
 - 手元で yamllint を使うときは、`pip install -r requirements.txt` で CI と同じ版を入れる。Python の版は、手元は `.python-version`（3.14.0）、CI は 3.14 系の最新を使う（GitHub の実行環境に、パッチの版まで指定した Python がないことがあるため。バックエンドと同じ）。Markdown は `pnpm markdownlint-cli2` で検査する。
+
+### 手元での検査（lefthook）
+
+`lefthook.yaml` で、コミットの前に CI・Lint と同じ検査を、変更したファイルだけに行う。バックエンドと同じ仕組み。
+
+- コミットの前（pre-commit）：Biome（`app` と `packages/ui` それぞれの設定で）、Stylelint、markdownlint、yamllint、actionlint、hadolint。自動で直せるもの（Biome、Stylelint）は、直した結果をコミットに含める。
+- コミットメッセージ（commit-msg）：commitlint
+- 型チェック・knip・`lint:tokens` はプロジェクト全体を見るので、フックには入れず CI に任せる。
+
+使う前に、ツールを入れてフックを登録する。
+
+```sh
+pnpm install
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+brew install actionlint hadolint
+pnpm lefthook install
+```
+
+yamllint は `.venv/bin` にあるので、コミットするときは `.venv` を有効にしておくか、`.venv/bin` を `PATH` に入れる。lefthook の `postinstall` は `pnpm-workspace.yaml` の `allowBuilds` で止めてあるので、フックは `pnpm lefthook install` で明示的に登録する。
 
 ## CI の依存の固定
 

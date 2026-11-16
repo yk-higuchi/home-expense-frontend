@@ -62,3 +62,6 @@ app/AGENTS.md
 
 test-results/
 playwright-report/
+
+# Python の仮想環境（yamllint）
+.venv/
