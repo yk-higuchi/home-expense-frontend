@@ -9,12 +9,12 @@ import {
   TableHeaderCell,
   TableRow,
   Toast,
+  useToast,
 } from "@home-expense/ui";
 import type { ReactElement, ReactNode } from "react";
 import type { Expenses } from "@/lib/expense";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
-import { useToast } from "@/lib/hooks/use-toast";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpense, loadExpenseForDelete } from "@/service/expense-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";

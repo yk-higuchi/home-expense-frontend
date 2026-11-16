@@ -1,4 +1,5 @@
 "use server";
+import { formatYen } from "@home-expense/ui/format";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { expensesApi } from "@/lib/api/v1-expenses";
@@ -6,7 +7,6 @@ import {
   DELETE_TARGET_LOAD_FAILED_MESSAGE,
   DELETE_TARGET_MISSING_MESSAGE,
   type DeleteTargetResult,
-  formatYen,
 } from "@/lib/delete-target";
 import type { Expense, Expenses } from "@/lib/expense";
 import {

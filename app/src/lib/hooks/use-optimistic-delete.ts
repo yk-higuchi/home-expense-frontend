@@ -1,7 +1,7 @@
 "use client";
 
+import type { ToastControl } from "@home-expense/ui";
 import { useOptimistic, useState } from "react";
-import type { ToastControl } from "@/lib/hooks/use-toast";
 
 interface Row {
   id?: string;

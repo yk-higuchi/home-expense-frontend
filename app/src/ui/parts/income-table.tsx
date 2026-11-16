@@ -9,11 +9,11 @@ import {
   TableHeaderCell,
   TableRow,
   Toast,
+  useToast,
 } from "@home-expense/ui";
 import type { ReactElement, ReactNode } from "react";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
-import { useToast } from "@/lib/hooks/use-toast";
 import type { Incomes } from "@/lib/income";
 import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteIncome, loadIncomeForDelete } from "@/service/income-service";

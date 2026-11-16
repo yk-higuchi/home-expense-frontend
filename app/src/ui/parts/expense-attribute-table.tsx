@@ -12,13 +12,13 @@ import {
   TableRow,
   Toast,
   useSortableList,
+  useToast,
 } from "@home-expense/ui";
 import type { ReactElement } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
 import { useOptimisticReorder } from "@/lib/hooks/use-optimistic-reorder";
 import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
-import { useToast } from "@/lib/hooks/use-toast";
 import {
   deleteExpenseAttribute,
   loadExpenseAttributeForDelete,
