@@ -38,6 +38,12 @@
 .plot {
   position: relative;
   border-radius: var(--radius-100);
+  container-type: inline-size;
+}
+
+.area {
+  position: absolute;
+  inset: 0 8px 0 56px;
 }
 
 .plot:focus-visible {
@@ -46,6 +52,8 @@
 }
 
 .svg {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
@@ -64,14 +72,48 @@
   shape-rendering: crispedges;
 }
 
-.tick {
+.tick,
+.tickMinor {
   fill: var(--color-text);
   font-size: var(--text-caption-size);
   font-variant-numeric: var(--text-amount-numeric);
 }
 
+@container (width <= 520px) {
+  .tickMinor {
+    display: none;
+  }
+}
+
+.bars {
+  position: absolute;
+  inset: 0;
+}
+
+.barGroup {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+
+.barSlot {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.bar {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
 .activeBand {
-  fill: var(--color-interactive-hover);
+  position: absolute;
+  background-color: var(--color-interactive-hover);
 }
 
 .line {
@@ -79,6 +121,7 @@
   stroke-width: 2;
   stroke-linejoin: round;
   stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
 
 .marker {
@@ -88,7 +131,9 @@
 }
 
 .hitArea {
-  fill: transparent;
+  position: absolute;
+  right: 0;
+  left: 0;
   cursor: crosshair;
 }
 

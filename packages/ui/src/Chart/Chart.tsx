@@ -1,14 +1,4 @@
-"use client";
-
-import {
-  type KeyboardEvent,
-  type PointerEvent,
-  type ReactElement,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from "react";
+import { type CSSProperties, type ReactElement, useId } from "react";
 import { formatCompact, formatYen } from "../format/format";
 import {
   Table,
@@ -19,8 +9,9 @@ import {
   TableRow,
 } from "../Table/Table";
 import styles from "./Chart.module.css";
+import { ChartInteraction } from "./ChartInteraction";
 import { decimateLTTB, type IndexedPoint } from "./decimate";
-import { computeScale, type Plot, type Scale, tickCountFor } from "./scales";
+import { computeScale, type Scale, tickCountFor } from "./scales";
 
 export interface ChartSeries {
   label: string;
@@ -39,32 +30,18 @@ export interface ChartProps {
   showTable?: boolean;
 }
 
-const PADDING = { top: 8, right: 8, bottom: 28, left: 56 } as const;
-const FALLBACK_WIDTH = 640;
+const PADDING = { top: 8, bottom: 28 } as const;
 const BAR_MAX = 24;
 const BAR_GAP = 2;
 const MARKER_LIMIT = 60;
+const LINE_POINTS = 400;
+const LABEL_WIDTH = 48;
+const ASSUMED_WIDTH = 640;
 
 const isNumber = (v: number | null | undefined): v is number =>
   typeof v === "number" && Number.isFinite(v);
 
-const barPath = (x: number, y0: number, y1: number, w: number): string => {
-  const h = Math.abs(y1 - y0);
-  if (h === 0) return "";
-  const r = Math.min(4, w / 2, h);
-  const up = y1 < y0;
-  const tip = y1;
-  const sign = up ? 1 : -1;
-  return [
-    `M${x},${y0}`,
-    `V${tip + sign * r}`,
-    `Q${x},${tip} ${x + r},${tip}`,
-    `H${x + w - r}`,
-    `Q${x + w},${tip} ${x + w},${tip + sign * r}`,
-    `V${y0}`,
-    "Z",
-  ].join(" ");
-};
+const percent = (value: number): string => `${value * 100}%`;
 
 const segmentsOf = (values: readonly (number | null)[]): IndexedPoint[][] => {
   const segments: IndexedPoint[][] = [];
@@ -120,125 +97,90 @@ export const Chart = ({
   height = 200,
   showTable = true,
 }: ChartProps): ReactElement => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(FALLBACK_WIDTH);
-  const [active, setActive] = useState(-1);
-  const [announcement, setAnnouncement] = useState("");
   const titleId = useId();
   const descId = useId();
-
-  useEffect(() => {
-    const el = wrapperRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry) setWidth(Math.max(240, Math.floor(entry.contentRect.width)));
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const plot: Plot = {
-    x: PADDING.left,
-    y: PADDING.top,
-    w: Math.max(0, width - PADDING.left - PADDING.right),
-    h: Math.max(0, height - PADDING.top - PADDING.bottom),
-  };
   const count = labels.length;
+  const plotHeight = Math.max(0, height - PADDING.top - PADDING.bottom);
   const allValues = series.flatMap((s) => s.values.filter(isNumber));
-  const scale = computeScale(allValues, count, plot, tickCountFor(plot.h));
+  const scale = computeScale(
+    allValues,
+    count,
+    { x: 0, y: PADDING.top, w: count, h: plotHeight },
+    tickCountFor(plotHeight),
+  );
   const y0 = scale.toY(0);
   const barSeries = series.filter((s) => s.type === "bar");
   const lineSeries = series.filter((s) => s.type === "line");
   const k = barSeries.length;
-  const barW =
-    k > 0
-      ? Math.max(
-          2,
-          Math.min(BAR_MAX, (scale.band * 0.6 - BAR_GAP * (k - 1)) / k),
-        )
-      : 0;
-  const groupW = k * barW + BAR_GAP * Math.max(0, k - 1);
-  const labelStep = Math.max(1, Math.ceil(48 / Math.max(1, scale.band)));
+  const barSlot = `max(2px, min(${BAR_MAX}px, calc((60% - ${BAR_GAP * Math.max(0, k - 1)}px) / ${Math.max(1, k)})))`;
+  const labelStep = Math.max(
+    1,
+    Math.ceil((count * LABEL_WIDTH) / ASSUMED_WIDTH),
+  );
   const empty = count === 0 || series.length === 0 || allValues.length === 0;
+  const legend =
+    series.length >= 2 ? (
+      <ul className={styles.legend}>
+        {series.map((s) => (
+          <li key={s.label} className={styles.legendItem}>
+            <span
+              className={
+                s.type === "bar" ? styles.swatchBar : styles.swatchLine
+              }
+              style={{ background: s.color }}
+              aria-hidden="true"
+            />
+            {s.label}
+          </li>
+        ))}
+      </ul>
+    ) : null;
 
-  const describeAt = (i: number): string =>
-    `${labels[i] ?? ""}: ${series
-      .map((s) => {
-        const v = s.values[i];
-        return `${s.label} ${isNumber(v) ? formatValue(v) : "なし"}`;
-      })
-      .join("、")}`;
+  if (empty) {
+    return (
+      <div className={styles.chart}>
+        {legend}
+        <div className={styles.plot} style={{ height }}>
+          <p className={styles.empty}>データがありません</p>
+        </div>
+      </div>
+    );
+  }
 
-  const select = (i: number, announce: boolean): void => {
-    setActive(i);
-    if (announce) setAnnouncement(i >= 0 ? describeAt(i) : "");
-  };
-
-  const handlePointerMove = (event: PointerEvent<SVGRectElement>): void => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    if (rect.width === 0 || count === 0) return;
-    const i = Math.floor(((event.clientX - rect.left) / rect.width) * count);
-    select(Math.max(0, Math.min(count - 1, i)), false);
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
-    if (count === 0) return;
-    const keys: Record<string, number> = {
-      ArrowRight: Math.min(count - 1, Math.max(0, active) + 1),
-      ArrowLeft: Math.max(0, active - 1),
-      Home: 0,
-      End: count - 1,
-      Escape: -1,
-    };
-    const next = keys[event.key];
-    if (next === undefined) return;
-    event.preventDefault();
-    select(next, true);
-  };
-
-  const tooltipLeft =
-    active >= 0
-      ? scale.toX(active) + scale.band / 2 + 8 > width - 200
-        ? scale.toX(active) - scale.band / 2 - 8
-        : scale.toX(active) + scale.band / 2 + 8
-      : 0;
-  const tooltipFlip = active >= 0 && tooltipLeft < scale.toX(active);
+  const textOf = (v: number | null | undefined): string =>
+    isNumber(v) ? formatValue(v) : "—";
 
   return (
     <div className={styles.chart}>
-      {series.length >= 2 && (
-        <ul className={styles.legend}>
-          {series.map((s) => (
-            <li key={s.label} className={styles.legendItem}>
-              <span
-                className={
-                  s.type === "bar" ? styles.swatchBar : styles.swatchLine
-                }
-                style={{ background: s.color }}
-                aria-hidden="true"
-              />
-              {s.label}
-            </li>
-          ))}
-        </ul>
-      )}
-      {/* biome-ignore lint/a11y/useSemanticElements: フォームではなく、矢印キーで値を読み上げるグラフの入れ物なので fieldset は使わない */}
-      <div
-        ref={wrapperRef}
-        className={styles.plot}
-        tabIndex={empty ? -1 : 0}
-        role="group"
-        aria-label={`${title}（左右の矢印キーで値を読み上げ）`}
-        onKeyDown={handleKeyDown}
-        onBlur={() => select(-1, false)}
-        style={{ height }}
+      {legend}
+      <ChartInteraction
+        title={title}
+        labels={labels}
+        height={height}
+        plotTop={PADDING.top}
+        plotHeight={plotHeight}
+        descriptions={labels.map(
+          (label, i) =>
+            `${label}: ${series
+              .map((s) => {
+                const v = s.values[i];
+                return `${s.label} ${isNumber(v) ? formatValue(v) : "なし"}`;
+              })
+              .join("、")}`,
+        )}
+        series={series.map((s) => ({
+          label: s.label,
+          color: s.color,
+          texts: s.values.map(textOf),
+          markerY:
+            s.type === "line"
+              ? s.values.map((v) => (isNumber(v) ? scale.toY(v) : null))
+              : null,
+        }))}
       >
-        {empty ? (
-          <p className={styles.empty}>データがありません</p>
-        ) : (
+        <div className={styles.area}>
           <svg
             className={styles.svg}
-            viewBox={`0 0 ${width} ${height}`}
             role="img"
             aria-labelledby={titleId}
             aria-describedby={descId}
@@ -249,14 +191,14 @@ export const Chart = ({
               <g key={tick}>
                 <line
                   className={tick === 0 ? styles.baseline : styles.grid}
-                  x1={plot.x}
-                  x2={plot.x + plot.w}
+                  x1="0"
+                  x2="100%"
                   y1={scale.toY(tick)}
                   y2={scale.toY(tick)}
                 />
                 <text
                   className={styles.tick}
-                  x={plot.x - 8}
+                  x={-8}
                   y={scale.toY(tick)}
                   textAnchor="end"
                   dominantBaseline="middle"
@@ -265,118 +207,102 @@ export const Chart = ({
                 </text>
               </g>
             ))}
-            {active >= 0 && (
-              <rect
-                className={styles.activeBand}
-                x={scale.toX(active) - scale.band / 2}
-                y={plot.y}
-                width={scale.band}
-                height={plot.h}
-              />
-            )}
-            {barSeries.map((s, j) => (
-              <g key={s.label} style={{ fill: s.color }}>
-                {s.values.map((v, i) =>
-                  isNumber(v) ? (
-                    <path
-                      // biome-ignore lint/suspicious/noArrayIndexKey: 月の並びは固定
-                      key={i}
-                      d={barPath(
-                        scale.toX(i) - groupW / 2 + j * (barW + BAR_GAP),
-                        y0,
-                        scale.toY(v),
-                        barW,
-                      )}
-                    />
-                  ) : null,
-                )}
-              </g>
-            ))}
+          </svg>
+          {k > 0 && (
+            <div className={styles.bars} aria-hidden="true">
+              {labels.map((label, i) => (
+                <div
+                  key={label}
+                  className={styles.barGroup}
+                  style={{
+                    left: percent(i / count),
+                    width: percent(1 / count),
+                  }}
+                >
+                  {barSeries.map((s) => {
+                    const v = s.values[i];
+                    const top = isNumber(v) ? Math.min(y0, scale.toY(v)) : 0;
+                    const size = isNumber(v) ? Math.abs(scale.toY(v) - y0) : 0;
+                    const r = Math.min(4, size);
+                    const style: CSSProperties = {
+                      top,
+                      height: size,
+                      background: s.color,
+                      borderRadius:
+                        isNumber(v) && v < 0
+                          ? `0 0 ${r}px ${r}px`
+                          : `${r}px ${r}px 0 0`,
+                    };
+                    return (
+                      <div
+                        key={s.label}
+                        className={styles.barSlot}
+                        style={{ flexBasis: barSlot }}
+                      >
+                        {size > 0 && (
+                          <span className={styles.bar} style={style} />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          )}
+          <svg className={styles.svg} aria-hidden="true">
+            <svg
+              className={styles.svg}
+              viewBox={`0 0 ${count} ${height}`}
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              {lineSeries.map((s) => (
+                <path
+                  key={s.label}
+                  className={styles.line}
+                  style={{ stroke: s.color }}
+                  d={linePath(s.values, scale, LINE_POINTS)}
+                />
+              ))}
+            </svg>
             {lineSeries.map((s) => {
               const points: IndexedPoint[] = s.values.flatMap((value, index) =>
                 isNumber(value) ? [{ index, value }] : [],
               );
-              const target = Math.max(50, Math.floor(plot.w / 2));
-              return (
+              return points.length <= MARKER_LIMIT ? (
                 <g key={s.label}>
-                  <path
-                    className={styles.line}
-                    style={{ stroke: s.color }}
-                    d={linePath(s.values, scale, target)}
-                  />
-                  {points.length <= MARKER_LIMIT &&
-                    points.map(({ index, value }) => (
-                      <circle
-                        key={index}
-                        className={styles.marker}
-                        style={{ fill: s.color }}
-                        cx={scale.toX(index)}
-                        cy={scale.toY(value)}
-                        r={active === index ? 5 : 4}
-                      />
-                    ))}
+                  {points.map(({ index, value }) => (
+                    <circle
+                      key={index}
+                      className={styles.marker}
+                      style={{ fill: s.color }}
+                      cx={percent((index + 0.5) / count)}
+                      cy={scale.toY(value)}
+                      r={4}
+                    />
+                  ))}
                 </g>
-              );
+              ) : null;
             })}
             {labels.map((label, i) =>
               i % labelStep === 0 ? (
                 <text
                   key={label}
-                  className={styles.tick}
-                  x={scale.toX(i)}
-                  y={plot.y + plot.h + 18}
+                  className={
+                    (i / labelStep) % 2 === 1 ? styles.tickMinor : styles.tick
+                  }
+                  x={percent((i + 0.5) / count)}
+                  y={PADDING.top + plotHeight + 18}
                   textAnchor="middle"
                 >
                   {label}
                 </text>
               ) : null,
             )}
-            <rect
-              className={styles.hitArea}
-              x={plot.x}
-              y={plot.y}
-              width={plot.w}
-              height={plot.h}
-              onPointerMove={handlePointerMove}
-              onPointerLeave={() => select(-1, false)}
-            />
           </svg>
-        )}
-        {active >= 0 && (
-          <div
-            className={styles.tooltip}
-            style={{
-              left: tooltipLeft,
-              top: plot.y,
-              transform: tooltipFlip ? "translateX(-100%)" : undefined,
-            }}
-            aria-hidden="true"
-          >
-            <p className={styles.tooltipLabel}>{labels[active]}</p>
-            <ul className={styles.tooltipRows}>
-              {series.map((s) => {
-                const v = s.values[active];
-                return (
-                  <li key={s.label} className={styles.tooltipRow}>
-                    <span
-                      className={styles.tooltipKey}
-                      style={{ background: s.color }}
-                    />
-                    <span className={styles.tooltipValue}>
-                      {isNumber(v) ? formatValue(v) : "—"}
-                    </span>
-                    <span className={styles.tooltipName}>{s.label}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
-      <p className={styles.srOnly} role="status" aria-live="polite">
-        {announcement}
-      </p>
-      {showTable && !empty && (
+        </div>
+      </ChartInteraction>
+      {showTable && (
         <details className={styles.details}>
           <summary className={styles.summary}>表で見る</summary>
           <Table aria-label={title}>
@@ -392,14 +318,9 @@ export const Chart = ({
               {labels.map((label, i) => (
                 <TableRow key={label}>
                   <TableCell>{label}</TableCell>
-                  {series.map((s) => {
-                    const v = s.values[i];
-                    return (
-                      <TableCell key={s.label}>
-                        {isNumber(v) ? formatValue(v) : "—"}
-                      </TableCell>
-                    );
-                  })}
+                  {series.map((s) => (
+                    <TableCell key={s.label}>{textOf(s.values[i])}</TableCell>
+                  ))}
                 </TableRow>
               ))}
             </TableBody>
