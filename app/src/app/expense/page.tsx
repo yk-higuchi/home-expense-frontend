@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-
 import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
+import { load } from "@/lib/load";
 import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import { getExpenseSummary } from "@/service/expense-service";
 import Expense from "@/ui/expense";
@@ -30,26 +30,28 @@ const ExpensePage = async (props: Props): Promise<ReactElement> => {
   const month = Number(searchParams.month) || undefined;
   const { category, attributeId } = searchParams;
   const _category = isExpenseAttributeCategory(category) ? category : undefined;
-  const [expenseAttributes, { expenses, pagination }] = await Promise.all([
-    _category
-      ? getExpenseAttributes({ category: _category }).then(
-          ({ expenseAttributes }) => expenseAttributes,
-        )
-      : Promise.resolve([]),
-    getExpenseSummary({
-      page,
-      perPage,
-      year,
-      month,
-      category: _category,
-      attributeId,
-      tag: `expense-${page}-${perPage}-${year}-${month}-${category}-${attributeId}`,
-    }),
-  ]);
+  const loaded = await load(() =>
+    Promise.all([
+      _category
+        ? getExpenseAttributes({ category: _category }).then(
+            ({ expenseAttributes }) => expenseAttributes,
+          )
+        : Promise.resolve([]),
+      getExpenseSummary({
+        page,
+        perPage,
+        year,
+        month,
+        category: _category,
+        attributeId,
+        tag: `expense-${page}-${perPage}-${year}-${month}-${category}-${attributeId}`,
+      }),
+    ]),
+  );
+  const [expenseAttributes, list] = loaded.ok ? loaded.value : [[], null];
   return (
     <Expense
-      expenses={expenses}
-      pagination={pagination}
+      list={list}
       year={year}
       month={month}
       category={_category}

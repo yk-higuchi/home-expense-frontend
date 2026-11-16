@@ -6,17 +6,21 @@ import {
   type ReactElement,
   type ReactNode,
   useContext,
+  useState,
 } from "react";
 import { useNavigation } from "@/lib/hooks/use-navigation";
-import LoadingState from "@/ui/parts/loading-state";
+import style from "@/ui/parts/page-transition.module.css";
+import { skeletonFor } from "@/ui/skeletons";
 
 interface PageNavigation {
   isPending: boolean;
+  target: string | null;
   navigate: (href: string) => void;
 }
 
 const PageTransitionContext = createContext<PageNavigation>({
   isPending: false,
+  target: null,
   navigate: () => {},
 });
 
@@ -37,7 +41,12 @@ export const PageTransition = ({
   className?: string;
   children: ReactNode;
 }): ReactElement => {
-  const navigation = useNavigation();
+  const { isPending, navigate: go } = useNavigation();
+  const [target, setTarget] = useState<string | null>(null);
+  const navigate = (href: string): void => {
+    setTarget(href);
+    go(href);
+  };
   const handleClickCapture = (event: MouseEvent<HTMLDivElement>): void => {
     if (!isPlainClick(event) || !(event.target instanceof Element)) return;
     const link = event.target.closest<HTMLAnchorElement>("a[href^='/']");
@@ -49,10 +58,10 @@ export const PageTransition = ({
     )
       return;
     event.preventDefault();
-    navigation.navigate(link.getAttribute("href") ?? "/");
+    navigate(link.getAttribute("href") ?? "/");
   };
   return (
-    <PageTransitionContext value={navigation}>
+    <PageTransitionContext value={{ isPending, target, navigate }}>
       <div className={className} onClickCapture={handleClickCapture}>
         {children}
       </div>
@@ -65,6 +74,19 @@ export const PageContent = ({
 }: {
   children: ReactNode;
 }): ReactElement => {
-  const { isPending } = usePageTransition();
-  return <>{isPending ? <LoadingState /> : children}</>;
+  const { isPending, target } = usePageTransition();
+  const skeleton = isPending && target !== null ? skeletonFor(target) : null;
+  return (
+    <div className={style.stack}>
+      <div className={skeleton ? style.leaving : style.current}>{children}</div>
+      {skeleton && (
+        <div className={style.next} aria-busy="true">
+          <p className={style.srOnly} role="status">
+            読み込み中
+          </p>
+          {skeleton}
+        </div>
+      )}
+    </div>
+  );
 };

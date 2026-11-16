@@ -110,6 +110,16 @@ API のリクエスト・レスポンスの JTD スキーマは、バックエ�
 - 表の「編集」は、表の中で移動する（支出・収入は、今の絞り込みとページを `from` に入れる）。
 - 削除で最後のページが空になったときの前のページへの移動は、表の中で行う（`lib/hooks/use-empty-page-fallback.ts`）。サーバーの `redirect` にすると、削除の結果を受け取る前に画面が移り、「削除しました」のトーストが出ない。
 - `app/loading.tsx` は置かない。置くと、サーバーは先に読み込み中の画面を返し、内容をあとから JavaScript で差し込む（ストリーミング）ため、JavaScript を切ったブラウザでは内容が表示されない。置かないことで、サーバーはデータを揃えてから完成した HTML を返す。
-- 代わりに、画面を移るあいだの「読み込み中」は `ui/parts/page-transition.tsx` が出す。レイアウト全体を `PageTransition` で包み、中の `/` で始まるリンクのクリック（サイドバー・「追加」など）を受け取って、`useTransition` の中で移動する。移動中は `PageContent` が `main` の中身を読み込み中の画面（`ui/parts/loading-state.tsx`）に差し替える。表の「編集」も `usePageTransition` の `navigate` で移動する。
-  - ページ送り（`data-list-link`）は対象外。一覧の中の移動なので、読み込み中の画面にはせず、`ListFrame` が表を薄くする。
+- 代わりに、画面を移るあいだは移動先の画面の枠（スケルトン）を出す。レイアウト全体を `PageTransition`（`ui/parts/page-transition.tsx`）で包み、中の `/` で始まるリンクのクリック（サイドバー・「追加」など）を受け取って、`useTransition` の中で移動する。表の「編集」も `usePageTransition` の `navigate` で移動する。
+  - 移動先の枠は `ui/skeletons.tsx` の `skeletonFor(URL)` が返す。表の見出しは `ui/parts/table-columns.tsx` の列の定義を本物の表と共有する。
+  - 移動が 200ms 以内に終われば枠は出さない（CSS の `animation-delay` で、200ms たってから今の画面を隠して枠を見せる）。速い移動でちらつかないため。枠は静止させる（明滅しない）。
+  - 移動中はサイドバーの選択も移動先に合わせる。
+  - ページ送り（`data-list-link`）は対象外。一覧の中の移動なので、`ListFrame` が表を薄くする。
   - 修飾キー付きのクリック・`target` のあるリンク・`download` のリンクは、ブラウザに任せる（新しいタブで開く）。
+
+## 読み込めないとき・見つからないとき
+
+- 各ページは、データの取得を `lib/load.ts` の `load` で包む。失敗しても例外にせず、画面の枠の中にエラー（`@home-expense/ui` の `LoadError` と「もう一度試す」= `router.refresh()`）を出す。一覧は絞り込みを操作できるまま残し、表の見出しの下に出す（別の条件を選んで回復できる）。HOME・年間レポートは年月の選択の下、登録・編集はフォームの位置に出す。
+  - `load` は Next.js の内部の例外（`redirect`・`notFound` など）を `unstable_rethrow` でそのまま投げ直す。
+- 編集画面は、API が 404 を返したら `notFound()` にする（`load(…, { notFoundOn404: true })`）。各 `[id]/not-found.tsx` が「この支出は見つかりませんでした」と一覧へのリンクを出す。存在しない URL は `app/not-found.tsx`。
+- `app/error.tsx` は、どこにも当てはまらないエラーの最後の受け皿（文言は「予期せぬエラーが発生しました」）。

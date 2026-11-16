@@ -8,29 +8,3 @@
   color: var(--color-text);
   font-family: var(--font-family-base);
 }
-
-.message {
-  margin: 0;
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-line-height);
-}
-
-.retry {
-  min-width: 160px;
-}
-
-.spinner {
-  animation: spin 1s steps(8) infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spinner {
-    animation: none;
-  }
-}

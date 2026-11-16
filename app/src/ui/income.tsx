@@ -6,22 +6,18 @@ import type { Pagination } from "@/lib/pagination/pagination";
 import IncomeTable from "@/ui/parts/income-table";
 import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
+import { LoadFailed } from "@/ui/parts/load-failed";
 import PaginationComponent from "@/ui/parts/pagination-component";
+import { ErrorTable, INCOME_COLUMNS } from "@/ui/parts/table-columns";
 import YearFilter from "@/ui/parts/year-filter";
 
 interface Props {
-  incomes: Incomes;
-  pagination: Pagination;
+  list: { incomes: Incomes; pagination: Pagination } | null;
   year: number;
   savedId?: string;
 }
 
-const Income = ({
-  incomes,
-  pagination,
-  year,
-  savedId,
-}: Props): ReactElement => (
+const Income = ({ list, year, savedId }: Props): ReactElement => (
   <ListFrame>
     <div className={layout.toolbar}>
       <YearFilter path="/income" year={year} />
@@ -35,18 +31,24 @@ const Income = ({
         </ButtonLink>
       </div>
     </div>
-    <IncomeTable
-      savedId={savedId}
-      incomes={incomes}
-      pagination={pagination}
-      footer={
-        <PaginationComponent
-          pagination={pagination}
-          path="/income"
-          query={{ year: String(year) }}
-        />
-      }
-    />
+    {list === null ? (
+      <ErrorTable columns={INCOME_COLUMNS}>
+        <LoadFailed />
+      </ErrorTable>
+    ) : (
+      <IncomeTable
+        savedId={savedId}
+        incomes={list.incomes}
+        pagination={list.pagination}
+        footer={
+          <PaginationComponent
+            pagination={list.pagination}
+            path="/income"
+            query={{ year: String(year) }}
+          />
+        }
+      />
+    )}
   </ListFrame>
 );
 export default Income;

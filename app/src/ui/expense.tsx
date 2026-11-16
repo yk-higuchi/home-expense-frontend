@@ -11,11 +11,12 @@ import ExpenseFilters from "@/ui/parts/expense-filters";
 import ExpenseTable from "@/ui/parts/expense-table";
 import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
+import { LoadFailed } from "@/ui/parts/load-failed";
 import PaginationComponent from "@/ui/parts/pagination-component";
+import { ErrorTable, EXPENSE_COLUMNS } from "@/ui/parts/table-columns";
 
 interface Props {
-  expenses: Expenses;
-  pagination: Pagination;
+  list: { expenses: Expenses; pagination: Pagination } | null;
   year: number;
   month?: number;
   category?: ExpenseAttributeCategory;
@@ -25,8 +26,7 @@ interface Props {
 }
 
 const Expense = ({
-  expenses,
-  pagination,
+  list,
   year,
   month,
   category,
@@ -58,18 +58,24 @@ const Expense = ({
           </ButtonLink>
         </div>
       </div>
-      <ExpenseTable
-        savedId={savedId}
-        expenses={expenses}
-        pagination={pagination}
-        footer={
-          <PaginationComponent
-            pagination={pagination}
-            path="/expense"
-            query={query}
-          />
-        }
-      />
+      {list === null ? (
+        <ErrorTable columns={EXPENSE_COLUMNS}>
+          <LoadFailed />
+        </ErrorTable>
+      ) : (
+        <ExpenseTable
+          savedId={savedId}
+          expenses={list.expenses}
+          pagination={list.pagination}
+          footer={
+            <PaginationComponent
+              pagination={list.pagination}
+              path="/expense"
+              query={query}
+            />
+          }
+        />
+      )}
     </ListFrame>
   );
 };

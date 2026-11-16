@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
+import { load } from "@/lib/load";
 import { getIncomeSummary } from "@/service/income-service";
 import Income from "@/ui/income";
 
@@ -23,16 +24,17 @@ const IncomePage = async (props: Props): Promise<ReactElement> => {
   const page = Number(searchParams.page) || 1;
   const perPage = Number(searchParams.per_page) || 20;
   const year = Number(searchParams.year) || now.getFullYear();
-  const { incomes, pagination } = await getIncomeSummary({
-    page,
-    perPage,
-    year,
-    tag: `income-${year}`,
-  });
+  const loaded = await load(() =>
+    getIncomeSummary({
+      page,
+      perPage,
+      year,
+      tag: `income-${year}`,
+    }),
+  );
   return (
     <Income
-      incomes={incomes}
-      pagination={pagination}
+      list={loaded.ok ? loaded.value : null}
       year={year}
       savedId={searchParams.saved}
     />

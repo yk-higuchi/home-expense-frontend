@@ -6,20 +6,19 @@ import CategoryFilter from "@/ui/parts/category-filter";
 import ExpenseAttributeTable from "@/ui/parts/expense-attribute-table";
 import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
+import { LoadFailed } from "@/ui/parts/load-failed";
+import {
+  ErrorTable,
+  EXPENSE_ATTRIBUTE_COLUMNS,
+} from "@/ui/parts/table-columns";
 
 interface Props {
   category: string;
-  expenseAttributes: ExpenseAttributes;
-  version: string;
+  list: { expenseAttributes: ExpenseAttributes; version: string } | null;
   savedId?: string;
 }
 
-const ExpenseAttribute = ({
-  category,
-  expenseAttributes,
-  version,
-  savedId,
-}: Props): ReactElement => (
+const ExpenseAttribute = ({ category, list, savedId }: Props): ReactElement => (
   <ListFrame>
     <div className={layout.toolbar}>
       <CategoryFilter category={category} />
@@ -33,12 +32,18 @@ const ExpenseAttribute = ({
         </ButtonLink>
       </div>
     </div>
-    <ExpenseAttributeTable
-      savedId={savedId}
-      expenseAttributes={expenseAttributes}
-      version={version}
-      category={category}
-    />
+    {list === null ? (
+      <ErrorTable columns={EXPENSE_ATTRIBUTE_COLUMNS}>
+        <LoadFailed />
+      </ErrorTable>
+    ) : (
+      <ExpenseAttributeTable
+        savedId={savedId}
+        expenseAttributes={list.expenseAttributes}
+        version={list.version}
+        category={category}
+      />
+    )}
   </ListFrame>
 );
 export default ExpenseAttribute;

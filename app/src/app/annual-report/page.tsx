@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
 
+import { load } from "@/lib/load";
 import {
   getBalanceStatistics,
   getMonthlyBalanceSeries,
@@ -20,14 +21,25 @@ interface Props {
 const AnnualReportPage = async (props: Props): Promise<ReactElement> => {
   const searchParams = await props.searchParams;
   const year = Number(searchParams.year) || new Date(Date.now()).getFullYear();
-  const [statistics, series] = await Promise.all([
-    getBalanceStatistics({ year, tag: `balance-statistics-${year}` }),
-    getMonthlyBalanceSeries({
-      from: new Date(year, 0, 1),
-      to: new Date(year, 11, 31),
-      tag: `balance-series-${year}`,
-    }),
-  ]);
-  return <AnnualReport year={year} statistics={statistics} series={series} />;
+  const loaded = await load(() =>
+    Promise.all([
+      getBalanceStatistics({ year, tag: `balance-statistics-${year}` }),
+      getMonthlyBalanceSeries({
+        from: new Date(year, 0, 1),
+        to: new Date(year, 11, 31),
+        tag: `balance-series-${year}`,
+      }),
+    ]),
+  );
+  return (
+    <AnnualReport
+      year={year}
+      report={
+        loaded.ok
+          ? { statistics: loaded.value[0], series: loaded.value[1] }
+          : null
+      }
+    />
+  );
 };
 export default AnnualReportPage;

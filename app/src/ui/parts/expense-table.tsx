@@ -7,8 +7,6 @@ import {
   TableBody,
   TableCell,
   TableEmpty,
-  TableHead,
-  TableHeaderCell,
   TableRow,
   Toast,
   useToast,
@@ -25,6 +23,7 @@ import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import { usePageTransition } from "@/ui/parts/page-transition";
 import savedStyle from "@/ui/parts/saved-row.module.css";
+import { ColumnsHead, EXPENSE_COLUMNS } from "@/ui/parts/table-columns";
 
 interface Props {
   expenses: Expenses;
@@ -60,17 +59,7 @@ const ExpenseTable = ({
   return (
     <>
       <Table footer={footer} loading={loading}>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell width={88}>No.</TableHeaderCell>
-            <TableHeaderCell>説明</TableHeaderCell>
-            <TableHeaderCell width={112}>金額</TableHeaderCell>
-            <TableHeaderCell width={128}>支払日</TableHeaderCell>
-            <TableHeaderCell>属性名</TableHeaderCell>
-            <TableHeaderCell width={96}>分類</TableHeaderCell>
-            <TableHeaderCell width={104}>編集</TableHeaderCell>
-          </TableRow>
-        </TableHead>
+        <ColumnsHead columns={EXPENSE_COLUMNS} />
         <TableBody>
           {optimisticExpenses.length === 0 && <TableEmpty colSpan={7} />}
           {optimisticExpenses.map(

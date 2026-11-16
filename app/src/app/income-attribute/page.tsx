@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
+import { load } from "@/lib/load";
 
 import { getIncomeAttributes } from "@/service/income-attribute-service";
 import IncomeAttribute from "@/ui/income-attribute";
@@ -16,13 +17,9 @@ interface Props {
 
 const IncomeAttributePage = async (props: Props): Promise<ReactElement> => {
   const { saved } = await props.searchParams;
-  const { incomeAttributes, version } = await getIncomeAttributes();
+  const loaded = await load(() => getIncomeAttributes());
   return (
-    <IncomeAttribute
-      incomeAttributes={incomeAttributes}
-      version={version}
-      savedId={saved}
-    />
+    <IncomeAttribute list={loaded.ok ? loaded.value : null} savedId={saved} />
   );
 };
 export default IncomeAttributePage;

@@ -5,18 +5,15 @@ import type { IncomeAttributes } from "@/lib/income-attribute";
 import IncomeAttributeTable from "@/ui/parts/income-attribute-table";
 import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
+import { LoadFailed } from "@/ui/parts/load-failed";
+import { ErrorTable, INCOME_ATTRIBUTE_COLUMNS } from "@/ui/parts/table-columns";
 
 interface Props {
-  incomeAttributes: IncomeAttributes;
-  version: string;
+  list: { incomeAttributes: IncomeAttributes; version: string } | null;
   savedId?: string;
 }
 
-const IncomeAttribute = ({
-  incomeAttributes,
-  version,
-  savedId,
-}: Props): ReactElement => (
+const IncomeAttribute = ({ list, savedId }: Props): ReactElement => (
   <ListFrame>
     <div className={layout.actions}>
       <ButtonLink
@@ -27,11 +24,17 @@ const IncomeAttribute = ({
         追加
       </ButtonLink>
     </div>
-    <IncomeAttributeTable
-      savedId={savedId}
-      incomeAttributes={incomeAttributes}
-      version={version}
-    />
+    {list === null ? (
+      <ErrorTable columns={INCOME_ATTRIBUTE_COLUMNS}>
+        <LoadFailed />
+      </ErrorTable>
+    ) : (
+      <IncomeAttributeTable
+        savedId={savedId}
+        incomeAttributes={list.incomeAttributes}
+        version={list.version}
+      />
+    )}
   </ListFrame>
 );
 export default IncomeAttribute;

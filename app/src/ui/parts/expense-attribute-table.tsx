@@ -9,8 +9,6 @@ import {
   TableBody,
   TableCell,
   TableEmpty,
-  TableHead,
-  TableHeaderCell,
   TableRow,
   Toast,
   useSortableList,
@@ -31,6 +29,10 @@ import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import { usePageTransition } from "@/ui/parts/page-transition";
 import savedStyle from "@/ui/parts/saved-row.module.css";
+import {
+  ColumnsHead,
+  EXPENSE_ATTRIBUTE_COLUMNS,
+} from "@/ui/parts/table-columns";
 
 interface Props {
   category: string;
@@ -79,15 +81,7 @@ const ExpenseAttributeTable = ({
   return (
     <>
       <Table loading={loading}>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell width={64} aria-label="並べ替え" />
-            <TableHeaderCell width={102}>No.</TableHeaderCell>
-            <TableHeaderCell>属性名</TableHeaderCell>
-            <TableHeaderCell width={200}>分類</TableHeaderCell>
-            <TableHeaderCell width={146}>操作</TableHeaderCell>
-          </TableRow>
-        </TableHead>
+        <ColumnsHead columns={EXPENSE_ATTRIBUTE_COLUMNS} />
         <TableBody>
           {rows.length === 0 && <TableEmpty colSpan={5} />}
           {rows.map((row, index) => (

@@ -17,26 +17,31 @@ import {
   monthLabel,
 } from "@/lib/balance";
 import BalanceChart from "@/ui/parts/balance-chart";
+import { LoadFailed } from "@/ui/parts/load-failed";
 import PeriodFilterFrame from "@/ui/parts/period-filter-frame";
 import style from "./annual-report.module.css";
 
 interface Props {
   year: number;
-  statistics: BalanceStatistics;
-  series: BalancePoint[];
+  report: { statistics: BalanceStatistics; series: BalancePoint[] } | null;
 }
 
-const AnnualReport = ({ year, statistics, series }: Props): ReactElement => {
+const AnnualReport = ({ year, report }: Props): ReactElement => {
+  const classes = {
+    page: style.page,
+    content: style.content,
+    pending: style.pending,
+  };
+  if (report === null) {
+    return (
+      <PeriodFilterFrame path="/annual-report" year={year} classes={classes}>
+        <LoadFailed />
+      </PeriodFilterFrame>
+    );
+  }
+  const { statistics, series } = report;
   return (
-    <PeriodFilterFrame
-      path="/annual-report"
-      year={year}
-      classes={{
-        page: style.page,
-        content: style.content,
-        pending: style.pending,
-      }}
-    >
+    <PeriodFilterFrame path="/annual-report" year={year} classes={classes}>
       <SummaryList>
         <SummaryRow
           label="収入合計"
