@@ -18,19 +18,21 @@ interface Column {
 }
 
 export const EXPENSE_COLUMNS: readonly Column[] = [
-  { label: "支払日", width: 128 },
+  { label: "No.", width: 88 },
   { label: "説明" },
+  { label: "金額", width: 112, align: "end" },
+  { label: "支払日", width: 128 },
   { label: "属性名" },
   { label: "分類", width: 96 },
-  { label: "金額", width: 128, align: "end" },
   { label: "編集", width: 104, kind: "action" },
 ];
 
 export const INCOME_COLUMNS: readonly Column[] = [
-  { label: "受取日", width: 128 },
+  { label: "No.", width: 88 },
   { label: "説明" },
-  { label: "属性名" },
   { label: "金額", width: 128, align: "end" },
+  { label: "受取日", width: 128 },
+  { label: "属性名" },
   { label: "編集", width: 104, kind: "action" },
 ];
 

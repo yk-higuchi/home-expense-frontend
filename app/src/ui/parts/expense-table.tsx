@@ -53,7 +53,7 @@ const ExpenseTable = ({
     requestDelete,
     dialogProps,
   } = useOptimisticDelete(expenses, (row) => row.description, toast);
-  const { page } = pagination.current;
+  const { page, perPage } = pagination.current;
   useEmptyPageFallback("/expense", expenses.length, page);
 
   return (
@@ -61,27 +61,29 @@ const ExpenseTable = ({
       <Table footer={footer} loading={loading}>
         <ColumnsHead columns={EXPENSE_COLUMNS} />
         <TableBody>
-          {optimisticExpenses.length === 0 && <TableEmpty colSpan={6} />}
+          {optimisticExpenses.length === 0 && <TableEmpty colSpan={7} />}
           {optimisticExpenses.map(
             (
               { id, description, amount, attributeName, paymentDate, category },
               index,
             ) => {
+              const no = index + 1 + (page - 1) * perPage;
               return (
                 <TableRow
-                  key={id ?? index}
+                  key={id ?? no}
                   id={`row-${id}`}
                   className={
                     saved.highlightedId === id ? savedStyle.saved : undefined
                   }
                 >
-                  <TableCell>{paymentDate}</TableCell>
+                  <TableCell>{no}</TableCell>
                   <TableCell>{description}</TableCell>
-                  <TableCell>{attributeName}</TableCell>
-                  <TableCell>{category}</TableCell>
                   <TableCell align="end">
                     <Amount value={amount} />
                   </TableCell>
+                  <TableCell>{paymentDate}</TableCell>
+                  <TableCell>{attributeName}</TableCell>
+                  <TableCell>{category}</TableCell>
                   <TableCell>
                     {id && (
                       <TableActions
