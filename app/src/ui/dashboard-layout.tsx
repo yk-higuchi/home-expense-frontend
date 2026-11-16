@@ -2,6 +2,7 @@ import { NavBar } from "@home-expense/ui";
 import type { ReactElement, ReactNode } from "react";
 
 import AppSideBar from "@/ui/parts/app-side-bar";
+import { PageContent, PageTransition } from "@/ui/parts/page-transition";
 import style from "./dashboard-layout.module.css";
 
 const DashboardLayout = ({
@@ -23,13 +24,15 @@ const DashboardLayout = ({
     { label: "年間レポート", href: "/annual-report" },
   ];
   return (
-    <div className={style.parent}>
+    <PageTransition className={style.parent}>
       <AppSideBar items={items} />
       <div className={style.column}>
         <NavBar title="家計簿" />
-        <main className={style.content}>{children}</main>
+        <main className={style.content}>
+          <PageContent>{children}</PageContent>
+        </main>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 export default DashboardLayout;

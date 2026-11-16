@@ -13,7 +13,7 @@ import {
   Toast,
   useToast,
 } from "@home-expense/ui";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
 import type { Expenses } from "@/lib/expense";
 import { useEmptyPageFallback } from "@/lib/hooks/use-empty-page-fallback";
@@ -23,6 +23,7 @@ import type { Pagination } from "@/lib/pagination/pagination";
 import { deleteExpense, loadExpenseForDelete } from "@/service/expense-service";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
+import { usePageTransition } from "@/ui/parts/page-transition";
 import savedStyle from "@/ui/parts/saved-row.module.css";
 
 interface Props {
@@ -38,11 +39,11 @@ const ExpenseTable = ({
   footer,
   savedId,
 }: Props): ReactElement => {
-  const router = useRouter();
+  const { navigate } = usePageTransition();
   const searchParams = useSearchParams();
   const { isPending: loading } = useListNavigation();
   const onEdit = (id: string): void => {
-    router.push(
+    navigate(
       `/expense/${id}?${new URLSearchParams({ from: searchParams.toString() })}`,
     );
   };

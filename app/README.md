@@ -109,4 +109,7 @@ API のリクエスト・レスポンスの JTD スキーマは、バックエ�
   - `data-list-link` の印は `lib/list-link.ts` に置く。`"use client"` のファイルから値を書き出すと、サーバー側では値ではなく参照になるため。
 - 表の「編集」は、表の中で移動する（支出・収入は、今の絞り込みとページを `from` に入れる）。
 - 削除で最後のページが空になったときの前のページへの移動は、表の中で行う（`lib/hooks/use-empty-page-fallback.ts`）。サーバーの `redirect` にすると、削除の結果を受け取る前に画面が移り、「削除しました」のトーストが出ない。
-- 読み込み中の表示（`app/loading.tsx`）の都合で、内容は JavaScript で差し込まれる。JavaScript を切ったブラウザでは画面が表示されない（リンクにしたことで JavaScript なしで動くわけではない）。
+- `app/loading.tsx` は置かない。置くと、サーバーは先に読み込み中の画面を返し、内容をあとから JavaScript で差し込む（ストリーミング）ため、JavaScript を切ったブラウザでは内容が表示されない。置かないことで、サーバーはデータを揃えてから完成した HTML を返す。
+- 代わりに、画面を移るあいだの「読み込み中」は `ui/parts/page-transition.tsx` が出す。レイアウト全体を `PageTransition` で包み、中の `/` で始まるリンクのクリック（サイドバー・「追加」など）を受け取って、`useTransition` の中で移動する。移動中は `PageContent` が `main` の中身を読み込み中の画面（`ui/parts/loading-state.tsx`）に差し替える。表の「編集」も `usePageTransition` の `navigate` で移動する。
+  - ページ送り（`data-list-link`）は対象外。一覧の中の移動なので、読み込み中の画面にはせず、`ListFrame` が表を薄くする。
+  - 修飾キー付きのクリック・`target` のあるリンク・`download` のリンクは、ブラウザに任せる（新しいタブで開く）。

@@ -16,7 +16,6 @@ import {
   useSortableList,
   useToast,
 } from "@home-expense/ui";
-import { useRouter } from "next/navigation";
 import type { ReactElement } from "react";
 import type { ExpenseAttributes } from "@/lib/expense-attribute";
 import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
@@ -30,6 +29,7 @@ import {
 import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
+import { usePageTransition } from "@/ui/parts/page-transition";
 import savedStyle from "@/ui/parts/saved-row.module.css";
 
 interface Props {
@@ -45,10 +45,10 @@ const ExpenseAttributeTable = ({
   version,
   savedId,
 }: Props): ReactElement => {
-  const router = useRouter();
+  const { navigate } = usePageTransition();
   const { isPending: loading } = useListNavigation();
   const onEdit = (id: string): void => {
-    router.push(`/expense-attribute/${id}`);
+    navigate(`/expense-attribute/${id}`);
   };
   const saved = useSavedHighlight(
     savedId,
