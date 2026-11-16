@@ -12,7 +12,9 @@
       "!**/storybook-static",
       "!**/.next",
       "!app/dist",
-      "!app/.parcel-cache"
+      "!app/.parcel-cache",
+      "!CHANGELOG.md",
+      "!.release-please-manifest.json"
     ]
   },
   "formatter": {
