@@ -7,7 +7,7 @@ import { getExpenseSummary } from "@/service/expense-service";
 import Expense from "@/ui/expense";
 
 export const metadata: Metadata = {
-  title: "経費一覧",
+  title: "支出一覧",
 };
 
 interface Props {

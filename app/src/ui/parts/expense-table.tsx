@@ -104,7 +104,7 @@ const ExpenseTable = ({
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadExpenseForDelete}
-        title="経費の削除"
+        title="支出の削除"
         idFieldName="expenseId"
         action={deleteExpense}
       />

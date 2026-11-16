@@ -5,7 +5,7 @@ import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import ExpenseRegistration from "@/ui/expense-registration";
 
 export const metadata: Metadata = {
-  title: "経費登録",
+  title: "支出登録",
 };
 
 interface Props {

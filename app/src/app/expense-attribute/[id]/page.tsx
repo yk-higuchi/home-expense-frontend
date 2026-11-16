@@ -5,7 +5,7 @@ import { getExpenseAttribute } from "@/service/expense-attribute-service";
 import ExpenseAttributeEdit from "@/ui/expense-attribute-edit";
 
 export const metadata: Metadata = {
-  title: "経費属性編集",
+  title: "支出属性編集",
 };
 
 interface Props {

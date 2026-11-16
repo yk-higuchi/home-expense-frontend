@@ -133,7 +133,7 @@ const ExpenseAttributeTable = ({
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadExpenseAttributeForDelete}
-        title="経費属性の削除"
+        title="支出属性の削除"
         idFieldName="expenseAttributeId"
         action={deleteExpenseAttribute}
       />

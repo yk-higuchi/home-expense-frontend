@@ -6,7 +6,7 @@ import { getExpense } from "@/service/expense-service";
 import ExpenseEdit from "@/ui/expense-edit";
 
 export const metadata: Metadata = {
-  title: "経費編集",
+  title: "支出編集",
 };
 
 interface Props {

@@ -48,7 +48,7 @@ const REORDER_CONFLICT_MESSAGE =
   "ほかの操作で一覧が更新されています。画面を読み込み直してから、もう一度並べ替えてください。";
 
 export const reorderFailureMessage = (error: unknown): string =>
-  error instanceof HttpError && [412, 422, 428].includes(error.status)
+  error instanceof HttpError && [409, 412, 422, 428].includes(error.status)
     ? REORDER_CONFLICT_MESSAGE
     : REORDER_FAILED_MESSAGE;
 
