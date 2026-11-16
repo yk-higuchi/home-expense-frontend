@@ -24,6 +24,12 @@ const meta = {
     ),
   ],
   args: { items, total, label: "支出の多い順" },
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2214-4223",
+    },
+  },
 } satisfies Meta<typeof BarList>;
 
 export default meta;
