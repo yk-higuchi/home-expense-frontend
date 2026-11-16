@@ -159,6 +159,7 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
   - `load` は Next.js の内部の例外（`redirect`・`notFound` など）を `unstable_rethrow` でそのまま投げ直す。
 - 編集画面は、API が 404 を返したら `notFound()` にする（`load(…, { notFoundOn404: true })`）。各 `[id]/not-found.tsx` が「この支出は見つかりませんでした」と一覧へのリンクを出す。存在しない URL は `app/not-found.tsx`。
 - `app/error.tsx` は、どこにも当てはまらないエラーの最後の受け皿（文言は「予期せぬエラーが発生しました」）。
+  - Next.js は、エラーの画面をすぐ出せるよう、`error.tsx` が使う CSS（`state.module.css`・`page-heading.module.css`・`LoadError.module.css`、約 1.1KB）を全ページで `<link rel="preload" as="style">` で先読みする。エラーが起きない限り使われないため、ブラウザのコンソールに「preloaded using link preload but not used within a few seconds」と警告が出る。`as` の指定は正しく、表示にも影響しないので、そのままにする（[Next.js の議論 #49607](https://github.com/vercel/next.js/discussions/49607)）。消すには `error.tsx` から CSS Modules をなくす必要があり、`LoadError` の見た目を二重に持つことになるため、しない。
 
 ## アクセシビリティ（WCAG 2.2 AA）
 
