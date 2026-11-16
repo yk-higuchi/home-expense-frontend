@@ -3,6 +3,11 @@ import type { ReactElement, ReactNode } from "react";
 
 import AppSideBar from "@/ui/parts/app-side-bar";
 import { PageContent, PageTransition } from "@/ui/parts/page-transition";
+import {
+  SiteMenu,
+  SiteMenuButton,
+  SiteMenuProvider,
+} from "@/ui/parts/site-menu";
 import style from "./dashboard-layout.module.css";
 
 const DashboardLayout = ({
@@ -25,13 +30,20 @@ const DashboardLayout = ({
   ];
   return (
     <PageTransition className={style.parent}>
-      <AppSideBar items={items} />
-      <div className={style.column}>
-        <NavBar title="家計簿" />
-        <main className={style.content}>
-          <PageContent>{children}</PageContent>
-        </main>
-      </div>
+      <a href="#main" className={style.skip}>
+        本文へ移動
+      </a>
+      <SiteMenuProvider>
+        <SiteMenu className={style.menu}>
+          <AppSideBar items={items} />
+        </SiteMenu>
+        <div className={style.column}>
+          <NavBar title="家計簿" start={<SiteMenuButton />} />
+          <main id="main" tabIndex={-1} className={style.content}>
+            <PageContent>{children}</PageContent>
+          </main>
+        </div>
+      </SiteMenuProvider>
     </PageTransition>
   );
 };

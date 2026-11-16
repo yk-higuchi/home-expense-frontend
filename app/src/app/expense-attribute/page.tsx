@@ -4,6 +4,7 @@ import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
 import { load } from "@/lib/load";
 import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import ExpenseAttribute from "@/ui/expense-attribute";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "支出属性一覧",
@@ -28,4 +29,4 @@ const ExpenseAttributePage = async (props: Props): Promise<ReactElement> => {
     />
   );
 };
-export default ExpenseAttributePage;
+export default withHeading("支出属性一覧", ExpenseAttributePage);

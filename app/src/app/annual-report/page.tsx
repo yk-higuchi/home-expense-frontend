@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-
 import { load } from "@/lib/load";
 import {
   getBalanceStatistics,
   getMonthlyBalanceSeries,
 } from "@/service/balance-service";
 import AnnualReport from "@/ui/annual-report";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "年間レポート",
@@ -42,4 +42,4 @@ const AnnualReportPage = async (props: Props): Promise<ReactElement> => {
     />
   );
 };
-export default AnnualReportPage;
+export default withHeading("年間レポート", AnnualReportPage);

@@ -4,6 +4,7 @@ import { load } from "@/lib/load";
 import { getExpenseAttribute } from "@/service/expense-attribute-service";
 import ExpenseAttributeEdit from "@/ui/expense-attribute-edit";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "支出属性編集",
@@ -27,4 +28,4 @@ const ExpenseAttributeEditPage = async (
   if (!loaded.ok) return <FormLoadFailed />;
   return <ExpenseAttributeEdit expenseAttribute={loaded.value} />;
 };
-export default ExpenseAttributeEditPage;
+export default withHeading("支出属性編集", ExpenseAttributeEditPage);

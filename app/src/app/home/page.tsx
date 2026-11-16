@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-
 import { load } from "@/lib/load";
 import { getBalanceStatistics } from "@/service/balance-service";
 import ExpenseAggregate from "@/ui/expense-aggregate";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "HOME",
@@ -36,4 +36,4 @@ const HomePage = async (props: Props): Promise<ReactElement> => {
     />
   );
 };
-export default HomePage;
+export default withHeading("HOME", HomePage);

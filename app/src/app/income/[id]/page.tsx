@@ -5,6 +5,7 @@ import { getIncomeAttributes } from "@/service/income-attribute-service";
 import { getIncome } from "@/service/income-service";
 import IncomeEdit from "@/ui/income-edit";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "収入編集",
@@ -41,4 +42,4 @@ const IncomeEditPage = async (props: Props): Promise<ReactElement> => {
     />
   );
 };
-export default IncomeEditPage;
+export default withHeading("収入編集", IncomeEditPage);

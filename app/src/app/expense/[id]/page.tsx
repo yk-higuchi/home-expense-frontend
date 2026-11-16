@@ -5,6 +5,7 @@ import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import { getExpense } from "@/service/expense-service";
 import ExpenseEdit from "@/ui/expense-edit";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "支出編集",
@@ -43,4 +44,4 @@ const ExpenseEditPage = async (props: Props): Promise<ReactElement> => {
     />
   );
 };
-export default ExpenseEditPage;
+export default withHeading("支出編集", ExpenseEditPage);

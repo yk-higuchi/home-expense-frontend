@@ -5,6 +5,7 @@ import { load } from "@/lib/load";
 import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import { getExpenseSummary } from "@/service/expense-service";
 import Expense from "@/ui/expense";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "支出一覧",
@@ -61,4 +62,4 @@ const ExpensePage = async (props: Props): Promise<ReactElement> => {
     />
   );
 };
-export default ExpensePage;
+export default withHeading("支出一覧", ExpensePage);

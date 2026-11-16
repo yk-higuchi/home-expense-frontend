@@ -4,6 +4,7 @@ import { load } from "@/lib/load";
 import { getExpenseAttributes } from "@/service/expense-attribute-service";
 import ExpenseRegistration from "@/ui/expense-registration";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
+import { withHeading } from "@/ui/parts/page-heading";
 
 export const metadata: Metadata = {
   title: "支出登録",
@@ -24,4 +25,4 @@ const ExpenseRegistrationPage = async (props: Props): Promise<ReactElement> => {
     <ExpenseRegistration expenseAttributes={loaded.value.expenseAttributes} />
   );
 };
-export default ExpenseRegistrationPage;
+export default withHeading("支出登録", ExpenseRegistrationPage);
