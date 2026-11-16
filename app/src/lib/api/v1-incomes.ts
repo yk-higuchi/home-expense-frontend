@@ -1,24 +1,18 @@
 import * as process from "node:process";
 
-import {
-  IncomeGetResponse,
-  IncomeListResponse,
-  IncomePostRequest,
-  IncomePutRequest,
-} from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
-import type { JTD } from "@/lib/json/type";
+import type { Schema } from "@/lib/json/type";
 import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
 
-const getSummaryResponse = IncomeListResponse;
-const getResponse = IncomeGetResponse;
-const postRequest = IncomePostRequest;
-const putRequest = IncomePutRequest;
+const getSummaryResponse = "IncomeListResponse" as const;
+const getResponse = "IncomeGetResponse" as const;
+const postRequest = "IncomePostRequest" as const;
+const putRequest = "IncomePutRequest" as const;
 
-type GetSummaryResponse = JTD<typeof getSummaryResponse>;
-type GetResponse = JTD<typeof getResponse>;
-type PostRequest = JTD<typeof postRequest>;
-type PutRequest = JTD<typeof putRequest>;
+type GetSummaryResponse = Schema<typeof getSummaryResponse>;
+type GetResponse = Schema<typeof getResponse>;
+type PostRequest = Schema<typeof postRequest>;
+type PutRequest = Schema<typeof putRequest>;
 
 const _getSummary = async ({
   page,
@@ -46,8 +40,7 @@ const _getSummary = async ({
       const { headers } = response;
       if (headers) {
         const pagination = parseLinkHeader(headers);
-        const responseBody =
-          await response.body<GetSummaryResponse>(getSummaryResponse);
+        const responseBody = await response.body(getSummaryResponse);
         return {
           pagination,
           response: responseBody,
@@ -76,7 +69,7 @@ const _get = async ({
   switch (response.type) {
     case "success":
       return {
-        ...(await response.body<GetResponse>(getResponse)),
+        ...(await response.body(getResponse)),
         etag: response.headers?.etag,
       };
     case "failure":

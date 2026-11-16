@@ -1,5 +1,5 @@
 export const required = (value: string, label: string): string | undefined =>
-  value === "" ? `${label}を入力してください` : undefined;
+  value.trim() === "" ? `${label}を入力してください` : undefined;
 
 export const selected = (value: string, label: string): string | undefined =>
   value === "" ? `${label}を選択してください` : undefined;

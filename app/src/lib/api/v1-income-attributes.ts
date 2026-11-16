@@ -1,25 +1,18 @@
 import process from "node:process";
 
-import {
-  IncomeAttributeGetResponse,
-  IncomeAttributeListPatchRequest,
-  IncomeAttributeListResponse,
-  IncomeAttributePostRequest,
-  IncomeAttributePutRequest,
-} from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
-import type { JTD } from "@/lib/json/type";
+import type { Schema } from "@/lib/json/type";
 
-const getSummaryResponse = IncomeAttributeListResponse;
-const getResponse = IncomeAttributeGetResponse;
-const postRequest = IncomeAttributePostRequest;
-const putRequest = IncomeAttributePutRequest;
-const patchRequest = IncomeAttributeListPatchRequest;
+const getSummaryResponse = "IncomeAttributeListResponse" as const;
+const getResponse = "IncomeAttributeGetResponse" as const;
+const postRequest = "IncomeAttributePostRequest" as const;
+const putRequest = "IncomeAttributePutRequest" as const;
+const patchRequest = "IncomeAttributeListPatchRequest" as const;
 
-type GetSummaryResponse = JTD<typeof getSummaryResponse>;
-type GetResponse = JTD<typeof getResponse>;
-type PostRequest = JTD<typeof postRequest>;
-type PutRequest = JTD<typeof putRequest>;
+type GetSummaryResponse = Schema<typeof getSummaryResponse>;
+type GetResponse = Schema<typeof getResponse>;
+type PostRequest = Schema<typeof postRequest>;
+type PutRequest = Schema<typeof putRequest>;
 
 const _getList = async ({
   extension,
@@ -34,7 +27,7 @@ const _getList = async ({
   switch (response.type) {
     case "success":
       return {
-        response: await response.body<GetSummaryResponse>(getSummaryResponse),
+        response: await response.body(getSummaryResponse),
         etag: response.headers?.etag ?? "",
       };
     case "failure":
@@ -92,7 +85,7 @@ const _get = async ({
   switch (response.type) {
     case "success":
       return {
-        ...(await response.body<GetResponse>(getResponse)),
+        ...(await response.body(getResponse)),
         etag: response.headers?.etag,
       };
     case "failure":

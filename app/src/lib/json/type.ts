@@ -1,5 +1,4 @@
-import type { SchemaObject } from "ajv/dist/ajv";
-import type { JTDDataType } from "ajv/dist/jtd";
+import type { Schemas } from "@/lib/api/generated/types";
 
-export type JTDSchema = SchemaObject;
-export type JTD<T> = JTDDataType<T>;
+export type SchemaName = keyof Schemas;
+export type Schema<N extends SchemaName> = Schemas[N];

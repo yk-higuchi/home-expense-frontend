@@ -11,21 +11,26 @@ pnpm lint                                     # Biome・Stylelint・型チェッ
 
 API はサーバー側（Server Components・Server Actions）からだけ呼び出す。`BACKEND_URL` はブラウザには渡らない。
 
-## API のスキーマ（JTD）
+## API のスキーマ（JSON Schema）
 
-API のリクエスト・レスポンスの JTD スキーマは、バックエンドが OpenAPI から生成した `openapi.jtd.json` を取り込んだもの（`src/lib/api/generated/jtd.ts`）を使う。手で書かない。
+API のリクエスト・レスポンスは、バックエンドが OpenAPI から生成した JSON Schema 2020-12（`openapi.schema.json`）で検査する。手で書かない。
 
-- 取得するバックエンドの定義は `api-version` に書く。コミットのハッシュ（40 文字）なら、そのコミットの `docs/openapi.jtd.json` を GitHub から取得する。版（例：`2.1.0`）なら、その版の GitHub Release から取得する（`gh` が必要）。バックエンドの v2.1.0 がリリースされるまでは、コミットを固定する。
-- `pnpm gen:api` で取得して `jtd.ts` を作り直し、コミットする。`jtd.ts` は手で編集しない。
-- 手元のバックエンドのファイルから作るときは、`API_JTD_SOURCE` を指定する。
+- 取得するバックエンドの定義は `api-version` に書く。コミットのハッシュ（40 文字）なら、そのコミットの `docs/openapi.schema.json` を GitHub から取得する。版（例：`2.1.0`）なら、その版の GitHub Release から取得する（`gh` が必要）。バックエンドの v2.1.0 がリリースされるまでは、コミットを固定する。
+- `pnpm gen:api` で取得して、次の 2 つを作り直し、コミットする。どちらも手で編集しない。
+  - `src/lib/api/generated/schema.ts`：スキーマそのもの（`openApiSchema`）。検査に使う。
+  - `src/lib/api/generated/types.ts`：`$defs` の各スキーマの型（`Schemas`）。同じファイルから生成するので、検査と型が食い違わない。
+- 型は `openapi-typescript` を使わず、`gen-api.mjs` が作る。`openapi-typescript` は TypeScript 5 の API を使い、このプロジェクトの TypeScript 7 では動かないため。スキーマが使うキーワードは `type`・`properties`・`required`・`items`・`$ref`・`enum` などに限られる。知らない構造のキーワード（`oneOf` など）が現れたら、生成はエラーで止まる（`toType` に足す）。
+- 手元のバックエンドのファイルから作るときは、`API_SCHEMA_SOURCE` を指定する。
 
   ```sh
-  API_JTD_SOURCE=../../home-expense-backend/docs/openapi.jtd.json pnpm gen:api
+  API_SCHEMA_SOURCE=../../home-expense-backend/docs/openapi.schema.json pnpm gen:api
   ```
 
-- JSON をそのまま import すると文字列が `string` に広がり、`JTDDataType` で正しい型にならないため、`as const` 付きの TS に変換している。
-- 生成したスキーマは未知の項目を許す（`additionalProperties: true`）ため、なくなった項目を読んでもエラーにならない。バックエンドの項目が減ったときは、使っている箇所を検索して直す。
-- 収支の API の金額は int64（最大 1 兆）。JTD に int64 がないため `float64` になっている（この範囲なら誤差は出ない）。
+- 検査は `lib/json/index.ts`（`Ajv2020`、`strict: true`、`allErrors: true`、`ajv-formats` の `date`・`uuid`・`uri`・`int32`・`int64`）。バックエンドの CI が記録したやり取りを照合しているのと同じ設定。スキーマはオブジェクトではなく名前（例：`"ExpenseGetResponse"`）で指定し、型は `Schema<"ExpenseGetResponse">`。
+- レスポンスのスキーマは未知の項目を許すので、バックエンドが項目を増やしても検査は通る。リクエストのスキーマは定義にない項目を拒否する。
+- リクエストも送る前に検査する（文字数・空白だけ・金額の範囲・日付の形式など）。フォームの入力チェックをすり抜けた値は `JSONSerializeError` になるので、入力チェックはスキーマの制約と同じか、それより厳しくする（空白だけの値は「入力してください」にする）。
+- 収支の API の金額は int64（最大 1 兆）。TypeScript では `number` で、`Number.MAX_SAFE_INTEGER` より小さいので誤差は出ない。
+- ajv は検査の関数を `new Function` で作る。API はサーバー側からだけ呼ぶので、ブラウザの CSP の影響は受けない。
 - CI で、`pnpm gen:api` の結果がコミット済みのファイルと同じかを確かめる。
 
 ## 実装の決まりごと

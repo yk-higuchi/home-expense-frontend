@@ -1,7 +1,7 @@
 import { HttpError, parseProblem } from "@/lib/http/error";
 import type { HttpRequest, HttpResponse, RequestBody } from "@/lib/http/type";
 import { json } from "@/lib/json";
-import type { JTDSchema } from "@/lib/json/type";
+import type { SchemaName } from "@/lib/json/type";
 
 const _get = async (
   params: Omit<HttpRequest, "method">,
@@ -99,11 +99,8 @@ const serializeRequestBody = (requestBody?: RequestBody) => {
 const resolveWithResponse = async (
   response: Response,
 ): Promise<HttpResponse> => {
-  const body = async <T>(schema: JTDSchema): Promise<T> => {
-    const { parse } = json;
-    const responseJson: unknown = await response.json();
-    return parse<T>(schema, JSON.stringify(responseJson));
-  };
+  const body = async <N extends SchemaName>(name: N) =>
+    json.validate(name, await response.json());
   const headers: Record<string, string> = {};
   response.headers.forEach((value, key) => {
     headers[key] = value;

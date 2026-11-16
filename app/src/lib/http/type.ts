@@ -1,4 +1,4 @@
-import type { JTDSchema } from "@/lib/json/type";
+import type { Schema, SchemaName } from "@/lib/json/type";
 
 type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 type Mode = RequestMode;
@@ -20,7 +20,7 @@ export interface HttpRequest {
 }
 
 export interface RequestBody {
-  schema: JTDSchema;
+  schema: SchemaName;
   data: unknown;
 }
 
@@ -28,7 +28,7 @@ interface Success {
   type: "success";
   code: number;
   headers?: Record<string, string>;
-  body: <T>(schema: JTDSchema) => Promise<T>;
+  body: <N extends SchemaName>(name: N) => Promise<Schema<N>>;
 }
 
 interface Failure {

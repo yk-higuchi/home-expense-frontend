@@ -1,12 +1,11 @@
 import * as process from "node:process";
 
-import { BalanceStatisticsResponse } from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
-import type { JTD } from "@/lib/json/type";
+import type { Schema } from "@/lib/json/type";
 
-const getResponse = BalanceStatisticsResponse;
+const getResponse = "BalanceStatisticsResponse" as const;
 
-type GetResponse = JTD<typeof getResponse>;
+type GetResponse = Schema<typeof getResponse>;
 
 const _get = async ({
   year,
@@ -28,7 +27,7 @@ const _get = async ({
   });
   switch (response.type) {
     case "success":
-      return await response.body<GetResponse>(getResponse);
+      return await response.body(getResponse);
     case "failure":
       throw response.error;
   }

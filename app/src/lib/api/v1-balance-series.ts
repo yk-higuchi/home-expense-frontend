@@ -1,12 +1,11 @@
 import * as process from "node:process";
 
-import { BalanceSeriesResponse } from "@/lib/api/generated/jtd";
 import { http } from "@/lib/http";
-import type { JTD } from "@/lib/json/type";
+import type { Schema } from "@/lib/json/type";
 
-const getResponse = BalanceSeriesResponse;
+const getResponse = "BalanceSeriesResponse" as const;
 
-type GetResponse = JTD<typeof getResponse>;
+type GetResponse = Schema<typeof getResponse>;
 type Granularity = GetResponse["granularity"];
 
 const _get = async ({
@@ -28,7 +27,7 @@ const _get = async ({
   });
   switch (response.type) {
     case "success":
-      return await response.body<GetResponse>(getResponse);
+      return await response.body(getResponse);
     case "failure":
       throw response.error;
   }
