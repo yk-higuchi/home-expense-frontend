@@ -19,6 +19,5 @@ a:active {
 }
 
 body {
-  margin: 0;
   background: var(--color-background);
 }

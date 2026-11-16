@@ -88,3 +88,11 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - 表のセルは省略せずに折り返す。表は最小幅 880px で、狭い画面では表の部分（`aria-label` 付きの `section`、キーボードでもスクロールできるよう `tabIndex=0`）だけを横にスクロールする。ページ送りは折り返す。
 - `Pagination` の前・次の文字を空にしたときは、見えない「前のページ」「次のページ」を入れる。
 - `NavBar` の `start` に、ナビバーの左に置く要素（スマートフォンのメニューのボタン）を渡せる。
+- `src/reset.css` はブラウザの標準のスタイルを打ち消す最小限のリセット。アプリ（`app/src/app/layout.tsx`）と Storybook（`.storybook/preview.ts`）の両方で、`tokens.css` より先に読み込む。中身と理由は次のとおり。
+  - `box-sizing: border-box`（疑似要素も含む）：幅・高さに枠線と内側の余白を含める。Figma の部品の大きさ（枠線を含む）と同じ測り方にするため。
+  - `text-size-adjust: 100%`：スマートフォンを横向きにしたときなどに、ブラウザが文字を勝手に大きくしないようにする。
+  - `body` の `margin: 0`：ブラウザの標準の 8px の余白を消す。
+  - `-webkit-font-smoothing: antialiased`・`-moz-osx-font-smoothing: grayscale`：macOS のブラウザが文字の線を太らせて描くのをやめ、Figma と同じ太さの見え方にする（Windows などには効かない）。同じ文字列を描いて比べると、既定ではインクの量が Figma より約 24% 多く、この指定で 1% 未満の差になった。
+  - 見出し・段落・`figure`・`blockquote`・`dl`・`dd` の `margin: 0`：ブラウザの標準の上下の余白を消し、余白は部品の CSS（トークン）だけで決める。リストの余白と点は、意味を持つことがあるため打ち消さず、部品ごとに指定する。
+  - 画像・動画・`canvas` を `display: block; max-width: 100%`：行の下にできる隙間をなくし、親より広がらないようにする。アイコンの `svg` は行の中に置くことがあるので対象外。
+  - 入力欄・ボタン・`select`・`textarea` の `font: inherit`：ブラウザはフォーム部品に端末のフォントと 13px 前後の大きさを使うため、親の文字の設定を受け継がせる。

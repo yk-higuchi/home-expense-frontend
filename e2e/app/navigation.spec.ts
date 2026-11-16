@@ -33,7 +33,9 @@ test("移動に時間がかかると、移動先の枠を出す", async ({ page 
 
 test("読み込めないときは、表の見出しの下にエラーを出す", async ({ page }) => {
   await page.goto("/expense?year=2026&category=固定費&attributeId=missing");
-  const alert = page.getByRole("alert");
+  const alert = page
+    .getByRole("alert")
+    .filter({ hasText: "読み込めませんでした" });
   await expect(alert).toContainText("読み込めませんでした");
   await expect(alert.getByRole("button", { name: "もう一度試す" })).toBeVisible();
   await expect(page.getByRole("columnheader", { name: "説明" })).toBeVisible();

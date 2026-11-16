@@ -1,3 +1,4 @@
+import "@home-expense/ui/reset.css";
 import "@home-expense/ui/tokens.css";
 import "./globals.css";
 import type { Metadata } from "next";
