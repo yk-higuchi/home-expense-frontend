@@ -1,7 +1,7 @@
 import { Pagination as PaginationNav } from "@home-expense/ui";
 import type { ReactElement } from "react";
-import { LIST_LINK } from "@/lib/list-link";
-import type { Pagination } from "@/lib/pagination/pagination";
+import type { Pagination } from "@/network/pagination/pagination";
+import { LIST_LINK } from "@/ui/parts/list-link";
 
 interface Props {
   pagination: Pagination;

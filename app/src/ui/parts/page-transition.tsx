@@ -8,7 +8,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { useNavigation } from "@/lib/hooks/use-navigation";
+import { useNavigation } from "@/ui/hooks/use-navigation";
 import style from "@/ui/parts/page-transition.module.css";
 import { skeletonFor } from "@/ui/skeletons";
 

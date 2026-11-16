@@ -1,7 +1,7 @@
 import * as process from "node:process";
 
-import { http } from "@/lib/http";
-import type { Schema } from "@/lib/json/type";
+import { http } from "@/network/http";
+import type { Schema } from "@/network/schema/type";
 
 const getResponse = "BalanceSeriesResponse" as const;
 

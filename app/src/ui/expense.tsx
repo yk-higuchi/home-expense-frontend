@@ -1,12 +1,12 @@
 import { ButtonLink, PlusIcon } from "@home-expense/ui";
 import Link from "next/link";
 import type { ReactElement } from "react";
-import type { Expenses } from "@/lib/expense";
+import type { Expenses } from "@/core/expense";
 import type {
   ExpenseAttributeCategory,
   ExpenseAttributes,
-} from "@/lib/expense-attribute";
-import type { Pagination } from "@/lib/pagination/pagination";
+} from "@/core/expense-attribute";
+import type { Pagination } from "@/network/pagination/pagination";
 import ExpenseFilters from "@/ui/parts/expense-filters";
 import ExpenseTable from "@/ui/parts/expense-table";
 import ListFrame from "@/ui/parts/list-frame";

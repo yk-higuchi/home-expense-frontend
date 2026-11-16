@@ -1,4 +1,4 @@
-import { json } from "@/lib/json";
+import { json } from "@/network/schema";
 
 export class HttpError extends Error {
   override readonly name = "HttpError";

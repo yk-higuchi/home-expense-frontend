@@ -1,7 +1,7 @@
 import { ButtonLink, PlusIcon } from "@home-expense/ui";
 import Link from "next/link";
 import type { ReactElement } from "react";
-import type { ExpenseAttributes } from "@/lib/expense-attribute";
+import type { ExpenseAttributes } from "@/core/expense-attribute";
 import CategoryFilter from "@/ui/parts/category-filter";
 import ExpenseAttributeTable from "@/ui/parts/expense-attribute-table";
 import ListFrame from "@/ui/parts/list-frame";

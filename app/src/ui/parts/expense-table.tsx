@@ -13,12 +13,12 @@ import {
 } from "@home-expense/ui";
 import { useSearchParams } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
-import type { Expenses } from "@/lib/expense";
-import { useEmptyPageFallback } from "@/lib/hooks/use-empty-page-fallback";
-import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
-import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
-import type { Pagination } from "@/lib/pagination/pagination";
-import { deleteExpense, loadExpenseForDelete } from "@/service/expense-service";
+import type { Expenses } from "@/core/expense";
+import type { Pagination } from "@/network/pagination/pagination";
+import { deleteExpense, loadExpenseForDelete } from "@/server/actions/expense";
+import { useEmptyPageFallback } from "@/ui/hooks/use-empty-page-fallback";
+import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";
+import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import { usePageTransition } from "@/ui/parts/page-transition";

@@ -7,7 +7,7 @@ import {
   type ReactNode,
   useContext,
 } from "react";
-import { useNavigation } from "@/lib/hooks/use-navigation";
+import { useNavigation } from "@/ui/hooks/use-navigation";
 import layout from "@/ui/parts/list-layout.module.css";
 
 interface ListNavigation {

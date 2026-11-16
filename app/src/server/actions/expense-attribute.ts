@@ -1,51 +1,29 @@
 "use server";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { expenseAttributesApi } from "@/lib/api/v1-expense-attributes";
 import {
   DELETE_TARGET_LOAD_FAILED_MESSAGE,
   DELETE_TARGET_MISSING_MESSAGE,
   type DeleteTargetResult,
-} from "@/lib/delete-target";
-import {
-  type ExpenseAttribute,
-  type ExpenseAttributes,
-  isExpenseAttributeCategory,
-} from "@/lib/expense-attribute";
+} from "@/core/delete-target";
+import { isExpenseAttributeCategory } from "@/core/expense-attribute";
 import {
   CONFLICT_MESSAGE,
   collectErrors,
   DELETE_CONFLICT_MESSAGE,
   DELETE_FAILED_MESSAGE,
   type FormState,
-  failureMessage,
   formValues,
-  reorderFailureMessage,
   SUBMIT_FAILED_MESSAGE,
-} from "@/lib/form/form-state";
-import { first, maxLength, required, selected } from "@/lib/form/validation";
-import { HttpError } from "@/lib/http/error";
-import { isString } from "@/lib/type-guard";
-
-export const getExpenseAttributes = async ({
-  category,
-}: {
-  category?: string;
-} = {}): Promise<{
-  expenseAttributes: ExpenseAttributes;
-  version: string;
-}> => {
-  const { response, etag } = await expenseAttributesApi.getList({
-    category,
-    extension: { next: { tags: ["expense-attribute"] } },
-  });
-  return {
-    expenseAttributes: response.expense_attributes.map(
-      ({ id, name, category }) => ({ id, name, category }),
-    ),
-    version: etag,
-  };
-};
+} from "@/core/form/form-state";
+import { first, maxLength, required, selected } from "@/core/form/validation";
+import { isString } from "@/core/type-guard";
+import { expenseAttributesApi } from "@/network/api/v1-expense-attributes";
+import { HttpError } from "@/network/http/error";
+import {
+  failureMessage,
+  reorderFailureMessage,
+} from "@/server/actions/failure";
 
 export const reorderExpenseAttributes = async ({
   category,
@@ -71,28 +49,6 @@ export const reorderExpenseAttributes = async ({
     console.error(error);
     return { message: reorderFailureMessage(error) };
   }
-};
-
-export const getExpenseAttribute = async ({
-  id,
-  tag,
-}: {
-  id: string;
-  tag: string;
-}): Promise<ExpenseAttribute> => {
-  const response = await expenseAttributesApi.get({
-    id,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const { id: attributeId, name, category } = response;
-  return {
-    id: attributeId,
-    version: response.etag,
-    name,
-    category,
-  };
 };
 
 export const registerExpenseAttribute = async (

@@ -1,11 +1,12 @@
-import { balanceSeriesApi } from "@/lib/api/v1-balance-series";
-import { balanceStatisticsApi } from "@/lib/api/v1-balance-statistics";
+import "server-only";
 import {
   type BalancePoint,
   type BalanceStatistics,
   type Breakdown,
   toDateString,
-} from "@/lib/balance";
+} from "@/core/balance";
+import { balanceSeriesApi } from "@/network/api/v1-balance-series";
+import { balanceStatisticsApi } from "@/network/api/v1-balance-statistics";
 
 const toBreakdown = (value: {
   total: number;

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import type { ReactElement } from "react";
-import { load } from "@/lib/load";
-import { getIncomeAttributes } from "@/service/income-attribute-service";
+import { getIncomeAttributes } from "@/server/queries/income-attribute";
+import { load } from "@/server/queries/load";
 import IncomeRegistration from "@/ui/income-registration";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
 import { withHeading } from "@/ui/parts/page-heading";

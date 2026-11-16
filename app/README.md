@@ -11,14 +11,30 @@ pnpm lint                                     # Biome・Stylelint・型チェッ
 
 API はサーバー側（Server Components・Server Actions）からだけ呼び出す。`BACKEND_URL` はブラウザには渡らない。
 
+## 層の構成
+
+`src/` は次の 5 つの層に分ける。依存は上から下への 1 方向だけにする。逆向きの import は、Biome の `noRestrictedImports`（`biome.jsonc` の `overrides`）で lint のエラーにする。
+
+| 層                | 受け持つこと                                                                                                                                                                      | 依存してよい層                    |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `app/`            | ルーティング（`page`・`not-found`・`error`）。データを取得して画面に渡す                                                                                                          | `ui`・`server`・`core`・`network` |
+| `ui/`             | 画面と部品（サーバー・クライアント）。`ui/hooks/` はクライアントのフック                                                                                                          | `server`・`core`・`network`       |
+| `server/queries/` | 読み取り。`import "server-only"` を付け、サーバーコンポーネントからだけ使う                                                                                                       | `core`・`network`                 |
+| `server/actions/` | 変更（Server Actions、`"use server"`）。入力チェック、失敗の文言、キャッシュの更新、画面の移動                                                                                    | `core`・`network`                 |
+| `core/`           | 業務の型と決まり（明細の型、入力チェック、画面の文言、削除対象の表示）。通信・画面・Next.js・React に依存しない                                                                   | なし                              |
+| `network/`        | バックエンドとの通信（`http/`）と、その中身の検査（`schema/`）、生成物（`generated/`）、Link ヘッダー（`pagination/`）、API ごとの呼び出し（`api/`）。Next.js・React に依存しない | なし                              |
+
+- 読み取りを `"use server"` のファイルに置かない。Next.js の資料では、Server Functions は変更のためのもので、取得はサーバーコンポーネントから行う（Server Actions は順番に処理されるため、取得に使うと直列になる）。読み取りは、`server-only` を付けたデータアクセスの層（`server/queries/`）に置く。
+- `core` は「業務の型と決まり」に限る。通信のエラー（`HttpError`）を文言にする処理は、`server/actions/failure.ts` に置く。
+
 ## API のスキーマ（JSON Schema）
 
 API のリクエスト・レスポンスは、バックエンドが OpenAPI から生成した JSON Schema 2020-12（`openapi.schema.json`）で検査する。手で書かない。
 
 - 取得するバックエンドの定義は `api-version` に書く。コミットのハッシュ（40 文字）なら、そのコミットの `docs/openapi.schema.json` を GitHub から取得する。版（例：`2.1.0`）なら、その版の GitHub Release から取得する（`gh` が必要）。バックエンドの v2.1.0 がリリースされるまでは、コミットを固定する。
 - `pnpm gen:api` で取得して、次の 2 つを作り直し、コミットする。どちらも手で編集しない。
-  - `src/lib/api/generated/schema.ts`：スキーマそのもの（`openApiSchema`）。検査に使う。
-  - `src/lib/api/generated/types.ts`：`$defs` の各スキーマの型（`Schemas`）。同じファイルから生成するので、検査と型が食い違わない。
+  - `src/network/generated/schema.ts`：スキーマそのもの（`openApiSchema`）。検査に使う。
+  - `src/network/generated/types.ts`：`$defs` の各スキーマの型（`Schemas`）。同じファイルから生成するので、検査と型が食い違わない。
 - 型は `openapi-typescript` を使わず、`gen-api.mjs` が作る。`openapi-typescript` は TypeScript 5 の API を使い、このプロジェクトの TypeScript 7 では動かないため。スキーマが使うキーワードは `type`・`properties`・`required`・`items`・`$ref`・`enum` などに限られる。知らない構造のキーワード（`oneOf` など）が現れたら、生成はエラーで止まる（`toType` に足す）。
 - 手元のバックエンドのファイルから作るときは、`API_SCHEMA_SOURCE` を指定する。
 
@@ -26,7 +42,7 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
   API_SCHEMA_SOURCE=../../home-expense-backend/docs/openapi.schema.json pnpm gen:api
   ```
 
-- 検査は `lib/json/index.ts`（`Ajv2020`、`strict: true`、`allErrors: true`、`ajv-formats` の `date`・`uuid`・`uri`・`int32`・`int64`）。バックエンドの CI が記録したやり取りを照合しているのと同じ設定。スキーマはオブジェクトではなく名前（例：`"ExpenseGetResponse"`）で指定し、型は `Schema<"ExpenseGetResponse">`。
+- 検査は `network/schema/index.ts`（`Ajv2020`、`strict: true`、`allErrors: true`、`ajv-formats` の `date`・`uuid`・`uri`・`int32`・`int64`）。バックエンドの CI が記録したやり取りを照合しているのと同じ設定。スキーマはオブジェクトではなく名前（例：`"ExpenseGetResponse"`）で指定し、型は `Schema<"ExpenseGetResponse">`。
 - レスポンスのスキーマは未知の項目を許すので、バックエンドが項目を増やしても検査は通る。リクエストのスキーマは定義にない項目を拒否する。
 - リクエストも送る前に検査する（文字数・空白だけ・金額の範囲・日付の形式など）。フォームの入力チェックをすり抜けた値は `JSONSerializeError` になるので、入力チェックはスキーマの制約と同じか、それより厳しくする（空白だけの値は「入力してください」にする）。
 - 収支の API の金額は int64（最大 1 兆）。TypeScript では `number` で、`Number.MAX_SAFE_INTEGER` より小さいので誤差は出ない。
@@ -42,7 +58,7 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 - 削除は、確認のダイアログを開いたときに個別取得し、取得した内容をダイアログに表示して、その ETag を `If-Match` に送る。利用者が見た内容と、消す内容を一致させるため（一覧には ETag がない）。読み込みが終わるまで、削除のボタンは押せない。
 - ETag がないときは送らずに、競合（読み込み直しの案内）として扱う。
 - 412・428 は「画面を読み込み直してから、もう一度…してください」と表示する。削除の 404（すでに削除されている）は、成功と同じく一覧を取得し直す。
-- 削除は楽観的に表から消す（`lib/hooks/use-optimistic-delete.ts`）。削除ダイアログの開閉も `useOptimistic` で扱う。送信処理（transition）の中で変えた普通の state は、処理が終わるまで反映されないため。
+- 削除は楽観的に表から消す（`ui/hooks/use-optimistic-delete.ts`）。削除ダイアログの開閉も `useOptimistic` で扱う。送信処理（transition）の中で変えた普通の state は、処理が終わるまで反映されないため。
 
 ### フォーム
 
@@ -54,13 +70,13 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 
 - 支出属性（分類ごと）と収入属性は、一覧でドラッグして並べ替える（`@home-expense/ui` の `useSortableList`）。属性の一覧はページ送りがなく、全件を並び順で表示する。登録できるのは、それぞれ 100 件まで。
 - 一覧の取得で受け取った ETag（一覧の本文のダイジェスト）を持ち、ドラッグを離すたびに、一覧への `PATCH`（JSON Patch の `move` を 1 つ、`application/json-patch+json`）を `If-Match` 付きで送る。
-- 表示は楽観的に先に並べ替える（`lib/hooks/use-optimistic-reorder.ts`）。成功したら、返ってきた ETag に置き換える。409（範囲外の位置）・412・422・428 は表示を元に戻し、読み込み直しを案内する。
+- 表示は楽観的に先に並べ替える（`ui/hooks/use-optimistic-reorder.ts`）。成功したら、返ってきた ETag に置き換える。409（範囲外の位置）・412・422・428 は表示を元に戻し、読み込み直しを案内する。
 - 保存の途中は次の並べ替えを止める。古い ETag で送ると 412 になるため。
 - プルダウンと HOME の内訳は、API が返す並び順のまま表示する。
 
 ### 保存・削除のあとの一覧
 
-- 一覧から編集画面に移るときは、今の絞り込みとページを `from` として渡す。保存したあとは、編集した明細がその条件（年・月・分類・属性名）に当てはまれば同じページに戻り、当てはまらなければ新しい日付の年月の一覧に移る。移動先の URL はアプリ側で組み立てる（`lib/list-return.ts`）。
+- 一覧から編集画面に移るときは、今の絞り込みとページを `from` として渡す。保存したあとは、編集した明細がその条件（年・月・分類・属性名）に当てはまれば同じページに戻り、当てはまらなければ新しい日付の年月の一覧に移る。移動先の URL はアプリ側で組み立てる（`server/actions/list-return.ts`）。
 - 登録したあとは、登録した明細の年月（収入は年）の一覧に移る。新しい明細の ID は、登録の API の `Location` ヘッダーから取る。
 - 移動先には `saved=<ID>` を付ける。一覧はその行を強調してスクロールし、「『…』を保存しました」をトースト（`@home-expense/ui` の `Toast`）で表示する。表示したあとは URL から `saved` を消す（再読み込みでまた出ないように）。
 - 削除したら「『…』を削除しました」をトーストで表示する。
@@ -111,9 +127,9 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
   - 一覧：絞り込み（`ui/parts/expense-filters.tsx`・`year-filter.tsx`・`category-filter.tsx`）と表（`ui/parts/*-table.tsx`。削除・並べ替え・強調・トースト）。
   - 「追加」は `ButtonLink`、ページ送りはリンク（`ui/parts/pagination-component.tsx`）で、サーバーで描く。
 - 一覧は `ui/parts/list-frame.tsx`（クライアント）で包む。中の絞り込みと表に、画面を移動中かどうか（表を薄くする）と移動の関数を context で渡す。`data-list-link` の付いたリンク（ページ送り）のクリックは、ここで受け取り、移動中の表示を出しながら移動する。修飾キー付きのクリック（新しいタブなど）はブラウザに任せる。
-  - `data-list-link` の印は `lib/list-link.ts` に置く。`"use client"` のファイルから値を書き出すと、サーバー側では値ではなく参照になるため。
+  - `data-list-link` の印は `ui/parts/list-link.ts` に置く。`"use client"` のファイルから値を書き出すと、サーバー側では値ではなく参照になるため。
 - 表の「編集」は、表の中で移動する（支出・収入は、今の絞り込みとページを `from` に入れる）。
-- 削除で最後のページが空になったときの前のページへの移動は、表の中で行う（`lib/hooks/use-empty-page-fallback.ts`）。サーバーの `redirect` にすると、削除の結果を受け取る前に画面が移り、「削除しました」のトーストが出ない。
+- 削除で最後のページが空になったときの前のページへの移動は、表の中で行う（`ui/hooks/use-empty-page-fallback.ts`）。サーバーの `redirect` にすると、削除の結果を受け取る前に画面が移り、「削除しました」のトーストが出ない。
 - `app/loading.tsx` は置かない。置くと、サーバーは先に読み込み中の画面を返し、内容をあとから JavaScript で差し込む（ストリーミング）ため、JavaScript を切ったブラウザでは内容が表示されない。置かないことで、サーバーはデータを揃えてから完成した HTML を返す。
 - 代わりに、画面を移るあいだは移動先の画面の枠（スケルトン）を出す。レイアウト全体を `PageTransition`（`ui/parts/page-transition.tsx`）で包み、中の `/` で始まるリンクのクリック（サイドバー・「追加」など）を受け取って、`useTransition` の中で移動する。表の「編集」も `usePageTransition` の `navigate` で移動する。
   - 移動先の枠は `ui/skeletons.tsx` の `skeletonFor(URL)` が返す。表の見出しは `ui/parts/table-columns.tsx` の列の定義を本物の表と共有する。
@@ -124,7 +140,7 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 
 ## 読み込めないとき・見つからないとき
 
-- 各ページは、データの取得を `lib/load.ts` の `load` で包む。失敗しても例外にせず、画面の枠の中にエラー（`@home-expense/ui` の `LoadError` と「もう一度試す」= `router.refresh()`）を出す。一覧は絞り込みを操作できるまま残し、表の見出しの下に出す（別の条件を選んで回復できる）。HOME・年間レポートは年月の選択の下、登録・編集はフォームの位置に出す。
+- 各ページは、データの取得を `server/queries/load.ts` の `load` で包む。失敗しても例外にせず、画面の枠の中にエラー（`@home-expense/ui` の `LoadError` と「もう一度試す」= `router.refresh()`）を出す。一覧は絞り込みを操作できるまま残し、表の見出しの下に出す（別の条件を選んで回復できる）。HOME・年間レポートは年月の選択の下、登録・編集はフォームの位置に出す。
   - `load` は Next.js の内部の例外（`redirect`・`notFound` など）を `unstable_rethrow` でそのまま投げ直す。
 - 編集画面は、API が 404 を返したら `notFound()` にする（`load(…, { notFoundOn404: true })`）。各 `[id]/not-found.tsx` が「この支出は見つかりませんでした」と一覧へのリンクを出す。存在しない URL は `app/not-found.tsx`。
 - `app/error.tsx` は、どこにも当てはまらないエラーの最後の受け皿（文言は「予期せぬエラーが発生しました」）。

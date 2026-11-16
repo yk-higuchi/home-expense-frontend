@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { load } from "@/lib/load";
-import { getIncomeSummary } from "@/service/income-service";
+import { getIncomeSummary } from "@/server/queries/income";
+import { load } from "@/server/queries/load";
 import Income from "@/ui/income";
 import { withHeading } from "@/ui/parts/page-heading";
 

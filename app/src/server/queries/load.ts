@@ -1,5 +1,5 @@
 import { notFound, unstable_rethrow } from "next/navigation";
-import { HttpError } from "@/lib/http/error";
+import { HttpError } from "@/network/http/error";
 
 export type Loaded<T> = { ok: true; value: T } | { ok: false };
 

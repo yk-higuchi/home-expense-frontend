@@ -1,7 +1,11 @@
-import { HttpError, parseProblem } from "@/lib/http/error";
-import type { HttpRequest, HttpResponse, RequestBody } from "@/lib/http/type";
-import { json } from "@/lib/json";
-import type { SchemaName } from "@/lib/json/type";
+import { HttpError, parseProblem } from "@/network/http/error";
+import type {
+  HttpRequest,
+  HttpResponse,
+  RequestBody,
+} from "@/network/http/type";
+import { json } from "@/network/schema";
+import type { SchemaName } from "@/network/schema/type";
 
 const _get = async (
   params: Omit<HttpRequest, "method">,

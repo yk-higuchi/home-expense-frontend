@@ -7,9 +7,9 @@ import {
   TextInput,
 } from "@home-expense/ui";
 import { type ReactElement, useActionState } from "react";
-import { type FormAction, initialFormState } from "@/lib/form/form-state";
-import type { Income } from "@/lib/income";
-import type { IncomeAttributes } from "@/lib/income-attribute";
+import { type FormAction, initialFormState } from "@/core/form/form-state";
+import type { Income } from "@/core/income";
+import type { IncomeAttributes } from "@/core/income-attribute";
 import style from "./form.module.css";
 
 interface Props {

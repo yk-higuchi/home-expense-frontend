@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
-import type { ExpenseAttribute } from "@/lib/expense-attribute";
-import { updateExpenseAttribute } from "@/service/expense-attribute-service";
+import type { ExpenseAttribute } from "@/core/expense-attribute";
+import { updateExpenseAttribute } from "@/server/actions/expense-attribute";
 import ExpenseAttributeForm from "@/ui/parts/expense-attribute-form";
 
 interface Props {

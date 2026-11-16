@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { isExpenseAttributeCategory } from "@/lib/expense-attribute";
-import { load } from "@/lib/load";
-import { getExpenseAttributes } from "@/service/expense-attribute-service";
+import { isExpenseAttributeCategory } from "@/core/expense-attribute";
+import { getExpenseAttributes } from "@/server/queries/expense-attribute";
+import { load } from "@/server/queries/load";
 import ExpenseAttribute from "@/ui/expense-attribute";
 import { withHeading } from "@/ui/parts/page-heading";
 

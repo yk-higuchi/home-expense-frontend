@@ -15,7 +15,7 @@ import {
   type BalancePoint,
   type BalanceStatistics,
   monthLabel,
-} from "@/lib/balance";
+} from "@/core/balance";
 import BalanceChart from "@/ui/parts/balance-chart";
 import { LoadFailed } from "@/ui/parts/load-failed";
 import PeriodFilterFrame from "@/ui/parts/period-filter-frame";

@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { registerIncomeAttribute } from "@/service/income-attribute-service";
+import { registerIncomeAttribute } from "@/server/actions/income-attribute";
 import IncomeAttributeForm from "@/ui/parts/income-attribute-form";
 
 const IncomeRegistration = (): ReactElement => {

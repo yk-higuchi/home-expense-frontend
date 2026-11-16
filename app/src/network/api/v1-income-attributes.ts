@@ -1,63 +1,70 @@
-import * as process from "node:process";
+import process from "node:process";
 
-import { http } from "@/lib/http";
-import type { Schema } from "@/lib/json/type";
-import { type Pagination, parseLinkHeader } from "@/lib/pagination/pagination";
+import { http } from "@/network/http";
+import type { Schema } from "@/network/schema/type";
 
-const getSummaryResponse = "ExpenseListResponse" as const;
-const getResponse = "ExpenseGetResponse" as const;
-const postRequest = "ExpensePostRequest" as const;
-const putRequest = "ExpensePutRequest" as const;
+const getSummaryResponse = "IncomeAttributeListResponse" as const;
+const getResponse = "IncomeAttributeGetResponse" as const;
+const postRequest = "IncomeAttributePostRequest" as const;
+const putRequest = "IncomeAttributePutRequest" as const;
+const patchRequest = "IncomeAttributeListPatchRequest" as const;
 
 type GetSummaryResponse = Schema<typeof getSummaryResponse>;
 type GetResponse = Schema<typeof getResponse>;
 type PostRequest = Schema<typeof postRequest>;
 type PutRequest = Schema<typeof putRequest>;
 
-const _getSummary = async ({
-  page,
-  perPage,
-  year,
-  month,
-  category,
-  attributeId,
+const _getList = async ({
   extension,
 }: {
-  page: number;
-  perPage: number;
-  year?: number;
-  month?: number;
-  category?: string;
-  attributeId?: string;
   extension: object;
-}): Promise<{ pagination: Pagination; response: GetSummaryResponse }> => {
+}): Promise<{ response: GetSummaryResponse; etag: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
-    path: "/v1/expenses",
-    queries: {
-      page: page.toString(),
-      per_page: perPage.toString(),
-      ...(year && { year: year.toString() }),
-      ...(month && { month: month.toString() }),
-      category,
-      attribute_id: attributeId,
-    },
+    path: "/v1/income-attributes",
     extension,
   });
   switch (response.type) {
-    case "success": {
-      const { headers } = response;
-      if (headers) {
-        const pagination = parseLinkHeader(headers);
-        const responseBody = await response.body(getSummaryResponse);
-        return {
-          pagination,
-          response: responseBody,
-        };
-      }
+    case "success":
+      return {
+        response: await response.body(getSummaryResponse),
+        etag: response.headers?.etag ?? "",
+      };
+    case "failure":
+      throw response.error;
+  }
+};
 
-      throw new Error("");
-    }
+const _reorder = async ({
+  from,
+  to,
+  ifMatch,
+}: {
+  from: number;
+  to: number;
+  ifMatch: string;
+}): Promise<{ etag: string }> => {
+  const response = await http.patch({
+    url: process.env.BACKEND_URL,
+    path: "/v1/income-attributes",
+    headers: {
+      "content-type": "application/json-patch+json",
+      "if-match": ifMatch,
+    },
+    requestBody: {
+      schema: patchRequest,
+      data: [
+        {
+          op: "move",
+          from: `/income_attributes/${from}`,
+          path: `/income_attributes/${to}`,
+        },
+      ],
+    },
+  });
+  switch (response.type) {
+    case "success":
+      return { etag: response.headers?.etag ?? "" };
     case "failure":
       throw response.error;
   }
@@ -72,7 +79,7 @@ const _get = async ({
 }): Promise<GetResponse & { etag?: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
-    path: `/v1/expenses/${id}`,
+    path: `/v1/income-attributes/${id}`,
     extension,
   });
   switch (response.type) {
@@ -86,21 +93,13 @@ const _get = async ({
   }
 };
 
-const _post = async ({
-  description,
-  attribute_id,
-  amount,
-  payment_date,
-}: PostRequest): Promise<string> => {
+const _post = async ({ name }: PostRequest): Promise<string> => {
   const data = {
-    description,
-    attribute_id,
-    amount,
-    payment_date,
+    name,
   };
   const response = await http.post({
     url: process.env.BACKEND_URL,
-    path: "/v1/expenses",
+    path: "/v1/income-attributes",
     requestBody: {
       schema: postRequest,
       data,
@@ -116,24 +115,18 @@ const _post = async ({
 
 const _put = async ({
   id,
-  description,
-  attribute_id,
-  amount,
-  payment_date,
+  name,
   ifMatch,
 }: {
   id: string;
   ifMatch: string;
 } & PutRequest): Promise<void> => {
   const data = {
-    description,
-    attribute_id,
-    amount,
-    payment_date,
+    name,
   };
   const response = await http.put({
     url: process.env.BACKEND_URL,
-    path: `/v1/expenses/${id}`,
+    path: `/v1/income-attributes/${id}`,
     headers: { "if-match": ifMatch },
     requestBody: {
       schema: putRequest,
@@ -157,7 +150,7 @@ const _delete = async ({
 }): Promise<void> => {
   const response = await http.delete({
     url: process.env.BACKEND_URL,
-    path: `/v1/expenses/${id}`,
+    path: `/v1/income-attributes/${id}`,
     headers: { "if-match": ifMatch },
   });
   switch (response.type) {
@@ -168,9 +161,10 @@ const _delete = async ({
   }
 };
 
-export const expensesApi = {
+export const incomeAttributesApi = {
+  getList: _getList,
+  reorder: _reorder,
   get: _get,
-  getSummary: _getSummary,
   post: _post,
   put: _put,
   delete: _delete,

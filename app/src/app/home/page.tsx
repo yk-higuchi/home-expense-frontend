@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { load } from "@/lib/load";
-import { getBalanceStatistics } from "@/service/balance-service";
+import { getBalanceStatistics } from "@/server/queries/balance";
+import { load } from "@/server/queries/load";
 import ExpenseAggregate from "@/ui/expense-aggregate";
 import { withHeading } from "@/ui/parts/page-heading";
 

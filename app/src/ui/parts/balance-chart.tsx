@@ -1,6 +1,6 @@
 import { Card, Chart } from "@home-expense/ui";
 import type { ReactElement } from "react";
-import { type BalancePoint, monthLabel } from "@/lib/balance";
+import { type BalancePoint, monthLabel } from "@/core/balance";
 
 interface Props {
   title: string;

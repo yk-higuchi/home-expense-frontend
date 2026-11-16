@@ -1,4 +1,4 @@
-import type { Schema, SchemaName } from "@/lib/json/type";
+import type { Schema, SchemaName } from "@/network/schema/type";
 
 type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 type Mode = RequestMode;

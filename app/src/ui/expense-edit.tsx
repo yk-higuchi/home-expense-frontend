@@ -2,9 +2,9 @@
 import { useRouter } from "next/navigation";
 import type { ReactElement } from "react";
 
-import type { Expense } from "@/lib/expense";
-import type { ExpenseAttributes } from "@/lib/expense-attribute";
-import { updateExpense } from "@/service/expense-service";
+import type { Expense } from "@/core/expense";
+import type { ExpenseAttributes } from "@/core/expense-attribute";
+import { updateExpense } from "@/server/actions/expense";
 import ExpenseForm from "@/ui/parts/expense-form";
 
 interface Props {

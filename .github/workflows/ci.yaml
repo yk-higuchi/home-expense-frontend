@@ -27,7 +27,7 @@ jobs:
       - name: Check generated API schemas
         run: |
           pnpm --filter home-expense-frontend-new gen:api
-          git diff --exit-code -- app/src/lib/api/generated
+          git diff --exit-code -- app/src/network/generated
   storybook:
     runs-on: ubuntu-latest
     needs:

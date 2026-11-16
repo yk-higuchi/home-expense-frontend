@@ -15,15 +15,15 @@ import {
   useToast,
 } from "@home-expense/ui";
 import type { ReactElement } from "react";
-import type { ExpenseAttributes } from "@/lib/expense-attribute";
-import { useOptimisticDelete } from "@/lib/hooks/use-optimistic-delete";
-import { useOptimisticReorder } from "@/lib/hooks/use-optimistic-reorder";
-import { useSavedHighlight } from "@/lib/hooks/use-saved-highlight";
+import type { ExpenseAttributes } from "@/core/expense-attribute";
 import {
   deleteExpenseAttribute,
   loadExpenseAttributeForDelete,
   reorderExpenseAttributes,
-} from "@/service/expense-attribute-service";
+} from "@/server/actions/expense-attribute";
+import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";
+import { useOptimisticReorder } from "@/ui/hooks/use-optimistic-reorder";
+import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
 import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";

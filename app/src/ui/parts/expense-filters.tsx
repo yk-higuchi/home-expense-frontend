@@ -6,7 +6,7 @@ import {
   type ExpenseAttributeCategory,
   type ExpenseAttributes,
   isExpenseAttributeCategory,
-} from "@/lib/expense-attribute";
+} from "@/core/expense-attribute";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
 import { MONTHS, YEARS } from "@/ui/parts/year-month-options";

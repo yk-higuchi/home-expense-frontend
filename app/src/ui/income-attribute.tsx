@@ -1,7 +1,7 @@
 import { ButtonLink, PlusIcon } from "@home-expense/ui";
 import Link from "next/link";
 import type { ReactElement } from "react";
-import type { IncomeAttributes } from "@/lib/income-attribute";
+import type { IncomeAttributes } from "@/core/income-attribute";
 import IncomeAttributeTable from "@/ui/parts/income-attribute-table";
 import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";

@@ -2,8 +2,8 @@
 
 import { ErrorMessage, SubmitButton, TextInput } from "@home-expense/ui";
 import { type ReactElement, useActionState } from "react";
-import { type FormAction, initialFormState } from "@/lib/form/form-state";
-import type { IncomeAttribute } from "@/lib/income-attribute";
+import { type FormAction, initialFormState } from "@/core/form/form-state";
+import type { IncomeAttribute } from "@/core/income-attribute";
 import style from "./form.module.css";
 
 interface Props {

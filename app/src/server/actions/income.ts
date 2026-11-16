@@ -2,22 +2,20 @@
 import { formatYen } from "@home-expense/ui/format";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { incomesApi } from "@/lib/api/v1-incomes";
 import {
   DELETE_TARGET_LOAD_FAILED_MESSAGE,
   DELETE_TARGET_MISSING_MESSAGE,
   type DeleteTargetResult,
-} from "@/lib/delete-target";
+} from "@/core/delete-target";
 import {
   CONFLICT_MESSAGE,
   collectErrors,
   DELETE_CONFLICT_MESSAGE,
   DELETE_FAILED_MESSAGE,
   type FormState,
-  failureMessage,
   formValues,
   SUBMIT_FAILED_MESSAGE,
-} from "@/lib/form/form-state";
+} from "@/core/form/form-state";
 import {
   amount,
   date,
@@ -26,91 +24,12 @@ import {
   parseAmount,
   required,
   selected,
-} from "@/lib/form/validation";
-import { HttpError } from "@/lib/http/error";
-import type { Income, Incomes } from "@/lib/income";
-import { incomeListUrl } from "@/lib/list-return";
-import type { Pagination } from "@/lib/pagination/pagination";
-import { isString } from "@/lib/type-guard";
-
-export const getIncomeSummary = async ({
-  page,
-  perPage,
-  year,
-  tag,
-}: {
-  page: number;
-  perPage: number;
-  year: number;
-  tag: string;
-}): Promise<{
-  incomes: Incomes;
-  pagination: Pagination;
-}> => {
-  const { pagination, response } = await incomesApi.getSummary({
-    page,
-    perPage,
-    year,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const { incomes } = response;
-  const _incomes: Incomes = incomes.map((value) => {
-    const {
-      id,
-      description,
-      income_attribute: incomeAttribute,
-      amount,
-      receive_date: receiveDate,
-    } = value;
-    const { id: attributeId, name } = incomeAttribute;
-    const income: Income = {
-      id,
-      description,
-      amount,
-      receiveDate,
-      attributeId,
-      attributeName: name,
-    };
-    return income;
-  });
-  return {
-    incomes: _incomes,
-    pagination,
-  };
-};
-
-export const getIncome = async ({
-  id,
-  tag,
-}: {
-  id: string;
-  tag: string;
-}): Promise<Income> => {
-  const response = await incomesApi.get({
-    id,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const {
-    description,
-    income_attribute: incomeAttribute,
-    amount,
-    receive_date: receiveDate,
-  } = response;
-  const { id: attributeId, name } = incomeAttribute;
-  return {
-    id,
-    version: response.etag,
-    description,
-    amount,
-    receiveDate,
-    attributeId,
-    attributeName: name,
-  };
-};
+} from "@/core/form/validation";
+import { isString } from "@/core/type-guard";
+import { incomesApi } from "@/network/api/v1-incomes";
+import { HttpError } from "@/network/http/error";
+import { failureMessage } from "@/server/actions/failure";
+import { incomeListUrl } from "@/server/actions/list-return";
 
 export const registerIncome = async (
   _state: FormState,

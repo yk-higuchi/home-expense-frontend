@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { load } from "@/lib/load";
-import { getIncomeAttribute } from "@/service/income-attribute-service";
+import { getIncomeAttribute } from "@/server/queries/income-attribute";
+import { load } from "@/server/queries/load";
 import IncomeAttributeEdit from "@/ui/income-attribute-edit";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
 import { withHeading } from "@/ui/parts/page-heading";

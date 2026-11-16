@@ -1,9 +1,9 @@
 import Ajv2020 from "ajv/dist/2020";
 import addFormats from "ajv-formats";
 
-import { openApiSchema } from "@/lib/api/generated/schema";
-import { JSONParseError, JSONSerializeError } from "@/lib/json/error";
-import type { Schema, SchemaName } from "@/lib/json/type";
+import { openApiSchema } from "@/network/generated/schema";
+import { JSONParseError, JSONSerializeError } from "@/network/schema/error";
+import type { Schema, SchemaName } from "@/network/schema/type";
 
 const ajv = new Ajv2020({ strict: true, allErrors: true });
 addFormats(ajv, ["date", "uuid", "uri", "int32", "int64"]);

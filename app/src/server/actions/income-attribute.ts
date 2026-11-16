@@ -1,43 +1,28 @@
 "use server";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { incomeAttributesApi } from "@/lib/api/v1-income-attributes";
 import {
   DELETE_TARGET_LOAD_FAILED_MESSAGE,
   DELETE_TARGET_MISSING_MESSAGE,
   type DeleteTargetResult,
-} from "@/lib/delete-target";
+} from "@/core/delete-target";
 import {
   CONFLICT_MESSAGE,
   collectErrors,
   DELETE_CONFLICT_MESSAGE,
   DELETE_FAILED_MESSAGE,
   type FormState,
-  failureMessage,
   formValues,
-  reorderFailureMessage,
   SUBMIT_FAILED_MESSAGE,
-} from "@/lib/form/form-state";
-import { first, maxLength, required } from "@/lib/form/validation";
-import { HttpError } from "@/lib/http/error";
-import type { IncomeAttribute, IncomeAttributes } from "@/lib/income-attribute";
-import { isString } from "@/lib/type-guard";
-
-export const getIncomeAttributes = async (): Promise<{
-  incomeAttributes: IncomeAttributes;
-  version: string;
-}> => {
-  const { response, etag } = await incomeAttributesApi.getList({
-    extension: { next: { tags: ["income-attribute"] } },
-  });
-  return {
-    incomeAttributes: response.income_attributes.map(({ id, name }) => ({
-      id,
-      name,
-    })),
-    version: etag,
-  };
-};
+} from "@/core/form/form-state";
+import { first, maxLength, required } from "@/core/form/validation";
+import { isString } from "@/core/type-guard";
+import { incomeAttributesApi } from "@/network/api/v1-income-attributes";
+import { HttpError } from "@/network/http/error";
+import {
+  failureMessage,
+  reorderFailureMessage,
+} from "@/server/actions/failure";
 
 export const reorderIncomeAttributes = async ({
   from,
@@ -60,27 +45,6 @@ export const reorderIncomeAttributes = async ({
     console.error(error);
     return { message: reorderFailureMessage(error) };
   }
-};
-
-export const getIncomeAttribute = async ({
-  id,
-  tag,
-}: {
-  id: string;
-  tag: string;
-}): Promise<IncomeAttribute> => {
-  const response = await incomeAttributesApi.get({
-    id,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const { id: attributeId, name } = response;
-  return {
-    id: attributeId,
-    version: response.etag,
-    name,
-  };
 };
 
 export const registerIncomeAttribute = async (

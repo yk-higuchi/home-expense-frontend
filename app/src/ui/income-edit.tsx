@@ -1,8 +1,8 @@
 import type { ReactElement } from "react";
 
-import type { Income } from "@/lib/income";
-import type { IncomeAttributes } from "@/lib/income-attribute";
-import { updateIncome } from "@/service/income-service";
+import type { Income } from "@/core/income";
+import type { IncomeAttributes } from "@/core/income-attribute";
+import { updateIncome } from "@/server/actions/income";
 import IncomeForm from "@/ui/parts/income-form";
 
 interface Props {

@@ -7,8 +7,8 @@ import {
   TextInput,
 } from "@home-expense/ui";
 import { type ReactElement, useActionState } from "react";
-import type { ExpenseAttribute } from "@/lib/expense-attribute";
-import { type FormAction, initialFormState } from "@/lib/form/form-state";
+import type { ExpenseAttribute } from "@/core/expense-attribute";
+import { type FormAction, initialFormState } from "@/core/form/form-state";
 import style from "./form.module.css";
 
 interface Props {

@@ -7,7 +7,7 @@ import {
   SummaryRow,
 } from "@home-expense/ui";
 import type { ReactElement } from "react";
-import type { BalanceStatistics } from "@/lib/balance";
+import type { BalanceStatistics } from "@/core/balance";
 import { LoadFailed } from "@/ui/parts/load-failed";
 import PeriodFilterFrame from "@/ui/parts/period-filter-frame";
 import style from "./expense-aggregate.module.css";

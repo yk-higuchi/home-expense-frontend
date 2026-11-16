@@ -1,13 +1,13 @@
 import process from "node:process";
 
-import { http } from "@/lib/http";
-import type { Schema } from "@/lib/json/type";
+import { http } from "@/network/http";
+import type { Schema } from "@/network/schema/type";
 
-const getSummaryResponse = "IncomeAttributeListResponse" as const;
-const getResponse = "IncomeAttributeGetResponse" as const;
-const postRequest = "IncomeAttributePostRequest" as const;
-const putRequest = "IncomeAttributePutRequest" as const;
-const patchRequest = "IncomeAttributeListPatchRequest" as const;
+const getSummaryResponse = "ExpenseAttributeListResponse" as const;
+const getResponse = "ExpenseAttributeGetResponse" as const;
+const postRequest = "ExpenseAttributePostRequest" as const;
+const putRequest = "ExpenseAttributePutRequest" as const;
+const patchRequest = "ExpenseAttributeListPatchRequest" as const;
 
 type GetSummaryResponse = Schema<typeof getSummaryResponse>;
 type GetResponse = Schema<typeof getResponse>;
@@ -15,13 +15,16 @@ type PostRequest = Schema<typeof postRequest>;
 type PutRequest = Schema<typeof putRequest>;
 
 const _getList = async ({
+  category,
   extension,
 }: {
+  category?: string;
   extension: object;
 }): Promise<{ response: GetSummaryResponse; etag: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
-    path: "/v1/income-attributes",
+    path: "/v1/expense-attributes",
+    queries: { category },
     extension,
   });
   switch (response.type) {
@@ -36,17 +39,20 @@ const _getList = async ({
 };
 
 const _reorder = async ({
+  category,
   from,
   to,
   ifMatch,
 }: {
+  category: string;
   from: number;
   to: number;
   ifMatch: string;
 }): Promise<{ etag: string }> => {
   const response = await http.patch({
     url: process.env.BACKEND_URL,
-    path: "/v1/income-attributes",
+    path: "/v1/expense-attributes",
+    queries: { category },
     headers: {
       "content-type": "application/json-patch+json",
       "if-match": ifMatch,
@@ -56,8 +62,8 @@ const _reorder = async ({
       data: [
         {
           op: "move",
-          from: `/income_attributes/${from}`,
-          path: `/income_attributes/${to}`,
+          from: `/expense_attributes/${from}`,
+          path: `/expense_attributes/${to}`,
         },
       ],
     },
@@ -79,7 +85,7 @@ const _get = async ({
 }): Promise<GetResponse & { etag?: string }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
-    path: `/v1/income-attributes/${id}`,
+    path: `/v1/expense-attributes/${id}`,
     extension,
   });
   switch (response.type) {
@@ -93,13 +99,14 @@ const _get = async ({
   }
 };
 
-const _post = async ({ name }: PostRequest): Promise<string> => {
+const _post = async ({ name, category }: PostRequest): Promise<string> => {
   const data = {
     name,
+    category,
   };
   const response = await http.post({
     url: process.env.BACKEND_URL,
-    path: "/v1/income-attributes",
+    path: "/v1/expense-attributes",
     requestBody: {
       schema: postRequest,
       data,
@@ -126,7 +133,7 @@ const _put = async ({
   };
   const response = await http.put({
     url: process.env.BACKEND_URL,
-    path: `/v1/income-attributes/${id}`,
+    path: `/v1/expense-attributes/${id}`,
     headers: { "if-match": ifMatch },
     requestBody: {
       schema: putRequest,
@@ -150,7 +157,7 @@ const _delete = async ({
 }): Promise<void> => {
   const response = await http.delete({
     url: process.env.BACKEND_URL,
-    path: `/v1/income-attributes/${id}`,
+    path: `/v1/expense-attributes/${id}`,
     headers: { "if-match": ifMatch },
   });
   switch (response.type) {
@@ -161,7 +168,7 @@ const _delete = async ({
   }
 };
 
-export const incomeAttributesApi = {
+export const expenseAttributesApi = {
   getList: _getList,
   reorder: _reorder,
   get: _get,

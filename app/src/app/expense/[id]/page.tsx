@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { load } from "@/lib/load";
-import { getExpenseAttributes } from "@/service/expense-attribute-service";
-import { getExpense } from "@/service/expense-service";
+import { getExpense } from "@/server/queries/expense";
+import { getExpenseAttributes } from "@/server/queries/expense-attribute";
+import { load } from "@/server/queries/load";
 import ExpenseEdit from "@/ui/expense-edit";
 import { FormLoadFailed } from "@/ui/parts/load-failed";
 import { withHeading } from "@/ui/parts/page-heading";

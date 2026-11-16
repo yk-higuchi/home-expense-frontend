@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const BACKEND_REPOSITORY = "yk-higuchi/home-expense-backend";
 const SCHEMA_FILE = "openapi.schema.json";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const generated = join(root, "src/lib/api/generated");
+const generated = join(root, "src/network/generated");
 const schemaOutput = join(generated, "schema.ts");
 const typesOutput = join(generated, "types.ts");
 const version = readFileSync(join(root, "api-version"), "utf8").trim();

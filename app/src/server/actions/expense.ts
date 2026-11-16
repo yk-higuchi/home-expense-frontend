@@ -2,23 +2,20 @@
 import { formatYen } from "@home-expense/ui/format";
 import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { expensesApi } from "@/lib/api/v1-expenses";
 import {
   DELETE_TARGET_LOAD_FAILED_MESSAGE,
   DELETE_TARGET_MISSING_MESSAGE,
   type DeleteTargetResult,
-} from "@/lib/delete-target";
-import type { Expense, Expenses } from "@/lib/expense";
+} from "@/core/delete-target";
 import {
   CONFLICT_MESSAGE,
   collectErrors,
   DELETE_CONFLICT_MESSAGE,
   DELETE_FAILED_MESSAGE,
   type FormState,
-  failureMessage,
   formValues,
   SUBMIT_FAILED_MESSAGE,
-} from "@/lib/form/form-state";
+} from "@/core/form/form-state";
 import {
   amount,
   date,
@@ -27,101 +24,12 @@ import {
   parseAmount,
   required,
   selected,
-} from "@/lib/form/validation";
-import { HttpError } from "@/lib/http/error";
-import { expenseListUrl } from "@/lib/list-return";
-import type { Pagination } from "@/lib/pagination/pagination";
-import { isString } from "@/lib/type-guard";
-
-export const getExpenseSummary = async ({
-  page,
-  perPage,
-  year,
-  month,
-  category,
-  attributeId,
-  tag,
-}: {
-  page: number;
-  perPage: number;
-  year?: number;
-  month?: number;
-  category?: string;
-  attributeId?: string;
-  tag: string;
-}): Promise<{
-  expenses: Expenses;
-  pagination: Pagination;
-}> => {
-  const { pagination, response } = await expensesApi.getSummary({
-    page,
-    perPage,
-    year,
-    month,
-    category,
-    attributeId,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const { expenses } = response;
-  const _expenses: Expenses = expenses.map((value) => {
-    const {
-      id,
-      description,
-      expense_attribute: expenseAttribute,
-      amount,
-      payment_date: paymentDate,
-    } = value;
-    const { id: attributeId, name, category } = expenseAttribute;
-    const expense: Expense = {
-      id,
-      description,
-      amount,
-      paymentDate,
-      attributeId,
-      attributeName: name,
-      category: category,
-    };
-    return expense;
-  });
-  return {
-    expenses: _expenses,
-    pagination,
-  };
-};
-
-export const getExpense = async ({
-  id,
-  tag,
-}: {
-  id: string;
-  tag: string;
-}): Promise<Expense> => {
-  const response = await expensesApi.get({
-    id,
-    extension: {
-      next: { tags: [tag] },
-    },
-  });
-  const {
-    description,
-    expense_attribute: expenseAttribute,
-    amount,
-    payment_date: paymentDate,
-  } = response;
-  const { id: attributeId, name, category } = expenseAttribute;
-  return {
-    id,
-    version: response.etag,
-    description,
-    amount,
-    paymentDate,
-    attributeId,
-    attributeName: name,
-    category: category,
-  };
-};
+} from "@/core/form/validation";
+import { isString } from "@/core/type-guard";
+import { expensesApi } from "@/network/api/v1-expenses";
+import { HttpError } from "@/network/http/error";
+import { failureMessage } from "@/server/actions/failure";
+import { expenseListUrl } from "@/server/actions/list-return";
 
 export const registerExpense = async (
   _state: FormState,

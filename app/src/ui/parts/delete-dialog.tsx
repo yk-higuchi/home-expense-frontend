@@ -2,8 +2,8 @@
 
 import { Button, Dialog, ErrorMessage, SubmitButton } from "@home-expense/ui";
 import { type ReactElement, useEffect, useOptimistic, useState } from "react";
-import type { DeleteTarget, DeleteTargetResult } from "@/lib/delete-target";
-import type { FormState } from "@/lib/form/form-state";
+import type { DeleteTarget, DeleteTargetResult } from "@/core/delete-target";
+import type { FormState } from "@/core/form/form-state";
 import style from "./delete-dialog.module.css";
 
 interface Props {
