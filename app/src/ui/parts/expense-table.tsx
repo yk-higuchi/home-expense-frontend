@@ -78,7 +78,7 @@ const ExpenseTable = ({
                 >
                   <TableCell>{no}</TableCell>
                   <TableCell>{description}</TableCell>
-                  <TableCell>
+                  <TableCell align="end">
                     <Amount value={amount} />
                   </TableCell>
                   <TableCell>{paymentDate}</TableCell>

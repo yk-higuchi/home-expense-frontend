@@ -63,13 +63,17 @@ export const TableRow = (props: ComponentPropsWithRef<"tr">): ReactElement => (
   <tr {...props} />
 );
 
+type TableCellAlign = "start" | "end";
+
 export interface TableHeaderCellProps
-  extends ThHTMLAttributes<HTMLTableCellElement> {
+  extends Omit<ThHTMLAttributes<HTMLTableCellElement>, "align"> {
   width?: number | string;
+  align?: TableCellAlign;
 }
 
 export const TableHeaderCell = ({
   width,
+  align = "start",
   className,
   style,
   scope = "col",
@@ -77,17 +81,31 @@ export const TableHeaderCell = ({
 }: TableHeaderCellProps): ReactElement => (
   <th
     scope={scope}
-    className={cx(styles.cell, styles.headerCell, className)}
+    className={cx(
+      styles.cell,
+      styles.headerCell,
+      align === "end" && styles.end,
+      className,
+    )}
     style={{ width, ...style }}
     {...rest}
   />
 );
 
+export interface TableCellProps
+  extends Omit<TdHTMLAttributes<HTMLTableCellElement>, "align"> {
+  align?: TableCellAlign;
+}
+
 export const TableCell = ({
+  align = "start",
   className,
   ...rest
-}: TdHTMLAttributes<HTMLTableCellElement>): ReactElement => (
-  <td className={cx(styles.cell, className)} {...rest} />
+}: TableCellProps): ReactElement => (
+  <td
+    className={cx(styles.cell, align === "end" && styles.end, className)}
+    {...rest}
+  />
 );
 
 export interface TableEmptyProps {

@@ -48,6 +48,10 @@
   overflow-wrap: anywhere;
 }
 
+.end {
+  text-align: right;
+}
+
 .headerCell {
   background-color: var(--color-background);
 }

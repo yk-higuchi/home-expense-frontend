@@ -13,13 +13,14 @@ interface Column {
   label?: string;
   ariaLabel?: string;
   width?: number;
+  align?: "start" | "end";
   kind?: "text" | "action";
 }
 
 export const EXPENSE_COLUMNS: readonly Column[] = [
   { label: "No.", width: 88 },
   { label: "説明" },
-  { label: "金額", width: 112 },
+  { label: "金額", width: 112, align: "end" },
   { label: "支払日", width: 128 },
   { label: "属性名" },
   { label: "分類", width: 96 },
@@ -29,7 +30,7 @@ export const EXPENSE_COLUMNS: readonly Column[] = [
 export const INCOME_COLUMNS: readonly Column[] = [
   { label: "No.", width: 88 },
   { label: "説明" },
-  { label: "金額", width: 128 },
+  { label: "金額", width: 128, align: "end" },
   { label: "受取日", width: 128 },
   { label: "属性名" },
   { label: "編集", width: 104, kind: "action" },
@@ -62,6 +63,7 @@ export const ColumnsHead = ({
           // biome-ignore lint/suspicious/noArrayIndexKey: 列の並びは固定
           key={index}
           width={column.width}
+          align={column.align}
           aria-label={column.ariaLabel}
         >
           {column.label}
@@ -86,7 +88,7 @@ export const SkeletonTable = ({
         <TableRow key={row}>
           {columns.map((column, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: 列の並びは固定
-            <TableCell key={index}>
+            <TableCell key={index} align={column.align}>
               {column.kind !== "action" && <Skeleton />}
             </TableCell>
           ))}

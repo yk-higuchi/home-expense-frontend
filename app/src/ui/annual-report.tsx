@@ -62,22 +62,22 @@ const AnnualReport = ({ year, report }: Props): ReactElement => {
           <TableHead>
             <TableRow>
               <TableHeaderCell width={120}>月</TableHeaderCell>
-              <TableHeaderCell>収入</TableHeaderCell>
-              <TableHeaderCell>支出</TableHeaderCell>
-              <TableHeaderCell>収支</TableHeaderCell>
+              <TableHeaderCell align="end">収入</TableHeaderCell>
+              <TableHeaderCell align="end">支出</TableHeaderCell>
+              <TableHeaderCell align="end">収支</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {series.map((point) => (
               <TableRow key={point.from}>
                 <TableCell>{monthLabel(point.from)}</TableCell>
-                <TableCell>
+                <TableCell align="end">
                   <Amount value={point.incomeTotal} />
                 </TableCell>
-                <TableCell>
+                <TableCell align="end">
                   <Amount value={point.expenseTotal} />
                 </TableCell>
-                <TableCell>
+                <TableCell align="end">
                   <Amount value={point.net} />
                 </TableCell>
               </TableRow>

@@ -1,23 +1,16 @@
-const yen = new Intl.NumberFormat("ja-JP", {
-  style: "currency",
-  currency: "JPY",
+const integer = new Intl.NumberFormat("ja-JP", {
+  maximumFractionDigits: 0,
+  signDisplay: "negative",
 });
 const compact = new Intl.NumberFormat("ja-JP", {
   notation: "compact",
   maximumFractionDigits: 1,
 });
 
-const MINUS = "−";
-
-const withMinus = (s: string): string => s.replace(/^-/, MINUS);
+const withMinus = (s: string): string => s.replace(/^-/, "−");
 
 export const formatYen = (v: number): string =>
-  yen
-    .formatToParts(Math.abs(v))
-    .map(({ type, value }) =>
-      type === "currency" && v < 0 ? `${value}${MINUS}` : value,
-    )
-    .join("");
+  `${withMinus(integer.format(v))}円`;
 
 export const formatCompact = (v: number): string =>
   withMinus(compact.format(v));

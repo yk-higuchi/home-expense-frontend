@@ -21,9 +21,9 @@ const attributes = [
 ];
 
 const expenses = [
-  ["スーパー", "￥3,000", "2024/10/05", "食費", "変動費"],
-  ["電気代", "￥4,000", "2024/10/10", "電気", "変動費"],
-  ["家賃", "￥60,000", "2024/10/25", "家賃", "固定費"],
+  ["スーパー", "3,000円", "2024/10/05", "食費", "変動費"],
+  ["電気代", "4,000円", "2024/10/10", "電気", "変動費"],
+  ["家賃", "60,000円", "2024/10/25", "家賃", "固定費"],
 ];
 
 const noop = (): void => {};
@@ -92,7 +92,9 @@ export const Expenses: Story = {
         <TableRow>
           <TableHeaderCell width={88}>No.</TableHeaderCell>
           <TableHeaderCell>説明</TableHeaderCell>
-          <TableHeaderCell width={112}>金額</TableHeaderCell>
+          <TableHeaderCell width={112} align="end">
+            金額
+          </TableHeaderCell>
           <TableHeaderCell width={128}>支払日</TableHeaderCell>
           <TableHeaderCell>属性名</TableHeaderCell>
           <TableHeaderCell width={96}>分類</TableHeaderCell>
@@ -103,8 +105,10 @@ export const Expenses: Story = {
         {expenses.map((row, i) => (
           <TableRow key={row[0]}>
             <TableCell>{i + 1}</TableCell>
-            {row.map((value) => (
-              <TableCell key={value}>{value}</TableCell>
+            {row.map((value, column) => (
+              <TableCell key={value} align={column === 1 ? "end" : "start"}>
+                {value}
+              </TableCell>
             ))}
             <TableCell>
               <TableActions onEdit={noop} onDelete={noop} />

@@ -8,6 +8,7 @@
 .summaryRow,
 .breakdown {
   --amount-column: 283px;
+  --amount-width: 8em;
 }
 
 @media (width <= 767px) {
@@ -38,7 +39,9 @@
 }
 
 .amount {
+  flex: 0 0 var(--amount-width);
   margin: 0;
+  text-align: right;
 }
 
 .breakdown {
