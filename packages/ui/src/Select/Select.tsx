@@ -8,12 +8,14 @@ export interface SelectProps
   label?: string;
   description?: string;
   errorMessage?: string;
+  skeleton?: boolean;
 }
 
 export const Select = ({
   label,
   description,
   errorMessage,
+  skeleton = false,
   id,
   className,
   children,
@@ -36,6 +38,8 @@ export const Select = ({
           aria-invalid={errorMessage ? true : undefined}
           aria-describedby={describedBy(selectId, description, errorMessage)}
           {...rest}
+          disabled={skeleton || rest.disabled}
+          data-skeleton={skeleton || undefined}
         >
           {children}
         </select>

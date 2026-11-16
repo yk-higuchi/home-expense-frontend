@@ -69,6 +69,13 @@
   cursor: not-allowed;
 }
 
+.button[data-skeleton]:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-disabled);
+  cursor: progress;
+}
+
 .button[aria-busy="true"] {
   border-color: var(--button-border);
   background-color: var(--button-bg);

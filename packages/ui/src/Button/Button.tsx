@@ -9,6 +9,7 @@ export interface ButtonProps extends ComponentPropsWithRef<"button"> {
   loading?: boolean;
   fullWidth?: boolean;
   icon?: ReactNode;
+  skeleton?: boolean;
 }
 
 export const Button = ({
@@ -16,6 +17,7 @@ export const Button = ({
   loading = false,
   fullWidth = false,
   icon,
+  skeleton = false,
   type = "button",
   disabled,
   className,
@@ -34,7 +36,8 @@ export const Button = ({
     <button
       type={type}
       className={classNames}
-      disabled={disabled || loading}
+      disabled={disabled || loading || skeleton}
+      data-skeleton={skeleton || undefined}
       aria-busy={loading || undefined}
       {...rest}
     >

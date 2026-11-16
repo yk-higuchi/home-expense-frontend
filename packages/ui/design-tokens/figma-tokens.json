@@ -229,6 +229,12 @@
       "css": "--color-interactive-selected",
       "ref": "水色/100",
       "hex": "#e0f2f5"
+    },
+    {
+      "name": "基本/スケルトン",
+      "css": "--color-skeleton",
+      "ref": "グレー/50",
+      "hex": "#efefef"
     }
   ],
   "sizes": [

@@ -7,12 +7,14 @@ export interface TextInputProps
   label?: string;
   description?: string;
   errorMessage?: string;
+  skeleton?: boolean;
 }
 
 export const TextInput = ({
   label,
   description,
   errorMessage,
+  skeleton = false,
   id,
   className,
   type = "text",
@@ -35,6 +37,8 @@ export const TextInput = ({
         aria-invalid={errorMessage ? true : undefined}
         aria-describedby={describedBy(inputId, description, errorMessage)}
         {...rest}
+        disabled={skeleton || rest.disabled}
+        data-skeleton={skeleton || undefined}
       />
     </Field>
   );

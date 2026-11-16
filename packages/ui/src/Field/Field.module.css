@@ -24,6 +24,10 @@
   color: var(--color-text-disabled);
 }
 
+.field:has(.control[data-skeleton]) .label {
+  color: var(--color-text);
+}
+
 .error {
   margin: 0;
   color: var(--color-danger);
@@ -51,6 +55,13 @@
   border-color: var(--color-disabled-border);
   background-color: var(--color-disabled-bg);
   color: var(--color-text-disabled);
+}
+
+.control[data-skeleton]:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-disabled);
+  cursor: progress;
   cursor: not-allowed;
 }
 

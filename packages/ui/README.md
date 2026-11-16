@@ -81,3 +81,5 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - サーバーコンポーネントからも使えるよう、フックやイベントが要らない部品には `"use client"` を付けない（`Select`・`TextInput` は `useId` だけなので付けない）。
 - `ButtonLink` はボタンの見た目のリンク。画面の移動はボタンではなくリンクにする（新しいタブで開け、URL をコピーできる）。Next.js では `linkComponent={Link}` を渡す。
 - `Pagination` は `hrefFor` を渡すと、ページの番号を `<a href>` で描く（サーバーで描ける）。`onPageChange` だけを渡すと、今までどおりボタンで描く。前・次がないときは `aria-disabled` の `span` にする。
+- `Skeleton` は読み込み中に文字や金額の代わりに出す灰色の帯（`--color-skeleton`）。静止させる。`TextInput`・`Select`・`Button` の `skeleton` は、読み込み中の軽い見た目（白地・通常の枠線・無効の文字色、操作できない）。
+- `LoadError` はデータを読み込めないとき・見つからないときに、データが入るはずの枠の中に出す（アイコン・文言・`action` のボタンやリンク、`role="alert"`）。

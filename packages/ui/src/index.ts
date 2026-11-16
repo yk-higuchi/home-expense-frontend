@@ -26,6 +26,8 @@ export {
   PlusIcon,
   WarningIcon,
 } from "./icons/icons";
+export type { LoadErrorProps } from "./LoadError/LoadError";
+export { LoadError } from "./LoadError/LoadError";
 export type { NavBarProps } from "./NavBar/NavBar";
 export { NavBar } from "./NavBar/NavBar";
 export type { PaginationProps } from "./Pagination/Pagination";
@@ -38,6 +40,8 @@ export type {
   SideBarProps,
 } from "./SideBar/SideBar";
 export { SideBar } from "./SideBar/SideBar";
+export type { SkeletonProps } from "./Skeleton/Skeleton";
+export { Skeleton } from "./Skeleton/Skeleton";
 export type {
   DragHandleProps,
   ReorderButtonsProps,

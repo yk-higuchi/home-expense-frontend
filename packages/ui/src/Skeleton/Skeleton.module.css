@@ -1,0 +1,8 @@
+.skeleton {
+  display: inline-block;
+  max-width: 100%;
+  height: 12px;
+  border-radius: var(--radius-100);
+  background-color: var(--color-skeleton);
+  vertical-align: middle;
+}
