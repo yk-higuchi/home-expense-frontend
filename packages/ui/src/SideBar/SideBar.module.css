@@ -32,6 +32,7 @@
 
 .active {
   background-color: var(--color-interactive-selected);
+  font-weight: 700;
 }
 
 .item:focus-visible {

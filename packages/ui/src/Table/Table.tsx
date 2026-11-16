@@ -33,13 +33,20 @@ export const Table = ({
       loading && styles.loading,
     )}
   >
-    <table
-      className={cx(styles.table, className)}
-      aria-busy={loading || undefined}
-      {...rest}
+    <section
+      className={styles.scroll}
+      aria-label={rest["aria-label"] ?? "表"}
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: 狭い画面で横にスクロールする領域を、キーボードでもスクロールできるようにする
+      tabIndex={0}
     >
-      {children}
-    </table>
+      <table
+        className={cx(styles.table, className)}
+        aria-busy={loading || undefined}
+        {...rest}
+      >
+        {children}
+      </table>
+    </section>
     {footer && <div className={styles.footer}>{footer}</div>}
   </div>
 );

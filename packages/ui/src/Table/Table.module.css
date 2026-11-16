@@ -18,8 +18,18 @@
   }
 }
 
+.scroll {
+  overflow-x: auto;
+}
+
+.scroll:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
 .table {
   width: 100%;
+  min-width: 880px;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -35,9 +45,7 @@
   line-height: var(--text-body-line-height);
   text-align: left;
   vertical-align: middle;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .headerCell {

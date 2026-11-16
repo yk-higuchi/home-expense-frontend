@@ -129,6 +129,12 @@
       "alpha": 0.8
     },
     {
+      "name": "基本/スケルトン",
+      "css": "--color-skeleton",
+      "ref": "グレー/50",
+      "hex": "#efefef"
+    },
+    {
       "name": "基本/ライン",
       "css": "--color-accent-line",
       "ref": "水色/400",
@@ -155,8 +161,8 @@
     {
       "name": "基本/文字",
       "css": "--color-text",
-      "ref": "グレー/600",
-      "hex": "#757575"
+      "ref": "グレー/700",
+      "hex": "#636363"
     },
     {
       "name": "基本/枠線",
@@ -201,10 +207,16 @@
       "hex": "#f2f9fa"
     },
     {
+      "name": "状態/入力欄の枠線",
+      "css": "--color-input-border",
+      "ref": "グレー/500",
+      "hex": "#8c8c8c"
+    },
+    {
       "name": "状態/入力欄の枠線（ホバー）",
       "css": "--color-input-border-hover",
-      "ref": "グレー/300",
-      "hex": "#b3b3b3"
+      "ref": "グレー/600",
+      "hex": "#757575"
     },
     {
       "name": "状態/危険（ホバー）",
@@ -229,12 +241,6 @@
       "css": "--color-interactive-selected",
       "ref": "水色/100",
       "hex": "#e0f2f5"
-    },
-    {
-      "name": "基本/スケルトン",
-      "css": "--color-skeleton",
-      "ref": "グレー/50",
-      "hex": "#efefef"
     }
   ],
   "sizes": [

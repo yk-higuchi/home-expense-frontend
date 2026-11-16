@@ -23,6 +23,7 @@ export {
   CloseIcon,
   GripIcon,
   LoaderIcon,
+  MenuIcon,
   PlusIcon,
   WarningIcon,
 } from "./icons/icons";

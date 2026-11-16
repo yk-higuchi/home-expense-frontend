@@ -69,7 +69,17 @@ export const Pagination = ({
     page: number,
     enabled: boolean,
     content: ReactNode,
+    fallbackLabel: string,
+    visibleLabel: string,
   ): ReactElement => {
+    const body = (
+      <>
+        {content}
+        {!visibleLabel && (
+          <span className={styles.srOnly}>{fallbackLabel}</span>
+        )}
+      </>
+    );
     if (!hrefFor) {
       return (
         <button
@@ -78,17 +88,17 @@ export const Pagination = ({
           disabled={!enabled}
           onClick={() => onPageChange?.(page)}
         >
-          {content}
+          {body}
         </button>
       );
     }
     return enabled ? (
       <a className={styles.step} href={hrefFor(page)} {...linkAttributes}>
-        {content}
+        {body}
       </a>
     ) : (
       <span className={styles.step} aria-disabled="true">
-        {content}
+        {body}
       </span>
     );
   };
@@ -125,6 +135,8 @@ export const Pagination = ({
           <Arrow direction="left" />
           {previousLabel}
         </>,
+        "前のページ",
+        previousLabel,
       )}
       <ul className={styles.list}>
         {paginationItems(currentPage, totalPages, siblingCount).map((item) =>
@@ -144,6 +156,8 @@ export const Pagination = ({
           {nextLabel}
           <Arrow direction="right" />
         </>,
+        "次のページ",
+        nextLabel,
       )}
     </nav>
   );

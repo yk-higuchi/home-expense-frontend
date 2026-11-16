@@ -11,6 +11,7 @@ const getAbsolutePath = (value: string): string =>
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx)"],
   addons: [
+    getAbsolutePath("@storybook/addon-a11y"),
     getAbsolutePath("@storybook/addon-docs"),
     getAbsolutePath("@storybook/addon-designs"),
     getAbsolutePath("storybook-addon-pseudo-states"),

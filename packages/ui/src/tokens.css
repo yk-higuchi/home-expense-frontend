@@ -1,7 +1,7 @@
 :root {
   --color-background: #e0f2f5;
   --color-surface: #fff;
-  --color-text: #757575;
+  --color-text: #636363;
   --color-border: #dedede;
   --color-accent-line: #90e0f1;
   --color-danger: #900b09;
@@ -16,7 +16,8 @@
   --color-interactive-hover: #f2f9fa;
   --color-interactive-active: #cbe8ee;
   --color-interactive-selected: #e0f2f5;
-  --color-input-border-hover: #b3b3b3;
+  --color-input-border: #8c8c8c;
+  --color-input-border-hover: #757575;
   --color-danger-hover: #fee9e7;
   --color-danger-active: #fdd3d0;
   --color-chart-1: #2a78d6;

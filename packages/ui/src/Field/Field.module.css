@@ -41,7 +41,7 @@
   height: var(--size-control);
   margin: 0;
   padding: 0 var(--padding-control-x);
-  border: var(--border-width) solid var(--color-border);
+  border: var(--border-width) solid var(--color-input-border);
   border-radius: var(--radius-200);
   background-color: var(--color-surface);
   color: var(--color-text);

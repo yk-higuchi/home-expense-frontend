@@ -1,4 +1,5 @@
 .navBar {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -16,4 +17,11 @@
   color: var(--color-text);
   font-size: var(--text-subheading-size);
   line-height: var(--text-subheading-line-height);
+}
+
+.start {
+  position: absolute;
+  top: 50%;
+  left: var(--space-300);
+  transform: translateY(-50%);
 }
