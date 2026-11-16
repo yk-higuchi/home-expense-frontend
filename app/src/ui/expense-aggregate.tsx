@@ -1,8 +1,10 @@
 import {
   Amount,
+  BarList,
   Breakdown,
   BreakdownGroup,
   BreakdownItem,
+  Card,
   SummaryList,
   SummaryRow,
 } from "@home-expense/ui";
@@ -38,40 +40,66 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
   }
   const { income, fixedExpense, variableExpense, expenseTotal, net } =
     statistics;
+  const ranking = [...fixedExpense.items, ...variableExpense.items]
+    .filter(({ amount }) => amount > 0)
+    .sort((a, b) => b.amount - a.amount)
+    .map(({ id, name, amount }) => ({ id, label: name, value: amount }));
   return (
     <PeriodFilterFrame path="/home" year={year} month={month} classes={classes}>
-      <SummaryList>
-        <SummaryRow label="収入合計" amount={<Amount value={income.total} />} />
-        <SummaryRow label="支出合計" amount={<Amount value={expenseTotal} />} />
-        <SummaryRow label="収支合計" amount={<Amount value={net} />} />
-      </SummaryList>
-      <SummaryRow label="内訳" />
-      <Breakdown className={style.breakdown}>
-        <BreakdownGroup
-          label="固定費"
-          amount={<Amount value={fixedExpense.total} />}
+      <div className={style.main}>
+        <SummaryList>
+          <SummaryRow
+            label="収入合計"
+            amount={<Amount value={income.total} />}
+          />
+          <SummaryRow
+            label="支出合計"
+            amount={<Amount value={expenseTotal} />}
+          />
+          <SummaryRow label="収支合計" amount={<Amount value={net} />} />
+        </SummaryList>
+        <SummaryRow label="内訳" />
+        <Breakdown className={style.breakdown}>
+          <BreakdownGroup
+            label="固定費"
+            amount={<Amount value={fixedExpense.total} />}
+          >
+            {fixedExpense.items.map(({ id, name, amount }) => (
+              <BreakdownItem
+                key={id}
+                name={name}
+                amount={<Amount value={amount} />}
+              />
+            ))}
+          </BreakdownGroup>
+          <BreakdownGroup
+            label="変動費"
+            amount={<Amount value={variableExpense.total} />}
+          >
+            {variableExpense.items.map(({ id, name, amount }) => (
+              <BreakdownItem
+                key={id}
+                name={name}
+                amount={<Amount value={amount} />}
+              />
+            ))}
+          </BreakdownGroup>
+        </Breakdown>
+      </div>
+      <Card title="支出の多い順" className={style.ranking}>
+        <section
+          className={style.rankingScroll}
+          aria-label="支出の多い順の一覧"
+          // biome-ignore lint/a11y/noNoninteractiveTabindex: 中だけスクロールする領域を、キーボードでもスクロールできるようにする
+          tabIndex={0}
         >
-          {fixedExpense.items.map(({ id, name, amount }) => (
-            <BreakdownItem
-              key={id}
-              name={name}
-              amount={<Amount value={amount} />}
-            />
-          ))}
-        </BreakdownGroup>
-        <BreakdownGroup
-          label="変動費"
-          amount={<Amount value={variableExpense.total} />}
-        >
-          {variableExpense.items.map(({ id, name, amount }) => (
-            <BreakdownItem
-              key={id}
-              name={name}
-              amount={<Amount value={amount} />}
-            />
-          ))}
-        </BreakdownGroup>
-      </Breakdown>
+          <BarList
+            items={ranking}
+            total={expenseTotal}
+            empty="この月の支出はありません"
+          />
+        </section>
+      </Card>
     </PeriodFilterFrame>
   );
 };

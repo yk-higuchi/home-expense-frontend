@@ -99,12 +99,21 @@ const HomeSkeleton = (): ReactElement => (
       <Select label="月" className={layout.monthFilter} skeleton />
     </div>
     <div className={aggregate.content}>
-      <Totals />
-      <SummaryRow label="内訳" />
-      <Breakdown className={aggregate.breakdown}>
-        <BreakdownGroup label="固定費" amount={null} />
-        <BreakdownGroup label="変動費" amount={null} />
-      </Breakdown>
+      <div className={aggregate.main}>
+        <Totals />
+        <SummaryRow label="内訳" />
+        <Breakdown className={aggregate.breakdown}>
+          <BreakdownGroup label="固定費" amount={null} />
+          <BreakdownGroup label="変動費" amount={null} />
+        </Breakdown>
+      </div>
+      <Card title="支出の多い順" className={aggregate.ranking}>
+        <div className={style.bars}>
+          {[100, 80, 60, 40, 20].map((width) => (
+            <Skeleton key={width} width={`${width}%`} />
+          ))}
+        </div>
+      </Card>
     </div>
   </div>
 );
