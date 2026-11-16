@@ -2,14 +2,24 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { BarList } from "./BarList";
 
+const series = [
+  { id: "fixed", label: "固定費", color: "var(--color-chart-fixed)" },
+  { id: "variable", label: "変動費", color: "var(--color-chart-variable)" },
+];
+
 const items = [
-  { id: "rent", label: "家賃", value: 160000 },
-  { id: "tax", label: "税金", value: 130766 },
-  { id: "food", label: "食費", value: 79351 },
-  { id: "insurance", label: "保険", value: 43657 },
-  { id: "lesson", label: "習いごと", value: 43450 },
-  { id: "subscription", label: "サブスクリプション", value: 18913 },
-  { id: "transport", label: "交通費", value: 796 },
+  { id: "rent", label: "家賃", value: 160000, series: "fixed" },
+  { id: "tax", label: "税金", value: 130766, series: "fixed" },
+  { id: "food", label: "食費", value: 79351, series: "variable" },
+  { id: "insurance", label: "保険", value: 43657, series: "fixed" },
+  { id: "lesson", label: "習いごと", value: 43450, series: "fixed" },
+  {
+    id: "subscription",
+    label: "サブスクリプション",
+    value: 18913,
+    series: "fixed",
+  },
+  { id: "transport", label: "交通費", value: 796, series: "variable" },
 ];
 const total = items.reduce((sum, { value }) => sum + value, 0);
 
@@ -23,7 +33,7 @@ const meta = {
       </div>
     ),
   ],
-  args: { items, total, label: "支出の多い順" },
+  args: { items, total, series, label: "支出の多い順" },
   parameters: {
     design: {
       type: "figma",
@@ -36,6 +46,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const SingleSeries: Story = {
+  args: { series: [] },
+};
 
 export const Empty: Story = {
   args: { items: [], empty: "この月の支出はありません" },

@@ -26,10 +26,22 @@
       "hex": "#efefef"
     },
     {
+      "name": "チャート/固定費",
+      "css": "--color-chart-fixed",
+      "ref": "紺/500",
+      "hex": "#0f5c8c"
+    },
+    {
       "name": "チャート/基準線",
       "css": "--color-chart-baseline",
       "ref": "グレー/300",
       "hex": "#b3b3b3"
+    },
+    {
+      "name": "チャート/変動費",
+      "css": "--color-chart-variable",
+      "ref": "水色/600",
+      "hex": "#26a7c4"
     },
     {
       "name": "フォーカス",

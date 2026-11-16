@@ -1,6 +1,10 @@
 export type { AmountProps } from "./Amount/Amount";
 export { Amount } from "./Amount/Amount";
-export type { BarListItem, BarListProps } from "./BarList/BarList";
+export type {
+  BarListItem,
+  BarListProps,
+  BarListSeries,
+} from "./BarList/BarList";
 export { BarList } from "./BarList/BarList";
 export type { ButtonProps, ButtonVariant } from "./Button/Button";
 export { Button } from "./Button/Button";

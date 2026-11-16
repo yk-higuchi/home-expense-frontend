@@ -14,6 +14,11 @@ import { LoadFailed } from "@/ui/parts/load-failed";
 import PeriodFilterFrame from "@/ui/parts/period-filter-frame";
 import style from "./expense-aggregate.module.css";
 
+const EXPENSE_SERIES = [
+  { id: "fixed", label: "固定費", color: "var(--color-chart-fixed)" },
+  { id: "variable", label: "変動費", color: "var(--color-chart-variable)" },
+];
+
 interface Props {
   year: number;
   month: number;
@@ -40,10 +45,18 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
   }
   const { income, fixedExpense, variableExpense, expenseTotal, net } =
     statistics;
-  const ranking = [...fixedExpense.items, ...variableExpense.items]
+  const ranking = [
+    ...fixedExpense.items.map((item) => ({ ...item, series: "fixed" })),
+    ...variableExpense.items.map((item) => ({ ...item, series: "variable" })),
+  ]
     .filter(({ amount }) => amount > 0)
     .sort((a, b) => b.amount - a.amount)
-    .map(({ id, name, amount }) => ({ id, label: name, value: amount }));
+    .map(({ id, name, amount, series }) => ({
+      id,
+      label: name,
+      value: amount,
+      series,
+    }));
   return (
     <PeriodFilterFrame path="/home" year={year} month={month} classes={classes}>
       <div className={style.main}>
@@ -96,6 +109,7 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
           <BarList
             items={ranking}
             total={expenseTotal}
+            series={EXPENSE_SERIES}
             empty="この月の支出はありません"
           />
         </section>
