@@ -125,7 +125,7 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 
 - コミットは Conventional Commits で書く（例：`feat: …`・`fix(ui): …`）。pull request では commitlint（`@commitlint/config-conventional`、`.commitlintrc.json`）で検査する。
 - `main` への push では、CI（`ci.yaml`）が次の順に動く。
-  1. `lint`・`storybook`・`image`。`image` はイメージを 1 回だけ作って Trivy で検査し、`ghcr.io/<リポジトリ>-app:sha-<コミット>` として置く。
+  1. `lint`・`test`（Storybook の見本のアクセシビリティの検査）・`image`。`image` はイメージを 1 回だけ作って Trivy で検査し、`ghcr.io/<リポジトリ>-app:sha-<コミット>` として置く。
   2. すべて通ったら、`release` で release-please がリリースの PR を作る（作り直す）。版の番号は Conventional Commits から決まる。
   3. リリースの PR をマージしてタグ（`v1.1.0` の形）とリリースができたら、同じ実行の中で `deliver` が CD（`cd.yaml`）を呼ぶ。CD は、テスト済みの `sha-<コミット>` のイメージを作り直さずに、版のタグと `latest` に付け替える（digest が同じことを確かめる）。
 - 設定は `release-please-config.json`、今の版は `.release-please-manifest.json`。版の番号は `app/package.json` の `version` も一緒に書き換える。変更履歴は `CHANGELOG.md` に書かれる。`packages/ui` は外に公開しないので、版は上げない。
