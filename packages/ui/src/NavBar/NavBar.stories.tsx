@@ -6,7 +6,7 @@ const meta = {
   title: "Components/NavBar",
   component: NavBar,
   args: {
-    title: "家庭用",
+    title: "家計簿",
   },
   decorators: [
     (Story) => (
