@@ -1,4 +1,4 @@
-export interface Pagination {
+export interface PageLinks {
   current: {
     page: number;
     perPage: number;
@@ -21,7 +21,7 @@ export interface Pagination {
   };
 }
 
-const REL_NAMES: Record<string, keyof Pagination> = {
+const REL_NAMES: Record<string, keyof PageLinks> = {
   self: "current",
   current: "current",
   first: "first",
@@ -31,10 +31,8 @@ const REL_NAMES: Record<string, keyof Pagination> = {
   previous: "previous",
 };
 
-export const parseLinkHeader = (
-  headers: Record<string, string>,
-): Pagination => {
-  const pagination: Pagination = {
+export const parseLinkHeader = (headers: Record<string, string>): PageLinks => {
+  const pagination: PageLinks = {
     first: { page: 0, perPage: 0 },
     current: { page: 0, perPage: 0 },
     last: { page: 0, perPage: 0 },

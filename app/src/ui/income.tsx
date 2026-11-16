@@ -2,7 +2,7 @@ import { ButtonLink, PlusIcon } from "@home-expense/ui";
 import Link from "next/link";
 import type { ReactElement } from "react";
 import type { Incomes } from "@/core/income";
-import type { Pagination } from "@/network/pagination/pagination";
+import type { Pagination } from "@/core/pagination";
 import IncomeTable from "@/ui/parts/income-table";
 import ListFrame from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";

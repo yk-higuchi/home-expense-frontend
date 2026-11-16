@@ -18,7 +18,7 @@ API はサーバー側（Server Components・Server Actions）からだけ呼び
 | 層                | 受け持つこと                                                                                                                                                                      | 依存してよい層                    |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
 | `app/`            | ルーティング（`page`・`not-found`・`error`）。データを取得して画面に渡す                                                                                                          | `ui`・`server`・`core`・`network` |
-| `ui/`             | 画面と部品（サーバー・クライアント）。`ui/hooks/` はクライアントのフック                                                                                                          | `server`・`core`・`network`       |
+| `ui/`             | 画面と部品（サーバー・クライアント）。`ui/hooks/` はクライアントのフック                                                                                                          | `server`・`core`                  |
 | `server/queries/` | 読み取り。`import "server-only"` を付け、サーバーコンポーネントからだけ使う                                                                                                       | `core`・`network`                 |
 | `server/actions/` | 変更（Server Actions、`"use server"`）。入力チェック、失敗の文言、キャッシュの更新、画面の移動                                                                                    | `core`・`network`                 |
 | `core/`           | 業務の型と決まり（明細の型、入力チェック、画面の文言、削除対象の表示）。通信・画面・Next.js・React に依存しない                                                                   | なし                              |
@@ -26,6 +26,7 @@ API はサーバー側（Server Components・Server Actions）からだけ呼び
 
 - 読み取りを `"use server"` のファイルに置かない。Next.js の資料では、Server Functions は変更のためのもので、取得はサーバーコンポーネントから行う（Server Actions は順番に処理されるため、取得に使うと直列になる）。読み取りは、`server-only` を付けたデータアクセスの層（`server/queries/`）に置く。
 - `core` は「業務の型と決まり」に限る。通信のエラー（`HttpError`）を文言にする処理は、`server/actions/failure.ts` に置く。
+- `ui` は `network` に依存しない。通信の結果は `server` が `core` の型に変えて渡す（例：Link ヘッダーを読んだ `network` の `PageLinks` を、`server/queries/pagination.ts` で `core` の `Pagination` に変える）。
 
 ## API のスキーマ（JSON Schema）
 

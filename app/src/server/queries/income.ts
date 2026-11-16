@@ -1,7 +1,8 @@
 import "server-only";
 import type { Income, Incomes } from "@/core/income";
+import type { Pagination } from "@/core/pagination";
 import { incomesApi } from "@/network/api/v1-incomes";
-import type { Pagination } from "@/network/pagination/pagination";
+import { toPagination } from "@/server/queries/pagination";
 
 export const getIncomeSummary = async ({
   page,
@@ -47,7 +48,7 @@ export const getIncomeSummary = async ({
   });
   return {
     incomes: _incomes,
-    pagination,
+    pagination: toPagination(pagination),
   };
 };
 

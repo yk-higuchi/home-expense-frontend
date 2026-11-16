@@ -96,8 +96,8 @@
               "options": {
                 "patterns": [
                   {
-                    "group": ["@/app/**"],
-                    "message": "ui はルーティング（app）に依存しない。"
+                    "group": ["@/app/**", "@/network/**"],
+                    "message": "ui はルーティング（app）と通信（network）に依存しない。通信の結果は server を通して受け取る。"
                   }
                 ]
               }

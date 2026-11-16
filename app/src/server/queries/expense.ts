@@ -1,7 +1,8 @@
 import "server-only";
 import type { Expense, Expenses } from "@/core/expense";
+import type { Pagination } from "@/core/pagination";
 import { expensesApi } from "@/network/api/v1-expenses";
-import type { Pagination } from "@/network/pagination/pagination";
+import { toPagination } from "@/server/queries/pagination";
 
 export const getExpenseSummary = async ({
   page,
@@ -57,7 +58,7 @@ export const getExpenseSummary = async ({
   });
   return {
     expenses: _expenses,
-    pagination,
+    pagination: toPagination(pagination),
   };
 };
 

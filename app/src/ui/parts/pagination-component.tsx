@@ -1,6 +1,6 @@
 import { Pagination as PaginationNav } from "@home-expense/ui";
 import type { ReactElement } from "react";
-import type { Pagination } from "@/network/pagination/pagination";
+import type { Pagination } from "@/core/pagination";
 import { LIST_LINK } from "@/ui/parts/list-link";
 
 interface Props {

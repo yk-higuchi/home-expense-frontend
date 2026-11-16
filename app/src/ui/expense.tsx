@@ -6,7 +6,7 @@ import type {
   ExpenseAttributeCategory,
   ExpenseAttributes,
 } from "@/core/expense-attribute";
-import type { Pagination } from "@/network/pagination/pagination";
+import type { Pagination } from "@/core/pagination";
 import ExpenseFilters from "@/ui/parts/expense-filters";
 import ExpenseTable from "@/ui/parts/expense-table";
 import ListFrame from "@/ui/parts/list-frame";

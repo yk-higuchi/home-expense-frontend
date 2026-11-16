@@ -14,7 +14,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
 import type { Expenses } from "@/core/expense";
-import type { Pagination } from "@/network/pagination/pagination";
+import type { Pagination } from "@/core/pagination";
 import { deleteExpense, loadExpenseForDelete } from "@/server/actions/expense";
 import { useEmptyPageFallback } from "@/ui/hooks/use-empty-page-fallback";
 import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";

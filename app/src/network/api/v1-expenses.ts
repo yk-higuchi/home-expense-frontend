@@ -2,7 +2,7 @@ import * as process from "node:process";
 
 import { http } from "@/network/http";
 import {
-  type Pagination,
+  type PageLinks,
   parseLinkHeader,
 } from "@/network/pagination/pagination";
 import type { Schema } from "@/network/schema/type";
@@ -33,7 +33,7 @@ const _getSummary = async ({
   category?: string;
   attributeId?: string;
   extension: object;
-}): Promise<{ pagination: Pagination; response: GetSummaryResponse }> => {
+}): Promise<{ pagination: PageLinks; response: GetSummaryResponse }> => {
   const response = await http.get({
     url: process.env.BACKEND_URL,
     path: "/v1/expenses",
