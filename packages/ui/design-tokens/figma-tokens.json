@@ -28,8 +28,8 @@
     {
       "name": "チャート/固定費",
       "css": "--color-chart-fixed",
-      "ref": "紺/500",
-      "hex": "#0f5c8c"
+      "ref": "濃紺/500",
+      "hex": "#1e3a5f"
     },
     {
       "name": "チャート/基準線",
@@ -40,8 +40,8 @@
     {
       "name": "チャート/変動費",
       "css": "--color-chart-variable",
-      "ref": "水色/600",
-      "hex": "#26a7c4"
+      "ref": "黄/500",
+      "hex": "#e0a800"
     },
     {
       "name": "フォーカス",
