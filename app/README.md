@@ -153,11 +153,11 @@ API のリクエスト・レスポンスは、バックエンドが OpenAPI か�
 ```sh
 pnpm install
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-brew install actionlint hadolint
-pnpm lefthook install
+brew install lefthook actionlint hadolint
+lefthook install
 ```
 
-yamllint は `.venv/bin` にあるので、コミットするときは `.venv` を有効にしておくか、`.venv/bin` を `PATH` に入れる。lefthook の `postinstall` は `pnpm-workspace.yaml` の `allowBuilds` で止めてあるので、フックは `pnpm lefthook install` で明示的に登録する。
+yamllint は `.venv/bin` にあるので、コミットするときは `.venv` を有効にしておくか、`.venv/bin` を `PATH` に入れる。lefthook 自体は npm のパッケージとしては入れず、CLI（Homebrew など）で入れる前提にしている。
 
 ## CI の依存の固定
 
