@@ -186,8 +186,8 @@ export const 状態の一覧: Story = {
               <SideBar
                 items={[
                   { label: "HOME", href: "#", active: true },
-                  { label: "経費属性", href: "#a" },
-                  { label: "経費", href: "#b" },
+                  { label: "支出属性", href: "#a" },
+                  { label: "支出", href: "#b" },
                 ]}
               />
             </div>

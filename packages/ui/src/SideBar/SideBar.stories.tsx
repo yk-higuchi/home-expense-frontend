@@ -5,9 +5,9 @@ import { SideBar } from "./SideBar";
 const items = [
   { label: "HOME", href: "#home" },
   { label: "収入属性", href: "#income-attribute" },
-  { label: "経費属性", href: "#expense-attribute" },
+  { label: "支出属性", href: "#expense-attribute" },
   { label: "収入", href: "#income" },
-  { label: "経費", href: "#expense" },
+  { label: "支出", href: "#expense" },
   { label: "年間レポート", href: "#annual-report" },
 ];
 
@@ -45,7 +45,7 @@ export const ExpenseAttributeActive: Story = {
   args: {
     items: items.map((item) => ({
       ...item,
-      active: item.label === "経費属性",
+      active: item.label === "支出属性",
     })),
   },
 };
