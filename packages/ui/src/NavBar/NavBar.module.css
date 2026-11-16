@@ -22,6 +22,6 @@
 .start {
   position: absolute;
   top: 50%;
-  left: var(--space-300);
+  left: calc(var(--space-300) - var(--border-width));
   transform: translateY(-50%);
 }

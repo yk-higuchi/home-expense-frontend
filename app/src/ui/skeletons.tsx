@@ -135,7 +135,7 @@ const AnnualReportSkeleton = (): ReactElement => (
               <TableRow key={month}>
                 {[0, 1, 2, 3].map((cell) => (
                   <TableCell key={cell}>
-                    <Skeleton width="60%" />
+                    <Skeleton />
                   </TableCell>
                 ))}
               </TableRow>

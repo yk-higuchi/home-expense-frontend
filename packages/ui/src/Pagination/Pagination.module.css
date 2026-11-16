@@ -75,7 +75,7 @@
   padding: var(--space-200) var(--space-400);
   color: var(--color-text);
   font-size: var(--text-body-size);
-  line-height: var(--text-body-line-height);
+  line-height: var(--text-single-line-line-height);
 }
 
 @media (pointer: coarse) {

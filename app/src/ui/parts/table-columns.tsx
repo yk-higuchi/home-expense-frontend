@@ -87,7 +87,7 @@ export const SkeletonTable = ({
           {columns.map((column, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: 列の並びは固定
             <TableCell key={index}>
-              {column.kind !== "action" && <Skeleton width="80%" />}
+              {column.kind !== "action" && <Skeleton />}
             </TableCell>
           ))}
         </TableRow>
