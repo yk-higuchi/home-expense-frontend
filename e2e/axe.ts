@@ -13,6 +13,12 @@ export const axeViolations = async (
   page: Page,
   { include, disableRules = [] }: { include?: string; disableRules?: string[] } = {},
 ) => {
+  await page.waitForFunction(() =>
+    document.getAnimations().every((animation) => animation.playState !== "running"),
+  );
+  await page.evaluate(
+    () => new Promise((resolve) => requestAnimationFrame(() => resolve(null))),
+  );
   const builder = new AxeBuilder({ page })
     .withTags(WCAG_TAGS)
     .disableRules(disableRules);

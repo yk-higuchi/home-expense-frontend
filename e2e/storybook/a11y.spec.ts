@@ -19,7 +19,9 @@ const stories = Object.values(index.entries).filter(
 
 for (const story of stories) {
   test(`${story.title} / ${story.name}`, async ({ page }) => {
-    await page.goto(`/iframe.html?id=${story.id}&viewMode=story`);
+    await page.goto(
+      `/iframe.html?id=${story.id}&viewMode=story&globals=a11y.manual:!true`,
+    );
     await page.locator("#storybook-root > *").first().waitFor();
     const disableRules = story.name === "Loading" ? ["color-contrast"] : [];
     expect(
