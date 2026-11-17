@@ -81,7 +81,11 @@ jobs:
           source_digest=$(docker buildx imagetools inspect "${source}" --format '{{json .Manifest.Digest}}' | tr -d '"')
           echo "source: ${source}@${source_digest}"
           docker buildx imagetools create --tag "${IMAGE}:${VERSION}" --tag "${IMAGE}:latest" "${source}@${source_digest}"
+          promoted=$(docker buildx imagetools inspect --raw "${IMAGE}:${VERSION}")
           promoted_digest=$(docker buildx imagetools inspect "${IMAGE}:${VERSION}" --format '{{json .Manifest.Digest}}' | tr -d '"')
-          [ "${promoted_digest}" = "${source_digest}" ] || { echo "digest mismatch: ${promoted_digest} != ${source_digest}"; exit 1; }
+          if [ "${promoted_digest}" != "${source_digest}" ]; then
+            referenced=$(jq -r '[.manifests[]?.digest] | join(" ")' <<< "${promoted}")
+            [ "${referenced}" = "${source_digest}" ] || { echo "digest mismatch: ${IMAGE}:${VERSION} (${promoted_digest}) does not point to ${source_digest}"; exit 1; }
+          fi
           echo "### ${IMAGE}:${VERSION}" >> "${GITHUB_STEP_SUMMARY}"
-          echo "promoted from \`${source}\` (\`${source_digest}\`)" >> "${GITHUB_STEP_SUMMARY}"
+          echo "promoted from \`${source}\` (\`${source_digest}\`), index \`${promoted_digest}\`" >> "${GITHUB_STEP_SUMMARY}"
