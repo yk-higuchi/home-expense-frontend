@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.1.0...v1.1.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* **ci:** 昇格したタグが index になっても、テスト済みのイメージを指しているかで検証する ([1298add](https://github.com/yk-higuchi/home-expense-frontend/commit/1298add84a0782ae01ea35cafcb5444ea7cd6e41))
+* **ci:** 昇格したタグの digest の検証をやめ、元のイメージの digest を記録するだけにする ([cc32225](https://github.com/yk-higuchi/home-expense-frontend/commit/cc32225fd8597a2a6017c6f842345c904b55e237))
+* **ci:** 昇格したタグの digest の検証をやめる ([a9aa140](https://github.com/yk-higuchi/home-expense-frontend/commit/a9aa140d5b9ab54380efe0ac0dcc75183a29ab76))
+
 ## [1.1.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.0.0...v1.1.0) (2026-11-16)
 
 
