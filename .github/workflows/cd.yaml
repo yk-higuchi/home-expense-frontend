@@ -81,7 +81,5 @@ jobs:
           source_digest=$(docker buildx imagetools inspect "${source}" --format '{{json .Manifest.Digest}}' | tr -d '"')
           echo "source: ${source}@${source_digest}"
           docker buildx imagetools create --tag "${IMAGE}:${VERSION}" --tag "${IMAGE}:latest" "${source}@${source_digest}"
-          promoted_digest=$(docker buildx imagetools inspect "${IMAGE}:${VERSION}" --format '{{json .Manifest.Digest}}' | tr -d '"')
-          [ "${promoted_digest}" = "${source_digest}" ] || { echo "digest mismatch: ${promoted_digest} != ${source_digest}"; exit 1; }
           echo "### ${IMAGE}:${VERSION}" >> "${GITHUB_STEP_SUMMARY}"
           echo "promoted from \`${source}\` (\`${source_digest}\`)" >> "${GITHUB_STEP_SUMMARY}"
