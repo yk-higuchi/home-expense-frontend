@@ -179,7 +179,8 @@ yamllint は `.venv/bin` にあるので、コミットするときは `.venv` �
    - リリースの PR を作った・更新したときは、Release がそのブランチで CI と Lint を起動する（下の「`GITHUB_TOKEN` の制約」）。
 3. **リリースの PR のマージ**：Release がタグ（`v1.1.0` の形）と GitHub のリリースを作り、同じ実行の中で CD（`cd.yaml`）を呼ぶ。CD は次を行う。
    - タグのコミットで、`main` への push の CI が成功するのを待つ（失敗したら止まる）。
-   - テスト済みの `sha-<コミット>` のイメージを、作り直さずに digest のまま版のタグと `latest` に付け替える。
+   - テスト済みの `sha-<コミット>` のイメージを、作り直さずに digest で指定して版のタグと `latest` に付け替える。
+   - 付けたタグは、テスト済みのイメージを 1 つだけ含む index になるので、タグの digest は元と変わる。元のイメージの digest は、CD の実行結果のまとめ（Step Summary）に書く。本番で digest を指定するときは、この値を使う。
 
 - 設定は `release-please-config.json`、今の版は `.release-please-manifest.json`。版の番号は `app/package.json` の `version` も一緒に書き換える。変更履歴は `CHANGELOG.md` に書かれる。`packages/ui` は外に公開しないので、版は上げない。
 - `CHANGELOG.md` と `.release-please-manifest.json` は release-please が書くので、Biome の対象から外している。
