@@ -41,10 +41,13 @@ const placePopover = (popover: HTMLElement, anchor: HTMLElement): void => {
   const rect = anchor.getBoundingClientRect();
   const { offsetWidth: width, offsetHeight: height } = popover;
   const below = rect.bottom + GAP;
-  const top =
-    below + height > window.innerHeight && rect.top - GAP - height >= 0
-      ? rect.top - GAP - height
-      : below;
+  const above = rect.top - GAP - height;
+  const preferred =
+    below + height <= window.innerHeight || above < 0 ? below : above;
+  const top = Math.max(
+    GAP,
+    Math.min(preferred, window.innerHeight - height - GAP),
+  );
   const left = Math.max(
     GAP,
     Math.min(rect.right - width, window.innerWidth - width - GAP),
