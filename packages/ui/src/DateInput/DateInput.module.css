@@ -40,20 +40,8 @@
   background-color: var(--color-interactive-active);
 }
 
-@media (pointer: fine) {
-  .input {
-    padding-right: calc(var(--space-100) + 32px + var(--space-100));
-  }
-
-  .input::-webkit-calendar-picker-indicator {
-    display: none;
-  }
-}
-
-@media (pointer: coarse) {
-  .toggle {
-    display: none;
-  }
+.input {
+  padding-right: calc(var(--space-100) + 32px + var(--space-100));
 }
 
 .popover {
