@@ -61,12 +61,16 @@
   text-align: center;
 }
 
-.frame > .table:last-child tbody tr:last-child > .cell {
+.frame:not(.plain) tbody tr:last-child > .cell {
   border-bottom: none;
 }
 
 .footer {
   padding: var(--space-200) var(--space-400);
+}
+
+.frame:not(.plain) > .footer {
+  border-top: var(--border-width) solid var(--color-border);
 }
 
 .plain {
