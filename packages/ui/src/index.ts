@@ -68,8 +68,6 @@ export {
 } from "./Sortable/Sortable";
 export type { SortableListOptions } from "./Sortable/useSortableList";
 export { useSortableList } from "./Sortable/useSortableList";
-export type { StatusMessageProps } from "./StatusMessage/StatusMessage";
-export { StatusMessage } from "./StatusMessage/StatusMessage";
 export type { SubmitButtonProps } from "./SubmitButton/SubmitButton";
 export { SubmitButton } from "./SubmitButton/SubmitButton";
 export type {
