@@ -2,6 +2,12 @@
   "fileKey": "k99TXVIrWbQ9YYSNBnbaFW",
   "colors": [
     {
+      "name": "カレンダー/日曜",
+      "css": "--color-calendar-sunday",
+      "ref": "赤/900",
+      "hex": "#900b09"
+    },
+    {
       "name": "チャート/1（収入）",
       "css": "--color-chart-1",
       "ref": "青/500",
