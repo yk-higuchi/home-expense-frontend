@@ -17,6 +17,12 @@ const meta = {
       </div>
     ),
   ],
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2411-4442",
+    },
+  },
 } satisfies Meta<typeof DateInput>;
 
 export default meta;
