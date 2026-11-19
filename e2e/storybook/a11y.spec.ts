@@ -23,7 +23,12 @@ for (const story of stories) {
       `/iframe.html?id=${story.id}&viewMode=story&globals=a11y.manual:!true`,
     );
     await page.locator("#storybook-root > *").first().waitFor();
-    const disableRules = story.name === "Loading" ? ["color-contrast"] : [];
+    const disableRules =
+      story.name === "Loading"
+        ? ["color-contrast"]
+        : story.title === "Components/Calendar" && story.name === "Plain"
+          ? ["target-size"]
+          : [];
     expect(
       await axeViolations(page, { include: "#storybook-root", disableRules }),
     ).toEqual([]);

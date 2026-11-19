@@ -1,0 +1,89 @@
+.dark {
+  width: 280px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #1f2430;
+  color: #e6e9ef;
+  font-family: system-ui, sans-serif;
+}
+
+.dark [data-part="header"] {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.dark [data-part="grid"] {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+.dark [data-part="weekday"] {
+  color: #8b93a7;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.dark [data-part="months"] {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dark [data-part="footer"] {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.dark button {
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dark [data-part="day"] {
+  width: 34px;
+  height: 34px;
+}
+
+.dark [data-part="month"] {
+  width: 100%;
+  height: 36px;
+}
+
+.dark [data-outside] {
+  color: #8b93a7;
+}
+
+.dark [data-today] {
+  color: #f5b14c;
+  font-weight: 700;
+}
+
+.dark [data-selected] {
+  background: #f5b14c;
+  color: #1f2430;
+}
+
+.dark button:focus-visible {
+  outline: 2px solid #f5b14c;
+  outline-offset: 1px;
+}
+
+.dark [data-disabled],
+.dark button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.dark button:hover:not([data-selected], :disabled) {
+  background: #2e3546;
+}

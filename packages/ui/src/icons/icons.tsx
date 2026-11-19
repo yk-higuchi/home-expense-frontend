@@ -96,3 +96,24 @@ export const MenuIcon = (props: IconProps): ReactElement => (
     <path d="M4 18h16" />
   </Icon>
 );
+
+export const ChevronLeftIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <path d="M15 18l-6-6 6-6" />
+  </Icon>
+);
+
+export const ChevronRightIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <path d="M9 18l6-6-6-6" />
+  </Icon>
+);
+
+export const CalendarIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <rect x="3" y="4" width="18" height="18" rx="2" />
+    <path d="M16 2v4" />
+    <path d="M8 2v4" />
+    <path d="M3 10h18" />
+  </Icon>
+);
