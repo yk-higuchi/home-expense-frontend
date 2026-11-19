@@ -94,6 +94,58 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - `NavBar` の `start` に、ナビバーの左に置く要素（スマートフォンのメニューのボタン）を渡せる。
 - `src/reset.css` はブラウザの標準のスタイルを打ち消す最小限のリセット。アプリ（`app/src/app/layout.tsx`）と Storybook（`.storybook/preview.ts`）の両方で、`tokens.css` より先に読み込む。設定の根拠は下の「リセット CSS の根拠」を参照。
 
+## カレンダー（Calendar・DateInput）
+
+ブラウザ標準の日付ピッカーは、開いたときのカレンダーに CSS が届かない。そこで、標準と同じ機能を持ち、見た目を CSS だけで決められるカレンダーを作った。
+
+- `Calendar` は見た目を持たない（plain）。CSS を一切読み込まず、部品に `data-part` を、状態に `data-*` を付ける。外から当てた CSS だけで見た目が決まる（見本：`Plain`・`Default`・`CustomTheme`）。
+  - 部品（`data-part`）：`root`・`header`・`previous`・`title`・`next`・`icon`・`grid`・`weekday`・`week`・`cell`・`day`・`months`・`month-item`・`month`・`footer`・`clear`・`today`
+  - 状態：`data-selected`（選んだ日）・`data-today`（今日・今月）・`data-outside`（前後の月の日）・`data-disabled`（`min`・`max`・`step` で選べない日）・`data-weekday`（0=日曜〜6=土曜）・`data-view`（`root` に付く。`days` か `months`）
+  - 前月・次月のアイコンは `previousIcon`・`nextIcon` で差し替える（既定は「‹」「›」）。
+- 機能は、次の一覧を基準にブラウザ標準のピッカーとそろえる。各項目は `e2e/storybook/calendar.spec.ts` の同じ ID のテストで確かめる（`pnpm test:a11y` で、作った Storybook に対して動く。今日の日付は 2026-11-20 に固定する）。
+
+| ID  | 要件                                                                                                      | 出典                                                                                                                                                                                                 |
+| --- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| V1  | 選ぶと、欄の `value` が `YYYY-MM-DD` になり、`input` と `change` が 1 回ずつ起きる                        | [HTML: Date state](https://html.spec.whatwg.org/multipage/input.html#date-state-(type=date))、[HTML: input と change](https://html.spec.whatwg.org/multipage/input.html#common-input-element-events) |
+| V2  | 値が空のときは、今日の月を開き、今日にフォーカスする                                                      | [APG: Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)                                                                                         |
+| V3  | 値があるときは、その日の月を開き、その日を選択済みにしてフォーカスする                                    | APG: Date Picker Dialog                                                                                                                                                                              |
+| V4  | `min`・`max` の外の日は選べず、外の月へは移れない                                                         | [HTML: min と max](https://html.spec.whatwg.org/multipage/input.html#the-min-and-max-attributes)                                                                                                     |
+| V5  | `step`（日数）に合わない日は選べない。基準は `min`、なければ初期値（`defaultValue`）、なければ 1970-01-01 | [HTML: step](https://html.spec.whatwg.org/multipage/input.html#the-step-attribute)                                                                                                                   |
+| V6  | `readonly` のときは、カレンダーを開けない                                                                 | [HTML: readonly](https://html.spec.whatwg.org/multipage/input.html#the-readonly-attribute)                                                                                                           |
+| V7  | `disabled` のときは、カレンダーを開けない                                                                 | [HTML: disabled](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fe-disabled)                                                                                           |
+| V8  | `required` でなければ「クリア」で空にでき、`required` なら「クリア」を出さない                            | Chrome のピッカー（「クリア」ボタン）                                                                                                                                                                |
+| V9  | 0001-01-01 から 275760-09-13 までを扱い、その外へは移れない                                               | [ECMAScript: 時刻の範囲](https://tc39.es/ecma262/#sec-time-values-and-time-range)（Chrome の上限と同じ）                                                                                             |
+| K1  | 矢印キーで前後の日と前後の週に移り、月をまたぐと月が変わる                                                | APG: Date Picker Dialog                                                                                                                                                                              |
+| K2  | Home・End で週の始めと終わりに移る（`weekStartsOn` に従う）                                               | APG: Date Picker Dialog                                                                                                                                                                              |
+| K3  | PageUp・PageDown で前後の月に移り、同じ日がなければ月末にする                                             | APG: Date Picker Dialog                                                                                                                                                                              |
+| K4  | Shift を付けると前後の年に移る                                                                            | APG: Date Picker Dialog                                                                                                                                                                              |
+| K5  | Enter・Space で選び、閉じて、開いたボタンにフォーカスを戻す                                               | APG: Date Picker Dialog                                                                                                                                                                              |
+| K6  | Esc で値を変えずに閉じ、開いたボタンにフォーカスを戻す                                                    | APG: Date Picker Dialog                                                                                                                                                                              |
+| K7  | 外を押すと値を変えずに閉じる                                                                              | [HTML: ポップオーバーの light dismiss](https://html.spec.whatwg.org/multipage/popover.html#popover-light-dismiss)                                                                                    |
+| K8  | 前の月・次の月のボタンで月を移る                                                                          | APG: Date Picker Dialog                                                                                                                                                                              |
+| K9  | 見出しを押すと月を選ぶ画面になり、選ぶと日の表に戻る                                                      | Chrome のピッカー（年と月を選ぶ画面）                                                                                                                                                                |
+| K10 | 「今日」で今日を選んで閉じる                                                                              | Chrome のピッカー（「今日」ボタン）                                                                                                                                                                  |
+| A1  | 開くボタンは `aria-haspopup="dialog"` と `aria-expanded` を持ち、開いた dialog に名前がある               | APG: Date Picker Dialog                                                                                                                                                                              |
+| A2  | 日は年月日と曜日で読み、今日（`aria-current="date"`）と選んだ日を伝える。表は見出しの年月を名前にする     | APG: Date Picker Dialog                                                                                                                                                                              |
+| T1  | タッチの画面では自前のボタンを出さず、OS のピッカーに任せる                                               | 独自の方針（スマホでは OS のピッカーの方が使いやすいため）                                                                                                                                           |
+
+- 基準と違うところ（意図して変えたもの）
+  - 選んだ日は、APG の `gridcell` の `aria-selected` ではなく、ボタンの `aria-pressed` で伝える。`td` に `role` を付けると Biome の a11y の規則に反するため。
+  - APG はモーダルの dialog だが、ポップオーバー（モーダルではない）で開く。Tab でカレンダーの外に出られ、外を押すと閉じる。標準のピッカーと同じ動き。
+  - 範囲の外へ移るキー操作は、範囲の端で止まる。
+  - 言語と週の始まりは、ブラウザの言語に従わず、日本語・日曜始まりに固定する（このアプリは日本語だけのため）。週の始まりは `weekStartsOn` で変えられる。
+- まだ確かめていないこと
+  - テストは Chrome だけで動かしている。Safari は目で見て確かめた。Firefox では、標準のアイコンを隠せず二重に出る可能性がある。
+  - 「Chrome のピッカー」が出典の項目（V8・K9・K10）は、Chrome の画面を見て突き合わせてはいない。
+  - VoiceOver での読み上げと、iPhone の Safari での動き。
+- 値は `input type="date"` と同じ `YYYY-MM-DD` の文字列で受け渡す。空文字は未選択。
+- デザインシステムの見た目は `Calendar/CalendarTheme.module.css` にまとめ、`className` で当てる。前後の月の日は、白地で読めるコントラストの色がないため隠す（`visibility: hidden`）。
+- `DateInput` は、標準の `<input type="date">` の横にボタンを置き、ポップオーバー（Popover API）で `Calendar` を開く。
+  - 打ち込み・形式のチェック・フォームの送信は標準の欄のまま。選んだ日は欄の `value` に入れ、`input`・`change` を発生させる（React の `onChange` も動く）。
+  - マウスなど細かく指せる画面（`pointer: fine`）では標準のアイコンを隠す。タッチの画面（`pointer: coarse`）では自前のボタンを出さず、OS のピッカーを使う。
+  - 閉じると、フォーカスは開いたボタンに戻る（`popovertarget` の標準の動き）。画面の大きさが変わったら閉じる。
+  - `required` のときは「クリア」を出さない。
+
 ## リセット CSS の根拠
 
 方針：ブラウザごとの標準のスタイルの差をなくし、見た目を Figma に合わせる。迷う設定は「Figma と同じ見え方になるか」で決める。各設定の出典は 2026 年 11 月に確認した。
