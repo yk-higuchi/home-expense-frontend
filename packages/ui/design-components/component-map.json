@@ -1,0 +1,324 @@
+{
+  "figma": {
+    "ナビ項目": {
+      "code": ["SideBar"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "選択中": "aria-current=\"page\"",
+          "ホバー": ":hover",
+          "押下": ":active",
+          "フォーカス": ":focus-visible"
+        }
+      }
+    },
+    "サイドバー": {
+      "code": ["SideBar"],
+      "source": ["app/src/ui/parts/app-side-bar.tsx"]
+    },
+    "ナビバー": {
+      "code": ["NavBar"],
+      "source": ["app/src/ui/parts/site-menu.tsx"]
+    },
+    "プルダウン": {
+      "code": ["Select"],
+      "variants": {
+        "サイズ": {
+          "大": "label なし（期間の選択。period-filter-frame.tsx）",
+          "標準": "label あり（フォーム）"
+        },
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "フォーカス": ":focus-visible",
+          "エラー": "errorMessage",
+          "無効": "disabled",
+          "読み込み中": "skeleton"
+        }
+      }
+    },
+    "テーブルセル": {
+      "code": ["TableCell", "TableHeaderCell"],
+      "variants": {
+        "揃え": { "左": "align=\"start\"", "右": "align=\"end\"" },
+        "種類": {
+          "見出し": "TableHeaderCell",
+          "データ": "TableCell",
+          "読み込み中": "TableCell の中に Skeleton"
+        }
+      }
+    },
+    "操作セル": { "code": ["TableActions"] },
+    "支出属性テーブル行": {
+      "source": ["app/src/ui/parts/expense-attribute-table.tsx"],
+      "variants": {
+        "種類": {
+          "見出し": "TableHead",
+          "データ": "TableRow",
+          "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "ページネーション": { "code": ["Pagination"] },
+    "内訳行": { "code": ["BreakdownItem"] },
+    "月別行": {
+      "source": ["app/src/ui/annual-report.tsx"],
+      "variants": {
+        "種類": {
+          "見出し": "TableHead",
+          "データ": "TableRow",
+          "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "支出テーブル行": {
+      "source": ["app/src/ui/parts/expense-table.tsx"],
+      "variants": {
+        "種類": {
+          "見出し": "TableHead",
+          "データ": "TableRow",
+          "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "収入テーブル行": {
+      "source": ["app/src/ui/parts/income-table.tsx"],
+      "variants": {
+        "種類": {
+          "見出し": "TableHead",
+          "データ": "TableRow",
+          "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "収入属性テーブル行": {
+      "source": ["app/src/ui/parts/income-attribute-table.tsx"],
+      "variants": {
+        "種類": {
+          "見出し": "TableHead",
+          "データ": "TableRow",
+          "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "空のテーブル行": { "code": ["TableEmpty"] },
+    "内訳グループ見出し": {
+      "code": ["BreakdownGroup"],
+      "variants": {
+        "状態": { "開": "<details open>", "閉": "<details>（閉じた状態）" }
+      }
+    },
+    "削除確認ダイアログ": {
+      "code": ["Dialog"],
+      "source": ["app/src/ui/parts/delete-dialog.tsx"]
+    },
+    "ボタン": {
+      "code": ["Button", "ButtonLink", "SubmitButton"],
+      "variants": {
+        "Variant": {
+          "Primary": "variant=\"primary\"",
+          "Secondary": "variant=\"secondary\"",
+          "Danger": "variant=\"danger\"",
+          "Subtle": "variant=\"subtle\""
+        },
+        "State": {
+          "Default": "既定",
+          "Hover": ":hover",
+          "Pressed": ":active",
+          "Focus": ":focus-visible",
+          "Disabled": "disabled",
+          "Loading": "loading（SubmitButton は送信中に自動）",
+          "Skeleton": "skeleton"
+        }
+      }
+    },
+    "アイコンボタン": {
+      "code": ["TableActions"],
+      "variants": {
+        "種類": { "通常": "編集のボタン", "危険": "削除のボタン" },
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "押下": ":active",
+          "フォーカス": ":focus-visible"
+        }
+      }
+    },
+    "テキスト入力": {
+      "code": ["TextInput"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "フォーカス": ":focus-visible",
+          "エラー": "errorMessage",
+          "無効": "disabled",
+          "読み込み中": "skeleton"
+        }
+      }
+    },
+    "推移グラフ": { "code": ["Chart"] },
+    "アイコン/下向き": { "code": ["ChevronDownIcon"] },
+    "アイコン/右向き": { "code": ["ChevronRightIcon"] },
+    "アイコン/編集": {
+      "code": ["TableActions"],
+      "note": "TableActions の中に SVG で直接描いている"
+    },
+    "アイコン/削除": {
+      "code": ["TableActions"],
+      "note": "TableActions の中に SVG で直接描いている"
+    },
+    "アイコン/前へ": {
+      "code": ["Pagination"],
+      "note": "Pagination の中に SVG で直接描いている"
+    },
+    "アイコン/次へ": {
+      "code": ["Pagination"],
+      "note": "Pagination の中に SVG で直接描いている"
+    },
+    "アイコン/追加": { "code": ["PlusIcon"] },
+    "アイコン/警告": { "code": ["WarningIcon"] },
+    "アイコン/読み込み中": { "code": ["LoaderIcon"] },
+    "エラーメッセージ": { "code": ["ErrorMessage"] },
+    "アイコン/上向き": { "code": ["ChevronUpIcon"] },
+    "アイコン/つまみ": { "code": ["GripIcon"] },
+    "つまみ": {
+      "code": ["DragHandle"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "持ち上げ中": "aria-pressed=\"true\"",
+          "フォーカス": ":focus-visible",
+          "無効": "disabled"
+        }
+      }
+    },
+    "上下ボタン": {
+      "code": ["ReorderButtons"],
+      "variants": {
+        "位置": {
+          "中間": "canMoveUp と canMoveDown",
+          "先頭": "canMoveUp={false}",
+          "末尾": "canMoveDown={false}"
+        }
+      }
+    },
+    "落とす位置の線": {
+      "code": ["useSortableList"],
+      "note": "dropBefore・dropAfter で行に線を出す"
+    },
+    "つまみセル": {
+      "code": ["DragHandle"],
+      "source": ["app/src/ui/parts/expense-attribute-table.tsx"]
+    },
+    "並べ替え操作セル": {
+      "code": ["ReorderButtons", "TableActions"],
+      "source": ["app/src/ui/parts/expense-attribute-table.tsx"]
+    },
+    "アイコン/完了": { "code": ["CheckIcon"] },
+    "アイコン/閉じる": { "code": ["CloseIcon"] },
+    "トースト": {
+      "code": ["Toast", "useToast"],
+      "variants": {
+        "種類": { "成功": "tone=\"success\"", "エラー": "tone=\"error\"" }
+      }
+    },
+    "スケルトン": { "code": ["Skeleton"] },
+    "合計行": {
+      "code": ["SummaryRow"],
+      "variants": {
+        "状態": {
+          "通常": "amount に金額",
+          "読み込み中": "amount に Skeleton（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "読み込みエラー": { "code": ["LoadError"] },
+    "アイコン/メニュー": { "code": ["MenuIcon"] },
+    "支出の多い順": {
+      "code": ["Card", "BarList"],
+      "variants": {
+        "状態": {
+          "通常": "BarList",
+          "読み込み中": "Skeleton（app/src/ui/skeletons.tsx）"
+        }
+      }
+    },
+    "棒グラフの行": {
+      "code": ["BarList"],
+      "variants": {
+        "分類": {
+          "固定費": "series の固定費（--color-chart-fixed）",
+          "変動費": "series の変動費（--color-chart-variable）"
+        }
+      }
+    },
+    "アイコン/左向き": { "code": ["ChevronLeftIcon"] },
+    "カレンダー/日": {
+      "code": ["Calendar"],
+      "variants": {
+        "今日": { "いいえ": "既定", "はい": "data-today" },
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "押下": ":active",
+          "選択中": "data-selected",
+          "フォーカス": ":focus-visible",
+          "無効": "data-disabled",
+          "空き": "data-outside"
+        }
+      }
+    },
+    "カレンダー/月": {
+      "code": ["Calendar"],
+      "variants": {
+        "今月": { "いいえ": "既定", "はい": "data-today" },
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "押下": ":active",
+          "選択中": "data-selected",
+          "フォーカス": ":focus-visible",
+          "無効": "data-disabled"
+        }
+      }
+    },
+    "カレンダー/操作": {
+      "code": ["Calendar"],
+      "variants": {
+        "種類": {
+          "前へ": "data-part=\"previous\"",
+          "次へ": "data-part=\"next\"",
+          "見出し": "data-part=\"title\"",
+          "文字": "data-part=\"today\"・\"clear\""
+        },
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "フォーカス": ":focus-visible",
+          "無効": "disabled"
+        }
+      }
+    },
+    "カレンダー": {
+      "code": ["Calendar"],
+      "variants": {
+        "表示": { "日": "data-view=\"days\"", "月": "data-view=\"months\"" }
+      }
+    }
+  },
+  "codeOnly": {
+    "Amount": "金額の書き方の部品。見た目は表や合計の部品の中で決めている",
+    "DateInput": "Figma の部品はまだない（カレンダーを開く入力欄）",
+    "StatusMessage": "アプリでは使っていない（保存の知らせはトーストで出す）ため、Figma の部品はない",
+    "SortableStatus": "読み上げだけの部品で、見た目がない",
+    "CalendarIcon": "DateInput の Figma の部品と一緒に足す",
+    "SummaryList": "合計行を並べる枠",
+    "Breakdown": "内訳グループ見出しを並べる枠",
+    "Table": "表の枠。テーブル行の部品で表す",
+    "TableHead": "表の見出しの行。テーブル行の部品の 種類=見出し で表す",
+    "TableBody": "表の本体。テーブル行の部品で表す",
+    "TableRow": "表の行。テーブル行の部品の 種類=データ で表す"
+  }
+}

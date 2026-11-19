@@ -1,0 +1,1393 @@
+{
+  "fileKey": "k99TXVIrWbQ9YYSNBnbaFW",
+  "page": "コンポーネント",
+  "frames": [
+    {
+      "id": "2005:114",
+      "name": "共通部品",
+      "frame": "共通部品"
+    },
+    {
+      "id": "2006:122",
+      "name": "テーブル",
+      "frame": "テーブル"
+    },
+    {
+      "id": "2006:157",
+      "name": "集計",
+      "frame": "集計"
+    },
+    {
+      "id": "2052:1782",
+      "name": "アイコン",
+      "frame": "アイコン"
+    },
+    {
+      "id": "2079:1549",
+      "name": "並べ替え（見本）",
+      "frame": "並べ替え"
+    },
+    {
+      "id": "2093:2002",
+      "name": "押す対象の大きさ（タッチ）",
+      "frame": "共通部品"
+    },
+    {
+      "id": "2117:2192",
+      "name": "並べ替え",
+      "frame": "並べ替え"
+    },
+    {
+      "id": "2406:4360",
+      "name": "カレンダー",
+      "frame": "カレンダー"
+    }
+  ],
+  "components": [
+    {
+      "id": "2005:119",
+      "name": "ナビ項目",
+      "type": "set",
+      "frame": "共通部品",
+      "description": "サイドバーのメニュー項目（SDS Navigation Pill ベース）。状態: 通常 / ホバー（薄い水色） / 押下 / 選択中（水色） / フォーカス（2px の隙間＋2px の線）。",
+      "properties": [
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "選択中", "ホバー", "押下", "フォーカス"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2005:115",
+          "name": "状態=通常"
+        },
+        {
+          "id": "2005:117",
+          "name": "状態=選択中"
+        },
+        {
+          "id": "2035:1441",
+          "name": "状態=ホバー"
+        },
+        {
+          "id": "2035:1444",
+          "name": "状態=押下"
+        },
+        {
+          "id": "2035:1447",
+          "name": "状態=フォーカス"
+        }
+      ]
+    },
+    {
+      "id": "2005:120",
+      "name": "サイドバー",
+      "type": "component",
+      "frame": "共通部品",
+      "description": "全画面共通のサイドバー。表示中の画面に対応するナビ項目を 状態=選択中 に切り替えて使う。項目はコードの dashboard-layout.tsx と同じ順。",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2005:133",
+      "name": "ナビバー",
+      "type": "component",
+      "frame": "共通部品",
+      "description": "幅 767px 以下ではメニューを表示=オン（左にメニューのボタン。押すとサイドバーの項目をナビバーの下に開く。コード: SiteMenuButton）。",
+      "properties": [
+        {
+          "name": "タイトル",
+          "type": "TEXT"
+        },
+        {
+          "name": "メニューを表示",
+          "type": "BOOLEAN"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2005:147",
+      "name": "プルダウン",
+      "type": "set",
+      "frame": "共通部品",
+      "description": "SDS Select Field ベースのプルダウン。サイズ=大 はラベルなしの期間選択、標準 はラベル付きのフォーム用。状態: 通常 / ホバー / フォーカス / エラー / 無効。",
+      "properties": [
+        {
+          "name": "サイズ",
+          "type": "VARIANT",
+          "values": ["大", "標準"]
+        },
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": [
+            "通常",
+            "ホバー",
+            "フォーカス",
+            "エラー",
+            "無効",
+            "読み込み中"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2005:139",
+          "name": "サイズ=大, 状態=通常"
+        },
+        {
+          "id": "2036:1531",
+          "name": "サイズ=大, 状態=ホバー"
+        },
+        {
+          "id": "2036:1540",
+          "name": "サイズ=大, 状態=フォーカス"
+        },
+        {
+          "id": "2036:1549",
+          "name": "サイズ=大, 状態=エラー"
+        },
+        {
+          "id": "2036:1572",
+          "name": "サイズ=大, 状態=無効"
+        },
+        {
+          "id": "2005:143",
+          "name": "サイズ=標準, 状態=通常"
+        },
+        {
+          "id": "2036:1588",
+          "name": "サイズ=標準, 状態=ホバー"
+        },
+        {
+          "id": "2036:1597",
+          "name": "サイズ=標準, 状態=フォーカス"
+        },
+        {
+          "id": "2036:1606",
+          "name": "サイズ=標準, 状態=エラー"
+        },
+        {
+          "id": "2036:1628",
+          "name": "サイズ=標準, 状態=無効"
+        },
+        {
+          "id": "2176:3675",
+          "name": "サイズ=標準, 状態=読み込み中"
+        },
+        {
+          "id": "2176:3682",
+          "name": "サイズ=大, 状態=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2006:127",
+      "name": "テーブルセル",
+      "type": "set",
+      "frame": "テーブル",
+      "description": "表のセル。幅は列ごとにインスタンス側で指定する（No. 102 / 属性名 200 / 分類 200 / 編集 150、globals.css の --table*Width と同じ）。\n揃え: 金額の列は「右」（コードの TableCell・TableHeaderCell の align=&quot;end&quot;）。見出しと中身の両方に付ける。",
+      "properties": [
+        {
+          "name": "テキスト",
+          "type": "TEXT"
+        },
+        {
+          "name": "揃え",
+          "type": "VARIANT",
+          "values": ["左", "右"]
+        },
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["見出し", "データ", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2006:123",
+          "name": "種類=見出し, 揃え=左"
+        },
+        {
+          "id": "2006:125",
+          "name": "種類=データ, 揃え=左"
+        },
+        {
+          "id": "2174:2359",
+          "name": "種類=読み込み中, 揃え=左"
+        },
+        {
+          "id": "2206:4156",
+          "name": "種類=見出し, 揃え=右"
+        },
+        {
+          "id": "2206:4158",
+          "name": "種類=データ, 揃え=右"
+        },
+        {
+          "id": "2206:4160",
+          "name": "種類=読み込み中, 揃え=右"
+        }
+      ]
+    },
+    {
+      "id": "2006:128",
+      "name": "操作セル",
+      "type": "component",
+      "frame": "テーブル",
+      "description": "表の編集・削除ボタン列。",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2006:154",
+      "name": "支出属性テーブル行",
+      "type": "set",
+      "frame": "テーブル",
+      "description": "支出属性一覧の表の行（No. / 属性名 / 分類 / 編集）。expense-attribute-table.tsx に対応。",
+      "properties": [
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["見出し", "データ", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2006:133",
+          "name": "種類=見出し"
+        },
+        {
+          "id": "2006:142",
+          "name": "種類=データ"
+        },
+        {
+          "id": "2174:2362",
+          "name": "種類=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2006:155",
+      "name": "ページネーション",
+      "type": "component",
+      "frame": "テーブル",
+      "description": "SDS Pagination を枠に入れた表のページ送り。",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2006:166",
+      "name": "内訳行",
+      "type": "component",
+      "frame": "集計",
+      "description": "内訳ツリーの支出属性ごとの金額。\n金額は「1,234円」「−1,234円」と書き、幅 128px（コードの --amount-width: 8em）の欄で右に寄せる。金額の欄は行の左端から 283px（--amount-column）。内訳はカードの内側にあるため、項目名の欄をカードの余白と枠線の分（25px）だけ狭める。",
+      "properties": [
+        {
+          "name": "名前",
+          "type": "TEXT"
+        },
+        {
+          "name": "金額",
+          "type": "TEXT"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2006:177",
+      "name": "月別行",
+      "type": "set",
+      "frame": "集計",
+      "description": "年間レポートの月ごとの収入・支出・収支。",
+      "properties": [
+        {
+          "name": "収入",
+          "type": "TEXT"
+        },
+        {
+          "name": "収入 − 支出",
+          "type": "TEXT"
+        },
+        {
+          "name": "支出",
+          "type": "TEXT"
+        },
+        {
+          "name": "月",
+          "type": "TEXT"
+        },
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["見出し", "データ", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2006:169",
+          "name": "種類=見出し"
+        },
+        {
+          "id": "2006:173",
+          "name": "種類=データ"
+        },
+        {
+          "id": "2174:2505",
+          "name": "種類=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2023:376",
+      "name": "支出テーブル行",
+      "type": "set",
+      "frame": "テーブル",
+      "description": "支出一覧の表の行（# / 説明 / 金額 / 支払日 / 属性名 / 分類 / 編集）。expense-table.tsx に対応。",
+      "properties": [
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["見出し", "データ", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2023:343",
+          "name": "種類=見出し"
+        },
+        {
+          "id": "2023:358",
+          "name": "種類=データ"
+        },
+        {
+          "id": "2174:2398",
+          "name": "種類=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2023:406",
+      "name": "収入テーブル行",
+      "type": "set",
+      "frame": "テーブル",
+      "description": "収入一覧の表の行（# / 説明 / 金額 / 受取日 / 属性名 / 編集）。income-table.tsx に対応。",
+      "properties": [
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["見出し", "データ", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2023:377",
+          "name": "種類=見出し"
+        },
+        {
+          "id": "2023:390",
+          "name": "種類=データ"
+        },
+        {
+          "id": "2174:2430",
+          "name": "種類=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2023:424",
+      "name": "収入属性テーブル行",
+      "type": "set",
+      "frame": "テーブル",
+      "description": "収入属性一覧の表の行（No. / 属性名 / 編集）。income-attribute-table.tsx に対応。",
+      "properties": [
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["見出し", "データ", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2023:407",
+          "name": "種類=見出し"
+        },
+        {
+          "id": "2023:414",
+          "name": "種類=データ"
+        },
+        {
+          "id": "2174:2458",
+          "name": "種類=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2023:425",
+      "name": "空のテーブル行",
+      "type": "component",
+      "frame": "テーブル",
+      "description": "表のデータが 0 件のときに見出し行の下に置く。",
+      "properties": [
+        {
+          "name": "メッセージ",
+          "type": "TEXT"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2023:431",
+      "name": "内訳グループ見出し",
+      "type": "set",
+      "frame": "集計",
+      "description": "内訳ツリーの分類見出しと小計。状態=開 で内訳を表示、閉 で折りたたむ。\n金額は「1,234円」「−1,234円」と書き、幅 128px（コードの --amount-width: 8em）の欄で右に寄せる。金額の欄は行の左端から 283px（--amount-column）。内訳はカードの内側にあるため、ラベルの欄をカードの余白と枠線の分（25px）だけ狭める。",
+      "properties": [
+        {
+          "name": "ラベル",
+          "type": "TEXT"
+        },
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["開", "閉"]
+        },
+        {
+          "name": "金額",
+          "type": "TEXT"
+        }
+      ],
+      "variants": [
+        {
+          "id": "2006:161",
+          "name": "状態=開"
+        },
+        {
+          "id": "2023:427",
+          "name": "状態=閉"
+        }
+      ]
+    },
+    {
+      "id": "2023:433",
+      "name": "削除確認ダイアログ",
+      "type": "component",
+      "frame": "共通部品",
+      "description": "削除の確認。開いたときに個別取得した内容（項目名と値）を表示し、その ETag で削除する。コード: ui/parts/delete-dialog.tsx",
+      "properties": [
+        {
+          "name": "本文",
+          "type": "TEXT"
+        },
+        {
+          "name": "見出し",
+          "type": "TEXT"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2032:1538",
+      "name": "ボタン",
+      "type": "set",
+      "frame": "共通部品",
+      "description": "ボタン（SDS Button ベース）。Variant: Primary=主な操作（登録・更新・追加） / Secondary=キャンセルなど / Danger=削除の確定 / Subtle=目立たない操作。State: Default / Hover / Pressed / Focus（2px の隙間＋2px の線） / Disabled / Loading（回転アイコン＋操作不可）。ラベルは中の Button から変更する。 State=Skeleton は画面の読み込み中に出す軽い見た目（白地・枠線・無効の文字色）。 最小幅は 大きさ/部品の最小幅（120px、コード: --size-control-min）。",
+      "properties": [
+        {
+          "name": "State",
+          "type": "VARIANT",
+          "values": [
+            "Default",
+            "Hover",
+            "Pressed",
+            "Focus",
+            "Disabled",
+            "Loading",
+            "Skeleton"
+          ]
+        },
+        {
+          "name": "Variant",
+          "type": "VARIANT",
+          "values": ["Primary", "Secondary", "Danger", "Subtle"]
+        },
+        {
+          "name": "アイコン",
+          "type": "INSTANCE_SWAP"
+        },
+        {
+          "name": "アイコンを表示",
+          "type": "BOOLEAN"
+        }
+      ],
+      "variants": [
+        {
+          "id": "2005:135",
+          "name": "Variant=Primary, State=Default"
+        },
+        {
+          "id": "2032:1373",
+          "name": "Variant=Secondary, State=Default"
+        },
+        {
+          "id": "2032:1380",
+          "name": "Variant=Danger, State=Default"
+        },
+        {
+          "id": "2032:1387",
+          "name": "Variant=Subtle, State=Default"
+        },
+        {
+          "id": "2032:1394",
+          "name": "Variant=Primary, State=Hover"
+        },
+        {
+          "id": "2032:1401",
+          "name": "Variant=Secondary, State=Hover"
+        },
+        {
+          "id": "2032:1408",
+          "name": "Variant=Danger, State=Hover"
+        },
+        {
+          "id": "2032:1415",
+          "name": "Variant=Subtle, State=Hover"
+        },
+        {
+          "id": "2032:1422",
+          "name": "Variant=Primary, State=Pressed"
+        },
+        {
+          "id": "2032:1429",
+          "name": "Variant=Secondary, State=Pressed"
+        },
+        {
+          "id": "2032:1436",
+          "name": "Variant=Danger, State=Pressed"
+        },
+        {
+          "id": "2032:1443",
+          "name": "Variant=Subtle, State=Pressed"
+        },
+        {
+          "id": "2032:1450",
+          "name": "Variant=Primary, State=Focus"
+        },
+        {
+          "id": "2032:1457",
+          "name": "Variant=Secondary, State=Focus"
+        },
+        {
+          "id": "2032:1464",
+          "name": "Variant=Danger, State=Focus"
+        },
+        {
+          "id": "2032:1471",
+          "name": "Variant=Subtle, State=Focus"
+        },
+        {
+          "id": "2032:1478",
+          "name": "Variant=Primary, State=Disabled"
+        },
+        {
+          "id": "2032:1485",
+          "name": "Variant=Secondary, State=Disabled"
+        },
+        {
+          "id": "2032:1492",
+          "name": "Variant=Danger, State=Disabled"
+        },
+        {
+          "id": "2032:1499",
+          "name": "Variant=Subtle, State=Disabled"
+        },
+        {
+          "id": "2032:1506",
+          "name": "Variant=Primary, State=Loading"
+        },
+        {
+          "id": "2032:1514",
+          "name": "Variant=Secondary, State=Loading"
+        },
+        {
+          "id": "2032:1522",
+          "name": "Variant=Danger, State=Loading"
+        },
+        {
+          "id": "2032:1530",
+          "name": "Variant=Subtle, State=Loading"
+        },
+        {
+          "id": "2176:3696",
+          "name": "Variant=Primary, State=Skeleton"
+        }
+      ]
+    },
+    {
+      "id": "2035:1474",
+      "name": "アイコンボタン",
+      "type": "set",
+      "frame": "テーブル",
+      "description": "表の編集・削除などのアイコンだけのボタン（ボタンの Subtle と同じ決まり）。種類=危険 はホバー・押下で薄い赤になる。",
+      "properties": [
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "ホバー", "押下", "フォーカス"]
+        },
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["通常", "危険"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2035:1450",
+          "name": "種類=通常, 状態=通常"
+        },
+        {
+          "id": "2035:1453",
+          "name": "種類=通常, 状態=ホバー"
+        },
+        {
+          "id": "2035:1456",
+          "name": "種類=通常, 状態=押下"
+        },
+        {
+          "id": "2035:1459",
+          "name": "種類=通常, 状態=フォーカス"
+        },
+        {
+          "id": "2035:1462",
+          "name": "種類=危険, 状態=通常"
+        },
+        {
+          "id": "2035:1465",
+          "name": "種類=危険, 状態=ホバー"
+        },
+        {
+          "id": "2035:1468",
+          "name": "種類=危険, 状態=押下"
+        },
+        {
+          "id": "2035:1471",
+          "name": "種類=危険, 状態=フォーカス"
+        }
+      ]
+    },
+    {
+      "id": "2036:1530",
+      "name": "テキスト入力",
+      "type": "set",
+      "frame": "共通部品",
+      "description": "SDS Input Field ベースのテキスト入力（ラベル付き）。状態: 通常 / ホバー（枠線を濃く） / フォーカス（濃い枠線＋2px の隙間＋2px の線） / エラー（赤い枠線＋メッセージ） / 無効（SDS の無効色）。",
+      "properties": [
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": [
+            "通常",
+            "ホバー",
+            "フォーカス",
+            "エラー",
+            "無効",
+            "読み込み中"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2005:137",
+          "name": "状態=通常"
+        },
+        {
+          "id": "2036:1492",
+          "name": "状態=ホバー"
+        },
+        {
+          "id": "2036:1499",
+          "name": "状態=フォーカス"
+        },
+        {
+          "id": "2036:1506",
+          "name": "状態=エラー"
+        },
+        {
+          "id": "2036:1518",
+          "name": "状態=無効"
+        },
+        {
+          "id": "2176:3689",
+          "name": "状態=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2038:1582",
+      "name": "推移グラフ",
+      "type": "component",
+      "frame": "集計",
+      "description": "月ごとの収入・支出（棒）と収支（線）。縦軸は 1 本（円）で 0 を基準にする。色: 収入=チャート/1、支出=チャート/2、収支=チャート/3。実装ではツールチップとデータ表（表で見る）を持つ。",
+      "properties": [
+        {
+          "name": "タイトル",
+          "type": "TEXT"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2052:1787",
+      "name": "アイコン/下向き",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Chevron down）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1794",
+      "name": "アイコン/右向き",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Chevron right）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1801",
+      "name": "アイコン/編集",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Edit 2）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1808",
+      "name": "アイコン/削除",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Trash）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1813",
+      "name": "アイコン/前へ",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Arrow left）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1818",
+      "name": "アイコン/次へ",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Arrow right）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1825",
+      "name": "アイコン/追加",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Plus）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1832",
+      "name": "アイコン/警告",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Alert circle）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2052:1839",
+      "name": "アイコン/読み込み中",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "アイコン（元は SDS の Loader）。色は 基本/文字",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2070:1513",
+      "name": "エラーメッセージ",
+      "type": "component",
+      "frame": "共通部品",
+      "description": "フォームと削除確認ダイアログの中のエラー（入力の誤り、保存の失敗など）。文字/本文・基本/危険。読み上げのため role=alert を付ける。一覧での削除・並べ替えの失敗はトースト（種類=エラー）で出す。コード: ErrorMessage",
+      "properties": [
+        {
+          "name": "メッセージ",
+          "type": "TEXT"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2078:1536",
+      "name": "アイコン/上向き",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "上向きの矢印。コード: ChevronUpIcon",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2078:1538",
+      "name": "アイコン/つまみ",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "並べ替えのつまみ（⋮⋮）。コード: GripIcon",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2078:1585",
+      "name": "つまみ",
+      "type": "set",
+      "frame": "並べ替え",
+      "description": "並べ替えのつまみ。押して動かすとドラッグ、Space で持ち上げて ↑↓ で移動。コード: DragHandle",
+      "properties": [
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "ホバー", "持ち上げ中", "フォーカス", "無効"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2078:1545",
+          "name": "状態=通常"
+        },
+        {
+          "id": "2078:1553",
+          "name": "状態=ホバー"
+        },
+        {
+          "id": "2078:1561",
+          "name": "状態=持ち上げ中"
+        },
+        {
+          "id": "2078:1569",
+          "name": "状態=フォーカス"
+        },
+        {
+          "id": "2078:1577",
+          "name": "状態=無効"
+        }
+      ]
+    },
+    {
+      "id": "2078:1607",
+      "name": "上下ボタン",
+      "type": "set",
+      "frame": "並べ替え",
+      "description": "ドラッグせずに並べ替えるボタン（WCAG 2.5.7）。先頭は上へ、末尾は下へを押せない。コード: ReorderButtons",
+      "properties": [
+        {
+          "name": "位置",
+          "type": "VARIANT",
+          "values": ["中間", "先頭", "末尾"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2078:1586",
+          "name": "位置=中間"
+        },
+        {
+          "id": "2078:1593",
+          "name": "位置=先頭"
+        },
+        {
+          "id": "2078:1600",
+          "name": "位置=末尾"
+        }
+      ]
+    },
+    {
+      "id": "2078:1608",
+      "name": "落とす位置の線",
+      "type": "component",
+      "frame": "並べ替え",
+      "description": "ドラッグ中に、離すと入る位置に出す線（線/フォーカス・フォーカスの色）。コード: useSortableList の dropBefore / dropAfter",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2080:1644",
+      "name": "つまみセル",
+      "type": "component",
+      "frame": "テーブル",
+      "description": "表の左端の並べ替えのつまみの列（幅 64px）",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2081:1957",
+      "name": "並べ替え操作セル",
+      "type": "component",
+      "frame": "テーブル",
+      "description": "属性の表の「操作」の列。上へ・下へ・編集・削除",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2115:2019",
+      "name": "アイコン/完了",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "完了（チェック）。コード: CheckIcon",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2116:2188",
+      "name": "アイコン/閉じる",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "閉じる（×）。コード: CloseIcon",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2118:2202",
+      "name": "トースト",
+      "type": "set",
+      "frame": "共通部品",
+      "description": "保存・削除の知らせとエラー。画面の右下（32px）に出る。成功は 5 秒で消える（マウス・フォーカスの間は止める）。エラーは閉じるまで残す。HTML の Popover API（&lt;output popover=&quot;manual&quot;&gt;）。コード: Toast（notice.tone）。知らせは useToast で作る（success / error / clear）。",
+      "properties": [
+        {
+          "name": "メッセージ",
+          "type": "TEXT"
+        },
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["成功", "エラー"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2115:2022",
+          "name": "種類=成功"
+        },
+        {
+          "id": "2118:2194",
+          "name": "種類=エラー"
+        }
+      ]
+    },
+    {
+      "id": "2174:2358",
+      "name": "スケルトン",
+      "type": "component",
+      "frame": "共通部品",
+      "description": "読み込み中に、文字や金額の代わりに出す灰色の帯。幅は置く場所に合わせて変える。基本/スケルトン。コード: Skeleton",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2174:2494",
+      "name": "合計行",
+      "type": "set",
+      "frame": "集計",
+      "description": "集計の合計行。状態=読み込み中は金額の代わりにスケルトンを出す。\n金額は「1,234円」「−1,234円」と書き、幅 128px（コードの --amount-width: 8em）の欄で右に寄せる。金額の欄は行の左端から 283px（--amount-column）。",
+      "properties": [
+        {
+          "name": "ラベル",
+          "type": "TEXT"
+        },
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "読み込み中"]
+        },
+        {
+          "name": "金額",
+          "type": "TEXT"
+        },
+        {
+          "name": "金額を表示",
+          "type": "BOOLEAN"
+        }
+      ],
+      "variants": [
+        {
+          "id": "2006:158",
+          "name": "状態=通常"
+        },
+        {
+          "id": "2174:2490",
+          "name": "状態=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2175:3277",
+      "name": "読み込みエラー",
+      "type": "component",
+      "frame": "共通部品",
+      "description": "画面のデータを読み込めなかったときに、データが入るはずの枠の中に出す（表の見出しの下、合計の位置、フォームの位置など）。絞り込みは操作できるまま残す。role=alert。コード: LoadError。\nどの画面にも当てはまらないエラーでは、文言を「予期せぬエラーが発生しました」にして画面の中央に置く（コード: app/error.tsx）。\n見つからないとき（not-found）は、文言とボタンを差し替えて同じ形で出す（ボタンは一覧や HOME へのリンク）。",
+      "properties": [
+        {
+          "name": "メッセージ",
+          "type": "TEXT"
+        }
+      ],
+      "variants": []
+    },
+    {
+      "id": "2187:3788",
+      "name": "アイコン/メニュー",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "メニュー（三本線）。コード: MenuIcon",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2214:4223",
+      "name": "支出の多い順",
+      "type": "set",
+      "frame": "集計",
+      "description": "HOME の右側のカード（コードの Card と BarList）。固定費・変動費をまとめて支出の多い順に並べ、0 円の属性は出さない。幅 1280px 以上で 2 列の右側に置き、それより狭いと内訳の下に置く。",
+      "properties": [
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "読み込み中"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2214:4167",
+          "name": "状態=通常"
+        },
+        {
+          "id": "2214:4210",
+          "name": "状態=読み込み中"
+        }
+      ]
+    },
+    {
+      "id": "2216:4356",
+      "name": "棒グラフの行",
+      "type": "set",
+      "frame": "集計",
+      "description": "支出の多い順の 1 行（コードの BarList の li）。ラベルの欄は一番長い属性名の幅（最大 10em）、金額の欄は一番長い金額の幅。棒の長さは、一番多い支出を棒の領域いっぱいとした割合で、行ごとに棒の領域の右の余白で決める。棒の色はチャート/2（支出）。 棒の色は分類で分ける（固定費＝チャート/固定費、変動費＝チャート/変動費）。",
+      "properties": [
+        {
+          "name": "ラベル",
+          "type": "TEXT"
+        },
+        {
+          "name": "分類",
+          "type": "VARIANT",
+          "values": ["固定費", "変動費"]
+        },
+        {
+          "name": "金額",
+          "type": "TEXT"
+        }
+      ],
+      "variants": [
+        {
+          "id": "2214:4162",
+          "name": "分類=固定費"
+        },
+        {
+          "id": "2216:4351",
+          "name": "分類=変動費"
+        }
+      ]
+    },
+    {
+      "id": "2405:4361",
+      "name": "アイコン/左向き",
+      "type": "component",
+      "frame": "アイコン",
+      "description": "前の月など、左へ戻る操作。コード: ChevronLeftIcon",
+      "properties": [],
+      "variants": []
+    },
+    {
+      "id": "2406:4387",
+      "name": "カレンダー/日",
+      "type": "set",
+      "frame": "カレンダー",
+      "description": "カレンダーの日。36×36、セルの余白 2px（余白/50）。状態: 通常 / ホバー / 押下 / 選択中（状態/選択中） / フォーカス / 無効（min・max・step の外。打ち消し線） / 空き（前後の月の日。既定の見た目では隠す）。今日=はい は 1px の枠（基本/文字）。日曜は文字に カレンダー/日曜 を付ける。コード: Calendar の data-part=&quot;day&quot;（CalendarTheme.module.css）",
+      "properties": [
+        {
+          "name": "今日",
+          "type": "VARIANT",
+          "values": ["いいえ", "はい"]
+        },
+        {
+          "name": "日",
+          "type": "TEXT"
+        },
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": [
+            "通常",
+            "ホバー",
+            "押下",
+            "選択中",
+            "フォーカス",
+            "無効",
+            "空き"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2406:4361",
+          "name": "状態=通常, 今日=いいえ"
+        },
+        {
+          "id": "2406:4363",
+          "name": "状態=ホバー, 今日=いいえ"
+        },
+        {
+          "id": "2406:4365",
+          "name": "状態=押下, 今日=いいえ"
+        },
+        {
+          "id": "2406:4367",
+          "name": "状態=選択中, 今日=いいえ"
+        },
+        {
+          "id": "2406:4369",
+          "name": "状態=フォーカス, 今日=いいえ"
+        },
+        {
+          "id": "2406:4371",
+          "name": "状態=無効, 今日=いいえ"
+        },
+        {
+          "id": "2406:4373",
+          "name": "状態=空き, 今日=いいえ"
+        },
+        {
+          "id": "2406:4375",
+          "name": "状態=通常, 今日=はい"
+        },
+        {
+          "id": "2406:4377",
+          "name": "状態=ホバー, 今日=はい"
+        },
+        {
+          "id": "2406:4379",
+          "name": "状態=押下, 今日=はい"
+        },
+        {
+          "id": "2406:4381",
+          "name": "状態=選択中, 今日=はい"
+        },
+        {
+          "id": "2406:4383",
+          "name": "状態=フォーカス, 今日=はい"
+        },
+        {
+          "id": "2406:4385",
+          "name": "状態=無効, 今日=はい"
+        }
+      ]
+    },
+    {
+      "id": "2406:4412",
+      "name": "カレンダー/月",
+      "type": "set",
+      "frame": "カレンダー",
+      "description": "年と月を選ぶ画面の月。3 列で幅いっぱい、高さ 40。状態は カレンダー/日 と同じ。今月=はい は 1px の枠。コード: data-part=&quot;month&quot;",
+      "properties": [
+        {
+          "name": "今月",
+          "type": "VARIANT",
+          "values": ["いいえ", "はい"]
+        },
+        {
+          "name": "月",
+          "type": "TEXT"
+        },
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "ホバー", "押下", "選択中", "フォーカス", "無効"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2406:4388",
+          "name": "状態=通常, 今月=いいえ"
+        },
+        {
+          "id": "2406:4390",
+          "name": "状態=ホバー, 今月=いいえ"
+        },
+        {
+          "id": "2406:4392",
+          "name": "状態=押下, 今月=いいえ"
+        },
+        {
+          "id": "2406:4394",
+          "name": "状態=選択中, 今月=いいえ"
+        },
+        {
+          "id": "2406:4396",
+          "name": "状態=フォーカス, 今月=いいえ"
+        },
+        {
+          "id": "2406:4398",
+          "name": "状態=無効, 今月=いいえ"
+        },
+        {
+          "id": "2406:4400",
+          "name": "状態=通常, 今月=はい"
+        },
+        {
+          "id": "2406:4402",
+          "name": "状態=ホバー, 今月=はい"
+        },
+        {
+          "id": "2406:4404",
+          "name": "状態=押下, 今月=はい"
+        },
+        {
+          "id": "2406:4406",
+          "name": "状態=選択中, 今月=はい"
+        },
+        {
+          "id": "2406:4408",
+          "name": "状態=フォーカス, 今月=はい"
+        },
+        {
+          "id": "2406:4410",
+          "name": "状態=無効, 今月=はい"
+        }
+      ]
+    },
+    {
+      "id": "2406:4451",
+      "name": "カレンダー/操作",
+      "type": "set",
+      "frame": "カレンダー",
+      "description": "カレンダーの操作。前へ・次へ（32×32、アイコン 20）: 前の月・次の月（月を選ぶ画面では前の年・次の年）。見出し（文字/小見出し）: 押すと年と月を選ぶ画面に切り替わる。文字（文字/本文（1行））: 「今日」「クリア」。コード: data-part=&quot;previous&quot;・&quot;next&quot;・&quot;title&quot;・&quot;today&quot;・&quot;clear&quot;",
+      "properties": [
+        {
+          "name": "ラベル",
+          "type": "TEXT"
+        },
+        {
+          "name": "状態",
+          "type": "VARIANT",
+          "values": ["通常", "ホバー", "フォーカス", "無効"]
+        },
+        {
+          "name": "種類",
+          "type": "VARIANT",
+          "values": ["前へ", "次へ", "見出し", "文字"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2406:4413",
+          "name": "種類=前へ, 状態=通常"
+        },
+        {
+          "id": "2406:4416",
+          "name": "種類=前へ, 状態=ホバー"
+        },
+        {
+          "id": "2406:4419",
+          "name": "種類=前へ, 状態=フォーカス"
+        },
+        {
+          "id": "2406:4422",
+          "name": "種類=前へ, 状態=無効"
+        },
+        {
+          "id": "2406:4425",
+          "name": "種類=次へ, 状態=通常"
+        },
+        {
+          "id": "2406:4428",
+          "name": "種類=次へ, 状態=ホバー"
+        },
+        {
+          "id": "2406:4431",
+          "name": "種類=次へ, 状態=フォーカス"
+        },
+        {
+          "id": "2406:4434",
+          "name": "種類=次へ, 状態=無効"
+        },
+        {
+          "id": "2406:4437",
+          "name": "種類=見出し, 状態=通常"
+        },
+        {
+          "id": "2406:4439",
+          "name": "種類=見出し, 状態=ホバー"
+        },
+        {
+          "id": "2406:4441",
+          "name": "種類=見出し, 状態=フォーカス"
+        },
+        {
+          "id": "2406:4443",
+          "name": "種類=文字, 状態=通常"
+        },
+        {
+          "id": "2406:4445",
+          "name": "種類=文字, 状態=ホバー"
+        },
+        {
+          "id": "2406:4447",
+          "name": "種類=文字, 状態=フォーカス"
+        },
+        {
+          "id": "2406:4449",
+          "name": "種類=文字, 状態=無効"
+        }
+      ]
+    },
+    {
+      "id": "2408:4625",
+      "name": "カレンダー",
+      "type": "set",
+      "frame": "カレンダー",
+      "description": "日付を選ぶカレンダー（既定の見た目）。幅 304、内側の余白 余白/300、面・枠線・角丸 200・影/浮き上がり。表示=日: 見出し・曜日（文字/補足、日曜は カレンダー/日曜）・6 週の日・操作（クリア・今日）。表示=月: 年と 12 か月。コード: Calendar ＋ CalendarTheme.module.css。DateInput の右のボタンからポップオーバーで開く。",
+      "properties": [
+        {
+          "name": "表示",
+          "type": "VARIANT",
+          "values": ["日", "月"]
+        }
+      ],
+      "variants": [
+        {
+          "id": "2408:4368",
+          "name": "表示=日"
+        },
+        {
+          "id": "2408:4482",
+          "name": "表示=月"
+        }
+      ]
+    }
+  ]
+}
