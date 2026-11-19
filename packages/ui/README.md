@@ -139,7 +139,13 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
   - 「Chrome のピッカー」が出典の項目（V8・K9・K10）は、Chrome の画面を見て突き合わせてはいない。
   - VoiceOver での読み上げと、iPhone の Safari での動き。
 - 値は `input type="date"` と同じ `YYYY-MM-DD` の文字列で受け渡す。空文字は未選択。
-- デザインシステムの見た目は `Calendar/CalendarTheme.module.css` にまとめ、`className` で当てる。前後の月の日は、白地で読めるコントラストの色がないため隠す（`visibility: hidden`）。
+- デザインシステムの見た目（既定の見た目）は `Calendar/CalendarTheme.module.css` にまとめ、`className` で当てる。Figma の「コンポーネント」ページの「カレンダー」に同じ見た目の部品がある。
+  - カレンダー（表示=日・月）：幅 304px、内側の余白 `--space-300`、部品の間 `--space-200`、面・枠線・角丸 `--radius-200`・`--shadow-raised`。ポップオーバー（`DateInput`）は見た目を持たず、カレンダーの外枠がそのまま見える。
+  - カレンダー/日（`data-part="day"`）：36×36、セルの余白 `--space-50`。ホバー・押下・選択中は `--color-interactive-*`、今日は `--border-width` の枠（`--color-text`）、選べない日は `--color-text-disabled` と打ち消し線、前後の月の日は空き（白地で読めるコントラストの色がないため隠す）。
+  - カレンダー/月（`data-part="month"`）：3 列で幅いっぱい、高さ 40px。状態は日と同じ。
+  - カレンダー/操作：前へ・次へ（32×32、アイコン 20px）、見出し（文字/小見出し）、今日・クリア（文字/本文（1行））。
+  - 曜日は文字/補足。日曜の文字は `--color-calendar-sunday`（Figma の補助カラー カレンダー/日曜 → 赤/900）。
+  - Figma の打ち消し線は、文字の装飾ではなく線の層で描く。文字のプロパティでつないだ文字は、バリアントをまたいで装飾が共有されるため。
 - `DateInput` は、標準の `<input type="date">` の横にボタンを置き、ポップオーバー（Popover API）で `Calendar` を開く。
   - 打ち込み・形式のチェック・フォームの送信は標準の欄のまま。選んだ日は欄の `value` に入れ、`input`・`change` を発生させる（React の `onChange` も動く）。
   - マウスなど細かく指せる画面（`pointer: fine`）では標準のアイコンを隠す。タッチの画面（`pointer: coarse`）では自前のボタンを出さず、OS のピッカーを使う。

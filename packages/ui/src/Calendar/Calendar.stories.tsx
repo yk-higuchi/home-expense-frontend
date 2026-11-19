@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
+import { ChevronLeftIcon, ChevronRightIcon } from "../icons/icons";
 import { Calendar, type CalendarProps } from "./Calendar";
 import styles from "./Calendar.stories.module.css";
 import theme from "./CalendarTheme.module.css";
@@ -20,8 +21,19 @@ const Controlled = (props: CalendarProps) => {
 const meta = {
   title: "Components/Calendar",
   component: Calendar,
-  args: { value: "2026-11-20", className: theme.calendar },
+  args: {
+    value: "2026-11-20",
+    className: theme.calendar,
+    previousIcon: <ChevronLeftIcon size={20} />,
+    nextIcon: <ChevronRightIcon size={20} />,
+  },
   render: (args) => <Controlled {...args} />,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2408-4625",
+    },
+  },
 } satisfies Meta<typeof Calendar>;
 
 export default meta;
@@ -30,7 +42,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const Plain: Story = {
-  args: { className: undefined, clearable: true },
+  args: {
+    className: undefined,
+    clearable: true,
+    previousIcon: undefined,
+    nextIcon: undefined,
+  },
 };
 
 export const CustomTheme: Story = {
