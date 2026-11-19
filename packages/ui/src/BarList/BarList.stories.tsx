@@ -54,3 +54,18 @@ export const SingleSeries: Story = {
 export const Empty: Story = {
   args: { items: [], empty: "この月の支出はありません" },
 };
+
+export const InScrollArea: Story = {
+  decorators: [
+    (Story) => (
+      <section
+        aria-label="中だけスクロールする領域"
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: スクロールする領域を、キーボードでもスクロールできるようにする
+        tabIndex={0}
+        style={{ height: 120, overflow: "auto" }}
+      >
+        <Story />
+      </section>
+    ),
+  ],
+};
