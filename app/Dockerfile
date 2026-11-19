@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.29.0
-
 FROM node:26.13.1-trixie-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm install --global pnpm@12.21.0
