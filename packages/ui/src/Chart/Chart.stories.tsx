@@ -97,3 +97,18 @@ export const Daily: Story = {
 export const Empty: Story = {
   args: { labels: [], series: [] },
 };
+
+export const InScrollArea: Story = {
+  decorators: [
+    (Story) => (
+      <section
+        aria-label="中だけスクロールする領域"
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: スクロールする領域を、キーボードでもスクロールできるようにする
+        tabIndex={0}
+        style={{ height: 200, overflow: "auto" }}
+      >
+        <Story />
+      </section>
+    ),
+  ],
+};
