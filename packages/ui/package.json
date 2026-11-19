@@ -16,10 +16,11 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "typecheck": "tsc --noEmit",
-    "lint": "pnpm lint:biome && pnpm lint:stylelint && pnpm lint:tokens && pnpm typecheck",
+    "lint": "pnpm lint:biome && pnpm lint:stylelint && pnpm lint:tokens && pnpm lint:components && pnpm typecheck",
     "lint:biome": "biome check .",
     "lint:stylelint": "stylelint \"src/**/*.css\"",
     "lint:tokens": "node scripts/check-tokens.mjs",
+    "lint:components": "node scripts/check-components.mjs",
     "fix": "pnpm fix:biome && pnpm fix:stylelint",
     "fix:biome": "biome check --write .",
     "fix:stylelint": "stylelint \"src/**/*.css\" --fix"
