@@ -55,7 +55,7 @@ export const today = (): Day => {
   };
 };
 
-export const shiftDays = (day: Day, amount: number): Day | null => {
+const shiftDays = (day: Day, amount: number): Day | null => {
   const date = toDate(day);
   date.setUTCDate(date.getUTCDate() + amount);
   const shifted = fromDate(date);
@@ -76,7 +76,7 @@ export const addDays = (day: Day, amount: number): Day =>
 const isLeapYear = (year: number): boolean =>
   (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 
-export const daysInMonth = (year: number, month: number): number =>
+const daysInMonth = (year: number, month: number): number =>
   month === 2
     ? isLeapYear(year)
       ? 29
