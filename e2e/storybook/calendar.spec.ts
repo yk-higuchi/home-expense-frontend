@@ -14,6 +14,7 @@ const parts = (page: Page) => {
   const dialog = page.getByRole("dialog");
   return {
     input: page.getByLabel("支払日", { exact: true }),
+    submitted: page.locator('input[type="hidden"][name="paymentDate"]'),
     toggle: page.getByRole("button", { name: "カレンダーを開く" }),
     dialog,
     title: dialog.locator('[data-part="title"]'),
@@ -29,11 +30,11 @@ const openCalendar = async (page: Page, value?: string) => {
 };
 
 test.describe("値と属性（HTML の input type=date）", () => {
-  test("V1 選ぶと、欄の value が YYYY-MM-DD になり、input と change が 1 回ずつ起きる", async ({
+  test("V1 選ぶと、欄に yyyy/mm/dd、送る値に YYYY-MM-DD が入り、input と change が 1 回ずつ起きる", async ({
     page,
   }) => {
     await openStory(page, "dateinput--default");
-    const { input, day } = parts(page);
+    const { input, submitted, day } = parts(page);
     await input.evaluate((element) => {
       const counts = { input: 0, change: 0 };
       element.addEventListener("input", () => counts.input++);
@@ -42,7 +43,8 @@ test.describe("値と属性（HTML の input type=date）", () => {
     });
     await openCalendar(page);
     await day("2026年11月25日 水曜日").click();
-    await expect(input).toHaveValue("2026-11-25");
+    await expect(input).toHaveValue("2026/11/25");
+    await expect(submitted).toHaveValue("2026-11-25");
     expect(await page.evaluate(() => Reflect.get(window, "counts"))).toEqual({
       input: 1,
       change: 1,
@@ -63,7 +65,7 @@ test.describe("値と属性（HTML の input type=date）", () => {
     page,
   }) => {
     await openStory(page, "dateinput--default");
-    await openCalendar(page, "2027-03-05");
+    await openCalendar(page, "2027/03/05");
     const { title, day } = parts(page);
     await expect(title).toHaveText("2027年3月");
     await expect(day("2027年3月5日 金曜日")).toBeFocused();
@@ -75,7 +77,7 @@ test.describe("値と属性（HTML の input type=date）", () => {
 
   test("V4 min・max の外の日は選べず、外の月へは移れない", async ({ page }) => {
     await openStory(page, "dateinput--with-range");
-    await openCalendar(page, "2026-11-10");
+    await openCalendar(page, "2026/11/10");
     const { input, dialog, day } = parts(page);
     await expect(day("2026年11月9日 月曜日")).toHaveAttribute(
       "aria-disabled",
@@ -83,7 +85,7 @@ test.describe("値と属性（HTML の input type=date）", () => {
     );
     await day("2026年11月9日 月曜日").focus();
     await page.keyboard.press("Enter");
-    await expect(input).toHaveValue("2026-11-10");
+    await expect(input).toHaveValue("2026/11/10");
     await expect(dialog.getByRole("button", { name: "前の月" })).toBeDisabled();
     await expect(dialog.getByRole("button", { name: "次の月" })).toBeDisabled();
     await page.keyboard.press("ArrowLeft");
@@ -100,9 +102,9 @@ test.describe("値と属性（HTML の input type=date）", () => {
     );
     await day("2026年11月17日 火曜日").focus();
     await page.keyboard.press("Enter");
-    await expect(input).toHaveValue("2026-11-16");
+    await expect(input).toHaveValue("2026/11/16");
     await day("2026年11月23日 月曜日").click();
-    await expect(input).toHaveValue("2026-11-23");
+    await expect(input).toHaveValue("2026/11/23");
   });
 
   test("V6 readonly のときは、カレンダーを開けない", async ({ page }) => {
@@ -122,6 +124,7 @@ test.describe("値と属性（HTML の input type=date）", () => {
     await openCalendar(page);
     await parts(page).dialog.getByRole("button", { name: "クリア" }).click();
     await expect(parts(page).input).toHaveValue("");
+    await expect(parts(page).submitted).toHaveValue("");
 
     await openStory(page, "dateinput--required");
     await openCalendar(page);
@@ -147,6 +150,62 @@ test.describe("値と属性（HTML の input type=date）", () => {
     await expect(page.locator('[data-focus-key="275760-09-14"]')).toHaveCount(
       0,
     );
+  });
+});
+
+test.describe("入力（yyyy/mm/dd）", () => {
+  test("F1 欄は yyyy/mm/dd で表示し、送る値は YYYY-MM-DD にする", async ({
+    page,
+  }) => {
+    await openStory(page, "dateinput--default");
+    const { input, submitted } = parts(page);
+    await expect(input).toHaveValue("2026/11/20");
+    await expect(input).toHaveAttribute("placeholder", "yyyy/mm/dd");
+    await expect(submitted).toHaveValue("2026-11-20");
+  });
+
+  test("F2 数字だけを打つと / を自動で入れる", async ({ page }) => {
+    await openStory(page, "dateinput--empty");
+    const { input, submitted } = parts(page);
+    await input.pressSequentially("20270305");
+    await expect(input).toHaveValue("2027/03/05");
+    await expect(submitted).toHaveValue("2027-03-05");
+  });
+
+  test("F3 1 桁の月・日も受け付け、欄を離れると 0 を補う", async ({ page }) => {
+    await openStory(page, "dateinput--empty");
+    const { input, submitted } = parts(page);
+    await input.pressSequentially("2027/3/5");
+    await page.keyboard.press("Tab");
+    await expect(input).toHaveValue("2027/03/05");
+    await expect(submitted).toHaveValue("2027-03-05");
+  });
+
+  test("F4 形式が違う日・範囲の外の日は、欄を無効にし、打った文字のまま送る", async ({
+    page,
+  }) => {
+    await openStory(page, "dateinput--empty");
+    const { input, submitted } = parts(page);
+    await input.fill("2027/13/01");
+    expect(
+      await input.evaluate((el: HTMLInputElement) => el.validationMessage),
+    ).toBe("yyyy/mm/dd の形で入力してください");
+    await expect(submitted).toHaveValue("2027/13/01");
+
+    await openStory(page, "dateinput--with-range");
+    await parts(page).input.fill("2026/12/01");
+    expect(
+      await parts(page).input.evaluate(
+        (el: HTMLInputElement) => el.validationMessage,
+      ),
+    ).toBe("2026/11/30 以前の日付を入力してください");
+  });
+
+  test("F5 欄は文字の欄で、押してもブラウザ標準のカレンダーは出ない", async ({
+    page,
+  }) => {
+    await openStory(page, "dateinput--default");
+    await expect(parts(page).input).toHaveAttribute("type", "text");
   });
 });
 
@@ -195,7 +254,7 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
     page,
   }) => {
     await openStory(page, "dateinput--default");
-    await openCalendar(page, "2026-01-31");
+    await openCalendar(page, "2026/01/31");
     const { day } = parts(page);
     await page.keyboard.press("PageDown");
     await expect(day("2026年2月28日 土曜日")).toBeFocused();
@@ -205,7 +264,7 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
 
   test("K4 Shift を付けると前後の年に移る", async ({ page }) => {
     await openStory(page, "dateinput--default");
-    await openCalendar(page, "2028-02-29");
+    await openCalendar(page, "2028/02/29");
     const { day } = parts(page);
     await page.keyboard.press("Shift+PageDown");
     await expect(day("2029年2月28日 水曜日")).toBeFocused();
@@ -222,7 +281,7 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
       const { input, toggle, dialog } = parts(page);
       await page.keyboard.press("ArrowRight");
       await page.keyboard.press(key);
-      await expect(input).toHaveValue("2026-11-21");
+      await expect(input).toHaveValue("2026/11/21");
       await expect(dialog).toBeHidden();
       await expect(toggle).toBeFocused();
     });
@@ -237,7 +296,7 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
     await page.keyboard.press("ArrowRight");
     await page.keyboard.press("Escape");
     await expect(dialog).toBeHidden();
-    await expect(input).toHaveValue("2026-11-20");
+    await expect(input).toHaveValue("2026/11/20");
     await expect(toggle).toBeFocused();
   });
 
@@ -247,7 +306,7 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
     const { input, dialog } = parts(page);
     await page.mouse.click(5, 5);
     await expect(dialog).toBeHidden();
-    await expect(input).toHaveValue("2026-11-20");
+    await expect(input).toHaveValue("2026/11/20");
   });
 
   test("K8 前の月・次の月のボタンで月を移る", async ({ page }) => {
@@ -290,7 +349,7 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
     await openCalendar(page);
     const { input, dialog } = parts(page);
     await dialog.getByRole("button", { name: "今日" }).click();
-    await expect(input).toHaveValue("2026-11-20");
+    await expect(input).toHaveValue("2026/11/20");
     await expect(dialog).toBeHidden();
   });
 });
@@ -314,7 +373,7 @@ test.describe("読み上げ（WAI-ARIA Date Picker Dialog）", () => {
     page,
   }) => {
     await openStory(page, "dateinput--default");
-    await openCalendar(page, "2026-11-25");
+    await openCalendar(page, "2026/11/25");
     const { dialog, day } = parts(page);
     await expect(day("2026年11月20日 金曜日")).toHaveAttribute(
       "aria-current",
@@ -336,8 +395,8 @@ test.describe("読み上げ（WAI-ARIA Date Picker Dialog）", () => {
 test.describe("タッチの画面", () => {
   test.use({ hasTouch: true, isMobile: true });
 
-  test("T1 自前のボタンを出さず、OS のピッカーに任せる", async ({ page }) => {
+  test("T1 タッチの画面でも同じカレンダーを使う", async ({ page }) => {
     await openStory(page, "dateinput--default");
-    await expect(parts(page).toggle).toBeHidden();
+    await expect(parts(page).toggle).toBeVisible();
   });
 });
