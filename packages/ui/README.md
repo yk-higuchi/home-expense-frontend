@@ -3,7 +3,8 @@
 家計簿アプリの UI 部品ライブラリです。Next.js から独立していて、Storybook で部品ごとに確認できます。
 
 - デザイン: Figma「家計簿」（コンポーネントページ）
-- トークン: `src/tokens.css`（Figma の変数と同じ値）
+- トークン: `src/tokens.css`（Figma の変数と同じ値。照合のしかたは `design-tokens/README.md`）
+- 部品の対応: `design-components/component-map.json`（Figma の部品とコードの対応。照合のしかたは `design-components/README.md`）
 
 ## コマンド
 

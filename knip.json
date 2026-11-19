@@ -3,7 +3,8 @@
   "workspaces": {
     "packages/ui": {
       "ignore": [
-        "scripts/export-figma-tokens.js"
+        "scripts/export-figma-tokens.js",
+        "scripts/export-figma-components.js"
       ]
     },
     ".": {
