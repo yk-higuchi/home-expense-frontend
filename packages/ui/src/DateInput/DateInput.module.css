@@ -1,0 +1,74 @@
+.wrap {
+  position: relative;
+}
+
+.toggle {
+  position: absolute;
+  top: 50%;
+  right: var(--space-100);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-200);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  translate: 0 -50%;
+  transition: background-color 120ms ease;
+}
+
+.toggle:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.toggle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.toggle:hover:not(:disabled) {
+  background-color: var(--color-interactive-hover);
+}
+
+.toggle:active:not(:disabled) {
+  background-color: var(--color-interactive-active);
+}
+
+@media (pointer: fine) {
+  .input {
+    padding-right: calc(var(--space-100) + 32px + var(--space-100));
+  }
+
+  .input::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .toggle {
+    display: none;
+  }
+}
+
+.popover {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle {
+    transition: none;
+  }
+}
