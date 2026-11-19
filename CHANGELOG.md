@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.1.1...v1.1.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ui:** 支出の多い順（BarList）の読み上げ用の文字を、スクロールする領域の中に収める ([225eec9](https://github.com/yk-higuchi/home-expense-frontend/commit/225eec9977c42c0f906af2e3858f1d000f32a3a1))
+* **ui:** 本文の枠とグラフを、読み上げ用の文字の位置の基準にする ([4ec42cf](https://github.com/yk-higuchi/home-expense-frontend/commit/4ec42cf3f0ed18416c1ec1de743dd028d7b0538a))
+
 ## [1.1.1](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.1.0...v1.1.1) (2026-11-17)
 
 
