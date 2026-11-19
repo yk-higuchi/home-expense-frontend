@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  DateInput,
   ErrorMessage,
   Select,
   SubmitButton,
@@ -63,9 +64,8 @@ const ExpenseForm = ({
         errorMessage={errors?.amount}
         required
       />
-      <TextInput
+      <DateInput
         label="支払日"
-        type="date"
         name="paymentDate"
         defaultValue={values?.paymentDate ?? paymentDate}
         errorMessage={errors?.paymentDate}

@@ -152,6 +152,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
   - マウスなど細かく指せる画面（`pointer: fine`）では標準のアイコンを隠す。タッチの画面（`pointer: coarse`）では自前のボタンを出さず、OS のピッカーを使う。
   - 閉じると、フォーカスは開いたボタンに戻る（`popovertarget` の標準の動き）。画面の大きさが変わったら閉じる。
   - `required` のときは「クリア」を出さない。
+  - アプリでは、支出・収入のフォームの支払日・受取日（`app/src/ui/parts/expense-form.tsx`・`income-form.tsx`）で使う。
 
 ## リセット CSS の根拠
 
