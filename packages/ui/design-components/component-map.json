@@ -381,6 +381,22 @@
           "読み込み中": "skeleton"
         }
       }
+    },
+    "プルダウン/選択肢": {
+      "code": ["Select"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "選択中": "aria-selected=\"true\"",
+          "キー操作中": "data-active（aria-activedescendant が指す選択肢）",
+          "無効": "aria-disabled=\"true\"（<option disabled>）"
+        }
+      }
+    },
+    "プルダウン/一覧": {
+      "code": ["Select"],
+      "note": "role=\"listbox\" のポップオーバー"
     }
   },
   "codeOnly": {
