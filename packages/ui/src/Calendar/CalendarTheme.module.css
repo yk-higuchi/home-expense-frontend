@@ -94,8 +94,7 @@
 
 .calendar [data-part="title"] {
   padding: var(--space-100) var(--space-200);
-  font-size: var(--text-subheading-size);
-  line-height: var(--text-subheading-line-height);
+  line-height: var(--text-single-line-line-height);
 }
 
 .calendar [data-part="day"] {
