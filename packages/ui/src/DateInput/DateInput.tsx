@@ -135,8 +135,15 @@ export const DateInput = ({
 
   useEffect(() => {
     const popover = popoverRef.current;
+    const wrap = wrapRef.current;
     const form = inputRef.current?.form;
-    if (!popover) return;
+    if (!popover || !wrap) return;
+    const onBeforeToggle = (event: Event) => {
+      if ((event as ToggleEvent).newState !== "open") return;
+      const rect = wrap.getBoundingClientRect();
+      popover.style.top = `${rect.bottom + GAP}px`;
+      popover.style.left = `${Math.max(GAP, rect.right - popover.offsetWidth)}px`;
+    };
     const onToggle = (event: Event) => {
       setOpenValue(
         (event as ToggleEvent).newState === "open"
@@ -149,10 +156,12 @@ export const DateInput = ({
       setTimeout(() => {
         if (inputRef.current) sync(inputRef.current.value);
       });
+    popover.addEventListener("beforetoggle", onBeforeToggle);
     popover.addEventListener("toggle", onToggle);
     window.addEventListener("resize", onResize);
     form?.addEventListener("reset", onReset);
     return () => {
+      popover.removeEventListener("beforetoggle", onBeforeToggle);
       popover.removeEventListener("toggle", onToggle);
       window.removeEventListener("resize", onResize);
       form?.removeEventListener("reset", onReset);

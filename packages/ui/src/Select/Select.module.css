@@ -3,9 +3,21 @@
 }
 
 .select {
+  display: flex;
+  align-items: center;
   padding-right: calc(var(--space-300) + 16px + var(--space-200));
-  appearance: none;
+  text-align: left;
   cursor: pointer;
+}
+
+.select:disabled {
+  cursor: not-allowed;
+}
+
+.value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chevron {
@@ -15,4 +27,56 @@
   color: var(--color-text);
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+.listbox {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  max-height: calc(var(--size-control) * 7 + var(--space-100) * 2);
+  margin: 0;
+  padding: var(--space-100);
+  overflow-y: auto;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+}
+
+.option {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-inline);
+  min-height: var(--size-control);
+  padding: 0 var(--padding-control-x);
+  border-radius: var(--radius-200);
+  font-size: var(--text-body-size);
+  line-height: var(--text-single-line-line-height);
+  cursor: pointer;
+}
+
+.optionLabel {
+  overflow-wrap: anywhere;
+}
+
+.option[aria-selected="true"] {
+  background-color: var(--color-interactive-selected);
+}
+
+.option[data-active] {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.option[aria-disabled="true"] {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.option:hover:not([aria-selected="true"], [aria-disabled="true"]) {
+  background-color: var(--color-interactive-hover);
 }

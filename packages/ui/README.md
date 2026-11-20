@@ -163,6 +163,40 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
   - `required` のときは「クリア」を出さない。
   - アプリでは、支出・収入のフォームの支払日・受取日（`app/src/ui/parts/expense-form.tsx`・`income-form.tsx`）で使う。
 
+## プルダウン（Select）
+
+ブラウザ標準の `<select>` は、開いたときの選択肢の一覧をブラウザや OS が描くため、CSS が届かない。そこで、一覧も自前で描き、どのブラウザでも同じ見た目にした。
+
+- 作り
+  - 見えている欄は `<button role="combobox">`、一覧は `role="listbox"` のポップオーバー（Popover API）。選択肢にはフォーカスを移さず、`aria-activedescendant` で今の選択肢を示す（WAI-ARIA の Select-Only Combobox）。
+  - 中に `hidden` の `<select>` を残し、`name`・`value`・`defaultValue`・`onChange`・`<option>` はそこに渡す。フォームの送信と `reset`、`onChange`（`event.target.value`）は今までと同じに動く。選んだときは `<select>` の値を変えて `input`・`change` を起こす。
+  - 選択肢は子の `<option>`（`value`・`disabled`・文字）から作る。
+  - 一覧は欄と同じ幅以上で、7 行を超えるとスクロールする。開く前（`beforetoggle`）に欄の下に置き、開いたあと上下の余白を見て置き直す。
+- 見た目：一覧は面・枠線・角丸 `--radius-200`・`--shadow-raised`。選択肢は高さ `--size-control`、左右 `--padding-control-x`。選んでいる選択肢は `--color-interactive-selected` と ✓、キーで移っている選択肢はフォーカスの線、ホバーは `--color-interactive-hover`、使えない選択肢は `--color-text-disabled`。
+- 機能は次の一覧を基準にそろえ、各項目を `e2e/storybook/select.spec.ts` の同じ ID のテストで確かめる。
+
+| ID  | 要件                                                                                                                   | 出典                                                                                                                        |
+| --- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| S1  | 初期値（`defaultValue`）の選択肢を表示し、フォームでその値（`name`）を送る                                             | [HTML: select](https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element)                                |
+| S2  | 選ぶと送る値が変わり `change` が 1 回起き、同じ値を選んだときは起きない                                                | HTML: select                                                                                                                |
+| S3  | `value` を渡したとき（制御）は、`onChange` で親の値が変わると表示も変わる                                              | React の `<select>`                                                                                                         |
+| S4  | 使えない選択肢（`disabled`）は選べず、キーでの移動でも飛ばす                                                           | HTML: select、[APG: Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/) |
+| S5  | `disabled` のときは開けない                                                                                            | HTML: select                                                                                                                |
+| S6  | フォームを元に戻す（`reset`）と初期値に戻る                                                                            | HTML: select                                                                                                                |
+| K1  | 閉じているとき ↓・↑・Enter・Space で開き、選んでいる選択肢を示す                                                       | APG: Select-Only Combobox                                                                                                   |
+| K2  | Home・End で開き、最初・最後の選択肢へ移る                                                                             | APG: Select-Only Combobox                                                                                                   |
+| K3  | 開いているとき ↑↓ で 1 つ、PageUp・PageDown で 10 個移り、端で止まる                                                   | APG: Select-Only Combobox                                                                                                   |
+| K4  | Enter・Space・Alt+↑ で選んで閉じ、フォーカスはコンボボックスのまま                                                     | APG: Select-Only Combobox                                                                                                   |
+| K5  | Esc で値を変えずに閉じる                                                                                               | APG: Select-Only Combobox                                                                                                   |
+| K6  | Tab で今の選択肢を選んで閉じる                                                                                         | APG: Select-Only Combobox                                                                                                   |
+| K7  | 文字を続けて打つと、その文字で始まる選択肢へ移る                                                                       | APG: Select-Only Combobox                                                                                                   |
+| M1  | 押すと開き、選択肢を押すと選んで閉じる                                                                                 | HTML: select                                                                                                                |
+| M2  | 外を押すと値を変えずに閉じる                                                                                           | [HTML: ポップオーバーの light dismiss](https://html.spec.whatwg.org/multipage/popover.html#popover-light-dismiss)           |
+| A1  | コンボボックスはラベルを名前にし、一覧を開くこと（`aria-haspopup="listbox"`）と開いているか（`aria-expanded`）を伝える | APG: Select-Only Combobox                                                                                                   |
+| A2  | 選んでいる選択肢を `aria-selected` で伝え、ラベルのない欄は `aria-label` を名前にする                                  | APG: Select-Only Combobox                                                                                                   |
+
+- 基準と違うところ：文字での検索（K7）は、選択肢の先頭の文字と比べるだけ。日本語は変換の途中を受け取らないので、かなで探すことはできない。
+
 ## リセット CSS の根拠
 
 方針：ブラウザごとの標準のスタイルの差をなくし、見た目を Figma に合わせる。迷う設定は「Figma と同じ見え方になるか」で決める。各設定の出典は 2026 年 11 月に確認した。
