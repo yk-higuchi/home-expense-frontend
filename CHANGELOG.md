@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.1.2...v1.2.0) (2026-11-20)
+
+
+### Features
+
+* **ui:** カレンダーの既定の見た目を Figma の部品とデザイントークンに合わせる ([48148c7](https://github.com/yk-higuchi/home-expense-frontend/commit/48148c745d180bf6bd1dee3dbd5462c7b41e6ed2))
+* **ui:** カレンダーの見出しの文字を日付と同じ大きさにする ([f4ed42f](https://github.com/yk-higuchi/home-expense-frontend/commit/f4ed42f770af422ac0cfe9e91304ed3e2347991f))
+* **ui:** プルダウンの選択肢と一覧を Figma の部品の対応に足す ([fe0a3d1](https://github.com/yk-higuchi/home-expense-frontend/commit/fe0a3d144dac57d656d75bd1f8f4128a45e6a543))
+* **ui:** プルダウンの選択肢の一覧を自前で描き、どのブラウザでも同じ見た目にする ([54c863f](https://github.com/yk-higuchi/home-expense-frontend/commit/54c863fbfee90f729e910531997576d1eb35ba93))
+* **ui:** プルダウンを開いたとき、選んでいる選択肢を一覧の真ん中に出す ([829da54](https://github.com/yk-higuchi/home-expense-frontend/commit/829da546ac0d149a2631504c291f1bc66b6e595b))
+* **ui:** 日付の入力欄を yyyy/mm/dd の文字の欄にする ([cb57ad7](https://github.com/yk-higuchi/home-expense-frontend/commit/cb57ad728aa6ebe914c1cac1969c5641ba1f80ca))
+* **ui:** 日付入力とカレンダーのアイコンを Figma の部品の対応に足す ([9489251](https://github.com/yk-higuchi/home-expense-frontend/commit/948925143aef367d27547ad4c8bf4264d1b5b626))
+* **ui:** 見た目を CSS で決められるカレンダー（Calendar）と日付の入力欄（DateInput）を追加する ([3c9996f](https://github.com/yk-higuchi/home-expense-frontend/commit/3c9996f66a414fb7afbc58a7029fb37a442c94c8))
+* **ui:** 部品の対応（Figma とコード）を Git で持ち、lint で照合する ([4884be4](https://github.com/yk-higuchi/home-expense-frontend/commit/4884be40482a389ca5a136490fc3f33671942914))
+* 支出・収入のフォームの日付欄を DateInput にする ([96cedc0](https://github.com/yk-higuchi/home-expense-frontend/commit/96cedc086c13bf96a6f4086ab3458337783e3151))
+
+
+### Bug Fixes
+
+* **ui:** 表を横にスクロールするとき、スクロールバーが下のページネーションと重ならないようにする ([f7621ed](https://github.com/yk-higuchi/home-expense-frontend/commit/f7621ed453799ac67577f65935e104b7bc10397c))
+
 ## [1.1.2](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.1.1...v1.1.2) (2026-11-19)
 
 
