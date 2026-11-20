@@ -194,6 +194,33 @@ test.describe("キーボード（WAI-ARIA Select-Only Combobox）", () => {
   });
 });
 
+test.describe("位置", () => {
+  for (const how of ["click", "ArrowDown"]) {
+    test(`P1 開いたとき（${how === "click" ? "押す" : "↓"}）は、選んでいる選択肢を一覧の真ん中に出す`, async ({
+      page,
+    }) => {
+      await openStory(page, "many-options");
+      const { box, listbox, option } = parts(page, "年");
+      if (how === "click") await box.click();
+      else {
+        await box.focus();
+        await page.keyboard.press("ArrowDown");
+      }
+      await expect(listbox).toBeVisible();
+      await expect(async () => {
+        const list = await listbox.boundingBox();
+        const selected = await option("2026年").boundingBox();
+        if (!list || !selected) throw new Error("no box");
+        const listCenter = list.y + list.height / 2;
+        const optionCenter = selected.y + selected.height / 2;
+        expect(Math.abs(listCenter - optionCenter)).toBeLessThan(
+          selected.height / 2,
+        );
+      }).toPass();
+    });
+  }
+});
+
 test.describe("マウス", () => {
   test("M1 押すと開き、選択肢を押すと選んで閉じる", async ({ page }) => {
     await openStory(page, "default");

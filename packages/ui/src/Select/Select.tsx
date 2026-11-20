@@ -113,6 +113,7 @@ export const Select = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const listboxRef = useRef<HTMLDivElement>(null);
   const typeahead = useRef({ text: "", at: 0 });
+  const centerOnOpen = useRef(false);
 
   const initial = String(
     rest.value ?? rest.defaultValue ?? options[0]?.value ?? "",
@@ -131,10 +132,23 @@ export const Select = ({
 
   useLayoutEffect(() => {
     if (!open || !listboxRef.current || !buttonRef.current) return;
-    placeListbox(listboxRef.current, buttonRef.current);
-    listboxRef.current
-      .querySelector<HTMLElement>(`#${CSS.escape(optionId(active))}`)
-      ?.scrollIntoView({ block: "nearest" });
+    const listbox = listboxRef.current;
+    placeListbox(listbox, buttonRef.current);
+    const option = listbox.querySelector<HTMLElement>(
+      `#${CSS.escape(optionId(active))}`,
+    );
+    if (!option) return;
+    const top = option.offsetTop;
+    const bottom = top + option.offsetHeight;
+    if (centerOnOpen.current) {
+      centerOnOpen.current = false;
+      listbox.scrollTop =
+        top - (listbox.clientHeight - option.offsetHeight) / 2;
+    } else if (top < listbox.scrollTop) {
+      listbox.scrollTop = top;
+    } else if (bottom > listbox.scrollTop + listbox.clientHeight) {
+      listbox.scrollTop = bottom - listbox.clientHeight;
+    }
   });
 
   useEffect(() => {
@@ -151,7 +165,10 @@ export const Select = ({
     };
     const onToggle = (event: Event) => {
       const opened = (event as ToggleEvent).newState === "open";
-      if (opened) placeListbox(listbox, button);
+      if (opened) {
+        placeListbox(listbox, button);
+        centerOnOpen.current = true;
+      }
       setOpen(opened);
       setActive((current) =>
         !opened
@@ -205,7 +222,10 @@ export const Select = ({
 
   const show = (index: number) => {
     setActive(enabled(index) ? index : first());
-    if (!isOpen()) listboxRef.current?.showPopover();
+    if (!isOpen()) {
+      centerOnOpen.current = true;
+      listboxRef.current?.showPopover();
+    }
     setOpen(true);
   };
 
