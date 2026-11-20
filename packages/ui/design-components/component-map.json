@@ -40,7 +40,10 @@
     "テーブルセル": {
       "code": ["TableCell", "TableHeaderCell"],
       "variants": {
-        "揃え": { "左": "align=\"start\"", "右": "align=\"end\"" },
+        "揃え": {
+          "左": "align=\"start\"",
+          "右": "align=\"end\""
+        },
         "種類": {
           "見出し": "TableHeaderCell",
           "データ": "TableCell",
@@ -48,7 +51,9 @@
         }
       }
     },
-    "操作セル": { "code": ["TableActions"] },
+    "操作セル": {
+      "code": ["TableActions"]
+    },
     "支出属性テーブル行": {
       "source": ["app/src/ui/parts/expense-attribute-table.tsx"],
       "variants": {
@@ -59,8 +64,12 @@
         }
       }
     },
-    "ページネーション": { "code": ["Pagination"] },
-    "内訳行": { "code": ["BreakdownItem"] },
+    "ページネーション": {
+      "code": ["Pagination"]
+    },
+    "内訳行": {
+      "code": ["BreakdownItem"]
+    },
     "月別行": {
       "source": ["app/src/ui/annual-report.tsx"],
       "variants": {
@@ -101,11 +110,16 @@
         }
       }
     },
-    "空のテーブル行": { "code": ["TableEmpty"] },
+    "空のテーブル行": {
+      "code": ["TableEmpty"]
+    },
     "内訳グループ見出し": {
       "code": ["BreakdownGroup"],
       "variants": {
-        "状態": { "開": "<details open>", "閉": "<details>（閉じた状態）" }
+        "状態": {
+          "開": "<details open>",
+          "閉": "<details>（閉じた状態）"
+        }
       }
     },
     "削除確認ダイアログ": {
@@ -135,7 +149,10 @@
     "アイコンボタン": {
       "code": ["TableActions"],
       "variants": {
-        "種類": { "通常": "編集のボタン", "危険": "削除のボタン" },
+        "種類": {
+          "通常": "編集のボタン",
+          "危険": "削除のボタン"
+        },
         "状態": {
           "通常": "既定",
           "ホバー": ":hover",
@@ -157,9 +174,15 @@
         }
       }
     },
-    "推移グラフ": { "code": ["Chart"] },
-    "アイコン/下向き": { "code": ["ChevronDownIcon"] },
-    "アイコン/右向き": { "code": ["ChevronRightIcon"] },
+    "推移グラフ": {
+      "code": ["Chart"]
+    },
+    "アイコン/下向き": {
+      "code": ["ChevronDownIcon"]
+    },
+    "アイコン/右向き": {
+      "code": ["ChevronRightIcon"]
+    },
     "アイコン/編集": {
       "code": ["TableActions"],
       "note": "TableActions の中に SVG で直接描いている"
@@ -176,12 +199,24 @@
       "code": ["Pagination"],
       "note": "Pagination の中に SVG で直接描いている"
     },
-    "アイコン/追加": { "code": ["PlusIcon"] },
-    "アイコン/警告": { "code": ["WarningIcon"] },
-    "アイコン/読み込み中": { "code": ["LoaderIcon"] },
-    "エラーメッセージ": { "code": ["ErrorMessage"] },
-    "アイコン/上向き": { "code": ["ChevronUpIcon"] },
-    "アイコン/つまみ": { "code": ["GripIcon"] },
+    "アイコン/追加": {
+      "code": ["PlusIcon"]
+    },
+    "アイコン/警告": {
+      "code": ["WarningIcon"]
+    },
+    "アイコン/読み込み中": {
+      "code": ["LoaderIcon"]
+    },
+    "エラーメッセージ": {
+      "code": ["ErrorMessage"]
+    },
+    "アイコン/上向き": {
+      "code": ["ChevronUpIcon"]
+    },
+    "アイコン/つまみ": {
+      "code": ["GripIcon"]
+    },
     "つまみ": {
       "code": ["DragHandle"],
       "variants": {
@@ -216,15 +251,24 @@
       "code": ["ReorderButtons", "TableActions"],
       "source": ["app/src/ui/parts/expense-attribute-table.tsx"]
     },
-    "アイコン/完了": { "code": ["CheckIcon"] },
-    "アイコン/閉じる": { "code": ["CloseIcon"] },
+    "アイコン/完了": {
+      "code": ["CheckIcon"]
+    },
+    "アイコン/閉じる": {
+      "code": ["CloseIcon"]
+    },
     "トースト": {
       "code": ["Toast", "useToast"],
       "variants": {
-        "種類": { "成功": "tone=\"success\"", "エラー": "tone=\"error\"" }
+        "種類": {
+          "成功": "tone=\"success\"",
+          "エラー": "tone=\"error\""
+        }
       }
     },
-    "スケルトン": { "code": ["Skeleton"] },
+    "スケルトン": {
+      "code": ["Skeleton"]
+    },
     "合計行": {
       "code": ["SummaryRow"],
       "variants": {
@@ -234,8 +278,12 @@
         }
       }
     },
-    "読み込みエラー": { "code": ["LoadError"] },
-    "アイコン/メニュー": { "code": ["MenuIcon"] },
+    "読み込みエラー": {
+      "code": ["LoadError"]
+    },
+    "アイコン/メニュー": {
+      "code": ["MenuIcon"]
+    },
     "支出の多い順": {
       "code": ["Card", "BarList"],
       "variants": {
@@ -254,11 +302,16 @@
         }
       }
     },
-    "アイコン/左向き": { "code": ["ChevronLeftIcon"] },
+    "アイコン/左向き": {
+      "code": ["ChevronLeftIcon"]
+    },
     "カレンダー/日": {
       "code": ["Calendar"],
       "variants": {
-        "今日": { "いいえ": "既定", "はい": "data-today" },
+        "今日": {
+          "いいえ": "既定",
+          "はい": "data-today"
+        },
         "状態": {
           "通常": "既定",
           "ホバー": ":hover",
@@ -273,7 +326,10 @@
     "カレンダー/月": {
       "code": ["Calendar"],
       "variants": {
-        "今月": { "いいえ": "既定", "はい": "data-today" },
+        "今月": {
+          "いいえ": "既定",
+          "はい": "data-today"
+        },
         "状態": {
           "通常": "既定",
           "ホバー": ":hover",
@@ -304,16 +360,32 @@
     "カレンダー": {
       "code": ["Calendar"],
       "variants": {
-        "表示": { "日": "data-view=\"days\"", "月": "data-view=\"months\"" }
+        "表示": {
+          "日": "data-view=\"days\"",
+          "月": "data-view=\"months\""
+        }
+      }
+    },
+    "アイコン/カレンダー": {
+      "code": ["CalendarIcon"]
+    },
+    "日付入力": {
+      "code": ["DateInput"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "ホバー": ":hover",
+          "フォーカス": ":focus-visible",
+          "エラー": "errorMessage",
+          "無効": "disabled",
+          "読み込み中": "skeleton"
+        }
       }
     }
   },
   "codeOnly": {
     "Amount": "金額の書き方の部品。見た目は表や合計の部品の中で決めている",
-    "DateInput": "Figma の部品はまだない（カレンダーを開く入力欄）",
-    "StatusMessage": "アプリでは使っていない（保存の知らせはトーストで出す）ため、Figma の部品はない",
     "SortableStatus": "読み上げだけの部品で、見た目がない",
-    "CalendarIcon": "DateInput の Figma の部品と一緒に足す",
     "SummaryList": "合計行を並べる枠",
     "Breakdown": "内訳グループ見出しを並べる枠",
     "Table": "表の枠。テーブル行の部品で表す",
