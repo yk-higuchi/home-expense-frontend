@@ -35,7 +35,8 @@ for (const { width, height } of sizes) {
     ]) {
       test(`${path} で${label}を変える`, async ({ page }) => {
         await page.goto(path);
-        await page.getByLabel(label, { exact: true }).selectOption(value);
+        await page.getByRole("combobox", { name: label, exact: true }).click();
+        await page.getByRole("option", { name: value, exact: true }).click();
         await expect(page).toHaveURL(new RegExp(`${value}`));
         await expect(page.locator("[aria-busy='true']")).toHaveCount(0);
         await expectContained(page, width);
