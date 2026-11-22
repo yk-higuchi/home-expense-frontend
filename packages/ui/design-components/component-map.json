@@ -52,7 +52,13 @@
       }
     },
     "操作セル": {
-      "code": ["TableActions"]
+      "code": ["TableActions"],
+      "variants": {
+        "端末": {
+          "マウス": "通常の幅（app/src/ui/parts/table-columns.module.css の --row-actions-width、104px）",
+          "タッチ": "@media (pointer: coarse)（ボタン 44×44、--row-actions-width を 124px に広げる）"
+        }
+      }
     },
     "支出属性テーブル行": {
       "source": ["app/src/ui/parts/expense-attribute-table.tsx"],
@@ -245,11 +251,23 @@
     },
     "つまみセル": {
       "code": ["DragHandle"],
-      "source": ["app/src/ui/parts/expense-attribute-table.tsx"]
+      "source": ["app/src/ui/parts/expense-attribute-table.tsx"],
+      "variants": {
+        "端末": {
+          "マウス": "通常の幅（app/src/ui/parts/table-columns.module.css の --handle-width、64px）",
+          "タッチ": "@media (pointer: coarse)（つまみ 44×44、--handle-width を 76px に広げる）"
+        }
+      }
     },
     "並べ替え操作セル": {
       "code": ["ReorderButtons", "TableActions"],
-      "source": ["app/src/ui/parts/expense-attribute-table.tsx"]
+      "source": ["app/src/ui/parts/expense-attribute-table.tsx"],
+      "variants": {
+        "端末": {
+          "マウス": "通常の幅（app/src/ui/parts/table-columns.module.css の --reorder-actions-width、146px）",
+          "タッチ": "@media (pointer: coarse)（ボタン 44×44、--reorder-actions-width を 222px に広げる）"
+        }
+      }
     },
     "アイコン/完了": {
       "code": ["CheckIcon"]
@@ -262,7 +280,8 @@
       "variants": {
         "種類": {
           "成功": "tone=\"success\"",
-          "エラー": "tone=\"error\""
+          "エラー": "tone=\"error\"",
+          "保存中": "tone=\"pending\""
         }
       }
     },
@@ -299,6 +318,10 @@
         "分類": {
           "固定費": "series の固定費（--color-chart-fixed）",
           "変動費": "series の変動費（--color-chart-variable）"
+        },
+        "幅": {
+          "PC": "幅 768px 以上（ラベル・棒・金額を横に並べる）",
+          "スマートフォン": "@media (width <= 767px)（上の段にラベルと金額、下の段に棒）"
         }
       }
     },
