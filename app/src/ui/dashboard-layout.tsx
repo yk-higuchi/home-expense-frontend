@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import type { ReactElement, ReactNode } from "react";
 
 import AppSideBar from "@/ui/parts/app-side-bar";
+import BackToTop from "@/ui/parts/back-to-top";
 import { PageContent, PageTransition } from "@/ui/parts/page-transition";
 import {
   SiteMenu,
@@ -47,6 +48,7 @@ const DashboardLayout = async ({
             <PageContent>{children}</PageContent>
           </main>
         </div>
+        <BackToTop />
       </SiteMenuProvider>
     </PageTransition>
   );

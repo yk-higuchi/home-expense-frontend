@@ -1,0 +1,49 @@
+.button {
+  display: none;
+}
+
+@media (width <= 767px) {
+  .button {
+    position: fixed;
+    right: var(--space-400);
+    bottom: var(--space-400);
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-target-touch);
+    height: var(--size-target-touch);
+    margin: 0;
+    padding: 0;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: 50%;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-raised);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color 120ms ease;
+  }
+
+  .button:hover {
+    background-color: var(--color-interactive-hover);
+  }
+
+  .button:active {
+    background-color: var(--color-interactive-active);
+  }
+
+  .button:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  body:has(output[popover]:popover-open) .button {
+    bottom: calc(var(--space-400) + 50px + var(--space-200));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

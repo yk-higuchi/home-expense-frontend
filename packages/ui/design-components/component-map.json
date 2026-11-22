@@ -420,6 +420,16 @@
     "プルダウン/一覧": {
       "code": ["Select"],
       "note": "role=\"listbox\" のポップオーバー"
+    },
+    "先頭へ戻るボタン": {
+      "source": ["app/src/ui/parts/back-to-top.tsx"],
+      "variants": {
+        "状態": {
+          "通常": "通常",
+          "押下": ":active",
+          "フォーカス": ":focus-visible"
+        }
+      }
     }
   },
   "codeOnly": {
