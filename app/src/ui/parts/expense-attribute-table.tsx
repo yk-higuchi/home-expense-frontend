@@ -84,7 +84,7 @@ const ExpenseAttributeTable = ({
 
   return (
     <>
-      <Table loading={loading}>
+      <Table loading={loading} stickyHeader>
         <ColumnsHead columns={EXPENSE_ATTRIBUTE_COLUMNS} />
         <TableBody>
           {rows.length === 0 && <TableEmpty colSpan={5} />}

@@ -58,7 +58,7 @@ const ExpenseTable = ({
 
   return (
     <>
-      <Table footer={footer} loading={loading}>
+      <Table footer={footer} loading={loading} stickyHeader>
         <ColumnsHead columns={EXPENSE_COLUMNS} />
         <TableBody>
           {optimisticExpenses.length === 0 && <TableEmpty colSpan={7} />}
