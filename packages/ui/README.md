@@ -163,6 +163,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
   - カレンダーで選んだ日は欄に入れ、`input`・`change` を発生させる（React の `onChange` も動く）。
   - 閉じると、フォーカスは開いたボタンに戻る（`popovertarget` の標準の動き）。画面の大きさが変わったら閉じる。
   - `required` のときは「クリア」を出さない。
+  - 「今日」は出さない（`Calendar` の `showToday={false}`）。値が空のときは今日の月を開いて今日にフォーカスし、アプリの登録画面は日付の初期値を今日にしているため。`Calendar` だけで使うときは `showToday` の既定（`true`）で出る。
   - アプリでは、支出・収入のフォームの支払日・受取日（`app/src/ui/parts/expense-form.tsx`・`income-form.tsx`）で使う。
 
 ## プルダウン（Select）

@@ -271,6 +271,7 @@ export const DateInput = ({
             step={step}
             stepBase={stepBase}
             clearable={!required}
+            showToday={false}
             autoFocus
             previousIcon={<ChevronLeftIcon size={20} />}
             nextIcon={<ChevronRightIcon size={20} />}

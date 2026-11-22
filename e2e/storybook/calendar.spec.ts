@@ -344,13 +344,11 @@ test.describe("キーボードとフォーカス（WAI-ARIA Date Picker Dialog�
     await expect(day("2028年3月1日 水曜日")).toBeFocused();
   });
 
-  test("K10 「今日」で今日を選んで閉じる", async ({ page }) => {
+  test("K10 日付入力のカレンダーには「今日」を出さない", async ({ page }) => {
     await openStory(page, "dateinput--empty");
     await openCalendar(page);
-    const { input, dialog } = parts(page);
-    await dialog.getByRole("button", { name: "今日" }).click();
-    await expect(input).toHaveValue("2026/11/20");
-    await expect(dialog).toBeHidden();
+    const { dialog } = parts(page);
+    await expect(dialog.getByRole("button", { name: "今日" })).toHaveCount(0);
   });
 });
 

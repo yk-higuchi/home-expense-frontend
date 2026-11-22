@@ -38,6 +38,7 @@ export interface CalendarProps {
   stepBase?: string;
   weekStartsOn?: number;
   clearable?: boolean;
+  showToday?: boolean;
   autoFocus?: boolean;
   previousIcon?: ReactNode;
   nextIcon?: ReactNode;
@@ -111,6 +112,7 @@ export const Calendar = ({
   stepBase,
   weekStartsOn = 0,
   clearable = false,
+  showToday = true,
   autoFocus = false,
   previousIcon = "‹",
   nextIcon = "›",
@@ -361,25 +363,29 @@ export const Calendar = ({
           })}
         </ul>
       )}
-      <div data-part="footer">
-        {clearable && (
-          <button
-            type="button"
-            data-part="clear"
-            onClick={() => onChange?.("")}
-          >
-            クリア
-          </button>
-        )}
-        <button
-          type="button"
-          data-part="today"
-          disabled={isDayDisabled(todayDay)}
-          onClick={() => choose(todayDay)}
-        >
-          今日
-        </button>
-      </div>
+      {(clearable || showToday) && (
+        <div data-part="footer">
+          {clearable && (
+            <button
+              type="button"
+              data-part="clear"
+              onClick={() => onChange?.("")}
+            >
+              クリア
+            </button>
+          )}
+          {showToday && (
+            <button
+              type="button"
+              data-part="today"
+              disabled={isDayDisabled(todayDay)}
+              onClick={() => choose(todayDay)}
+            >
+              今日
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
