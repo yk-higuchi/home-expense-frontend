@@ -19,6 +19,7 @@ interface Props {
   action: FormAction;
   buttonTitle: string;
   returnTo?: string;
+  defaultDate?: string;
 }
 
 const IncomeForm = ({
@@ -27,6 +28,7 @@ const IncomeForm = ({
   action,
   buttonTitle,
   returnTo,
+  defaultDate,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
   const { id, version, description, amount, receiveDate, attributeId } = income;
@@ -54,7 +56,7 @@ const IncomeForm = ({
       <DateInput
         label="受取日"
         name="receiveDate"
-        defaultValue={values?.receiveDate ?? receiveDate}
+        defaultValue={values?.receiveDate ?? receiveDate ?? defaultDate}
         errorMessage={errors?.receiveDate}
         required
       />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
+import { toDateString } from "@/core/balance";
 import { getExpenseAttributes } from "@/server/queries/expense-attribute";
 import { load } from "@/server/queries/load";
 import ExpenseRegistration from "@/ui/expense-registration";
@@ -22,7 +23,10 @@ const ExpenseRegistrationPage = async (props: Props): Promise<ReactElement> => {
   const loaded = await load(() => getExpenseAttributes({ category }));
   if (!loaded.ok) return <FormLoadFailed />;
   return (
-    <ExpenseRegistration expenseAttributes={loaded.value.expenseAttributes} />
+    <ExpenseRegistration
+      expenseAttributes={loaded.value.expenseAttributes}
+      today={toDateString(new Date(Date.now()))}
+    />
   );
 };
 export default withHeading("支出登録", ExpenseRegistrationPage);
