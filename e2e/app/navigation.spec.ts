@@ -68,6 +68,20 @@ test.describe("幅 390px", () => {
     await expect(page).toHaveURL(/\/income/);
     await expect(menu).toBeHidden();
   });
+
+  test("下までスクロールすると「ページの先頭へ」を出し、押すと先頭に戻って本文にフォーカスを移す", async ({
+    page,
+  }) => {
+    await page.goto("/expense?year=2025");
+    const button = page.getByRole("button", { name: "ページの先頭へ" });
+    await expect(button).toHaveCount(0);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect(button).toBeVisible();
+    await button.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+    await expect(page.locator("main")).toBeFocused();
+    await expect(button).toHaveCount(0);
+  });
 });
 
 test("幅 1440px でメニューのボタンを押すとサイドメニューを隠し、読み直しても隠したままにする", async ({
@@ -85,4 +99,10 @@ test("幅 1440px でメニューのボタンを押すとサイドメニューを
   await expect(menu).toBeHidden();
   await button.click();
   await expect(menu).toBeVisible();
+});
+
+test("幅 1440px では「ページの先頭へ」を出さない", async ({ page }) => {
+  await page.goto("/expense?year=2025");
+  await page.locator("main").evaluate((main) => main.scrollTo(0, main.scrollHeight));
+  await expect(page.getByRole("button", { name: "ページの先頭へ" })).toHaveCount(0);
 });
