@@ -9,6 +9,10 @@
           "ホバー": ":hover",
           "押下": ":active",
           "フォーカス": ":focus-visible"
+        },
+        "端末": {
+          "マウス": "通常",
+          "タッチ": "@media (pointer: coarse)（SideBar の項目を最小の高さ 44px にする）"
         }
       }
     },
@@ -71,7 +75,13 @@
       }
     },
     "ページネーション": {
-      "code": ["Pagination"]
+      "code": ["Pagination"],
+      "variants": {
+        "端末": {
+          "マウス": "通常",
+          "タッチ": "@media (pointer: coarse)（ページの番号と前へ・次へを最小 44×44 にする）"
+        }
+      }
     },
     "内訳行": {
       "code": ["BreakdownItem"]
@@ -125,6 +135,10 @@
         "状態": {
           "開": "<details open>",
           "閉": "<details>（閉じた状態）"
+        },
+        "端末": {
+          "マウス": "通常",
+          "タッチ": "@media (pointer: coarse)（BreakdownGroup の見出しを最小の高さ 44px にする）"
         }
       }
     },
@@ -282,6 +296,10 @@
           "成功": "tone=\"success\"",
           "エラー": "tone=\"error\"",
           "保存中": "tone=\"pending\""
+        },
+        "端末": {
+          "マウス": "通常",
+          "タッチ": "@media (pointer: coarse)（閉じるボタンを最小 44×44 にする）"
         }
       }
     },
