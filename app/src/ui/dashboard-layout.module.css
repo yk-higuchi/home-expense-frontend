@@ -58,6 +58,7 @@
 @media (width <= 767px) {
   .parent {
     grid-template-columns: minmax(0, 1fr);
+    align-content: start;
     height: auto;
     min-height: 100vh;
     padding: var(--space-400);
