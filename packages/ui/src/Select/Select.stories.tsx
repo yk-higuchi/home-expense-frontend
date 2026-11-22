@@ -96,6 +96,35 @@ export const ManyOptions: Story = {
   },
 };
 
+const LONG_NAMES = [
+  "家賃",
+  "子どもの習い事（ピアノ・スイミング・英会話・プログラミング教室の月謝と教材費）",
+  "サブスクリプション",
+];
+
+export const LongOptions: Story = {
+  args: {
+    label: "属性名",
+    defaultValue: LONG_NAMES[0],
+    children: (
+      <>
+        {LONG_NAMES.map((name) => (
+          <option key={name} value={name}>
+            {name}
+          </option>
+        ))}
+      </>
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 200 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 export const WithDisabledOption: Story = {
   args: {
     label: "属性名",

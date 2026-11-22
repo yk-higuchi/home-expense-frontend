@@ -84,6 +84,7 @@ const TYPEAHEAD_MS = 500;
 const placeListbox = (listbox: HTMLElement, anchor: HTMLElement): void => {
   const rect = anchor.getBoundingClientRect();
   listbox.style.minWidth = `${rect.width}px`;
+  listbox.style.left = `${GAP}px`;
   const { offsetWidth: width, offsetHeight: height } = listbox;
   const below = rect.bottom + GAP;
   const above = rect.top - GAP - height;

@@ -33,6 +33,7 @@
   position: fixed;
   inset: auto;
   box-sizing: border-box;
+  max-width: calc(100vw - var(--space-100) * 2);
   max-height: calc(var(--size-control) * 7 + var(--space-100) * 2);
   margin: 0;
   padding: var(--space-100);
@@ -52,7 +53,7 @@
   justify-content: space-between;
   gap: var(--gap-inline);
   min-height: var(--size-control);
-  padding: 0 var(--padding-control-x);
+  padding: var(--space-200) var(--padding-control-x);
   border-radius: var(--radius-200);
   font-size: var(--text-body-size);
   line-height: var(--text-single-line-line-height);
@@ -60,6 +61,7 @@
 }
 
 .optionLabel {
+  line-height: var(--text-body-line-height);
   overflow-wrap: anywhere;
 }
 
