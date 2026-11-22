@@ -69,13 +69,13 @@ test.describe("幅 390px", () => {
     await expect(menu).toBeHidden();
   });
 
-  test("下までスクロールすると「ページの先頭へ」を出し、押すと先頭に戻って本文にフォーカスを移す", async ({
+  test("少しスクロールしてヘッダーが見えなくなると「ページの先頭へ」を出し、押すと先頭に戻って本文にフォーカスを移す", async ({
     page,
   }) => {
     await page.goto("/expense?year=2025");
     const button = page.getByRole("button", { name: "ページの先頭へ" });
     await expect(button).toHaveCount(0);
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.evaluate(() => window.scrollTo(0, 200));
     await expect(button).toBeVisible();
     await button.click();
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
