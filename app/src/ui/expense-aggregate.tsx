@@ -75,6 +75,7 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
         <Breakdown className={style.breakdown}>
           <BreakdownGroup
             label="固定費"
+            defaultOpen={false}
             amount={<Amount value={fixedExpense.total} />}
           >
             {fixedExpense.items.map(({ id, name, amount }) => (
@@ -87,6 +88,7 @@ const ExpenseAggregate = ({ year, month, statistics }: Props): ReactElement => {
           </BreakdownGroup>
           <BreakdownGroup
             label="変動費"
+            defaultOpen={false}
             amount={<Amount value={variableExpense.total} />}
           >
             {variableExpense.items.map(({ id, name, amount }) => (
