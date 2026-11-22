@@ -42,7 +42,7 @@ const PeriodFilterFrame = ({
   };
   return (
     <div className={classes.page} aria-busy={isPending || undefined}>
-      <div className={layout.filters}>
+      <div className={`${layout.filters} ${layout.sticky}`}>
         <Select
           label="年"
           className={layout.yearFilter}
