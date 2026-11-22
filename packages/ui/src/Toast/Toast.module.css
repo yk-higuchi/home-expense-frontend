@@ -24,6 +24,21 @@
   color: var(--color-danger);
 }
 
+.pending {
+  animation-delay: 300ms;
+  animation-fill-mode: both;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .toast:popover-open {
   display: flex;
 }
@@ -90,6 +105,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .toast {
+    animation: none;
+  }
+
+  .spinner {
     animation: none;
   }
 }

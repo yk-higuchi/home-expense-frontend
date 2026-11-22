@@ -22,7 +22,10 @@ import {
   reorderIncomeAttributes,
 } from "@/server/actions/income-attribute";
 import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";
-import { useOptimisticReorder } from "@/ui/hooks/use-optimistic-reorder";
+import {
+  REORDER_SAVING_NOTICE,
+  useOptimisticReorder,
+} from "@/ui/hooks/use-optimistic-reorder";
 import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
 import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
@@ -57,6 +60,7 @@ const IncomeAttributeTable = ({
     version,
     save: (move) => reorderIncomeAttributes({ ...move }),
     onError: toast.error,
+    onSuccess: toast.clear,
   });
   const { rows, requestDelete, dialogProps } = useOptimisticDelete(
     reordering.rows,
@@ -121,7 +125,9 @@ const IncomeAttributeTable = ({
         </TableBody>
       </Table>
       <SortableStatus message={announcement} />
-      <Toast notice={toast.notice} />
+      <Toast
+        notice={reordering.isPending ? REORDER_SAVING_NOTICE : toast.notice}
+      />
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadIncomeAttributeForDelete}

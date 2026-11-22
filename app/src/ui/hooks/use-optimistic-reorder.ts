@@ -1,6 +1,13 @@
 "use client";
 
+import type { ToastNotice } from "@home-expense/ui";
 import { useOptimistic, useState, useTransition } from "react";
+
+export const REORDER_SAVING_NOTICE: ToastNotice = {
+  id: 0,
+  text: "並び順を保存しています…",
+  tone: "pending",
+};
 
 interface Row {
   id?: string;
@@ -16,6 +23,7 @@ export const useOptimisticReorder = <T extends Row>({
   version,
   save,
   onError,
+  onSuccess,
 }: {
   source: T[];
   version: string;
@@ -25,6 +33,7 @@ export const useOptimisticReorder = <T extends Row>({
     version: string;
   }) => Promise<ReorderResult>;
   onError: (message: string) => void;
+  onSuccess?: () => void;
 }) => {
   const [latest, setLatest] = useState({ from: version, value: version });
   if (latest.from !== version) setLatest({ from: version, value: version });
@@ -38,6 +47,7 @@ export const useOptimisticReorder = <T extends Row>({
       const next = result.version;
       if (next !== undefined) setLatest((state) => ({ ...state, value: next }));
       if (result.message !== undefined) onError(result.message);
+      else onSuccess?.();
     });
   };
 

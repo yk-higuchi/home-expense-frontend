@@ -2,13 +2,13 @@
 
 import { type ReactElement, useEffect, useRef, useState } from "react";
 
-import { CheckIcon, CloseIcon, WarningIcon } from "../icons/icons";
+import { CheckIcon, CloseIcon, LoaderIcon, WarningIcon } from "../icons/icons";
 import styles from "./Toast.module.css";
 
 export interface ToastNotice {
   id: number;
   text: string;
-  tone?: "success" | "error";
+  tone?: "success" | "error" | "pending";
 }
 
 export interface ToastProps {
@@ -38,7 +38,13 @@ export const Toast = ({
   }, [shown]);
 
   useEffect(() => {
-    if (shown === null || paused || shown.tone === "error") return;
+    if (
+      shown === null ||
+      paused ||
+      shown.tone === "error" ||
+      shown.tone === "pending"
+    )
+      return;
     const timer = setTimeout(() => setShown(null), duration);
     return () => clearTimeout(timer);
   }, [shown, paused, duration]);
@@ -55,7 +61,11 @@ export const Toast = ({
         ref={popover}
         popover="manual"
         aria-live="off"
-        className={[styles.toast, shown?.tone === "error" && styles.error]
+        className={[
+          styles.toast,
+          shown?.tone === "error" && styles.error,
+          shown?.tone === "pending" && styles.pending,
+        ]
           .filter(Boolean)
           .join(" ")}
         onPointerEnter={() => setPaused(true)}
@@ -65,21 +75,25 @@ export const Toast = ({
       >
         {shown && (
           <>
-            {shown.tone === "error" ? (
-              <WarningIcon size={20} />
-            ) : (
+            {shown.tone === "error" && <WarningIcon size={20} />}
+            {shown.tone === "pending" && (
+              <LoaderIcon size={20} className={styles.spinner} />
+            )}
+            {(shown.tone === undefined || shown.tone === "success") && (
               <CheckIcon size={20} />
             )}
             <span className={styles.text}>{shown.text}</span>
-            <button
-              type="button"
-              className={styles.close}
-              onClick={() => setShown(null)}
-              aria-label="閉じる"
-              title="閉じる"
-            >
-              <CloseIcon size={16} />
-            </button>
+            {shown.tone !== "pending" && (
+              <button
+                type="button"
+                className={styles.close}
+                onClick={() => setShown(null)}
+                aria-label="閉じる"
+                title="閉じる"
+              >
+                <CloseIcon size={16} />
+              </button>
+            )}
           </>
         )}
       </output>

@@ -22,7 +22,10 @@ import {
   reorderExpenseAttributes,
 } from "@/server/actions/expense-attribute";
 import { useOptimisticDelete } from "@/ui/hooks/use-optimistic-delete";
-import { useOptimisticReorder } from "@/ui/hooks/use-optimistic-reorder";
+import {
+  REORDER_SAVING_NOTICE,
+  useOptimisticReorder,
+} from "@/ui/hooks/use-optimistic-reorder";
 import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
 import style from "@/ui/parts/attribute-table.module.css";
 import DeleteDialog from "@/ui/parts/delete-dialog";
@@ -63,6 +66,7 @@ const ExpenseAttributeTable = ({
     version,
     save: (move) => reorderExpenseAttributes({ category, ...move }),
     onError: toast.error,
+    onSuccess: toast.clear,
   });
   const { rows, requestDelete, dialogProps } = useOptimisticDelete(
     reordering.rows,
@@ -128,7 +132,9 @@ const ExpenseAttributeTable = ({
         </TableBody>
       </Table>
       <SortableStatus message={announcement} />
-      <Toast notice={toast.notice} />
+      <Toast
+        notice={reordering.isPending ? REORDER_SAVING_NOTICE : toast.notice}
+      />
       <DeleteDialog
         {...dialogProps}
         loadTarget={loadExpenseAttributeForDelete}
