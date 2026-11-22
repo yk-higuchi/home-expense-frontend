@@ -241,6 +241,26 @@ test.describe("マウス", () => {
     await expect(listbox).toBeHidden();
     await expect(box).toHaveText("固定費");
   });
+
+  test("M3 一覧は画面の幅を超えず、長い選択肢は折り返す", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openStory(page, "long-options");
+    const { box, listbox, option } = parts(page, "属性名");
+    await box.click();
+    await expect(listbox).toBeVisible();
+    const list = await listbox.boundingBox();
+    expect((list?.x ?? 0) + (list?.width ?? 0)).toBeLessThanOrEqual(390 - 4);
+    expect(
+      await listbox.evaluate((list) => list.scrollWidth <= list.clientWidth),
+    ).toBe(true);
+    const label = await option(
+      "子どもの習い事（ピアノ・スイミング・英会話・プログラミング教室の月謝と教材費）",
+    )
+      .locator("span")
+      .first()
+      .boundingBox();
+    expect(label?.height ?? 0).toBeGreaterThan(24);
+  });
 });
 
 test.describe("読み上げ（WAI-ARIA Select-Only Combobox）", () => {

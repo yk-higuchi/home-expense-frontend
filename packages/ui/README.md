@@ -175,7 +175,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
   - 見えている欄は `<button role="combobox">`、一覧は `role="listbox"` のポップオーバー（Popover API）。選択肢にはフォーカスを移さず、`aria-activedescendant` で今の選択肢を示す（WAI-ARIA の Select-Only Combobox）。
   - 中に `hidden` の `<select>` を残し、`name`・`value`・`defaultValue`・`onChange`・`<option>` はそこに渡す。`onFocus`・`onBlur` は、フォーカスを受ける見えている欄（`button`）に渡す。フォームの送信と `reset`、`onChange`（`event.target.value`）は今までと同じに動く。選んだときは `<select>` の値を変えて `input`・`change` を起こす。
   - 選択肢は子の `<option>`（`value`・`disabled`・文字）から作る。
-  - 一覧は欄と同じ幅以上で、7 行を超えるとスクロールする。開く前（`beforetoggle`）に欄の下に置き、開いたあと上下の余白を見て置き直す。開いたときは選んでいる選択肢を一覧の真ん中までスクロールする。
+  - 一覧は欄と同じ幅以上で、7 行を超えるとスクロールする。開く前（`beforetoggle`）に欄の下に置き、開いたあと上下の余白を見て置き直す。幅は画面の幅から左右 4px を引いた幅まで（長い選択肢は折り返す）。一覧の幅は置いた位置で変わるので、測る前にいったん左端に寄せ、最大幅いっぱいまで使える状態で測る（寄せないと、右へずらしたあとに広がって画面の端に届く）。開いたときは選んでいる選択肢を一覧の真ん中までスクロールする。
 - 見た目：一覧は面・枠線・角丸 `--radius-200`・`--shadow-raised`。選択肢は高さ `--size-control`、左右 `--padding-control-x`。選んでいる選択肢は `--color-interactive-selected` と ✓、キーで移っている選択肢はフォーカスの線、ホバーは `--color-interactive-hover`、使えない選択肢は `--color-text-disabled`。
 - 機能は次の一覧を基準にそろえ、各項目を `e2e/storybook/select.spec.ts` の同じ ID のテストで確かめる。
 
@@ -196,6 +196,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 | K7  | 文字を続けて打つと、その文字で始まる選択肢へ移る                                                                       | APG: Select-Only Combobox                                                                                                   |
 | M1  | 押すと開き、選択肢を押すと選んで閉じる                                                                                 | HTML: select                                                                                                                |
 | M2  | 外を押すと値を変えずに閉じる                                                                                           | [HTML: ポップオーバーの light dismiss](https://html.spec.whatwg.org/multipage/popover.html#popover-light-dismiss)           |
+| M3  | 一覧は画面の幅（左右 4px を除く）を超えず、長い選択肢は折り返す                                                        | 独自（属性名は最大 50 文字。スマホで一覧が画面の外にはみ出さないように）                                                    |
 | P1  | 開いたときは、選んでいる選択肢を一覧の真ん中に出す（↑↓ で移るときは、見える範囲に入る分だけスクロールする）            | 独自の方針（前後の選択肢がどちらも見えるようにする）                                                                        |
 | A1  | コンボボックスはラベルを名前にし、一覧を開くこと（`aria-haspopup="listbox"`）と開いているか（`aria-expanded`）を伝える | APG: Select-Only Combobox                                                                                                   |
 | A2  | 選んでいる選択肢を `aria-selected` で伝え、ラベルのない欄は `aria-label` を名前にする                                  | APG: Select-Only Combobox                                                                                                   |
