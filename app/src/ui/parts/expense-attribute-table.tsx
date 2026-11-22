@@ -35,6 +35,7 @@ import savedStyle from "@/ui/parts/saved-row.module.css";
 import {
   ColumnsHead,
   EXPENSE_ATTRIBUTE_COLUMNS,
+  tableProps,
 } from "@/ui/parts/table-columns";
 
 interface Props {
@@ -84,7 +85,11 @@ const ExpenseAttributeTable = ({
 
   return (
     <>
-      <Table loading={loading} stickyHeader>
+      <Table
+        {...tableProps(EXPENSE_ATTRIBUTE_COLUMNS)}
+        loading={loading}
+        stickyHeader
+      >
         <ColumnsHead columns={EXPENSE_ATTRIBUTE_COLUMNS} />
         <TableBody>
           {rows.length === 0 && <TableEmpty colSpan={5} />}

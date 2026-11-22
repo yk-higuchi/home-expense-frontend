@@ -59,6 +59,16 @@
   min-height: 0;
 }
 
+@media (768px <= width <= 1279px) {
+  .parent {
+    padding: var(--space-400);
+  }
+
+  .content {
+    --padding-page: var(--space-400);
+  }
+}
+
 @media (width <= 767px) {
   .parent {
     grid-template-columns: minmax(0, 1fr);

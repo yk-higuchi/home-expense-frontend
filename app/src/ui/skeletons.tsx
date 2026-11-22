@@ -11,8 +11,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeaderCell,
   TableRow,
   TextInput,
 } from "@home-expense/ui";
@@ -22,11 +20,14 @@ import aggregate from "@/ui/expense-aggregate.module.css";
 import form from "@/ui/parts/form.module.css";
 import layout from "@/ui/parts/list-layout.module.css";
 import {
+  ANNUAL_COLUMNS,
+  ColumnsHead,
   EXPENSE_ATTRIBUTE_COLUMNS,
   EXPENSE_COLUMNS,
   INCOME_ATTRIBUTE_COLUMNS,
   INCOME_COLUMNS,
   SkeletonTable,
+  tableProps,
 } from "@/ui/parts/table-columns";
 import style from "./skeletons.module.css";
 
@@ -129,15 +130,8 @@ const AnnualReportSkeleton = (): ReactElement => (
         <div className={style.chart} />
       </Card>
       <Card title="月別の収支">
-        <Table variant="plain">
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell width={120}>月</TableHeaderCell>
-              <TableHeaderCell>収入</TableHeaderCell>
-              <TableHeaderCell>支出</TableHeaderCell>
-              <TableHeaderCell>収支</TableHeaderCell>
-            </TableRow>
-          </TableHead>
+        <Table variant="plain" {...tableProps(ANNUAL_COLUMNS)}>
+          <ColumnsHead columns={ANNUAL_COLUMNS} />
           <TableBody>
             {Array.from({ length: 12 }, (_, month) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: 月の並びは固定

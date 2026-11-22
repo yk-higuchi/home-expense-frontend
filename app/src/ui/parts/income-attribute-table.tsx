@@ -35,6 +35,7 @@ import savedStyle from "@/ui/parts/saved-row.module.css";
 import {
   ColumnsHead,
   INCOME_ATTRIBUTE_COLUMNS,
+  tableProps,
 } from "@/ui/parts/table-columns";
 
 interface Props {
@@ -78,7 +79,11 @@ const IncomeAttributeTable = ({
 
   return (
     <>
-      <Table loading={loading} stickyHeader>
+      <Table
+        {...tableProps(INCOME_ATTRIBUTE_COLUMNS)}
+        loading={loading}
+        stickyHeader
+      >
         <ColumnsHead columns={INCOME_ATTRIBUTE_COLUMNS} />
         <TableBody>
           {rows.length === 0 && <TableEmpty colSpan={4} />}
