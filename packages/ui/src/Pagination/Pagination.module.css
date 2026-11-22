@@ -21,7 +21,9 @@
 .step,
 .page {
   display: inline-flex;
+  box-sizing: border-box;
   align-items: center;
+  justify-content: center;
   gap: var(--gap-inline);
   margin: 0;
   padding: var(--space-200) var(--space-300);
@@ -35,6 +37,12 @@
   text-decoration: none;
   cursor: pointer;
   transition: background-color 120ms ease;
+}
+
+.page {
+  min-width: 32px;
+  padding-inline: var(--space-100);
+  font-variant-numeric: tabular-nums;
 }
 
 .step:disabled,
