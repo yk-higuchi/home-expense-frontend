@@ -14,6 +14,7 @@ const IncomeAttributeEdit = ({ incomeAttribute }: Props): ReactElement => {
       incomeAttribute={incomeAttribute}
       action={updateIncomeAttribute}
       buttonTitle="更新"
+      backHref="/income-attribute"
     />
   );
 };

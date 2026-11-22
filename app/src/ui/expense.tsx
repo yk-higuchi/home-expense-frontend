@@ -50,7 +50,7 @@ const Expense = ({
         />
         <div className={layout.actions}>
           <ButtonLink
-            href="/expense/registration"
+            href={`/expense/registration?${new URLSearchParams({ from: new URLSearchParams(query).toString() })}`}
             icon={<PlusIcon />}
             linkComponent={Link}
           >

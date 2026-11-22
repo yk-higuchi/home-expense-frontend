@@ -24,7 +24,7 @@ const ExpenseAttribute = ({ category, list, savedId }: Props): ReactElement => (
       <CategoryFilter category={category} />
       <div className={layout.actions}>
         <ButtonLink
-          href="/expense-attribute/registration"
+          href={`/expense-attribute/registration?${new URLSearchParams({ category })}`}
           icon={<PlusIcon />}
           linkComponent={Link}
         >

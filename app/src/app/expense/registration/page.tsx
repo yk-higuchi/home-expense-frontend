@@ -14,18 +14,20 @@ export const metadata: Metadata = {
 interface Props {
   searchParams: Promise<{
     category: string;
+    from?: string;
   }>;
 }
 
 const ExpenseRegistrationPage = async (props: Props): Promise<ReactElement> => {
   const searchParams = await props.searchParams;
-  const { category = "固定費" } = searchParams;
+  const { category = "固定費", from } = searchParams;
   const loaded = await load(() => getExpenseAttributes({ category }));
   if (!loaded.ok) return <FormLoadFailed />;
   return (
     <ExpenseRegistration
       expenseAttributes={loaded.value.expenseAttributes}
       today={toDateString(new Date(Date.now()))}
+      returnTo={from}
     />
   );
 };

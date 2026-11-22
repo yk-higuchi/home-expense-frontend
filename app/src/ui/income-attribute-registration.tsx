@@ -5,7 +5,11 @@ import IncomeAttributeForm from "@/ui/parts/income-attribute-form";
 
 const IncomeRegistration = (): ReactElement => {
   return (
-    <IncomeAttributeForm action={registerIncomeAttribute} buttonTitle="登録" />
+    <IncomeAttributeForm
+      action={registerIncomeAttribute}
+      buttonTitle="登録"
+      backHref="/income-attribute"
+    />
   );
 };
 

@@ -12,14 +12,22 @@ export const metadata: Metadata = {
   title: "収入登録",
 };
 
-const IncomeRegistrationPage = async (): Promise<ReactElement> => {
+interface Props {
+  searchParams: Promise<{
+    from?: string;
+  }>;
+}
+
+const IncomeRegistrationPage = async (props: Props): Promise<ReactElement> => {
   await connection();
+  const { from } = await props.searchParams;
   const loaded = await load(() => getIncomeAttributes());
   if (!loaded.ok) return <FormLoadFailed />;
   return (
     <IncomeRegistration
       incomeAttributes={loaded.value.incomeAttributes}
       today={toDateString(new Date(Date.now()))}
+      returnTo={from}
     />
   );
 };
