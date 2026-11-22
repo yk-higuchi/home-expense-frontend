@@ -1,4 +1,5 @@
 import { NavBar } from "@home-expense/ui";
+import { cookies } from "next/headers";
 import type { ReactElement, ReactNode } from "react";
 
 import AppSideBar from "@/ui/parts/app-side-bar";
@@ -8,13 +9,16 @@ import {
   SiteMenuButton,
   SiteMenuProvider,
 } from "@/ui/parts/site-menu";
+import { isMenuCollapsed, MENU_COOKIE } from "@/ui/parts/site-menu-cookie";
 import style from "./dashboard-layout.module.css";
 
-const DashboardLayout = ({
+const DashboardLayout = async ({
   children,
 }: {
   children: ReactNode;
-}): ReactElement => {
+}): Promise<ReactElement> => {
+  const cookieStore = await cookies();
+  const collapsed = isMenuCollapsed(cookieStore.get(MENU_COOKIE)?.value);
   const now = new Date(Date.now());
   const searchParams = new URLSearchParams({
     year: now.getFullYear().toString(),
@@ -33,7 +37,7 @@ const DashboardLayout = ({
       <a href="#main" className={style.skip}>
         本文へ移動
       </a>
-      <SiteMenuProvider>
+      <SiteMenuProvider initialCollapsed={collapsed}>
         <SiteMenu className={style.menu}>
           <AppSideBar items={items} />
         </SiteMenu>

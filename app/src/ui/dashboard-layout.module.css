@@ -9,6 +9,10 @@
   padding: var(--space-800);
 }
 
+.parent:has(> [data-collapsed]) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .column {
   display: flex;
   flex-direction: column;

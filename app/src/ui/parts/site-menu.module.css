@@ -1,5 +1,5 @@
 .button {
-  display: none;
+  display: inline-flex;
   align-items: center;
   gap: var(--space-100);
   min-height: var(--size-target-touch);
@@ -22,9 +22,23 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+.mobile {
+  display: none;
+}
+
+@media (width >= 768px) {
+  .collapsed {
+    display: none;
+  }
+}
+
 @media (width <= 767px) {
-  .button {
+  .mobile {
     display: inline-flex;
+  }
+
+  .desktop {
+    display: none;
   }
 
   .menu:not(.open) {

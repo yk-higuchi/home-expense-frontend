@@ -69,3 +69,20 @@ test.describe("幅 390px", () => {
     await expect(menu).toBeHidden();
   });
 });
+
+test("幅 1440px でメニューのボタンを押すとサイドメニューを隠し、読み直しても隠したままにする", async ({
+  page,
+}) => {
+  await page.goto("/home");
+  const button = page.getByRole("button", { name: "メニュー" });
+  const menu = page.locator("#site-menu");
+  await expect(menu).toBeVisible();
+  await expect(button).toHaveAttribute("aria-expanded", "true");
+  await button.click();
+  await expect(menu).toBeHidden();
+  await expect(button).toHaveAttribute("aria-expanded", "false");
+  await page.reload();
+  await expect(menu).toBeHidden();
+  await button.click();
+  await expect(menu).toBeVisible();
+});
