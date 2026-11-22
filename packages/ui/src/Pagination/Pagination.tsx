@@ -59,8 +59,8 @@ export const Pagination = ({
   hrefFor,
   linkAttributes,
   siblingCount = 2,
-  previousLabel = "Previous",
-  nextLabel = "Next",
+  previousLabel = "前へ",
+  nextLabel = "次へ",
   "aria-label": ariaLabel = "ページ送り",
 }: PaginationProps): ReactElement => {
   const hasPrevious = currentPage > 1;
