@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import type { ReactElement } from "react";
+import { toDateString } from "@/core/balance";
 import { getIncomeAttributes } from "@/server/queries/income-attribute";
 import { load } from "@/server/queries/load";
 import IncomeRegistration from "@/ui/income-registration";
@@ -16,7 +17,10 @@ const IncomeRegistrationPage = async (): Promise<ReactElement> => {
   const loaded = await load(() => getIncomeAttributes());
   if (!loaded.ok) return <FormLoadFailed />;
   return (
-    <IncomeRegistration incomeAttributes={loaded.value.incomeAttributes} />
+    <IncomeRegistration
+      incomeAttributes={loaded.value.incomeAttributes}
+      today={toDateString(new Date(Date.now()))}
+    />
   );
 };
 export default withHeading("収入登録", IncomeRegistrationPage);

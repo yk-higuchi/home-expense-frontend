@@ -6,14 +6,19 @@ import IncomeForm from "@/ui/parts/income-form";
 
 interface Props {
   incomeAttributes: IncomeAttributes;
+  today: string;
 }
 
-const IncomeRegistration = ({ incomeAttributes }: Props): ReactElement => {
+const IncomeRegistration = ({
+  incomeAttributes,
+  today,
+}: Props): ReactElement => {
   return (
     <IncomeForm
       incomeAttributes={incomeAttributes}
       action={registerIncome}
       buttonTitle="登録"
+      defaultDate={today}
     />
   );
 };

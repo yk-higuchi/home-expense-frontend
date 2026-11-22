@@ -9,9 +9,13 @@ import ExpenseForm from "@/ui/parts/expense-form";
 
 interface Props {
   expenseAttributes: ExpenseAttributes;
+  today: string;
 }
 
-const ExpenseRegistration = ({ expenseAttributes }: Props): ReactElement => {
+const ExpenseRegistration = ({
+  expenseAttributes,
+  today,
+}: Props): ReactElement => {
   const router = useRouter();
   const handleCategoryChange = (category: string) => {
     const searchParams = new URLSearchParams({
@@ -25,6 +29,7 @@ const ExpenseRegistration = ({ expenseAttributes }: Props): ReactElement => {
       onCategoryChange={handleCategoryChange}
       action={registerExpense}
       buttonTitle="登録"
+      defaultDate={today}
     />
   );
 };
