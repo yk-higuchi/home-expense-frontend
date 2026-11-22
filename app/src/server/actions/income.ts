@@ -40,6 +40,7 @@ export const registerIncome = async (
     "amount",
     "receiveDate",
     "attributeId",
+    "returnTo",
   ]);
   const errors = collectErrors({
     description: first(
@@ -66,7 +67,13 @@ export const registerIncome = async (
       message: failureMessage(error, SUBMIT_FAILED_MESSAGE),
     };
   }
-  redirect(incomeListUrl({ receiveDate: values.receiveDate, savedId: id }));
+  redirect(
+    incomeListUrl({
+      from: values.returnTo || undefined,
+      receiveDate: values.receiveDate,
+      savedId: id,
+    }),
+  );
 };
 
 export const updateIncome = async (

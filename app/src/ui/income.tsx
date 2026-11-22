@@ -23,7 +23,7 @@ const Income = ({ list, year, savedId }: Props): ReactElement => (
       <YearFilter path="/income" year={year} />
       <div className={layout.actions}>
         <ButtonLink
-          href="/income/registration"
+          href={`/income/registration?${new URLSearchParams({ from: new URLSearchParams({ year: String(year) }).toString() })}`}
           icon={<PlusIcon />}
           linkComponent={Link}
         >

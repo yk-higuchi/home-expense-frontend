@@ -7,3 +7,12 @@
   max-width: 652px;
   margin: 0 auto;
 }
+
+.actions {
+  display: flex;
+  gap: var(--gap-inline);
+}
+
+.action {
+  flex: 1;
+}

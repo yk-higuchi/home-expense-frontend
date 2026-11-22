@@ -6,6 +6,7 @@ import type { Expense } from "@/core/expense";
 import type { ExpenseAttributes } from "@/core/expense-attribute";
 import { updateExpense } from "@/server/actions/expense";
 import ExpenseForm from "@/ui/parts/expense-form";
+import { listHref } from "@/ui/parts/form-actions";
 
 interface Props {
   expense: Expense;
@@ -34,6 +35,7 @@ const ExpenseEdit = ({
       action={updateExpense}
       buttonTitle="更新"
       returnTo={returnTo}
+      backHref={listHref("/expense", returnTo)}
     />
   );
 };

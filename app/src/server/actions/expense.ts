@@ -41,6 +41,7 @@ export const registerExpense = async (
     "paymentDate",
     "category",
     "attributeId",
+    "returnTo",
   ]);
   const errors = collectErrors({
     description: first(
@@ -69,6 +70,7 @@ export const registerExpense = async (
   }
   redirect(
     expenseListUrl({
+      from: values.returnTo || undefined,
       paymentDate: values.paymentDate,
       category: values.category,
       attributeId: values.attributeId,
