@@ -16,12 +16,14 @@ export interface TableProps extends HTMLAttributes<HTMLTableElement> {
   footer?: ReactNode;
   loading?: boolean;
   variant?: "default" | "plain";
+  stickyHeader?: boolean;
 }
 
 export const Table = ({
   footer,
   loading = false,
   variant = "default",
+  stickyHeader = false,
   className,
   children,
   ...rest
@@ -31,6 +33,7 @@ export const Table = ({
       styles.frame,
       variant === "plain" && styles.plain,
       loading && styles.loading,
+      stickyHeader && styles.stickyHeader,
     )}
   >
     <section

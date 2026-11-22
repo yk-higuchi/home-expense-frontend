@@ -69,6 +69,32 @@
   padding: var(--space-200) var(--space-400);
 }
 
+.stickyHeader {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.stickyHeader > .scroll {
+  min-height: 0;
+  overflow: auto;
+}
+
+.stickyHeader > .footer {
+  flex-shrink: 0;
+}
+
+.stickyHeader .table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.stickyHeader .headerCell {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 .frame:not(.plain) > .footer {
   border-top: var(--border-width) solid var(--color-border);
 }

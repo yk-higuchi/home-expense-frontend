@@ -58,7 +58,7 @@ const IncomeTable = ({
 
   return (
     <>
-      <Table footer={footer} loading={loading}>
+      <Table footer={footer} loading={loading} stickyHeader>
         <ColumnsHead columns={INCOME_COLUMNS} />
         <TableBody>
           {optimisticIncomes.length === 0 && <TableEmpty colSpan={6} />}

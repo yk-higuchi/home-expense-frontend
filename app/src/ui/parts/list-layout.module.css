@@ -43,6 +43,11 @@
 }
 
 @media (width >= 768px) {
+  .page {
+    height: 0;
+    min-height: 100%;
+  }
+
   .sticky {
     position: sticky;
     top: calc(-1 * var(--padding-page));

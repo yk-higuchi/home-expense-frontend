@@ -78,7 +78,7 @@ const IncomeAttributeTable = ({
 
   return (
     <>
-      <Table loading={loading}>
+      <Table loading={loading} stickyHeader>
         <ColumnsHead columns={INCOME_ATTRIBUTE_COLUMNS} />
         <TableBody>
           {rows.length === 0 && <TableEmpty colSpan={4} />}
