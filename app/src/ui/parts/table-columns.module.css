@@ -1,0 +1,17 @@
+.rowActions {
+  width: 104px;
+}
+
+.reorderActions {
+  width: 146px;
+}
+
+@media (pointer: coarse) {
+  .rowActions {
+    width: 124px;
+  }
+
+  .reorderActions {
+    width: 222px;
+  }
+}

@@ -8,11 +8,13 @@ import {
   TableRow,
 } from "@home-expense/ui";
 import type { ReactElement, ReactNode } from "react";
+import style from "@/ui/parts/table-columns.module.css";
 
 interface Column {
   label?: string;
   ariaLabel?: string;
   width?: number;
+  className?: string;
   align?: "start" | "end";
   kind?: "text" | "action";
 }
@@ -20,11 +22,11 @@ interface Column {
 export const EXPENSE_COLUMNS: readonly Column[] = [
   { label: "No.", width: 88 },
   { label: "説明" },
-  { label: "金額", width: 112, align: "end" },
+  { label: "金額", width: 128, align: "end" },
   { label: "支払日", width: 128 },
   { label: "属性名" },
   { label: "分類", width: 96 },
-  { label: "編集", width: 104, kind: "action" },
+  { label: "編集", className: style.rowActions, kind: "action" },
 ];
 
 export const INCOME_COLUMNS: readonly Column[] = [
@@ -33,7 +35,7 @@ export const INCOME_COLUMNS: readonly Column[] = [
   { label: "金額", width: 128, align: "end" },
   { label: "受取日", width: 128 },
   { label: "属性名" },
-  { label: "編集", width: 104, kind: "action" },
+  { label: "編集", className: style.rowActions, kind: "action" },
 ];
 
 export const EXPENSE_ATTRIBUTE_COLUMNS: readonly Column[] = [
@@ -41,14 +43,14 @@ export const EXPENSE_ATTRIBUTE_COLUMNS: readonly Column[] = [
   { label: "No.", width: 102 },
   { label: "属性名" },
   { label: "分類", width: 200 },
-  { label: "操作", width: 146, kind: "action" },
+  { label: "操作", className: style.reorderActions, kind: "action" },
 ];
 
 export const INCOME_ATTRIBUTE_COLUMNS: readonly Column[] = [
   { ariaLabel: "並べ替え", width: 64, kind: "action" },
   { label: "No.", width: 102 },
   { label: "属性名" },
-  { label: "操作", width: 146, kind: "action" },
+  { label: "操作", className: style.reorderActions, kind: "action" },
 ];
 
 export const ColumnsHead = ({
@@ -63,6 +65,7 @@ export const ColumnsHead = ({
           // biome-ignore lint/suspicious/noArrayIndexKey: 列の並びは固定
           key={index}
           width={column.width}
+          className={column.className}
           align={column.align}
           aria-label={column.ariaLabel}
         >
