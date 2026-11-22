@@ -26,8 +26,8 @@
 
 .toolbar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+  flex-wrap: wrap-reverse;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--gap-stack);
 }
@@ -55,12 +55,5 @@
     margin-block: calc(-1 * var(--padding-page)) calc(-1 * var(--space-200));
     padding-block: var(--padding-page) var(--space-200);
     background-color: var(--color-surface);
-  }
-}
-
-@media (width <= 767px) {
-  .toolbar {
-    flex-wrap: wrap-reverse;
-    align-items: flex-start;
   }
 }
