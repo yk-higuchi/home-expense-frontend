@@ -4,6 +4,7 @@ import { ErrorMessage, SubmitButton, TextInput } from "@home-expense/ui";
 import { type ReactElement, useActionState } from "react";
 import { type FormAction, initialFormState } from "@/core/form/form-state";
 import type { IncomeAttribute } from "@/core/income-attribute";
+import { useFocusFirstError } from "@/ui/hooks/use-focus-first-error";
 import style from "./form.module.css";
 
 interface Props {
@@ -18,10 +19,16 @@ const IncomeAttributeForm = ({
   buttonTitle,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
+  const formRef = useFocusFirstError(state);
   const { id, version, name } = incomeAttribute;
   const { errors, values, message } = state;
   return (
-    <form action={formAction} className={style.formStyle} noValidate>
+    <form
+      ref={formRef}
+      action={formAction}
+      className={style.formStyle}
+      noValidate
+    >
       <input type="hidden" name="incomeAttributeId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
       <TextInput

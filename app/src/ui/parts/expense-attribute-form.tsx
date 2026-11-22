@@ -9,6 +9,7 @@ import {
 import { type ReactElement, useActionState } from "react";
 import type { ExpenseAttribute } from "@/core/expense-attribute";
 import { type FormAction, initialFormState } from "@/core/form/form-state";
+import { useFocusFirstError } from "@/ui/hooks/use-focus-first-error";
 import style from "./form.module.css";
 
 interface Props {
@@ -23,11 +24,17 @@ const ExpenseAttributeForm = ({
   buttonTitle,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
+  const formRef = useFocusFirstError(state);
   const { id, version, name, category } = expenseAttribute;
   const { errors, values, message } = state;
   const isEdit = id !== undefined;
   return (
-    <form action={formAction} className={style.formStyle} noValidate>
+    <form
+      ref={formRef}
+      action={formAction}
+      className={style.formStyle}
+      noValidate
+    >
       <input type="hidden" name="expenseAttributeId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
       {isEdit && <input type="hidden" name="category" value={category} />}
