@@ -41,3 +41,14 @@
 .actions > button {
   min-width: var(--size-control-min);
 }
+
+@media (width >= 768px) {
+  .sticky {
+    position: sticky;
+    top: calc(-1 * var(--padding-page));
+    z-index: 2;
+    margin-block: calc(-1 * var(--padding-page)) calc(-1 * var(--space-200));
+    padding-block: var(--padding-page) var(--space-200);
+    background-color: var(--color-surface);
+  }
+}
