@@ -5,6 +5,8 @@
   gap: var(--space-300);
   color: var(--color-text);
   font-family: var(--font-family-base);
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 .legend {
@@ -197,6 +199,7 @@
 
 .details {
   font-size: var(--text-caption-size);
+  user-select: text;
 }
 
 .summary {
