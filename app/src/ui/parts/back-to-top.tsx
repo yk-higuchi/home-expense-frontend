@@ -7,14 +7,13 @@ import style from "@/ui/parts/back-to-top.module.css";
 const BackToTop = (): ReactElement | null => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const update = () => setVisible(window.scrollY > window.innerHeight / 2);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
+    const header = document.querySelector("header");
+    if (!header) return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(!entry.isIntersecting),
+    );
+    observer.observe(header);
+    return () => observer.disconnect();
   }, []);
   if (!visible) return null;
   const handleClick = (): void => {
