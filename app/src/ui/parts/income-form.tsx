@@ -11,6 +11,7 @@ import { type ReactElement, useActionState } from "react";
 import { type FormAction, initialFormState } from "@/core/form/form-state";
 import type { Income } from "@/core/income";
 import type { IncomeAttributes } from "@/core/income-attribute";
+import { useFocusFirstError } from "@/ui/hooks/use-focus-first-error";
 import style from "./form.module.css";
 
 interface Props {
@@ -31,10 +32,16 @@ const IncomeForm = ({
   defaultDate,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
+  const formRef = useFocusFirstError(state);
   const { id, version, description, amount, receiveDate, attributeId } = income;
   const { errors, values, message } = state;
   return (
-    <form action={formAction} className={style.formStyle} noValidate>
+    <form
+      ref={formRef}
+      action={formAction}
+      className={style.formStyle}
+      noValidate
+    >
       <input type="hidden" name="incomeId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
       <input type="hidden" name="returnTo" value={returnTo ?? ""} />

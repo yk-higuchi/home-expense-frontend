@@ -3,6 +3,7 @@
 import {
   Children,
   type ComponentPropsWithRef,
+  type FocusEventHandler,
   isValidElement,
   type KeyboardEvent,
   type ReactElement,
@@ -19,7 +20,9 @@ import { CheckIcon } from "../icons/icons";
 import styles from "./Select.module.css";
 
 export interface SelectProps
-  extends Omit<ComponentPropsWithRef<"select">, "size"> {
+  extends Omit<ComponentPropsWithRef<"select">, "size" | "onFocus" | "onBlur"> {
+  onFocus?: FocusEventHandler<HTMLButtonElement>;
+  onBlur?: FocusEventHandler<HTMLButtonElement>;
   label?: string;
   description?: string;
   errorMessage?: string;
@@ -100,6 +103,8 @@ export const Select = ({
   children,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
+  onFocus,
+  onBlur,
   ...rest
 }: SelectProps): ReactElement => {
   const generatedId = useId();
@@ -356,6 +361,8 @@ export const Select = ({
           disabled={disabled}
           data-skeleton={skeleton || undefined}
           popoverTarget={listboxId}
+          onFocus={onFocus}
+          onBlur={onBlur}
           onKeyDown={handleKeyDown}
         >
           <span className={styles.value}>

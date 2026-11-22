@@ -172,7 +172,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 
 - 作り
   - 見えている欄は `<button role="combobox">`、一覧は `role="listbox"` のポップオーバー（Popover API）。選択肢にはフォーカスを移さず、`aria-activedescendant` で今の選択肢を示す（WAI-ARIA の Select-Only Combobox）。
-  - 中に `hidden` の `<select>` を残し、`name`・`value`・`defaultValue`・`onChange`・`<option>` はそこに渡す。フォームの送信と `reset`、`onChange`（`event.target.value`）は今までと同じに動く。選んだときは `<select>` の値を変えて `input`・`change` を起こす。
+  - 中に `hidden` の `<select>` を残し、`name`・`value`・`defaultValue`・`onChange`・`<option>` はそこに渡す。`onFocus`・`onBlur` は、フォーカスを受ける見えている欄（`button`）に渡す。フォームの送信と `reset`、`onChange`（`event.target.value`）は今までと同じに動く。選んだときは `<select>` の値を変えて `input`・`change` を起こす。
   - 選択肢は子の `<option>`（`value`・`disabled`・文字）から作る。
   - 一覧は欄と同じ幅以上で、7 行を超えるとスクロールする。開く前（`beforetoggle`）に欄の下に置き、開いたあと上下の余白を見て置き直す。開いたときは選んでいる選択肢を一覧の真ん中までスクロールする。
 - 見た目：一覧は面・枠線・角丸 `--radius-200`・`--shadow-raised`。選択肢は高さ `--size-control`、左右 `--padding-control-x`。選んでいる選択肢は `--color-interactive-selected` と ✓、キーで移っている選択肢はフォーカスの線、ホバーは `--color-interactive-hover`、使えない選択肢は `--color-text-disabled`。

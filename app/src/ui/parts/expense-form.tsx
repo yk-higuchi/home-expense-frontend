@@ -11,6 +11,7 @@ import { type ChangeEvent, type ReactElement, useActionState } from "react";
 import type { Expense } from "@/core/expense";
 import type { ExpenseAttributes } from "@/core/expense-attribute";
 import { type FormAction, initialFormState } from "@/core/form/form-state";
+import { useFocusFirstError } from "@/ui/hooks/use-focus-first-error";
 import style from "./form.module.css";
 
 interface Props {
@@ -33,6 +34,7 @@ const ExpenseForm = ({
   defaultDate,
 }: Props): ReactElement => {
   const [state, formAction] = useActionState(action, initialFormState);
+  const formRef = useFocusFirstError(state);
   const {
     id,
     version,
@@ -47,7 +49,12 @@ const ExpenseForm = ({
     onCategoryChange(event.currentTarget.value);
   };
   return (
-    <form action={formAction} className={style.formStyle} noValidate>
+    <form
+      ref={formRef}
+      action={formAction}
+      className={style.formStyle}
+      noValidate
+    >
       <input type="hidden" name="expenseId" value={id} />
       <input type="hidden" name="version" value={version ?? ""} />
       <input type="hidden" name="returnTo" value={returnTo ?? ""} />
