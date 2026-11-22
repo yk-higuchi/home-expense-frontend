@@ -6,8 +6,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeaderCell,
   TableRow,
 } from "@home-expense/ui";
 import type { ReactElement } from "react";
@@ -19,6 +17,11 @@ import {
 import BalanceChart from "@/ui/parts/balance-chart";
 import { LoadFailed } from "@/ui/parts/load-failed";
 import PeriodFilterFrame from "@/ui/parts/period-filter-frame";
+import {
+  ANNUAL_COLUMNS,
+  ColumnsHead,
+  tableProps,
+} from "@/ui/parts/table-columns";
 import style from "./annual-report.module.css";
 
 interface Props {
@@ -58,15 +61,8 @@ const AnnualReport = ({ year, report }: Props): ReactElement => {
       </SummaryList>
       <BalanceChart title="月別の推移" points={series} showTable={false} />
       <Card title="月別の収支">
-        <Table variant="plain">
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell width={120}>月</TableHeaderCell>
-              <TableHeaderCell align="end">収入</TableHeaderCell>
-              <TableHeaderCell align="end">支出</TableHeaderCell>
-              <TableHeaderCell align="end">収支</TableHeaderCell>
-            </TableRow>
-          </TableHead>
+        <Table variant="plain" {...tableProps(ANNUAL_COLUMNS)}>
+          <ColumnsHead columns={ANNUAL_COLUMNS} />
           <TableBody>
             {series.map((point) => (
               <TableRow key={point.from}>

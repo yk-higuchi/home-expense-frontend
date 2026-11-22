@@ -29,7 +29,7 @@
 
 .table {
   width: 100%;
-  min-width: 880px;
+  min-width: var(--table-min-width, 880px);
   border-collapse: collapse;
   table-layout: fixed;
 }

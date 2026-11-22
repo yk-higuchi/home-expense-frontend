@@ -23,7 +23,11 @@ import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import { usePageTransition } from "@/ui/parts/page-transition";
 import savedStyle from "@/ui/parts/saved-row.module.css";
-import { ColumnsHead, EXPENSE_COLUMNS } from "@/ui/parts/table-columns";
+import {
+  ColumnsHead,
+  EXPENSE_COLUMNS,
+  tableProps,
+} from "@/ui/parts/table-columns";
 
 interface Props {
   expenses: Expenses;
@@ -58,7 +62,12 @@ const ExpenseTable = ({
 
   return (
     <>
-      <Table footer={footer} loading={loading} stickyHeader>
+      <Table
+        {...tableProps(EXPENSE_COLUMNS)}
+        footer={footer}
+        loading={loading}
+        stickyHeader
+      >
         <ColumnsHead columns={EXPENSE_COLUMNS} />
         <TableBody>
           {optimisticExpenses.length === 0 && <TableEmpty colSpan={7} />}

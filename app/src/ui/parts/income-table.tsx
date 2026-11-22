@@ -23,7 +23,11 @@ import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import { usePageTransition } from "@/ui/parts/page-transition";
 import savedStyle from "@/ui/parts/saved-row.module.css";
-import { ColumnsHead, INCOME_COLUMNS } from "@/ui/parts/table-columns";
+import {
+  ColumnsHead,
+  INCOME_COLUMNS,
+  tableProps,
+} from "@/ui/parts/table-columns";
 
 interface Props {
   incomes: Incomes;
@@ -58,7 +62,12 @@ const IncomeTable = ({
 
   return (
     <>
-      <Table footer={footer} loading={loading} stickyHeader>
+      <Table
+        {...tableProps(INCOME_COLUMNS)}
+        footer={footer}
+        loading={loading}
+        stickyHeader
+      >
         <ColumnsHead columns={INCOME_COLUMNS} />
         <TableBody>
           {optimisticIncomes.length === 0 && <TableEmpty colSpan={6} />}

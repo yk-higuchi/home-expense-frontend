@@ -1,17 +1,13 @@
-.rowActions {
-  width: 104px;
-}
-
-.reorderActions {
-  width: 146px;
+.table {
+  --handle-width: 64px;
+  --row-actions-width: 104px;
+  --reorder-actions-width: 146px;
 }
 
 @media (pointer: coarse) {
-  .rowActions {
-    width: 124px;
-  }
-
-  .reorderActions {
-    width: 222px;
+  .table {
+    --handle-width: 76px;
+    --row-actions-width: 124px;
+    --reorder-actions-width: 222px;
   }
 }

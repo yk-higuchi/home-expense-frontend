@@ -82,7 +82,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - キーボード: つまみで Space・Enter を押して持ち上げ、↑↓ で動かし、Space・Enter で確定、Esc で取り消す。フォーカスが外れても取り消す。
 - 読み上げ: 持ち上げ・移動・確定・取り消しを `SortableStatus`（`aria-live`）で伝える。
 - 上へ・下へのボタンは、ドラッグせずに 1 回の操作で並べ替える手段（WCAG 2.2 の 2.5.7）。
-- つまみの列の幅は 64px 以上にする（ボタン 28px ＋ セルの左右の余白）。
+- つまみの列の幅は 64px 以上にする（ボタン 28px ＋ セルの左右の余白）。タッチの端末ではつまみが 44px になるので 76px 以上にする。
 - `Toast` は、HTML の Popover API（`<output popover="manual">`）で最前面の層（top layer）に出す。z-index を考えなくても、ダイアログを含むほかの要素の上に出る。`manual` なので、ほかの場所を押しても勝手に閉じない。表示された瞬間の読み上げは読み上げソフトによって違うため、読み上げは別の見えない領域で行う（成功は `role="status"`、エラーは `role="alert"`。トーストの `output` は `aria-live="off"`）。知らせは `{ id, text, tone }` で渡し、同じ文言でも `id` が変われば出し直す。知らせは `useToast` で作る（`success` / `error` / `clear`。`id` は自動で振る）。`tone: "error"` は赤（`--color-danger-surface` / `--color-danger-border` / `--color-danger`）と警告アイコンで出し、自動では消さない。`tone: "pending"` は保存中などの知らせで、回る読み込み中のアイコンを付け、閉じるボタンを出さず、自動では消さない。すぐ終わったときにちらつかないよう、300ms たってから出す。終わったら呼ぶ側で別の知らせに替えるか消す。
 - 金額などの整形（`formatYen` / `formatCompact`）は `src/format/format.ts` に置く。部品の入口（`@home-expense/ui`）からも使えるが、Server Action などのサーバー側のコードからは `@home-expense/ui/format` を読む（部品をまとめて読み込まないため）。
 - サーバーコンポーネントからも使えるよう、フックやイベントが要らない部品には `"use client"` を付けない（`Select`・`TextInput` は `useId` だけなので付けない）。
@@ -92,7 +92,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
 - `LoadError` はデータを読み込めないとき・見つからないときに、データが入るはずの枠の中に出す（アイコン・文言・`action` のボタンやリンク、`role="alert"`）。
 - 文字の色（`--color-text`、#636363）は、白地と水色の背景（選択中・押下中を含む）の上で 4.5:1 以上になる色にする。入力欄の枠線（`--color-input-border`、#8c8c8c）は、白地と 3:1 以上にする（WCAG 1.4.11）。表やカードの枠線（`--color-border`）は飾りなので対象外。
 - サイドバーの選択中の項目は、背景色に加えて太字にする（色だけに頼らない）。
-- 表のセルは省略せずに折り返す。表は最小幅 880px で、狭い画面では表の部分（`aria-label` 付きの `section`、キーボードでもスクロールできるよう `tabIndex=0`）だけを横にスクロールする。ページ送りは折り返す。
+- 表のセルは省略せずに折り返す。表は最小幅（`--table-min-width`、既定は 880px。アプリは列から計算した値を表ごとに渡す）より狭いとき、表の部分（`aria-label` 付きの `section`、キーボードでもスクロールできるよう `tabIndex=0`）だけを横にスクロールする。ページ送りは折り返す。
 - `Pagination` の前・次の文字を空にしたときは、見えない「前のページ」「次のページ」を入れる。前・次の文字の既定は「前へ」「次へ」。
 - `Pagination` のページの番号は、背景の四角（最小 32×32、タッチの端末では 44×44）の真ん中に置き、数字の幅をそろえる（`tabular-nums`）。桁が変わっても四角の大きさが変わらないようにするため。
 - `NavBar` の `start` に、ナビバーの左に置く要素（スマートフォンのメニューのボタン）を渡せる。
