@@ -106,3 +106,30 @@ test("幅 1440px では「ページの先頭へ」を出さない", async ({ pag
   await page.locator("main").evaluate((main) => main.scrollTo(0, main.scrollHeight));
   await expect(page.getByRole("button", { name: "ページの先頭へ" })).toHaveCount(0);
 });
+
+for (const { path, label, from, to } of [
+  { path: "/expense?year=2026", label: "年", from: "2026", to: "2025" },
+  { path: "/income?year=2026", label: "年", from: "2026", to: "2025" },
+  { path: "/home?year=2026&month=3", label: "年", from: "2026", to: "2025" },
+  { path: "/annual-report?year=2026", label: "年", from: "2026", to: "2025" },
+  {
+    path: "/expense-attribute?category=固定費",
+    label: "分類",
+    from: "固定費",
+    to: "変動費",
+  },
+]) {
+  test(`${path} で絞り込みを変えてから戻ると、絞り込みも元に戻る`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+    const combobox = page.getByRole("combobox", { name: label, exact: true });
+    await combobox.click();
+    await page.getByRole("option", { name: to, exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(encodeURIComponent(to)));
+    await expect(combobox).toHaveText(to);
+    await page.goBack();
+    await expect(page).not.toHaveURL(new RegExp(encodeURIComponent(to)));
+    await expect(combobox).toHaveText(from);
+  });
+}
