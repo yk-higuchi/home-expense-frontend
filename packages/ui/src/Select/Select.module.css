@@ -70,8 +70,7 @@
 }
 
 .option[data-active] {
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: calc(var(--focus-ring-width) * -1);
+  background-color: var(--color-interactive-active);
 }
 
 .option[aria-disabled="true"] {
@@ -79,6 +78,17 @@
   cursor: not-allowed;
 }
 
-.option:hover:not([aria-selected="true"], [aria-disabled="true"]) {
+.option:hover:not(
+  [aria-selected="true"],
+  [aria-disabled="true"],
+  [data-active]
+) {
   background-color: var(--color-interactive-hover);
+}
+
+@media (forced-colors: active) {
+  .option[data-active] {
+    outline: var(--focus-ring-width) solid Highlight;
+    outline-offset: calc(var(--focus-ring-width) * -1);
+  }
 }

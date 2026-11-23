@@ -52,8 +52,8 @@
     {
       "name": "フォーカス",
       "css": "--color-focus-ring",
-      "ref": "グレー/800",
-      "hex": "#3f4a4c"
+      "ref": "水色/700",
+      "hex": "#16707f"
     },
     {
       "name": "ボタン/Danger/文字",
