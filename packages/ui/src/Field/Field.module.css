@@ -48,7 +48,9 @@
   font-family: inherit;
   font-size: var(--text-body-size);
   line-height: normal;
-  transition: border-color 120ms ease;
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .control:disabled {
@@ -71,13 +73,15 @@
 
 .control:focus-visible {
   border-color: var(--color-focus-ring);
-  outline: var(--focus-ring-width) solid var(--color-focus-ring);
-  outline-offset: var(--focus-ring-offset);
+  outline: var(--focus-ring-width) solid transparent;
+  box-shadow: inset 0 0 0 calc(var(--focus-ring-width) - var(--border-width))
+    var(--color-focus-ring);
 }
 
 .control[aria-invalid="true"]:focus-visible {
   border-color: var(--color-danger);
-  outline-color: var(--color-danger);
+  box-shadow: inset 0 0 0 calc(var(--focus-ring-width) - var(--border-width))
+    var(--color-danger);
 }
 
 .control:hover:not(:disabled, :focus-visible, [aria-invalid="true"]) {

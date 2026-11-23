@@ -29,7 +29,9 @@ pnpm fix              # Biome と Stylelint の自動修正
 - Storybook の設定（`.storybook/main.ts`）では、アドオンとフレームワークを絶対パスで指定している。pnpm のモノレポでパッケージを確実に解決するため。
 - 入力欄・プルダウンの高さは `--size-control`（40px）に固定し、上下の余白は付けない。上下に余白を取ると文字の表示領域が 16px しか残らず、Noto Sans JP の文字の上下が欠けるため（文字はブラウザが上下中央に置く）。
 - 無効のプルダウン・入力欄は、ラベルと説明も無効の文字色にする（Figma: 状態=無効）。
-- フォーカスは、部品との間に 2px の隙間を空けて 2px の線（`--focus-ring-offset`・`--focus-ring-width`）。全部品で共通。
+- フォーカスの色は `--color-focus-ring`（濃い青緑 #16707f）。白・ページの背景・`--color-interactive-active` のどれとも 3:1 以上の差がある（4.5〜5.7:1）。アプリの水色の線（`--color-accent-line`）は白と 1.5:1 しかなく、フォーカスには使えない。
+- ボタン・リンク・ナビ項目などは、部品との間に 2px の隙間を空けて 2px の線（`--focus-ring-offset`・`--focus-ring-width`）。
+- 入力欄・プルダウン（`Field` の `.control`）は、隙間を空けず、枠線をフォーカスの色にして内側に 1px の影を足し、2px の 1 本線にする。枠線のある部品に離れた線を足すと、線が二重に見えるため。エラーの欄は同じ形で赤。強制カラーモード（Windows のハイコントラストなど）では影が消えるので、透明の `outline` を置いて、システムの色の線が出るようにしている。
 - 集計の部品（`Summary`）は、金額の列の位置（行の左端から 283px、幅 767px 以下では行の半分）を基準にする。合計行・内訳の見出し・内訳行の項目名の幅は、この値から左側にあるもの（余白・アイコン・間隔）を引いて求める。
 - グラフ（`Chart`）の色は項目ごとに固定する（収入=1・支出=2・収支=3）。順位で変えない。3 番は白地とのコントラストが 3:1 未満なので、データ表を必ず併せて出す。`showTable={false}` は、同じ値の表が画面にすでにあるときだけ使う。
 - 棒の一覧（`BarList`）は、項目を多い順に横向きの棒と「金額（割合）」で並べる。HTML だけで描き、サーバーで出せる。系列（`series`）を 2 つ以上渡すと凡例を出し、読み上げでは項目名のあとに系列名を付ける（例：「家賃（固定費）」）。
@@ -176,7 +178,7 @@ const { handleProps, rowProps, canMove, moveBy, announcement } = useSortableList
   - 中に `hidden` の `<select>` を残し、`name`・`value`・`defaultValue`・`onChange`・`<option>` はそこに渡す。`onFocus`・`onBlur` は、フォーカスを受ける見えている欄（`button`）に渡す。フォームの送信と `reset`、`onChange`（`event.target.value`）は今までと同じに動く。選んだときは `<select>` の値を変えて `input`・`change` を起こす。
   - 選択肢は子の `<option>`（`value`・`disabled`・文字）から作る。
   - 一覧は欄と同じ幅以上で、7 行を超えるとスクロールする。開く前（`beforetoggle`）に欄の下に置き、開いたあと上下の余白を見て置き直す。幅は画面の幅から左右 4px を引いた幅まで（長い選択肢は折り返す）。一覧の幅は置いた位置で変わるので、測る前にいったん左端に寄せ、最大幅いっぱいまで使える状態で測る（寄せないと、右へずらしたあとに広がって画面の端に届く）。開いたときは選んでいる選択肢を一覧の真ん中までスクロールする。
-- 見た目：一覧は面・枠線・角丸 `--radius-200`・`--shadow-raised`。選択肢は高さ `--size-control`、左右 `--padding-control-x`。選んでいる選択肢は `--color-interactive-selected` と ✓、キーで移っている選択肢はフォーカスの線、ホバーは `--color-interactive-hover`、使えない選択肢は `--color-text-disabled`。
+- 見た目：一覧は面・枠線・角丸 `--radius-200`・`--shadow-raised`。選択肢は高さ `--size-control`、左右 `--padding-control-x`。選んでいる選択肢は `--color-interactive-selected` と ✓、移っている選択肢（キーの ↑↓ とマウスを乗せた選択肢。どちらも同じ）は `--color-interactive-active` の背景で、線は付けない。DOM のフォーカスは見えている欄にあり、そこに線が出ているので、一覧の中に 2 つ目の線を出さないため。強制カラーモードでは背景の色が消えるので、`Highlight` の線を出す。使えない選択肢は `--color-text-disabled`。
 - 機能は次の一覧を基準にそろえ、各項目を `e2e/storybook/select.spec.ts` の同じ ID のテストで確かめる。
 
 | ID  | 要件                                                                                                                   | 出典                                                                                                                        |
