@@ -22,7 +22,13 @@
     },
     "ナビバー": {
       "code": ["NavBar"],
-      "source": ["app/src/ui/parts/site-menu.tsx"]
+      "source": ["app/src/ui/parts/site-menu.tsx"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "フォーカス": "メニューのボタンの :focus-visible（app/src/ui/parts/site-menu.module.css）"
+        }
+      }
     },
     "プルダウン": {
       "code": ["Select"],
@@ -81,6 +87,10 @@
         "端末": {
           "マウス": "通常",
           "タッチ": "@media (pointer: coarse)（ページの番号と前へ・次へを最小 44×44 にする）"
+        },
+        "状態": {
+          "通常": "既定",
+          "フォーカス": ":focus-visible（.page・.step）"
         }
       }
     },
@@ -140,6 +150,10 @@
         "端末": {
           "マウス": "通常",
           "タッチ": "@media (pointer: coarse)（BreakdownGroup の見出しを最小の高さ 44px にする）"
+        },
+        "フォーカス": {
+          "いいえ": "既定",
+          "はい": "見出し（summary）の :focus-visible"
         }
       }
     },
@@ -197,7 +211,13 @@
       }
     },
     "推移グラフ": {
-      "code": ["Chart"]
+      "code": ["Chart"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "フォーカス": "グラフの領域（.plot）と「表で見る」（.summary）の :focus-visible"
+        }
+      }
     },
     "アイコン/下向き": {
       "code": ["ChevronDownIcon"]
@@ -258,6 +278,10 @@
           "中間": "canMoveUp と canMoveDown",
           "先頭": "canMoveUp={false}",
           "末尾": "canMoveDown={false}"
+        },
+        "状態": {
+          "通常": "既定",
+          "フォーカス": "上へ・下へのボタンの :focus-visible"
         }
       }
     },
@@ -302,6 +326,10 @@
         "端末": {
           "マウス": "通常",
           "タッチ": "@media (pointer: coarse)（閉じるボタンを最小 44×44 にする）"
+        },
+        "状態": {
+          "通常": "既定",
+          "フォーカス": "閉じるボタンの :focus-visible"
         }
       }
     },
@@ -328,7 +356,8 @@
       "variants": {
         "状態": {
           "通常": "BarList",
-          "読み込み中": "Skeleton（app/src/ui/skeletons.tsx）"
+          "読み込み中": "Skeleton（app/src/ui/skeletons.tsx）",
+          "フォーカス": "一覧のスクロールの領域の :focus-visible（app/src/ui/expense-aggregate.module.css の .rankingScroll）"
         }
       }
     },
@@ -431,9 +460,8 @@
       "variants": {
         "状態": {
           "通常": "既定",
-          "ホバー": ":hover",
           "選択中": "aria-selected=\"true\"",
-          "キー操作中": "data-active（aria-activedescendant が指す選択肢）",
+          "キー操作中": "data-active（aria-activedescendant が指す選択肢。マウスを乗せた選択肢と、ホイールでスクロールしたときのポインターの下の選択肢も）",
           "無効": "aria-disabled=\"true\"（<option disabled>）"
         }
       }
@@ -451,6 +479,19 @@
           "フォーカス": ":focus-visible"
         }
       }
+    },
+    "表の枠": {
+      "code": ["Table"],
+      "variants": {
+        "状態": {
+          "通常": "既定",
+          "フォーカス": "スクロールの領域（.scroll）の :focus-visible"
+        }
+      }
+    },
+    "本文へ移動リンク": {
+      "source": ["app/src/ui/dashboard-layout.tsx"],
+      "note": "Tab を押したときだけ見えるスキップリンク（.skip）"
     }
   },
   "codeOnly": {
@@ -458,7 +499,6 @@
     "SortableStatus": "読み上げだけの部品で、見た目がない",
     "SummaryList": "合計行を並べる枠",
     "Breakdown": "内訳グループ見出しを並べる枠",
-    "Table": "表の枠。テーブル行の部品で表す",
     "TableHead": "表の見出しの行。テーブル行の部品の 種類=見出し で表す",
     "TableBody": "表の本体。テーブル行の部品で表す",
     "TableRow": "表の行。テーブル行の部品の 種類=データ で表す"
