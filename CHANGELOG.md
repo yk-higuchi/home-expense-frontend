@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.3.0...v1.4.0) (2026-11-23)
+
+
+### Features
+
+* **ui:** フォーカスの状態がなかった部品に、Figma のフォーカスのデザインを足す ([ae6174c](https://github.com/yk-higuchi/home-expense-frontend/commit/ae6174cadb533e44c56252033bb9e7567dd037f3))
+* **ui:** フォーカスの色を濃い青緑にし、入力欄は 1 本の線、プルダウンの一覧は背景の色で示す ([ad81409](https://github.com/yk-higuchi/home-expense-frontend/commit/ad81409b21791750c9c6fe9b31a172e2caf514f7))
+* **ui:** プルダウンをマウスで押したときも、入力欄と同じフォーカスの線を出す ([3e74e77](https://github.com/yk-higuchi/home-expense-frontend/commit/3e74e77d13882e564f15871b460ef174e851bd63))
+
+
+### Bug Fixes
+
+* **ui:** エラーの入力欄のフォーカスは赤い線に戻し、Figma に「エラー（フォーカス）」の状態を足す ([8bce514](https://github.com/yk-higuchi/home-expense-frontend/commit/8bce5145494ef4a4e812bd7f8d4ffeb584037ff8))
+* **ui:** エラーの入力欄も、フォーカスの間はフォーカスの色の線にする ([573be23](https://github.com/yk-higuchi/home-expense-frontend/commit/573be233e9e9eefaf37bb76c9557993bd8d0a0dd))
+* **ui:** プルダウンの一覧の移っている選択肢を、フォーカスの色で塗り、文字を白にする ([4a2fb76](https://github.com/yk-higuchi/home-expense-frontend/commit/4a2fb7602c65ac7e7fe464cdae9561ba9a1def2f))
+* **ui:** プルダウンの一覧をホイールでスクロールしたとき、ポインターの下の選択肢に移る ([ff53ecc](https://github.com/yk-higuchi/home-expense-frontend/commit/ff53ecc80469d272fc9de84d6db7b9cafc8a9668))
+
 ## [1.3.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.2.0...v1.3.0) (2026-11-23)
 
 
