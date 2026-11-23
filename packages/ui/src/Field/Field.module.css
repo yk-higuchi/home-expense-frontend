@@ -71,20 +71,20 @@
   border-color: var(--color-danger);
 }
 
-.control:focus-visible {
+.control:focus {
   border-color: var(--color-focus-ring);
   outline: var(--focus-ring-width) solid transparent;
   box-shadow: inset 0 0 0 calc(var(--focus-ring-width) - var(--border-width))
     var(--color-focus-ring);
 }
 
-.control[aria-invalid="true"]:focus-visible {
+.control[aria-invalid="true"]:focus {
   border-color: var(--color-danger);
   box-shadow: inset 0 0 0 calc(var(--focus-ring-width) - var(--border-width))
     var(--color-danger);
 }
 
-.control:hover:not(:disabled, :focus-visible, [aria-invalid="true"]) {
+.control:hover:not(:disabled, :focus, [aria-invalid="true"]) {
   border-color: var(--color-input-border-hover);
 }
 

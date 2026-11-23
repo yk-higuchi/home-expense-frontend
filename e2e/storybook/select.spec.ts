@@ -261,6 +261,27 @@ test.describe("マウス", () => {
       .boundingBox();
     expect(label?.height ?? 0).toBeGreaterThan(24);
   });
+
+  test("M4 押して開いている間も、選んで閉じたあとも、入力欄と同じフォーカスの線を出す", async ({
+    page,
+  }) => {
+    await openStory(page, "default");
+    const { box, option } = parts(page, "分類");
+    const ring = () =>
+      box.evaluate((element) => {
+        const style = getComputedStyle(element);
+        return { border: style.borderTopColor, shadow: style.boxShadow };
+      });
+    const focused = {
+      border: "rgb(22, 112, 127)",
+      shadow: expect.stringContaining("rgb(22, 112, 127)"),
+    };
+    await box.click();
+    await expect.poll(ring).toEqual(focused);
+    await option("変動費").click();
+    await expect(box).toBeFocused();
+    await expect.poll(ring).toEqual(focused);
+  });
 });
 
 test.describe("読み上げ（WAI-ARIA Select-Only Combobox）", () => {
