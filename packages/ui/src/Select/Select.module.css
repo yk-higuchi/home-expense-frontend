@@ -70,7 +70,8 @@
 }
 
 .option[data-active] {
-  background-color: var(--color-interactive-active);
+  background-color: var(--color-focus-ring);
+  color: var(--color-surface);
 }
 
 .option[aria-disabled="true"] {
