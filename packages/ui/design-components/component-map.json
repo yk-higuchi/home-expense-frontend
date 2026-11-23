@@ -36,6 +36,7 @@
           "ホバー": ":hover",
           "フォーカス": ":focus-visible",
           "エラー": "errorMessage",
+          "エラー（フォーカス）": "errorMessage と :focus-visible",
           "無効": "disabled",
           "読み込み中": "skeleton"
         }
@@ -189,6 +190,7 @@
           "ホバー": ":hover",
           "フォーカス": ":focus-visible",
           "エラー": "errorMessage",
+          "エラー（フォーカス）": "errorMessage と :focus-visible",
           "無効": "disabled",
           "読み込み中": "skeleton"
         }
@@ -418,6 +420,7 @@
           "ホバー": ":hover",
           "フォーカス": ":focus-visible",
           "エラー": "errorMessage",
+          "エラー（フォーカス）": "errorMessage と :focus-visible",
           "無効": "disabled",
           "読み込み中": "skeleton"
         }
