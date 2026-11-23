@@ -1,7 +1,7 @@
 "use client";
 
 import { Select } from "@home-expense/ui";
-import { type ChangeEvent, type ReactElement, useState } from "react";
+import { type ChangeEvent, type ReactElement, useOptimistic } from "react";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
 import { YEARS } from "@/ui/parts/year-month-options";
@@ -13,11 +13,12 @@ interface Props {
 
 const YearFilter = ({ path, year }: Props): ReactElement => {
   const { navigate } = useListNavigation();
-  const [selected, setSelected] = useState(year);
+  const [selected, setSelected] = useOptimistic(year);
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const next = Number(event.currentTarget.value);
-    setSelected(next);
-    navigate(`${path}?${new URLSearchParams({ year: String(next) })}`);
+    navigate(`${path}?${new URLSearchParams({ year: String(next) })}`, () =>
+      setSelected(next),
+    );
   };
   return (
     <div className={layout.filters}>

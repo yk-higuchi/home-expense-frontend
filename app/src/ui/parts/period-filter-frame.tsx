@@ -5,7 +5,7 @@ import {
   type ChangeEvent,
   type ReactElement,
   type ReactNode,
-  useState,
+  useOptimistic,
 } from "react";
 import { useNavigation } from "@/ui/hooks/use-navigation";
 import layout from "@/ui/parts/list-layout.module.css";
@@ -27,12 +27,11 @@ const PeriodFilterFrame = ({
   children,
 }: Props): ReactElement => {
   const { isPending, navigate } = useNavigation();
-  const [selected, setSelected] = useState({ year, month });
+  const [selected, setSelected] = useOptimistic({ year, month });
   const changeTo = (next: { year: number; month: number | undefined }) => {
-    setSelected(next);
     const params = new URLSearchParams({ year: String(next.year) });
     if (next.month !== undefined) params.set("month", String(next.month));
-    navigate(`${path}?${params}`);
+    navigate(`${path}?${params}`, () => setSelected(next));
   };
   const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
     changeTo({ ...selected, year: Number(event.currentTarget.value) });

@@ -1,7 +1,7 @@
 "use client";
 
 import { Select } from "@home-expense/ui";
-import type { ChangeEvent, ReactElement } from "react";
+import { type ChangeEvent, type ReactElement, useOptimistic } from "react";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import layout from "@/ui/parts/list-layout.module.css";
 
@@ -11,9 +11,12 @@ interface Props {
 
 const CategoryFilter = ({ category }: Props): ReactElement => {
   const { navigate } = useListNavigation();
+  const [selected, setSelected] = useOptimistic(category);
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const next = event.currentTarget.value;
     navigate(
-      `/expense-attribute?${new URLSearchParams({ category: event.currentTarget.value })}`,
+      `/expense-attribute?${new URLSearchParams({ category: next })}`,
+      () => setSelected(next),
     );
   };
   return (
@@ -22,7 +25,7 @@ const CategoryFilter = ({ category }: Props): ReactElement => {
         label="分類"
         className={layout.categoryFilter}
         name="category"
-        defaultValue={category}
+        value={selected}
         onChange={handleChange}
       >
         <option value="固定費">固定費</option>

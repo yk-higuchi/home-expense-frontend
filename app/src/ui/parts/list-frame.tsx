@@ -12,7 +12,7 @@ import layout from "@/ui/parts/list-layout.module.css";
 
 interface ListNavigation {
   isPending: boolean;
-  navigate: (href: string) => void;
+  navigate: (href: string, update?: () => void) => void;
 }
 
 const ListNavigationContext = createContext<ListNavigation>({

@@ -1,7 +1,7 @@
 "use client";
 
 import { Select } from "@home-expense/ui";
-import { type ChangeEvent, type ReactElement, useState } from "react";
+import { type ChangeEvent, type ReactElement, useOptimistic } from "react";
 import {
   type ExpenseAttributeCategory,
   type ExpenseAttributes,
@@ -41,15 +41,14 @@ const ExpenseFilters = ({
   expenseAttributes,
 }: Props): ReactElement => {
   const { navigate } = useListNavigation();
-  const [query, setQuery] = useState<Query>({
+  const [query, setQuery] = useOptimistic<Query>({
     year: String(year),
     month: month === undefined ? undefined : String(month),
     category,
     attributeId,
   });
   const change = (next: Query): void => {
-    setQuery(next);
-    navigate(`/expense?${toSearchParams(next)}`);
+    navigate(`/expense?${toSearchParams(next)}`, () => setQuery(next));
   };
   const optional = (value: string): string | undefined =>
     value === "" ? undefined : value;
@@ -102,7 +101,7 @@ const ExpenseFilters = ({
         label="分類"
         className={layout.categoryFilter}
         name="category"
-        defaultValue={query.category}
+        value={query.category ?? ""}
         onChange={handleCategoryChange}
       >
         <option value="">すべて</option>
@@ -113,7 +112,7 @@ const ExpenseFilters = ({
         label="属性名"
         className={layout.attributeFilter}
         name="attributeId"
-        defaultValue={query.attributeId}
+        value={query.attributeId ?? ""}
         onChange={handleAttributeIdChange}
       >
         <option value="">すべて</option>
