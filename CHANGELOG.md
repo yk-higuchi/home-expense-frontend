@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.3.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.2.0...v1.3.0) (2026-11-23)
+
+
+### Features
+
+* **app:** スマホで、下までスクロールしたら「ページの先頭へ」のボタンを出す ([a7b3206](https://github.com/yk-higuchi/home-expense-frontend/commit/a7b3206ec18a27516aff8ec22224301e049f5c1f))
+* **app:** スマホで、支出の一覧の「追加」を絞り込みの上の行に出す ([36c2f16](https://github.com/yk-higuchi/home-expense-frontend/commit/36c2f16b8cbbd5fa3c807302adb92dec74d93e50))
+* **app:** 幅 768px 以上で、サイドメニューを隠せるようにする ([fabef36](https://github.com/yk-higuchi/home-expense-frontend/commit/fabef36a15a0cf7538fc6855776bfeef6a16cbc9))
+* **app:** 幅 768px 以上で、年間レポートと HOME の年月の選択を本文の上に留める ([027778a](https://github.com/yk-higuchi/home-expense-frontend/commit/027778acdf3eb4ab094060a1c491b93a922fa661))
+* **app:** 支出・収入の登録画面で、日付の初期値を今日にする ([b33b171](https://github.com/yk-higuchi/home-expense-frontend/commit/b33b171ba0be3e067525b6daf6d15c51bf8e97ed))
+* **app:** 登録・編集の画面に「一覧に戻る」を付ける ([bcb6d7d](https://github.com/yk-higuchi/home-expense-frontend/commit/bcb6d7de77b28b93eb08d45f9d412a472fdfecd9))
+* **app:** 集計の画面の固定費・変動費の内訳を、最初は閉じておく ([940febd](https://github.com/yk-higuchi/home-expense-frontend/commit/940febd226799a8716bb608f86d45a8c23ebf5fa))
+* **ui:** グラフと並べ替えの操作で、文字を選べないようにする ([42848a4](https://github.com/yk-higuchi/home-expense-frontend/commit/42848a46ad3ce2d1f90610cd318fca77caf71883))
+* **ui:** 日付入力のカレンダーに「今日」のボタンを出さない ([fd5ef46](https://github.com/yk-higuchi/home-expense-frontend/commit/fd5ef46808fa28ab57a5a6ee4e9374dfe2a7ddb5))
+* 並べ替えの保存中に「並び順を保存しています…」のトーストを出す ([138374a](https://github.com/yk-higuchi/home-expense-frontend/commit/138374aecc80867b8623f4e4e67d8d437ab76e2c))
+* 幅 768px 以上で、一覧の表の中だけをスクロールし、見出しの行を留める ([4e4730b](https://github.com/yk-higuchi/home-expense-frontend/commit/4e4730b3e2123c76336bd150ffc77c10e7c3f027))
+* 送信に失敗したら、最初のエラーの欄にフォーカスを移す ([1b90509](https://github.com/yk-higuchi/home-expense-frontend/commit/1b90509802ce2913c2b22866d8a2e38734861e84))
+
+
+### Bug Fixes
+
+* **app:** 「ページの先頭へ」を、少しスクロールしてヘッダーが見えなくなったら出す ([8631a86](https://github.com/yk-higuchi/home-expense-frontend/commit/8631a863de682d827c9ef8c06499bf3c2dff82a2))
+* **app:** スマホで短いページのヘッダーが縦に伸びないようにする ([6d9a3ea](https://github.com/yk-higuchi/home-expense-frontend/commit/6d9a3ea8408691f7eb668a535aedc66dea6731da))
+* **app:** ブラウザで戻ったとき、絞り込みの表示を URL に合わせる ([7406cd5](https://github.com/yk-higuchi/home-expense-frontend/commit/7406cd51d50daa77a984a21b772bede6fb3806a0))
+* **app:** 本文を一番下までスクロールしたとき、下の余白が付くようにする ([bc46531](https://github.com/yk-higuchi/home-expense-frontend/commit/bc46531e3f10ac25cdd3796684a42bc20323ee3d))
+* **app:** 絞り込みが折り返す幅では、どの画面の幅でも「追加」を絞り込みの上に出す ([12fa017](https://github.com/yk-higuchi/home-expense-frontend/commit/12fa017b4bb188331d97866437cc42b56f049dbc))
+* **app:** 表の列の幅を見直し、タッチの端末で操作のボタンがはみ出さないようにする ([675671e](https://github.com/yk-higuchi/home-expense-frontend/commit/675671e3f5d1567fbe4959cb98c781d3d51cd2a1))
+* **ui:** プルダウンの一覧が画面の幅を超えないようにする ([664c6af](https://github.com/yk-higuchi/home-expense-frontend/commit/664c6af3267fa024405d373074021a392f90cf81))
+* **ui:** ページの番号を背景の四角の真ん中に置き、前へ・次へを日本語にする ([fcd00f5](https://github.com/yk-higuchi/home-expense-frontend/commit/fcd00f5bdb245ea5a0ce7a5c08d2d08828e1038b))
+* タブレットの幅で、列に余裕があるのに表が横にスクロールしないようにする ([cb6e1ff](https://github.com/yk-higuchi/home-expense-frontend/commit/cb6e1ff2c626436ce7b78ece15af5570277084d3))
+
 ## [1.2.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.1.2...v1.2.0) (2026-11-20)
 
 
