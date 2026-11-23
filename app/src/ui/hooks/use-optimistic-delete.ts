@@ -2,6 +2,7 @@
 
 import type { ToastControl } from "@home-expense/ui";
 import { useOptimistic, useState } from "react";
+import type { DeleteRequest, DeleteTargetResult } from "@/core/delete-target";
 
 interface Row {
   id?: string;
@@ -11,8 +12,9 @@ export const useOptimisticDelete = <T extends Row>(
   source: T[],
   getLabel: (row: T) => string,
   toast: ToastControl,
+  loadTarget: (id: string) => Promise<DeleteTargetResult>,
 ) => {
-  const [targetId, setTargetId] = useState<string | null>(null);
+  const [request, setRequest] = useState<DeleteRequest | null>(null);
   const [rows, removeOptimistic] = useOptimistic(source, (state, id: string) =>
     state.filter((row) => row.id !== id),
   );
@@ -22,9 +24,9 @@ export const useOptimisticDelete = <T extends Row>(
   };
   return {
     rows,
-    requestDelete: setTargetId,
+    requestDelete: (id: string) => setRequest({ id, result: loadTarget(id) }),
     dialogProps: {
-      targetId,
+      request,
       onDeleteStart: (id: string) => {
         toast.clear();
         removeOptimistic(id);
@@ -36,7 +38,7 @@ export const useOptimisticDelete = <T extends Row>(
         );
       },
       onDeleteFailed: toast.error,
-      onClose: () => setTargetId(null),
+      onClose: () => setRequest(null),
     },
   };
 };

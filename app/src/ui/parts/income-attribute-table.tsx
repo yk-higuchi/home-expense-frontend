@@ -67,6 +67,7 @@ const IncomeAttributeTable = ({
     reordering.rows,
     (row) => row.name,
     toast,
+    loadIncomeAttributeForDelete,
   );
   const { handleProps, rowProps, canMove, moveBy, announcement } =
     useSortableList({
@@ -118,7 +119,7 @@ const IncomeAttributeTable = ({
                   {row.id && (
                     <TableActions
                       onEdit={() => onEdit(row.id ?? "")}
-                      onDelete={() => requestDelete(row.id ?? null)}
+                      onDelete={() => requestDelete(row.id ?? "")}
                       editLabel={`${row.name}を編集`}
                       deleteLabel={`${row.name}を削除`}
                     />
@@ -135,7 +136,6 @@ const IncomeAttributeTable = ({
       />
       <DeleteDialog
         {...dialogProps}
-        loadTarget={loadIncomeAttributeForDelete}
         title="収入属性の削除"
         idFieldName="incomeAttributeId"
         action={deleteIncomeAttribute}

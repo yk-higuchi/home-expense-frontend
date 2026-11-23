@@ -56,7 +56,12 @@ const IncomeTable = ({
     rows: optimisticIncomes,
     requestDelete,
     dialogProps,
-  } = useOptimisticDelete(incomes, (row) => row.description, toast);
+  } = useOptimisticDelete(
+    incomes,
+    (row) => row.description,
+    toast,
+    loadIncomeForDelete,
+  );
   const { page, perPage } = pagination.current;
   useEmptyPageFallback("/income", incomes.length, page);
 
@@ -111,7 +116,6 @@ const IncomeTable = ({
       <Toast notice={toast.notice} />
       <DeleteDialog
         {...dialogProps}
-        loadTarget={loadIncomeForDelete}
         title="収入の削除"
         idFieldName="incomeId"
         action={deleteIncome}

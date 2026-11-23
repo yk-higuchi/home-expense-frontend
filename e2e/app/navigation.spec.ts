@@ -133,3 +133,32 @@ for (const { path, label, from, to } of [
     await expect(combobox).toHaveText(from);
   });
 }
+
+test("削除のダイアログは、読み込み中を出してから押した行の内容を出す", async ({
+  page,
+}) => {
+  await page.goto("/expense?year=2026&month=3");
+  const rows = page.locator("main tbody tr");
+  const dialog = page.getByRole("dialog", { name: "支出の削除" });
+  const remove = dialog.getByRole("button", { name: "削除" });
+  for (const index of [0, 1]) {
+    const description = await rows.nth(index).locator("td").nth(1).innerText();
+    await page.route("**/*", async (route) => {
+      if (route.request().method() === "POST")
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      await route.continue();
+    });
+    await rows
+      .nth(index)
+      .getByRole("button", { name: `${description}を削除` })
+      .click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText("読み込み中…")).toBeVisible();
+    await expect(remove).toBeDisabled();
+    await expect(dialog.locator("dd").first()).toHaveText(description);
+    await expect(remove).toBeEnabled();
+    await page.unroute("**/*");
+    await dialog.getByRole("button", { name: "キャンセル" }).click();
+    await expect(dialog).toBeHidden();
+  }
+});

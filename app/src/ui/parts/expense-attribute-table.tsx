@@ -73,6 +73,7 @@ const ExpenseAttributeTable = ({
     reordering.rows,
     (row) => row.name,
     toast,
+    loadExpenseAttributeForDelete,
   );
   const { handleProps, rowProps, canMove, moveBy, announcement } =
     useSortableList({
@@ -125,7 +126,7 @@ const ExpenseAttributeTable = ({
                   {row.id && (
                     <TableActions
                       onEdit={() => onEdit(row.id ?? "")}
-                      onDelete={() => requestDelete(row.id ?? null)}
+                      onDelete={() => requestDelete(row.id ?? "")}
                       editLabel={`${row.name}を編集`}
                       deleteLabel={`${row.name}を削除`}
                     />
@@ -142,7 +143,6 @@ const ExpenseAttributeTable = ({
       />
       <DeleteDialog
         {...dialogProps}
-        loadTarget={loadExpenseAttributeForDelete}
         title="支出属性の削除"
         idFieldName="expenseAttributeId"
         action={deleteExpenseAttribute}
