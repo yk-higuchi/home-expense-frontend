@@ -262,6 +262,37 @@ test.describe("マウス", () => {
     expect(label?.height ?? 0).toBeGreaterThan(24);
   });
 
+  test("M5 ホイールでスクロールすると、ポインターの下の選択肢に移り、ほかの選択肢は色を付けない", async ({
+    page,
+  }) => {
+    await openStory(page, "many-options");
+    const { box, listbox } = parts(page, "年");
+    await box.click();
+    await expect(listbox).toBeVisible();
+    const area = await listbox.boundingBox();
+    if (area === null) throw new Error("一覧が見えない");
+    await page.mouse.move(area.x + 40, area.y + area.height / 2);
+    const before = await activeLabel(page, "年");
+    await page.mouse.wheel(0, 120);
+    await expect.poll(() => activeLabel(page, "年")).not.toBe(before);
+    const under = await page.evaluate(
+      ({ x, y }) =>
+        document.elementFromPoint(x, y)?.closest("[role='option']")?.textContent,
+      { x: area.x + 40, y: area.y + area.height / 2 },
+    );
+    expect(await activeLabel(page, "年")).toBe(under);
+    const colored = await listbox.evaluate(
+      (list) =>
+        [...list.querySelectorAll("[role='option']")].filter(
+          (option) =>
+            !option.hasAttribute("data-active") &&
+            option.getAttribute("aria-selected") !== "true" &&
+            getComputedStyle(option).backgroundColor !== "rgba(0, 0, 0, 0)",
+        ).length,
+    );
+    expect(colored).toBe(0);
+  });
+
   test("M4 押して開いている間も、選んで閉じたあとも、入力欄と同じフォーカスの線を出す", async ({
     page,
   }) => {

@@ -79,14 +79,6 @@
   cursor: not-allowed;
 }
 
-.option:hover:not(
-  [aria-selected="true"],
-  [aria-disabled="true"],
-  [data-active]
-) {
-  background-color: var(--color-interactive-hover);
-}
-
 @media (forced-colors: active) {
   .option[data-active] {
     outline: var(--focus-ring-width) solid Highlight;

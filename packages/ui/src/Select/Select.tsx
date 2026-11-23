@@ -120,6 +120,7 @@ export const Select = ({
   const listboxRef = useRef<HTMLDivElement>(null);
   const typeahead = useRef({ text: "", at: 0 });
   const centerOnOpen = useRef(false);
+  const wheelAt = useRef<{ x: number; y: number } | null>(null);
 
   const initial = String(
     rest.value ?? rest.defaultValue ?? options[0]?.value ?? "",
@@ -172,6 +173,7 @@ export const Select = ({
     const onToggle = (event: Event) => {
       const opened = (event as ToggleEvent).newState === "open";
       if (opened) {
+        wheelAt.current = null;
         placeListbox(listbox, button);
         centerOnOpen.current = true;
       }
@@ -270,6 +272,7 @@ export const Select = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    wheelAt.current = null;
     const { key, altKey } = event;
     const expanded = isOpen();
     const current = expanded ? active : selectedIndex;
@@ -409,6 +412,20 @@ export const Select = ({
         aria-label={label ?? ariaLabel}
         tabIndex={-1}
         className={styles.listbox}
+        onWheel={(event) => {
+          wheelAt.current = { x: event.clientX, y: event.clientY };
+        }}
+        onScroll={() => {
+          const at = wheelAt.current;
+          if (at === null) return;
+          const index = Number(
+            document
+              .elementFromPoint(at.x, at.y)
+              ?.closest<HTMLElement>("[role='option']")?.dataset.index,
+          );
+          if (Number.isInteger(index) && enabled(index) && index !== active)
+            setActive(index);
+        }}
       >
         {options.map((option, index) => (
           // biome-ignore lint/a11y/useFocusableInteractive: 選択肢にはフォーカスを移さず、aria-activedescendant で示す（キー操作はコンボボックスで受ける）
@@ -420,6 +437,7 @@ export const Select = ({
             aria-selected={index === selectedIndex}
             aria-disabled={option.disabled || undefined}
             data-active={index === active || undefined}
+            data-index={index}
             className={styles.option}
             onPointerDown={(event) => event.preventDefault()}
             onPointerMove={() => {
