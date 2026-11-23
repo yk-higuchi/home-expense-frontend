@@ -34,9 +34,9 @@
         "状態": {
           "通常": "既定",
           "ホバー": ":hover",
-          "フォーカス": ":focus-visible",
+          "フォーカス": ":focus（マウスでも出す）",
           "エラー": "errorMessage",
-          "エラー（フォーカス）": "errorMessage と :focus-visible",
+          "エラー（フォーカス）": "errorMessage と :focus",
           "無効": "disabled",
           "読み込み中": "skeleton"
         }
@@ -188,9 +188,9 @@
         "状態": {
           "通常": "既定",
           "ホバー": ":hover",
-          "フォーカス": ":focus-visible",
+          "フォーカス": ":focus（マウスでも出す）",
           "エラー": "errorMessage",
-          "エラー（フォーカス）": "errorMessage と :focus-visible",
+          "エラー（フォーカス）": "errorMessage と :focus",
           "無効": "disabled",
           "読み込み中": "skeleton"
         }
@@ -418,9 +418,9 @@
         "状態": {
           "通常": "既定",
           "ホバー": ":hover",
-          "フォーカス": ":focus-visible",
+          "フォーカス": ":focus（マウスでも出す）",
           "エラー": "errorMessage",
-          "エラー（フォーカス）": "errorMessage と :focus-visible",
+          "エラー（フォーカス）": "errorMessage と :focus",
           "無効": "disabled",
           "読み込み中": "skeleton"
         }

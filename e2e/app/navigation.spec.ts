@@ -37,7 +37,9 @@ test("読み込めないときは、表の見出しの下にエラーを出す",
     .getByRole("alert")
     .filter({ hasText: "読み込めませんでした" });
   await expect(alert).toContainText("読み込めませんでした");
-  await expect(alert.getByRole("button", { name: "もう一度試す" })).toBeVisible();
+  await expect(
+    alert.getByRole("button", { name: "もう一度試す" }),
+  ).toBeVisible();
   await expect(page.getByRole("columnheader", { name: "説明" })).toBeVisible();
 });
 
@@ -103,8 +105,12 @@ test("幅 1440px でメニューのボタンを押すとサイドメニューを
 
 test("幅 1440px では「ページの先頭へ」を出さない", async ({ page }) => {
   await page.goto("/expense?year=2025");
-  await page.locator("main").evaluate((main) => main.scrollTo(0, main.scrollHeight));
-  await expect(page.getByRole("button", { name: "ページの先頭へ" })).toHaveCount(0);
+  await page
+    .locator("main")
+    .evaluate((main) => main.scrollTo(0, main.scrollHeight));
+  await expect(
+    page.getByRole("button", { name: "ページの先頭へ" }),
+  ).toHaveCount(0);
 });
 
 for (const { path, label, from, to } of [
