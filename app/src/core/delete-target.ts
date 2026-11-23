@@ -5,6 +5,11 @@ export interface DeleteTarget {
 
 export type DeleteTargetResult = { target: DeleteTarget } | { message: string };
 
+export interface DeleteRequest {
+  id: string;
+  result: Promise<DeleteTargetResult>;
+}
+
 export const DELETE_TARGET_MISSING_MESSAGE =
   "すでに削除されています。画面を読み込み直してください。";
 

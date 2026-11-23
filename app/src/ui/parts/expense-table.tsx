@@ -56,7 +56,12 @@ const ExpenseTable = ({
     rows: optimisticExpenses,
     requestDelete,
     dialogProps,
-  } = useOptimisticDelete(expenses, (row) => row.description, toast);
+  } = useOptimisticDelete(
+    expenses,
+    (row) => row.description,
+    toast,
+    loadExpenseForDelete,
+  );
   const { page, perPage } = pagination.current;
   useEmptyPageFallback("/expense", expenses.length, page);
 
@@ -112,7 +117,6 @@ const ExpenseTable = ({
       <Toast notice={toast.notice} />
       <DeleteDialog
         {...dialogProps}
-        loadTarget={loadExpenseForDelete}
         title="支出の削除"
         idFieldName="expenseId"
         action={deleteExpense}
