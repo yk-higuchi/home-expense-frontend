@@ -11,6 +11,11 @@
       "entry": [
         "scripts/serve-static.mjs"
       ]
+    },
+    "app": {
+      "ignore": [
+        "scripts/export-figma-screens.js"
+      ]
     }
   }
 }
