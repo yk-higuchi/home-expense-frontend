@@ -1,0 +1,5027 @@
+{
+  "fileKey": "k99TXVIrWbQ9YYSNBnbaFW",
+  "screens": [
+    {
+      "id": "2007:114",
+      "page": "画面 / HOME",
+      "state": "HOME（内訳を開いた状態）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1164",
+      "page": "画面 / HOME",
+      "state": "HOME（内訳を開いた状態）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1211",
+      "page": "画面 / HOME",
+      "state": "HOME（内訳を開いた状態）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2664:2509",
+      "page": "画面 / HOME",
+      "state": "HOME（内訳を開いた状態）",
+      "width": 390,
+      "height": 1408,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 0,
+          "width": 158
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2025:1532",
+      "page": "画面 / HOME",
+      "state": "HOME",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2091:1834",
+      "page": "画面 / HOME",
+      "state": "HOME",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2528:5552",
+      "page": "画面 / HOME",
+      "state": "HOME",
+      "width": 390,
+      "height": 1088,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 0,
+          "width": 158
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2528:6385",
+      "page": "画面 / HOME",
+      "state": "HOME",
+      "width": 1024,
+      "height": 952,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2174:3669",
+      "page": "画面 / HOME",
+      "state": "HOME（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1546",
+      "page": "画面 / HOME",
+      "state": "HOME（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1585",
+      "page": "画面 / HOME",
+      "state": "HOME（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2664:2600",
+      "page": "画面 / HOME",
+      "state": "HOME（読み込み中）",
+      "width": 390,
+      "height": 870,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 0,
+          "width": 158
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2175:3935",
+      "page": "画面 / HOME",
+      "state": "HOME（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1784",
+      "page": "画面 / HOME",
+      "state": "HOME（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1812",
+      "page": "画面 / HOME",
+      "state": "HOME（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2664:2753",
+      "page": "画面 / HOME",
+      "state": "HOME（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 0,
+          "width": 158
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2024:343",
+      "page": "画面 / 支出",
+      "state": "支出一覧",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2187:4051",
+      "page": "画面 / 支出",
+      "state": "支出一覧",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 56,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 56,
+          "width": 158
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 134,
+          "width": 324
+        },
+        {
+          "name": "属性名",
+          "x": 0,
+          "y": 212,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2662:1969",
+      "page": "画面 / 支出",
+      "state": "支出一覧",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:2008",
+      "page": "画面 / 支出",
+      "state": "支出一覧",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 40,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2024:582",
+      "page": "画面 / 支出",
+      "state": "支出登録",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2528:5815",
+      "page": "画面 / 支出",
+      "state": "支出登録",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:2197",
+      "page": "画面 / 支出",
+      "state": "支出登録",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:2230",
+      "page": "画面 / 支出",
+      "state": "支出登録",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2024:672",
+      "page": "画面 / 支出",
+      "state": "支出編集",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:2307",
+      "page": "画面 / 支出",
+      "state": "支出編集",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:2340",
+      "page": "画面 / 支出",
+      "state": "支出編集",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:2417",
+      "page": "画面 / 支出",
+      "state": "支出編集",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2115:2026",
+      "page": "画面 / 支出",
+      "state": "支出一覧（保存後）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:2494",
+      "page": "画面 / 支出",
+      "state": "支出一覧（保存後）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:2540",
+      "page": "画面 / 支出",
+      "state": "支出一覧（保存後）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 40,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:2736",
+      "page": "画面 / 支出",
+      "state": "支出一覧（保存後）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 40,
+          "width": 158
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 118,
+          "width": 324
+        },
+        {
+          "name": "属性名",
+          "x": 0,
+          "y": 196,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2174:2714",
+      "page": "画面 / 支出",
+      "state": "支出一覧（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:3012",
+      "page": "画面 / 支出",
+      "state": "支出一覧（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:3050",
+      "page": "画面 / 支出",
+      "state": "支出一覧（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 40,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:3223",
+      "page": "画面 / 支出",
+      "state": "支出一覧（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 40,
+          "width": 158
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 118,
+          "width": 324
+        },
+        {
+          "name": "属性名",
+          "x": 0,
+          "y": 196,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2174:4175",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3429",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3462",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3539",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2175:3283",
+      "page": "画面 / 支出",
+      "state": "支出一覧（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2528:5351",
+      "page": "画面 / 支出",
+      "state": "支出一覧（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 56,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 56,
+          "width": 158
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 134,
+          "width": 324
+        },
+        {
+          "name": "属性名",
+          "x": 0,
+          "y": 212,
+          "width": 324
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2662:3616",
+      "page": "画面 / 支出",
+      "state": "支出一覧（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:3651",
+      "page": "画面 / 支出",
+      "state": "支出一覧（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 40,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2175:4133",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3745",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3771",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3809",
+      "page": "画面 / 支出",
+      "state": "支出登録・編集（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2177:3563",
+      "page": "画面 / 支出",
+      "state": "支出編集（見つかりません）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3847",
+      "page": "画面 / 支出",
+      "state": "支出編集（見つかりません）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3873",
+      "page": "画面 / 支出",
+      "state": "支出編集（見つかりません）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2662:3911",
+      "page": "画面 / 支出",
+      "state": "支出編集（見つかりません）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2187:4107",
+      "page": "画面 / 支出",
+      "state": "支出一覧（メニューを開いた状態）",
+      "width": 390,
+      "height": 844,
+      "sidebar": {
+        "width": 358
+      },
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 56,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 56,
+          "width": 158
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 134,
+          "width": 324
+        },
+        {
+          "name": "属性名",
+          "x": 0,
+          "y": 212,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2528:6499",
+      "page": "画面 / 支出",
+      "state": "支出一覧（サイドメニューを隠した状態）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": null,
+      "content": {
+        "x": 57,
+        "width": 1326
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 1206,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:3949",
+      "page": "画面 / 支出",
+      "state": "支出一覧（サイドメニューを隠した状態）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": null,
+      "content": {
+        "x": 297,
+        "width": 1326
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 1206,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:3969",
+      "page": "画面 / 支出",
+      "state": "支出一覧（サイドメニューを隠した状態）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 958
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2528:6696",
+      "page": "画面 / 支出",
+      "state": "支出一覧（行が多いとき）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:4139",
+      "page": "画面 / 支出",
+      "state": "支出一覧（行が多いとき）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:4192",
+      "page": "画面 / 支出",
+      "state": "支出一覧（行が多いとき）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 40,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 40,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2662:4623",
+      "page": "画面 / 支出",
+      "state": "支出一覧（行が多いとき）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 158
+        },
+        {
+          "name": "月",
+          "x": 166,
+          "y": 40,
+          "width": 158
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 118,
+          "width": 324
+        },
+        {
+          "name": "属性名",
+          "x": 0,
+          "y": 196,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2538:6085",
+      "page": "画面 / 支出",
+      "state": "支出一覧（下までスクロールした状態）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2007:188",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2528:4729",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2661:1577",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:1594",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2024:986",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:1771",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:1783",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:1838",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2007:280",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:1893",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:1906",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:1962",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2024:868",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（0件）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2018",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（0件）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2032",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（0件）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2091",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（0件）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2024:939",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（削除確認）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2150",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（削除確認）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2169",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（削除確認）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2369",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（削除確認）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2024:1044",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（入力エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:2629",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（入力エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:2641",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（入力エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:2696",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（入力エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2080:1946",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替え中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2751",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替え中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2769",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替え中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:2947",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替え中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2119:2079",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替えの失敗）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:3185",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替えの失敗）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:3203",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替えの失敗）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:3387",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並べ替えの失敗）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2174:3224",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:3639",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:3656",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:3777",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2174:4366",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:3939",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:3951",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4006",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2175:3619",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:4061",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:4075",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:4141",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2175:4277",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4207",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4215",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4253",
+      "page": "画面 / 支出属性",
+      "state": "支出属性登録・編集（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2177:3637",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（見つかりません）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4291",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（見つかりません）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4299",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（見つかりません）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2661:4337",
+      "page": "画面 / 支出属性",
+      "state": "支出属性編集（見つかりません）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2538:6402",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並び順を保存中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:4375",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並び順を保存中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:4393",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並び順を保存中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2661:4575",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（並び順を保存中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2641:7346",
+      "page": "画面 / 支出属性",
+      "state": "支出属性一覧（操作メニューを開いた状態）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "分類",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2025:898",
+      "page": "画面 / 収入",
+      "state": "収入一覧",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2528:4491",
+      "page": "画面 / 収入",
+      "state": "収入一覧",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2659:650",
+      "page": "画面 / 収入",
+      "state": "収入一覧",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:667",
+      "page": "画面 / 収入",
+      "state": "収入一覧",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2025:1051",
+      "page": "画面 / 収入",
+      "state": "収入登録",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:804",
+      "page": "画面 / 収入",
+      "state": "収入登録",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:818",
+      "page": "画面 / 収入",
+      "state": "収入登録",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:887",
+      "page": "画面 / 収入",
+      "state": "収入登録",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2025:1132",
+      "page": "画面 / 収入",
+      "state": "収入編集",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:956",
+      "page": "画面 / 収入",
+      "state": "収入編集",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:970",
+      "page": "画面 / 収入",
+      "state": "収入編集",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1039",
+      "page": "画面 / 収入",
+      "state": "収入編集",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2174:3021",
+      "page": "画面 / 収入",
+      "state": "収入一覧（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:1108",
+      "page": "画面 / 収入",
+      "state": "収入一覧（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:1124",
+      "page": "画面 / 収入",
+      "state": "収入一覧（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:1240",
+      "page": "画面 / 収入",
+      "state": "収入一覧（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2174:4278",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1382",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1396",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1465",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2175:3477",
+      "page": "画面 / 収入",
+      "state": "収入一覧（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:1534",
+      "page": "画面 / 収入",
+      "state": "収入一覧（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:1548",
+      "page": "画面 / 収入",
+      "state": "収入一覧（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2659:1616",
+      "page": "画面 / 収入",
+      "state": "収入一覧（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        },
+        {
+          "name": "年",
+          "x": 0,
+          "y": 40,
+          "width": 324
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2175:4209",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1684",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1692",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1730",
+      "page": "画面 / 収入",
+      "state": "収入登録・編集（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2177:3601",
+      "page": "画面 / 収入",
+      "state": "収入編集（見つかりません）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1768",
+      "page": "画面 / 収入",
+      "state": "収入編集（見つかりません）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1776",
+      "page": "画面 / 収入",
+      "state": "収入編集（見つかりません）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2659:1814",
+      "page": "画面 / 収入",
+      "state": "収入編集（見つかりません）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2025:1208",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2528:5075",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2656:564",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2656:577",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2025:1327",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:706",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:717",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2657:4573",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2025:1375",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:811",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:822",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2657:4620",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2174:3486",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2656:916",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2656:929",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2657:4667",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": false,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2174:4428",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（読み込み中）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:1126",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（読み込み中）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:1137",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（読み込み中）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2657:4789",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（読み込み中）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2175:3801",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2656:1231",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 948,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2656:1242",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 580,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2657:4836",
+      "page": "画面 / 収入属性",
+      "state": "収入属性一覧（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "追加",
+          "x": 204,
+          "y": 0,
+          "width": 120
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2175:4331",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:1350",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:1358",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2657:4890",
+      "page": "画面 / 収入属性",
+      "state": "収入属性登録・編集（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2177:3673",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集（見つかりません）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:1434",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集（見つかりません）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2656:1442",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集（見つかりません）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2657:4928",
+      "page": "画面 / 収入属性",
+      "state": "収入属性編集（見つかりません）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2007:314",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート",
+      "width": 1440,
+      "height": 1378,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2528:5663",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート",
+      "width": 390,
+      "height": 1330,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2663:2",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート",
+      "width": 1920,
+      "height": 1378,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2663:60",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート",
+      "width": 1024,
+      "height": 1378,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2174:3779",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（読み込み中）",
+      "width": 1440,
+      "height": 1378,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2663:313",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（読み込み中）",
+      "width": 1920,
+      "height": 1378,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2663:359",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（読み込み中）",
+      "width": 1024,
+      "height": 1378,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
+    },
+    {
+      "id": "2663:652",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（読み込み中）",
+      "width": 390,
+      "height": 1298,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 324
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "スマートフォン"
+      }
+    },
+    {
+      "id": "2175:3996",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（エラー）",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1040",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（エラー）",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1067",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（エラー）",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2663:1118",
+      "page": "画面 / 年間レポート",
+      "state": "年間レポート（エラー）",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 324
+        }
+      ],
+      "table": null
+    },
+    {
+      "id": "2177:3709",
+      "page": "画面 / 共通の状態",
+      "state": "ページが見つかりません",
+      "width": 1440,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 315,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2528:5871",
+      "page": "画面 / 共通の状態",
+      "state": "ページが見つかりません",
+      "width": 390,
+      "height": 844,
+      "sidebar": null,
+      "content": {
+        "x": 33,
+        "width": 324
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2663:1921",
+      "page": "画面 / 共通の状態",
+      "state": "ページが見つかりません",
+      "width": 1920,
+      "height": 1080,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 555,
+        "width": 1068
+      },
+      "controls": [],
+      "table": null
+    },
+    {
+      "id": "2663:1946",
+      "page": "画面 / 共通の状態",
+      "state": "ページが見つかりません",
+      "width": 1024,
+      "height": 900,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 291,
+        "width": 700
+      },
+      "controls": [],
+      "table": null
+    }
+  ]
+}
