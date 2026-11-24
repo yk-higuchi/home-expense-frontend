@@ -292,7 +292,7 @@
       "page": "画面 / HOME",
       "state": "HOME（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -406,7 +406,7 @@
       "page": "画面 / HOME",
       "state": "HOME（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -610,7 +610,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -706,7 +706,7 @@
       "page": "画面 / 支出",
       "state": "支出登録",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -754,7 +754,7 @@
       "page": "画面 / 支出",
       "state": "支出編集",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -884,7 +884,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧（保存後）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -1082,7 +1082,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -1212,7 +1212,7 @@
       "page": "画面 / 支出",
       "state": "支出登録・編集（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -1387,7 +1387,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -1469,7 +1469,7 @@
       "page": "画面 / 支出",
       "state": "支出登録・編集（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -1531,7 +1531,7 @@
       "page": "画面 / 支出",
       "state": "支出編集（見つかりません）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -1707,7 +1707,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧（サイドメニューを隠した状態）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": null,
       "content": {
         "x": 33,
@@ -1855,7 +1855,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧（行が多いとき）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2064,7 +2064,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2128,7 +2128,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性登録",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2190,7 +2190,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性編集",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2284,7 +2284,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（0件）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2407,7 +2407,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（削除確認）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2501,7 +2501,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性編集（入力エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2595,7 +2595,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（並べ替え中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2721,7 +2721,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（並べ替えの失敗）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2847,7 +2847,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -2941,7 +2941,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性登録・編集（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3035,7 +3035,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3126,7 +3126,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性登録・編集（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3188,7 +3188,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性編集（見つかりません）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3282,7 +3282,7 @@
       "page": "画面 / 支出属性",
       "state": "支出属性一覧（並び順を保存中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3468,7 +3468,7 @@
       "page": "画面 / 収入",
       "state": "収入一覧",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3532,7 +3532,7 @@
       "page": "画面 / 収入",
       "state": "収入登録",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3594,7 +3594,7 @@
       "page": "画面 / 収入",
       "state": "収入編集",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3688,7 +3688,7 @@
       "page": "画面 / 収入",
       "state": "収入一覧（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3782,7 +3782,7 @@
       "page": "画面 / 収入",
       "state": "収入登録・編集（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3876,7 +3876,7 @@
       "page": "画面 / 収入",
       "state": "収入一覧（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -3967,7 +3967,7 @@
       "page": "画面 / 収入",
       "state": "収入登録・編集（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4029,7 +4029,7 @@
       "page": "画面 / 収入",
       "state": "収入編集（見つかりません）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4135,7 +4135,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性一覧",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4193,7 +4193,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性登録",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4255,7 +4255,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性編集",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4337,7 +4337,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性一覧（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4419,7 +4419,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性登録・編集（読み込み中）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4501,7 +4501,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性一覧（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4580,7 +4580,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性登録・編集（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4642,7 +4642,7 @@
       "page": "画面 / 収入属性",
       "state": "収入属性編集（見つかりません）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -4922,7 +4922,7 @@
       "page": "画面 / 年間レポート",
       "state": "年間レポート（エラー）",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
@@ -5012,7 +5012,7 @@
       "page": "画面 / 共通の状態",
       "state": "ページが見つかりません",
       "width": 1024,
-      "height": 900,
+      "height": 768,
       "sidebar": {
         "width": 242
       },
