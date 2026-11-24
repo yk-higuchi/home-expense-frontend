@@ -64,7 +64,7 @@
       "page": "画面 / HOME",
       "state": "HOME（内訳を開いた状態）",
       "width": 1024,
-      "height": 900,
+      "height": 1272,
       "sidebar": {
         "width": 242
       },
@@ -512,7 +512,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧",
       "width": 390,
-      "height": 844,
+      "height": 940,
       "sidebar": null,
       "content": {
         "x": 33,
@@ -1561,7 +1561,7 @@
       "page": "画面 / 支出",
       "state": "支出一覧（メニューを開いた状態）",
       "width": 390,
-      "height": 844,
+      "height": 1310,
       "sidebar": {
         "width": 358
       },

@@ -7,6 +7,12 @@ const noop = (): void => {};
 const meta = {
   title: "Components/ActionMenu",
   component: ActionMenu,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2641-6760",
+    },
+  },
   args: {
     label: "家賃の操作",
     items: [
