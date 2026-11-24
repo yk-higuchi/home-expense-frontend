@@ -117,3 +117,11 @@ export const CalendarIcon = (props: IconProps): ReactElement => (
     <path d="M3 10h18" />
   </Icon>
 );
+
+export const MoreIcon = (props: IconProps): ReactElement => (
+  <Icon {...props}>
+    <circle cx="5" cy="12" r="1" />
+    <circle cx="12" cy="12" r="1" />
+    <circle cx="19" cy="12" r="1" />
+  </Icon>
+);

@@ -78,6 +78,10 @@
           "見出し": "TableHead",
           "データ": "TableRow",
           "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        },
+        "幅": {
+          "PC": "幅 768px 以上（表の列）",
+          "スマートフォン": "@media (width <= 767px)（.compact。つまみ・属性名・ActionMenu の 1 段。app/src/ui/parts/attribute-row-actions.tsx）"
         }
       }
     },
@@ -104,6 +108,10 @@
           "見出し": "TableHead",
           "データ": "TableRow",
           "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        },
+        "幅": {
+          "PC": "幅 768px 以上（金額の列の最小幅 128px）",
+          "スマートフォン": "@media (width <= 767px)（.fit。中身の幅・文字/補足・左右 4px）"
         }
       }
     },
@@ -114,6 +122,10 @@
           "見出し": "TableHead",
           "データ": "TableRow",
           "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        },
+        "幅": {
+          "PC": "幅 768px 以上（表の列）",
+          "スマートフォン": "@media (width <= 767px)（app/src/ui/parts/table-columns.module.css の .stacked。2 段の行）"
         }
       }
     },
@@ -124,6 +136,10 @@
           "見出し": "TableHead",
           "データ": "TableRow",
           "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        },
+        "幅": {
+          "PC": "幅 768px 以上（表の列）",
+          "スマートフォン": "@media (width <= 767px)（app/src/ui/parts/table-columns.module.css の .stacked。2 段の行）"
         }
       }
     },
@@ -134,6 +150,10 @@
           "見出し": "TableHead",
           "データ": "TableRow",
           "読み込み中": "SkeletonTable（app/src/ui/skeletons.tsx）"
+        },
+        "幅": {
+          "PC": "幅 768px 以上（表の列）",
+          "スマートフォン": "@media (width <= 767px)（.compact。つまみ・属性名・ActionMenu の 1 段。app/src/ui/parts/attribute-row-actions.tsx）"
         }
       }
     },
@@ -492,6 +512,19 @@
     "本文へ移動リンク": {
       "source": ["app/src/ui/dashboard-layout.tsx"],
       "note": "Tab を押したときだけ見えるスキップリンク（.skip）"
+    },
+    "操作メニュー": {
+      "code": ["ActionMenu"],
+      "variants": {
+        "状態": {
+          "閉": "既定",
+          "フォーカス": "ボタンの :focus-visible",
+          "開": "ポップオーバーが開いている（aria-expanded=\"true\"）"
+        }
+      }
+    },
+    "アイコン/その他": {
+      "code": ["MoreIcon"]
     }
   },
   "codeOnly": {

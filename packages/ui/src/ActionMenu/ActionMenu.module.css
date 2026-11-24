@@ -1,0 +1,105 @@
+.wrapper {
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-target-touch);
+  min-height: var(--size-target-touch);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-200);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.trigger:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.trigger:hover,
+.trigger[aria-expanded="true"] {
+  background-color: var(--color-button-subtle-bg-hover);
+}
+
+.trigger:active {
+  background-color: var(--color-button-subtle-bg-active);
+}
+
+.menu {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  min-width: 160px;
+  margin: 0;
+  padding: var(--space-100);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-200);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+  font-family: var(--font-family-base);
+}
+
+.menu:popover-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  min-height: var(--size-target-touch);
+  margin: 0;
+  padding: 0 var(--padding-control-x);
+  border: none;
+  border-radius: var(--radius-200);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  line-height: var(--text-single-line-line-height);
+  text-align: left;
+  cursor: pointer;
+}
+
+.item:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.item:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.item:hover:not(:disabled) {
+  background-color: var(--color-interactive-hover);
+}
+
+.item:active:not(:disabled) {
+  background-color: var(--color-interactive-active);
+}
+
+.danger:not(:disabled) {
+  color: var(--color-danger);
+}
+
+.danger:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+}
+
+.danger:active:not(:disabled) {
+  background-color: var(--color-danger-active);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger {
+    transition: none;
+  }
+}
