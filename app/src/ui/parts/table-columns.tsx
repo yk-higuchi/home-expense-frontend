@@ -37,6 +37,7 @@ const FLEX_MIN_WIDTH = 100;
 const HANDLE_WIDTH = "var(--handle-width)";
 const ROW_ACTIONS_WIDTH = "var(--row-actions-width)";
 const REORDER_ACTIONS_WIDTH = "var(--reorder-actions-width)";
+const MONTH_WIDTH = "var(--month-width)";
 
 export const EXPENSE_COLUMNS: readonly Column[] = [
   { label: "No.", width: 72, mobile: "hide" },
@@ -103,7 +104,7 @@ export const INCOME_ATTRIBUTE_COLUMNS: readonly Column[] = [
 ];
 
 export const ANNUAL_COLUMNS: readonly Column[] = [
-  { label: "月", width: 64, mobile: "fit" },
+  { label: "月", width: MONTH_WIDTH, mobile: "fit" },
   { label: "収入", align: "end", minWidth: 128, mobile: "fit" },
   { label: "支出", align: "end", minWidth: 128, mobile: "fit" },
   { label: "収支", align: "end", minWidth: 128, mobile: "fit" },

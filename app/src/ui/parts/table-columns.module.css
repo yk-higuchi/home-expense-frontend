@@ -1,4 +1,5 @@
 .table {
+  --month-width: 80px;
   --handle-width: 64px;
   --row-actions-width: 104px;
   --reorder-actions-width: 146px;
@@ -25,6 +26,8 @@
   }
 
   table.fit {
+    --month-width: 64px;
+
     min-width: 0;
   }
 
