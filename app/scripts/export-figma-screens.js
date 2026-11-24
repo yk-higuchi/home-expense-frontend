@@ -15,7 +15,7 @@ async function exportFigmaScreens(pageName) {
   const screens = [];
   for (const section of page.children.filter((n) => n.type === "SECTION")) {
     for (const frame of section.children.filter((n) => n.type === "FRAME")) {
-      const match = frame.name.match(/^(.*) \/ (\d+)$/);
+      const match = frame.name.match(/^(.*) \/ (\d+)×\d+$/);
       if (!match) continue;
       const shown = (node) => {
         for (let n = node; n && n !== frame; n = n.parent)
