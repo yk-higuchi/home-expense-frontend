@@ -17,7 +17,21 @@ interface Column {
   minWidth?: number;
   align?: "start" | "end";
   kind?: "text" | "action";
+  mobile?: MobileArea;
 }
+
+type MobileArea =
+  | "hide"
+  | "title"
+  | "amount"
+  | "date"
+  | "attribute"
+  | "category"
+  | "actions"
+  | "handle"
+  | "name"
+  | "menu"
+  | "fit";
 
 const FLEX_MIN_WIDTH = 100;
 const HANDLE_WIDTH = "var(--handle-width)";
@@ -25,44 +39,74 @@ const ROW_ACTIONS_WIDTH = "var(--row-actions-width)";
 const REORDER_ACTIONS_WIDTH = "var(--reorder-actions-width)";
 
 export const EXPENSE_COLUMNS: readonly Column[] = [
-  { label: "No.", width: 72 },
-  { label: "説明" },
-  { label: "金額", width: 128, align: "end" },
-  { label: "支払日", width: 120 },
-  { label: "属性名" },
-  { label: "分類", width: 96 },
-  { label: "編集", width: ROW_ACTIONS_WIDTH, kind: "action" },
+  { label: "No.", width: 72, mobile: "hide" },
+  { label: "説明", mobile: "title" },
+  { label: "金額", width: 128, align: "end", mobile: "amount" },
+  { label: "支払日", width: 120, mobile: "date" },
+  { label: "属性名", mobile: "attribute" },
+  { label: "分類", width: 96, mobile: "category" },
+  {
+    label: "編集",
+    width: ROW_ACTIONS_WIDTH,
+    kind: "action",
+    mobile: "actions",
+  },
 ];
 
 export const INCOME_COLUMNS: readonly Column[] = [
-  { label: "No.", width: 72 },
-  { label: "説明" },
-  { label: "金額", width: 128, align: "end" },
-  { label: "受取日", width: 120 },
-  { label: "属性名" },
-  { label: "編集", width: ROW_ACTIONS_WIDTH, kind: "action" },
+  { label: "No.", width: 72, mobile: "hide" },
+  { label: "説明", mobile: "title" },
+  { label: "金額", width: 128, align: "end", mobile: "amount" },
+  { label: "受取日", width: 120, mobile: "date" },
+  { label: "属性名", mobile: "attribute" },
+  {
+    label: "編集",
+    width: ROW_ACTIONS_WIDTH,
+    kind: "action",
+    mobile: "actions",
+  },
 ];
 
 export const EXPENSE_ATTRIBUTE_COLUMNS: readonly Column[] = [
-  { ariaLabel: "並べ替え", width: HANDLE_WIDTH, kind: "action" },
-  { label: "No.", width: 72 },
-  { label: "属性名" },
-  { label: "分類", width: 96 },
-  { label: "操作", width: REORDER_ACTIONS_WIDTH, kind: "action" },
+  {
+    ariaLabel: "並べ替え",
+    width: HANDLE_WIDTH,
+    kind: "action",
+    mobile: "handle",
+  },
+  { label: "No.", width: 72, mobile: "hide" },
+  { label: "属性名", mobile: "name" },
+  { label: "分類", width: 96, mobile: "hide" },
+  {
+    label: "操作",
+    width: REORDER_ACTIONS_WIDTH,
+    kind: "action",
+    mobile: "menu",
+  },
 ];
 
 export const INCOME_ATTRIBUTE_COLUMNS: readonly Column[] = [
-  { ariaLabel: "並べ替え", width: HANDLE_WIDTH, kind: "action" },
-  { label: "No.", width: 72 },
-  { label: "属性名" },
-  { label: "操作", width: REORDER_ACTIONS_WIDTH, kind: "action" },
+  {
+    ariaLabel: "並べ替え",
+    width: HANDLE_WIDTH,
+    kind: "action",
+    mobile: "handle",
+  },
+  { label: "No.", width: 72, mobile: "hide" },
+  { label: "属性名", mobile: "name" },
+  {
+    label: "操作",
+    width: REORDER_ACTIONS_WIDTH,
+    kind: "action",
+    mobile: "menu",
+  },
 ];
 
 export const ANNUAL_COLUMNS: readonly Column[] = [
-  { label: "月", width: 80 },
-  { label: "収入", align: "end", minWidth: 128 },
-  { label: "支出", align: "end", minWidth: 128 },
-  { label: "収支", align: "end", minWidth: 128 },
+  { label: "月", width: 64, mobile: "fit" },
+  { label: "収入", align: "end", minWidth: 128, mobile: "fit" },
+  { label: "支出", align: "end", minWidth: 128, mobile: "fit" },
+  { label: "収支", align: "end", minWidth: 128, mobile: "fit" },
 ];
 
 export const tableProps = (
@@ -80,8 +124,15 @@ export const tableProps = (
   const variables = columns.flatMap((column) =>
     typeof column.width === "string" ? [column.width] : [],
   );
+  const layout = columns.some((column) => column.mobile === "handle")
+    ? style.compact
+    : columns.some((column) => column.mobile === "fit")
+      ? style.fit
+      : columns.some((column) => column.mobile !== undefined)
+        ? style.stacked
+        : undefined;
   return {
-    className: style.table,
+    className: [style.table, layout].filter(Boolean).join(" "),
     style: {
       "--table-min-width": `calc(${[`${fixed}px`, ...variables].join(" + ")})`,
     } as CSSProperties,
@@ -124,8 +175,12 @@ export const SkeletonTable = ({
         // biome-ignore lint/suspicious/noArrayIndexKey: 中身のない行
         <TableRow key={row}>
           {columns.map((column, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: 列の並びは固定
-            <TableCell key={index} align={column.align}>
+            <TableCell
+              // biome-ignore lint/suspicious/noArrayIndexKey: 列の並びは固定
+              key={index}
+              align={column.align}
+              data-mobile={column.mobile}
+            >
               {column.kind !== "action" && <Skeleton />}
             </TableCell>
           ))}

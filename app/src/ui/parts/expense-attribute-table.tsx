@@ -2,10 +2,8 @@
 
 import {
   DragHandle,
-  ReorderButtons,
   SortableStatus,
   Table,
-  TableActions,
   TableBody,
   TableCell,
   TableEmpty,
@@ -27,7 +25,7 @@ import {
   useOptimisticReorder,
 } from "@/ui/hooks/use-optimistic-reorder";
 import { useSavedHighlight } from "@/ui/hooks/use-saved-highlight";
-import style from "@/ui/parts/attribute-table.module.css";
+import AttributeRowActions from "@/ui/parts/attribute-row-actions";
 import DeleteDialog from "@/ui/parts/delete-dialog";
 import { useListNavigation } from "@/ui/parts/list-frame";
 import { usePageTransition } from "@/ui/parts/page-transition";
@@ -108,30 +106,24 @@ const ExpenseAttributeTable = ({
                   .join(" ") || undefined
               }
             >
-              <TableCell>
+              <TableCell data-mobile="handle">
                 <DragHandle {...handleProps(row)} />
               </TableCell>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>
-                <div className={style.actions}>
-                  <ReorderButtons
-                    label={row.name}
-                    onMoveUp={() => moveBy(row, -1)}
-                    onMoveDown={() => moveBy(row, 1)}
-                    canMoveUp={canMove(row, -1)}
-                    canMoveDown={canMove(row, 1)}
-                  />
-                  {row.id && (
-                    <TableActions
-                      onEdit={() => onEdit(row.id ?? "")}
-                      onDelete={() => requestDelete(row.id ?? "")}
-                      editLabel={`${row.name}を編集`}
-                      deleteLabel={`${row.name}を削除`}
-                    />
-                  )}
-                </div>
+              <TableCell data-mobile="hide">{index + 1}</TableCell>
+              <TableCell data-mobile="name">{row.name}</TableCell>
+              <TableCell data-mobile="hide">{row.category}</TableCell>
+              <TableCell data-mobile="menu">
+                <AttributeRowActions
+                  name={row.name}
+                  canMoveUp={canMove(row, -1)}
+                  canMoveDown={canMove(row, 1)}
+                  onMoveUp={() => moveBy(row, -1)}
+                  onMoveDown={() => moveBy(row, 1)}
+                  onEdit={row.id ? () => onEdit(row.id ?? "") : undefined}
+                  onDelete={
+                    row.id ? () => requestDelete(row.id ?? "") : undefined
+                  }
+                />
               </TableCell>
             </TableRow>
           ))}

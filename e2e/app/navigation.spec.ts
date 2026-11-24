@@ -168,3 +168,62 @@ test("削除のダイアログは、読み込み中を出してから押した�
     await expect(dialog).toBeHidden();
   }
 });
+
+test.describe("幅 390px の表", () => {
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
+
+  for (const path of [
+    "/expense?year=2026&month=3",
+    "/income?year=2025",
+    "/expense-attribute",
+    "/income-attribute",
+    "/annual-report?year=2026",
+  ]) {
+    test(`${path} の表は横にスクロールしない`, async ({ page }) => {
+      await page.goto(path);
+      const scroll = page.locator("main table").first().locator("..");
+      await expect(scroll).toBeVisible();
+      expect(
+        await scroll.evaluate(
+          (element) => element.scrollWidth <= element.clientWidth,
+        ),
+      ).toBe(true);
+    });
+  }
+
+  test("支出の行は、説明・金額と、日付・属性名・分類と、編集・削除を出す", async ({
+    page,
+  }) => {
+    await page.goto("/expense?year=2026&month=3");
+    const row = page.locator("main tbody tr").first();
+    await expect(row.locator("[data-mobile='hide']")).toBeHidden();
+    await expect(row.getByRole("button", { name: /を編集$/ })).toBeVisible();
+    await expect(row.getByRole("button", { name: /を削除$/ })).toBeVisible();
+    const title = await row.locator("[data-mobile='title']").boundingBox();
+    const date = await row.locator("[data-mobile='date']").boundingBox();
+    expect((date?.y ?? 0) > (title?.y ?? 0)).toBe(true);
+  });
+
+  test("属性の行は「…」のメニューから並べ替え・編集・削除をする", async ({
+    page,
+  }) => {
+    await page.goto("/expense-attribute");
+    const first = page.locator("main tbody tr").first();
+    const name = (
+      await first.locator("[data-mobile='name']").innerText()
+    ).trim();
+    await expect(
+      first.getByRole("button", { name: `${name}を編集` }),
+    ).toBeHidden();
+    const trigger = first.getByRole("button", { name: `${name}の操作` });
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByRole("button", { name: "上へ移動" })).toBeDisabled();
+    await page.keyboard.press("Escape");
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(trigger).toBeFocused();
+    await trigger.click();
+    await page.getByRole("button", { name: "編集", exact: true }).click();
+    await expect(page).toHaveURL(/\/expense-attribute\/[^/?]+/);
+  });
+});
