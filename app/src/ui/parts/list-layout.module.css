@@ -12,16 +12,10 @@
 }
 
 .yearFilter,
-.monthFilter {
-  width: var(--size-control-min);
-}
-
-.categoryFilter {
-  width: 152px;
-}
-
+.monthFilter,
+.categoryFilter,
 .attributeFilter {
-  width: 200px;
+  width: var(--size-filter);
 }
 
 .toolbar {
@@ -55,5 +49,26 @@
     margin-block: calc(-1 * var(--padding-page)) calc(-1 * var(--space-200));
     padding-block: var(--padding-page) var(--space-200);
     background-color: var(--color-surface);
+  }
+}
+
+@media (width <= 767px) {
+  .filters {
+    display: grid;
+    flex-basis: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yearFilter,
+  .monthFilter,
+  .categoryFilter,
+  .attributeFilter {
+    width: auto;
+  }
+
+  .categoryFilter,
+  .attributeFilter,
+  .filters > :only-child {
+    grid-column: 1 / -1;
   }
 }
