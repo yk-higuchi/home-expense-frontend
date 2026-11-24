@@ -339,6 +339,11 @@
       "value": 44
     },
     {
+      "name": "大きさ/絞り込みの幅",
+      "css": "--size-filter",
+      "value": 160
+    },
+    {
       "name": "大きさ/部品の最小幅",
       "css": "--size-control-min",
       "value": 120
