@@ -90,15 +90,15 @@ const ExpenseTable = ({
                     saved.highlightedId === id ? savedStyle.saved : undefined
                   }
                 >
-                  <TableCell>{no}</TableCell>
-                  <TableCell>{description}</TableCell>
-                  <TableCell align="end">
+                  <TableCell data-mobile="hide">{no}</TableCell>
+                  <TableCell data-mobile="title">{description}</TableCell>
+                  <TableCell align="end" data-mobile="amount">
                     <Amount value={amount} />
                   </TableCell>
-                  <TableCell>{paymentDate}</TableCell>
-                  <TableCell>{attributeName}</TableCell>
-                  <TableCell>{category}</TableCell>
-                  <TableCell>
+                  <TableCell data-mobile="date">{paymentDate}</TableCell>
+                  <TableCell data-mobile="attribute">{attributeName}</TableCell>
+                  <TableCell data-mobile="category">{category}</TableCell>
+                  <TableCell data-mobile="actions">
                     {id && (
                       <TableActions
                         onEdit={() => onEdit(id)}
