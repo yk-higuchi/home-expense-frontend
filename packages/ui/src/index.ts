@@ -1,3 +1,5 @@
+export type { ActionMenuItem, ActionMenuProps } from "./ActionMenu/ActionMenu";
+export { ActionMenu } from "./ActionMenu/ActionMenu";
 export type { AmountProps } from "./Amount/Amount";
 export { Amount } from "./Amount/Amount";
 export type {
@@ -37,6 +39,7 @@ export {
   GripIcon,
   LoaderIcon,
   MenuIcon,
+  MoreIcon,
   PlusIcon,
   WarningIcon,
 } from "./icons/icons";
