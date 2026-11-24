@@ -18,7 +18,7 @@ const meta = {
   parameters: {
     design: {
       type: "figma",
-      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2005-133",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2575-6576",
     },
   },
   globals: {

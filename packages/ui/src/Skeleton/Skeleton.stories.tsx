@@ -8,6 +8,12 @@ import { Skeleton } from "./Skeleton";
 const meta = {
   title: "Components/Skeleton",
   component: Skeleton,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2174-2358",
+    },
+  },
   args: { width: 120 },
 } satisfies Meta<typeof Skeleton>;
 

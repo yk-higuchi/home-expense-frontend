@@ -27,6 +27,12 @@ const ToastDemo = (): ReactElement => {
 const meta = {
   title: "Components/Toast",
   component: ToastDemo,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2118-2202",
+    },
+  },
 } satisfies Meta<typeof ToastDemo>;
 
 export default meta;

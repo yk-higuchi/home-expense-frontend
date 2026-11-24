@@ -6,6 +6,12 @@ import { LoadError } from "./LoadError";
 const meta = {
   title: "Components/LoadError",
   component: LoadError,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/k99TXVIrWbQ9YYSNBnbaFW/?node-id=2175-3277",
+    },
+  },
   args: { action: <Button>もう一度試す</Button> },
 } satisfies Meta<typeof LoadError>;
 
