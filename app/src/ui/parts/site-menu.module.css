@@ -26,8 +26,22 @@
   display: none;
 }
 
-@media (width >= 768px) {
+@media (width >= 1080px) {
   .collapsed {
+    display: none;
+  }
+}
+
+@media (768px <= width <= 1079px) {
+  .mobile {
+    display: inline-flex;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .menu:not(.open) {
     display: none;
   }
 }

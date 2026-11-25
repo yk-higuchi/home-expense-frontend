@@ -1,5 +1,5 @@
 .frame {
-  overflow: hidden;
+  overflow: clip;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-200);
   background-color: var(--color-surface);
@@ -93,6 +93,12 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+@media (768px <= width <= 1279px), (width >= 1280px) and (pointer: coarse) {
+  .stickyHeader > .scroll {
+    overflow: visible;
+  }
 }
 
 .frame:not(.plain) > .footer {

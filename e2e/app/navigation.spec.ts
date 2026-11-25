@@ -86,6 +86,84 @@ test.describe("幅 390px", () => {
   });
 });
 
+test.describe("タブレット（幅 1024px、タッチ）", () => {
+  test.use({ viewport: { width: 1024, height: 768 }, hasTouch: true });
+
+  test("ページ全体がスクロールし、表の見出しは画面の上に残る", async ({
+    page,
+  }) => {
+    await page.goto("/expense?year=2026&month=3");
+    const inner = await page.evaluate(() =>
+      [...document.querySelectorAll("body *")].filter((element) => {
+        const style = getComputedStyle(element);
+        return (
+          /(auto|scroll)/.test(`${style.overflowX} ${style.overflowY}`) &&
+          (element.scrollHeight > element.clientHeight + 1 ||
+            element.scrollWidth > element.clientWidth + 1)
+        );
+      }).length,
+    );
+    expect(inner).toBe(0);
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await expect
+      .poll(() =>
+        page
+          .getByRole("columnheader", { name: "説明" })
+          .evaluate((th) => Math.round(th.getBoundingClientRect().top)),
+      )
+      .toBe(0);
+    await expect(
+      page.getByRole("button", { name: "ページの先頭へ" }),
+    ).toBeVisible();
+  });
+
+  test("サイドバーはたたんであり、メニューのボタンで重ねて開き、外を押すか Esc で閉じる", async ({
+    page,
+  }) => {
+    await page.goto("/expense?year=2026&month=3");
+    const button = page.getByRole("button", { name: "メニュー" });
+    const menu = page.locator("#site-menu");
+    await expect(menu).toBeHidden();
+    await button.click();
+    await expect(button).toHaveAttribute("aria-expanded", "true");
+    await expect(menu).toBeVisible();
+    await page.mouse.click(800, 600);
+    await expect(menu).toBeHidden();
+    await button.click();
+    await expect(menu).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(button).toBeFocused();
+    await button.click();
+    await menu.getByRole("link", { name: "収入", exact: true }).click();
+    await expect(page).toHaveURL(/\/income/);
+    await expect(menu).toBeHidden();
+  });
+});
+
+test.describe("タブレット（幅 1366px、タッチ）", () => {
+  test.use({ viewport: { width: 1366, height: 1024 }, hasTouch: true });
+
+  test("サイドバーを出したまま、ページ全体がスクロールする", async ({
+    page,
+  }) => {
+    await page.goto("/home?year=2026&month=3");
+    await expect(page.locator("#site-menu")).toBeVisible();
+    const scrollable = await page.evaluate(
+      () => document.documentElement.scrollHeight > window.innerHeight,
+    );
+    expect(scrollable).toBe(true);
+    await page.evaluate(() => window.scrollTo(0, 400));
+    await expect
+      .poll(() =>
+        page
+          .locator("#site-menu")
+          .evaluate((menu) => Math.round(menu.getBoundingClientRect().top)),
+      )
+      .toBe(32);
+  });
+});
+
 test("幅 1440px でメニューのボタンを押すとサイドメニューを隠し、読み直しても隠したままにする", async ({
   page,
 }) => {
