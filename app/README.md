@@ -206,6 +206,8 @@ yamllint は `.venv/bin` にあるので、コミットするときは `.venv` �
    - テスト済みの `sha-<コミット>` のイメージを、作り直さずに digest で指定して版のタグと `latest` に付け替える。
    - 付けたタグは、テスト済みのイメージを 1 つだけ含む index になるので、タグの digest は元と変わる。元のイメージの digest は、CD の実行結果のまとめ（Step Summary）に書く。本番で digest を指定するときは、この値を使う。
 
+- Trivy で見つかった脆弱性を一時的に検査から外すときは、`.trivyignore` に `CVE-… exp:<期限の日付>` の形で書く（期限を過ぎると、また検査で落ちる）。外した理由はここに書く。
+  - `CVE-2026-124851`（`libzstd1`、HIGH）：実行イメージ（`gcr.io/distroless/nodejs26-debian13`）に入っている版（1.5.7+dfsg-1）が対象。Debian では修正版（1.5.7+dfsg-1+deb13u1）が出ているが、2026-11-25 の時点で distroless の最新のイメージにはまだ入っておらず、digest を上げても直らない。distroless の更新を待つ間だけ外す（期限 2026-12-09）。更新されたら digest を上げ、この行と `.trivyignore` の行を消す。
 - 設定は `release-please-config.json`、今の版は `.release-please-manifest.json`。版の番号は `app/package.json` の `version` も一緒に書き換える。変更履歴は `CHANGELOG.md` に書かれる。`packages/ui` は外に公開しないので、版は上げない。
 - `CHANGELOG.md` と `.release-please-manifest.json` は release-please が書くので、Biome の対象から外している。
 - CD は、版を指定して手動でも動かせる（`workflow_dispatch`）。元のコミットはタグ `v<版>` から調べる。GitHub の画面で手作業でリリースを作った場合は、自動では動かないので手動で動かす。
