@@ -65,12 +65,10 @@
       "state": "HOME（内訳を開いた状態）",
       "width": 1024,
       "height": 1272,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -206,12 +204,10 @@
       "state": "HOME",
       "width": 1024,
       "height": 952,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -293,12 +289,10 @@
       "state": "HOME（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -407,12 +401,10 @@
       "state": "HOME（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -611,43 +603,41 @@
       "state": "支出一覧",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
-          "name": "追加",
-          "x": 580,
-          "y": 0,
-          "width": 120
-        },
-        {
           "name": "年",
           "x": 0,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "月",
           "x": 168,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "分類",
           "x": 336,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "属性名",
           "x": 504,
-          "y": 40,
+          "y": 0,
           "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
         }
       ],
       "table": {
@@ -707,12 +697,10 @@
       "state": "支出登録",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -755,12 +743,10 @@
       "state": "支出編集",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -885,43 +871,41 @@
       "state": "支出一覧（保存後）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
-          "name": "追加",
-          "x": 580,
-          "y": 0,
-          "width": 120
-        },
-        {
           "name": "年",
           "x": 0,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "月",
           "x": 168,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "分類",
           "x": 336,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "属性名",
           "x": 504,
-          "y": 40,
+          "y": 0,
           "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
         }
       ],
       "table": {
@@ -1083,43 +1067,41 @@
       "state": "支出一覧（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
-          "name": "追加",
-          "x": 580,
-          "y": 0,
-          "width": 120
-        },
-        {
           "name": "年",
           "x": 0,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "月",
           "x": 168,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "分類",
           "x": 336,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "属性名",
           "x": 504,
-          "y": 40,
+          "y": 0,
           "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
         }
       ],
       "table": {
@@ -1213,12 +1195,10 @@
       "state": "支出登録・編集（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -1388,43 +1368,41 @@
       "state": "支出一覧（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
-          "name": "追加",
-          "x": 580,
-          "y": 0,
-          "width": 120
-        },
-        {
           "name": "年",
           "x": 0,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "月",
           "x": 168,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "分類",
           "x": 336,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "属性名",
           "x": 504,
-          "y": 40,
+          "y": 0,
           "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
         }
       ],
       "table": {
@@ -1470,12 +1448,10 @@
       "state": "支出登録・編集（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -1532,12 +1508,10 @@
       "state": "支出編集（見つかりません）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -1555,6 +1529,56 @@
       },
       "controls": [],
       "table": null
+    },
+    {
+      "id": "2759:6371",
+      "page": "画面 / 支出",
+      "state": "支出一覧（メニューを開いた状態）",
+      "width": 1024,
+      "height": 768,
+      "sidebar": {
+        "width": 242
+      },
+      "content": {
+        "x": 33,
+        "width": 958
+      },
+      "controls": [
+        {
+          "name": "年",
+          "x": 0,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "月",
+          "x": 168,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "分類",
+          "x": 336,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "属性名",
+          "x": 504,
+          "y": 0,
+          "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
+        }
+      ],
+      "table": {
+        "header": true,
+        "layout": "列"
+      }
     },
     {
       "id": "2187:4107",
@@ -1703,54 +1727,6 @@
       }
     },
     {
-      "id": "2662:3969",
-      "page": "画面 / 支出",
-      "state": "支出一覧（サイドメニューを隠した状態）",
-      "width": 1024,
-      "height": 768,
-      "sidebar": null,
-      "content": {
-        "x": 33,
-        "width": 958
-      },
-      "controls": [
-        {
-          "name": "年",
-          "x": 0,
-          "y": 0,
-          "width": 160
-        },
-        {
-          "name": "月",
-          "x": 168,
-          "y": 0,
-          "width": 160
-        },
-        {
-          "name": "分類",
-          "x": 336,
-          "y": 0,
-          "width": 160
-        },
-        {
-          "name": "属性名",
-          "x": 504,
-          "y": 0,
-          "width": 160
-        },
-        {
-          "name": "追加",
-          "x": 838,
-          "y": 30,
-          "width": 120
-        }
-      ],
-      "table": {
-        "header": true,
-        "layout": "列"
-      }
-    },
-    {
       "id": "2528:6696",
       "page": "画面 / 支出",
       "state": "支出一覧（行が多いとき）",
@@ -1856,43 +1832,41 @@
       "state": "支出一覧（行が多いとき）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
-          "name": "追加",
-          "x": 580,
-          "y": 0,
-          "width": 120
-        },
-        {
           "name": "年",
           "x": 0,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "月",
           "x": 168,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "分類",
           "x": 336,
-          "y": 40,
+          "y": 0,
           "width": 160
         },
         {
           "name": "属性名",
           "x": 504,
-          "y": 40,
+          "y": 0,
           "width": 160
+        },
+        {
+          "name": "追加",
+          "x": 838,
+          "y": 30,
+          "width": 120
         }
       ],
       "table": {
@@ -2065,12 +2039,10 @@
       "state": "支出属性一覧",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -2081,7 +2053,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -2129,12 +2101,10 @@
       "state": "支出属性登録",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -2191,12 +2161,10 @@
       "state": "支出属性編集",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -2285,12 +2253,10 @@
       "state": "支出属性一覧（0件）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -2301,7 +2267,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -2408,12 +2374,10 @@
       "state": "支出属性一覧（削除確認）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -2424,7 +2388,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -2502,12 +2466,10 @@
       "state": "支出属性編集（入力エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -2596,12 +2558,10 @@
       "state": "支出属性一覧（並べ替え中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -2612,7 +2572,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -2722,12 +2682,10 @@
       "state": "支出属性一覧（並べ替えの失敗）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -2738,7 +2696,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -2848,12 +2806,10 @@
       "state": "支出属性一覧（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -2864,7 +2820,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -2942,12 +2898,10 @@
       "state": "支出属性登録・編集（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -3036,12 +2990,10 @@
       "state": "支出属性一覧（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -3052,7 +3004,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -3127,12 +3079,10 @@
       "state": "支出属性登録・編集（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -3189,12 +3139,10 @@
       "state": "支出属性編集（見つかりません）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -3283,12 +3231,10 @@
       "state": "支出属性一覧（並び順を保存中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -3299,7 +3245,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -3469,12 +3415,10 @@
       "state": "収入一覧",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -3485,7 +3429,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -3533,12 +3477,10 @@
       "state": "収入登録",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -3595,12 +3537,10 @@
       "state": "収入編集",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -3689,12 +3629,10 @@
       "state": "収入一覧（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -3705,7 +3643,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -3783,12 +3721,10 @@
       "state": "収入登録・編集（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -3877,12 +3813,10 @@
       "state": "収入一覧（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -3893,7 +3827,7 @@
         },
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 30,
           "width": 120
         }
@@ -3968,12 +3902,10 @@
       "state": "収入登録・編集（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4030,12 +3962,10 @@
       "state": "収入編集（見つかりません）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4136,17 +4066,15 @@
       "state": "収入属性一覧",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 0,
           "width": 120
         }
@@ -4194,12 +4122,10 @@
       "state": "収入属性登録",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4256,12 +4182,10 @@
       "state": "収入属性編集",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4338,17 +4262,15 @@
       "state": "収入属性一覧（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 0,
           "width": 120
         }
@@ -4420,12 +4342,10 @@
       "state": "収入属性登録・編集（読み込み中）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4502,17 +4422,15 @@
       "state": "収入属性一覧（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
           "name": "追加",
-          "x": 580,
+          "x": 838,
           "y": 0,
           "width": 120
         }
@@ -4581,12 +4499,10 @@
       "state": "収入属性登録・編集（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4643,12 +4559,10 @@
       "state": "収入属性編集（見つかりません）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
@@ -4748,13 +4662,11 @@
       "page": "画面 / 年間レポート",
       "state": "年間レポート",
       "width": 1024,
-      "height": 1378,
-      "sidebar": {
-        "width": 242
-      },
+      "height": 1330,
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -4826,13 +4738,11 @@
       "page": "画面 / 年間レポート",
       "state": "年間レポート（読み込み中）",
       "width": 1024,
-      "height": 1378,
-      "sidebar": {
-        "width": 242
-      },
+      "height": 1298,
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -4923,12 +4833,10 @@
       "state": "年間レポート（エラー）",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [
         {
@@ -5013,12 +4921,10 @@
       "state": "ページが見つかりません",
       "width": 1024,
       "height": 768,
-      "sidebar": {
-        "width": 242
-      },
+      "sidebar": null,
       "content": {
-        "x": 291,
-        "width": 700
+        "x": 33,
+        "width": 958
       },
       "controls": [],
       "table": null
