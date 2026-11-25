@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.4.0...v1.5.0) (2026-11-25)
+
+
+### Features
+
+* **app:** スマートフォンで、表を横にスクロールさせずに見せ方を変える ([ddbd334](https://github.com/yk-higuchi/home-expense-frontend/commit/ddbd3344d5ad92c4a9175ad43109cd77f1c01107))
+* **ui:** 行の操作をまとめる「…」のメニュー（ActionMenu）を足す ([042a540](https://github.com/yk-higuchi/home-expense-frontend/commit/042a5409be364fcd9bc9e16a8b2edeb33a753094))
+* 絞り込みのプルダウンの幅を揃え、スマートフォンでは幅いっぱいに並べる ([02201f1](https://github.com/yk-higuchi/home-expense-frontend/commit/02201f18e4504d0329f5490e27165a84be12f8f9))
+
+
+### Bug Fixes
+
+* **app:** 年間レポートの月の列を幅 768px 以上では 80px に戻す ([56c2ef1](https://github.com/yk-higuchi/home-expense-frontend/commit/56c2ef1b0273c453dfb0bfb824b36b73c06a5e94))
+
 ## [1.4.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.3.0...v1.4.0) (2026-11-23)
 
 
