@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.5.0...v1.6.0) (2026-11-25)
+
+
+### Features
+
+* タブレットではページ全体だけをスクロールさせ、幅 1079px 以下ではサイドバーをたたむ ([dc0b817](https://github.com/yk-higuchi/home-expense-frontend/commit/dc0b8177626681d9b0912617570ea1f930f1aa37))
+
+
+### Bug Fixes
+
+* **app:** スマートフォンで中身の短い画面が余分にスクロールしないようにする ([86f70f3](https://github.com/yk-higuchi/home-expense-frontend/commit/86f70f3c061f3254a38532ea5e9c02a723db59f1))
+
 ## [1.5.0](https://github.com/yk-higuchi/home-expense-frontend/compare/v1.4.0...v1.5.0) (2026-11-25)
 
 
