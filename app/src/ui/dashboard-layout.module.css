@@ -8,7 +8,9 @@
   /* 100vh はスマートフォン・タブレットのブラウザでツールバーが引っ込んだときの高さなので、見えている高さに合わせる */
   height: 100dvh;
   margin-inline: auto;
-  padding: var(--space-800);
+  padding: var(--layout-padding);
+
+  --layout-padding: var(--space-800);
 }
 
 .parent:has(> [data-collapsed]) {
@@ -63,11 +65,48 @@
 
 @media (768px <= width <= 1279px) {
   .parent {
-    padding: var(--space-400);
+    --layout-padding: var(--space-400);
   }
 
   .content {
     --padding-page: var(--space-400);
+  }
+}
+
+@media (768px <= width <= 1279px), (width >= 1280px) and (pointer: coarse) {
+  .parent {
+    align-items: start;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .menu {
+    position: sticky;
+    top: var(--layout-padding);
+    height: calc(100dvh - 2 * var(--layout-padding));
+  }
+
+  .column {
+    min-height: calc(100svh - 2 * var(--layout-padding));
+  }
+
+  .content {
+    overflow: visible;
+  }
+}
+
+@media (768px <= width <= 1079px) {
+  .parent,
+  .parent:has(> [data-collapsed]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .menu {
+    position: fixed;
+    inset-block: var(--layout-padding);
+    left: var(--layout-padding);
+    z-index: 30;
+    height: auto;
   }
 }
 

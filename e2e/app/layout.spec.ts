@@ -14,7 +14,7 @@ const expectContained = async (page: Page, width: number) => {
   const report = await layoutReport(page);
   expect(report.escaped).toEqual([]);
   expect(report.overflowX).toBe(false);
-  if (width >= 768) expect(report.overflowY).toBe(false);
+  if (width >= 1280) expect(report.overflowY).toBe(false);
 };
 
 for (const { width, height } of sizes) {

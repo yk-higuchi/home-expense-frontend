@@ -7,6 +7,8 @@ import {
   type ReactElement,
   type ReactNode,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import style from "@/ui/parts/site-menu.module.css";
@@ -98,6 +100,37 @@ export const SiteMenu = ({
   children: ReactNode;
 }): ReactElement => {
   const { open, setOpen, collapsed } = useContext(MenuContext);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const isToggle = (target: EventTarget | null): boolean =>
+      target instanceof Element &&
+      target.closest(`[aria-controls="${MENU_ID}"]`) !== null;
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      const toggle = [
+        ...document.querySelectorAll<HTMLElement>(
+          `[aria-controls="${MENU_ID}"]`,
+        ),
+      ].find((element) => element.getClientRects().length > 0);
+      toggle?.focus();
+    };
+    const handlePointerDown = (event: PointerEvent): void => {
+      if (
+        event.target instanceof Node &&
+        !ref.current?.contains(event.target) &&
+        !isToggle(event.target)
+      )
+        setOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [open, setOpen]);
   const handleClick = (event: MouseEvent<HTMLDivElement>): void => {
     if (event.target instanceof Element && event.target.closest("a"))
       setOpen(false);
@@ -107,6 +140,7 @@ export const SiteMenu = ({
     // biome-ignore lint/a11y/useKeyWithClickEvents: リンクは Enter でも click が発生するため、キーボードの処理は要らない
     <div
       id={MENU_ID}
+      ref={ref}
       className={[
         className,
         style.menu,
