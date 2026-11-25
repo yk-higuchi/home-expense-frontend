@@ -4,7 +4,9 @@
   grid-template-columns: auto 1fr;
   gap: var(--gap-stack);
   max-width: 1440px;
-  height: 100vh;
+
+  /* 100vh はスマートフォン・タブレットのブラウザでツールバーが引っ込んだときの高さなので、見えている高さに合わせる */
+  height: 100dvh;
   margin-inline: auto;
   padding: var(--space-800);
 }
@@ -74,7 +76,9 @@
     grid-template-columns: minmax(0, 1fr);
     align-content: start;
     height: auto;
-    min-height: 100vh;
+
+    /* ツールバーが出ているときの高さ。100vh だと、中身が短い画面でもツールバーの分だけ余分にスクロールできてしまう */
+    min-height: 100svh;
     padding: var(--space-400);
   }
 
